@@ -222,8 +222,6 @@ public class Recuperar extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        lblTitulo.getAccessibleContext().setAccessibleName("Recuperar Contraseña");
-
         pnlPrincipal.add(pnlDerecha);
         pnlDerecha.setBounds(400, 0, 400, 500);
 

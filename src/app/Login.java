@@ -3,6 +3,7 @@ package app;
 
 import java.awt.Image;
 import java.awt.Toolkit;
+import principal.Principal;
 
 
 public class Login extends javax.swing.JFrame {
@@ -196,7 +197,12 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCorreoActionPerformed
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-        // TODO add your handling code here:
+        //Abrir Formulario de Menu Principal
+        Principal MenuFrame = new Principal(); 
+        MenuFrame.setVisible(true);
+        MenuFrame.pack();
+        MenuFrame.setLocationRelativeTo(null);
+        this.dispose();
     }//GEN-LAST:event_btnEntrarActionPerformed
 
     private void btnRecoveryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecoveryActionPerformed

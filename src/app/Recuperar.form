@@ -222,9 +222,6 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Recuperar Contrase&#xf1;a"/>
               </Properties>
-              <AccessibilityProperties>
-                <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Recuperar Contrase&#xf1;a"/>
-              </AccessibilityProperties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblCorreo">
               <Properties>
