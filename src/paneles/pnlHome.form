@@ -56,14 +56,14 @@
           <Color blue="ba" green="56" red="26" type="rgb"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="EJEMPLO DE MENU HECHO EN JAVA"/>
+        <Property name="text" type="java.lang.String" value="Version de desarrollo Gestion telefonica"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/img/about.png"/>
+          <Image iconType="3" name="/img1/Pollos-El-Cortijo.png"/>
         </Property>
       </Properties>
     </Component>

@@ -1,9 +1,8 @@
 
 package app;
 
-import java.awt.Image;
-import java.awt.Toolkit;
-import principal.Principal;
+import Clases.Reescalado_Imagenes;
+
 
 
 public class Login extends javax.swing.JFrame {
@@ -11,14 +10,9 @@ public class Login extends javax.swing.JFrame {
 
     public Login() {
         initComponents();
-        setIconImage(getIconImage());
-    }
-
-    //agregar icono de JFrame
-    @Override
-    public Image getIconImage(){
-    Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("icon/Pollos-El-Cortijo.png"));
-    return retValue;
+        //asignar icono mediante otra clase
+        Reescalado_Imagenes reescalar = new Reescalado_Imagenes();
+        setIconImage(reescalar.getIconImage());
     }
 
     @SuppressWarnings("unchecked")
@@ -44,7 +38,6 @@ public class Login extends javax.swing.JFrame {
         setMaximumSize(new java.awt.Dimension(800, 530));
         setMinimumSize(new java.awt.Dimension(800, 530));
         setName("frmLogin"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(800, 530));
         setResizable(false);
         setSize(new java.awt.Dimension(800, 535));
 
@@ -58,7 +51,7 @@ public class Login extends javax.swing.JFrame {
         pnlIzquierda.setMaximumSize(new java.awt.Dimension(400, 500));
         pnlIzquierda.setPreferredSize(new java.awt.Dimension(400, 500));
 
-        icnMenu.setIcon(new javax.swing.ImageIcon("C:\\Users\\Sebas\\Documents\\NetBeansProjects\\Telefonia_Cortijo\\src\\icon\\Pollos-El-Cortijo.png")); // NOI18N
+        icnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img1/Pollos-El-Cortijo.png"))); // NOI18N
 
         javax.swing.GroupLayout pnlIzquierdaLayout = new javax.swing.GroupLayout(pnlIzquierda);
         pnlIzquierda.setLayout(pnlIzquierdaLayout);
@@ -186,8 +179,6 @@ public class Login extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
-
-        getAccessibleContext().setAccessibleName("LOGIN");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

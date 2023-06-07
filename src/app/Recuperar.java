@@ -1,20 +1,14 @@
 package app;
 
-import java.awt.Image;
-import java.awt.Toolkit;
+import Clases.Reescalado_Imagenes;
 
 public class Recuperar extends javax.swing.JFrame {
 
     public Recuperar() {
         initComponents();
-        setIconImage(getIconImage());
-    }
-    
-     //agregar icono de JFrame
-    @Override
-    public Image getIconImage(){
-    Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("icon/Pollos-El-Cortijo.png"));
-    return retValue;
+        //asignar icono mediante otra clase
+        Reescalado_Imagenes reescalar = new Reescalado_Imagenes();
+        setIconImage(reescalar.getIconImage());
     }
     
     @SuppressWarnings("unchecked")
@@ -54,7 +48,7 @@ public class Recuperar extends javax.swing.JFrame {
 
         pnlIzquierda.setBackground(new java.awt.Color(57, 181, 74));
 
-        icnMenu.setIcon(new javax.swing.ImageIcon("C:\\Users\\Sebas\\Documents\\NetBeansProjects\\Telefonia_Cortijo\\src\\icon\\Pollos-El-Cortijo.png")); // NOI18N
+        icnMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img1/Pollos-El-Cortijo.png"))); // NOI18N
 
         javax.swing.GroupLayout pnlIzquierdaLayout = new javax.swing.GroupLayout(pnlIzquierda);
         pnlIzquierda.setLayout(pnlIzquierdaLayout);
