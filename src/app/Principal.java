@@ -7,6 +7,11 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import paneles.CambiaPanel;
 import Clases.Reescalado_Imagenes;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.Timer;
 
 public class Principal extends javax.swing.JFrame {
 
@@ -18,23 +23,45 @@ public class Principal extends javax.swing.JFrame {
         this.btnUserTel.setSelected(true);
         //se declara la clase para cambiar de paneles, en este caso para mostrar el primer panel al cargar el form
         new CambiaPanel(pnlPrincipal, new paneles.pnlHome());
-        
+
         //iniciar funcion para el icono
         Reescalado_Imagenes reescalar = new Reescalado_Imagenes();
         setIconImage(reescalar.getIconImage());
         //Iniciar funcion para iconos del submenu y titulo
         IconosBarraLateral();
-        
+        //iniciar funcion de hora
+        Reloj();
+
     }
-    
+
     //asignar los iconos de cada submenu y titulo
-    private void IconosBarraLateral(){
-    Reescalado_Imagenes reescalar = new Reescalado_Imagenes();
-    btnUserTel.setIcon(reescalar.IconoTextoMenu(50, 50, "img1/agregar-usuario.png"));
-    btnEquipos.setIcon(reescalar.IconoTextoMenu(50, 50, "img1/equipos.png"));
-    btnFiniquitos.setIcon(reescalar.IconoTextoMenu(50, 50, "img1/pago.png"));
-    btnLineasTelefonicas.setIcon(reescalar.IconoTextoMenu(50, 50, "img1/signal.png"));
-    lblTituloTelefonia.setIcon(reescalar.IconoTextoMenu(50, 50, "img1/Pollos-El-Cortijo.png"));
+    private void IconosBarraLateral() {
+        Reescalado_Imagenes reescalar = new Reescalado_Imagenes();
+        btnUserTel.setIcon(reescalar.IconoTextoMenu(50, 50, "img1/agregar-usuario.png"));
+        btnEquipos.setIcon(reescalar.IconoTextoMenu(50, 50, "img1/equipos.png"));
+        btnFiniquitos.setIcon(reescalar.IconoTextoMenu(50, 50, "img1/pago.png"));
+        btnLineasTelefonicas.setIcon(reescalar.IconoTextoMenu(50, 50, "img1/signal.png"));
+        lblTituloTelefonia.setIcon(reescalar.IconoTextoMenu(50, 50, "img1/Pollos-El-Cortijo.png"));
+    }
+
+    ///
+    private void Reloj() {
+
+        // Crear un ActionListener para actualizar la hora
+        ActionListener actualizarHora = new ActionListener() {
+            public void actionPerformed(ActionEvent evento) {
+                // Obtener la hora actual
+                Date horaActual = new Date();
+                SimpleDateFormat formatoHora = new SimpleDateFormat("MMM dd yyyy, hh:mm a");
+
+                // Actualizar la etiqueta con la hora actual
+                lblHora.setText(formatoHora.format(horaActual));
+            }
+        };
+
+        // Crear un Timer para actualizar la hora cada segundo
+        Timer timer = new Timer(1000, actualizarHora);
+        timer.start();
     }
 
     @SuppressWarnings("unchecked")
@@ -51,19 +78,24 @@ public class Principal extends javax.swing.JFrame {
         btnEquipos = new rsbuttom.RSButtonMetro();
         jPanel5 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        seis = new rsbuttom.RSButtonMetro();
+        btnAjustes = new rsbuttom.RSButtonMetro();
         btnLineasTelefonicas = new rsbuttom.RSButtonMetro();
         jPanel2 = new javax.swing.JPanel();
         btnMenu = new javax.swing.JButton();
         lblTituloTelefonia = new javax.swing.JLabel();
         pnlCentro = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
+        lblHora = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         pnlPrincipal = new javax.swing.JPanel();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
+        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Telefonia-Cortijo");
+        setMinimumSize(new java.awt.Dimension(1300, 700));
+        setPreferredSize(new java.awt.Dimension(1300, 700));
+        setSize(new java.awt.Dimension(1300, 700));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new java.awt.GridBagLayout());
@@ -189,27 +221,27 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        seis.setBackground(new java.awt.Color(239, 238, 244));
-        seis.setForeground(new java.awt.Color(128, 128, 131));
-        seis.setText("Acceso a aplicacion ");
-        seis.setColorHover(new java.awt.Color(204, 204, 204));
-        seis.setColorNormal(new java.awt.Color(239, 238, 244));
-        seis.setColorPressed(new java.awt.Color(204, 204, 204));
-        seis.setColorTextHover(new java.awt.Color(128, 128, 131));
-        seis.setColorTextNormal(new java.awt.Color(128, 128, 131));
-        seis.setColorTextPressed(new java.awt.Color(128, 128, 131));
-        seis.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        seis.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        seis.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        seis.setIconTextGap(25);
-        seis.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnAjustes.setBackground(new java.awt.Color(239, 238, 244));
+        btnAjustes.setForeground(new java.awt.Color(128, 128, 131));
+        btnAjustes.setText("Ajustes");
+        btnAjustes.setColorHover(new java.awt.Color(204, 204, 204));
+        btnAjustes.setColorNormal(new java.awt.Color(239, 238, 244));
+        btnAjustes.setColorPressed(new java.awt.Color(204, 204, 204));
+        btnAjustes.setColorTextHover(new java.awt.Color(128, 128, 131));
+        btnAjustes.setColorTextNormal(new java.awt.Color(128, 128, 131));
+        btnAjustes.setColorTextPressed(new java.awt.Color(128, 128, 131));
+        btnAjustes.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        btnAjustes.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnAjustes.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnAjustes.setIconTextGap(25);
+        btnAjustes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                seisMousePressed(evt);
+                btnAjustesMousePressed(evt);
             }
         });
-        seis.addActionListener(new java.awt.event.ActionListener() {
+        btnAjustes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                seisActionPerformed(evt);
+                btnAjustesActionPerformed(evt);
             }
         });
 
@@ -249,7 +281,7 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(btnEquipos, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnFiniquitos, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLineasTelefonicas, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(seis, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnAjustes, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         pnlMenuLayout.setVerticalGroup(
@@ -267,7 +299,7 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(44, 44, 44)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4)
-                .addComponent(seis, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnAjustes, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(166, 166, 166))
         );
 
@@ -307,7 +339,7 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(btnMenu)
                 .addGap(18, 18, 18)
                 .addComponent(lblTituloTelefonia)
-                .addContainerGap(752, Short.MAX_VALUE))
+                .addContainerGap(988, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -332,9 +364,9 @@ public class Principal extends javax.swing.JFrame {
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel4.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(128, 128, 131));
-        jLabel4.setText("9:57 A.M. Miercoles");
+        lblHora.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        lblHora.setForeground(new java.awt.Color(128, 128, 131));
+        lblHora.setText("9:57 A.M. Miercoles");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -342,14 +374,14 @@ public class Principal extends javax.swing.JFrame {
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel4)
-                .addContainerGap(541, Short.MAX_VALUE))
+                .addComponent(lblHora)
+                .addContainerGap(777, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel4)
+                .addComponent(lblHora)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -357,6 +389,9 @@ public class Principal extends javax.swing.JFrame {
 
         pnlPrincipal.setBackground(new java.awt.Color(255, 255, 255));
         pnlPrincipal.setLayout(new javax.swing.BoxLayout(pnlPrincipal, javax.swing.BoxLayout.LINE_AXIS));
+        pnlPrincipal.add(filler1);
+        pnlPrincipal.add(filler2);
+
         jScrollPane1.setViewportView(pnlPrincipal);
 
         javax.swing.GroupLayout pnlCentroLayout = new javax.swing.GroupLayout(pnlCentro);
@@ -371,7 +406,8 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(pnlCentroLayout.createSequentialGroup()
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 558, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -420,7 +456,7 @@ public class Principal extends javax.swing.JFrame {
             //    this.cinco.setColorNormal(new Color(239, 238, 244));
             //this.cinco.setColorHover(new Color(204,204,204));
             //this.cinco.setColorPressed(new Color(204,204,204));
-            this.seis.setColorNormal(new Color(239, 238, 244));
+            this.btnAjustes.setColorNormal(new Color(239, 238, 244));
             //this.seis.setColorHover(new Color(204,204,204));
             //this.seis.setColorPressed(new Color(204,204,204));
 
@@ -444,7 +480,7 @@ public class Principal extends javax.swing.JFrame {
         this.btnFiniquitos.setSelected(false);
         this.btnLineasTelefonicas.setSelected(false);
         //  this.cinco.setSelected(false);
-        this.seis.setSelected(false);
+        this.btnAjustes.setSelected(false);
         //   this.siete.setSelected(false);
         // this.ocho.setSelected(false);
     }//GEN-LAST:event_btnUserTelMousePressed
@@ -472,7 +508,7 @@ public class Principal extends javax.swing.JFrame {
             //   this.cinco.setColorNormal(new Color(239, 238, 244));
             //this.cinco.setColorHover(new Color(204, 204, 204));
             // this.cinco.setColorPressed(new Color(204, 204, 204));
-            this.seis.setColorNormal(new Color(239, 238, 244));
+            this.btnAjustes.setColorNormal(new Color(239, 238, 244));
             //   this.seis.setColorHover(new Color(204, 204, 204));
             //  this.seis.setColorPressed(new Color(204, 204, 204));
 
@@ -496,7 +532,7 @@ public class Principal extends javax.swing.JFrame {
         this.btnFiniquitos.setSelected(true);
         this.btnLineasTelefonicas.setSelected(false);
         //this.cinco.setSelected(false);
-        this.seis.setSelected(false);
+        this.btnAjustes.setSelected(false);
         //    this.siete.setSelected(false);
         //     this.ocho.setSelected(false);
     }//GEN-LAST:event_btnFiniquitosMousePressed
@@ -508,7 +544,7 @@ public class Principal extends javax.swing.JFrame {
         this.btnFiniquitos.setSelected(false);
         this.btnLineasTelefonicas.setSelected(false);
 //        this.cinco.setSelected(false);
-        this.seis.setSelected(false);
+        this.btnAjustes.setSelected(false);
         // this.siete.setSelected(false);
         // this.ocho.setSelected(false);
     }//GEN-LAST:event_btnEquiposMousePressed
@@ -536,7 +572,7 @@ public class Principal extends javax.swing.JFrame {
 //            this.cinco.setColorNormal(new Color(239, 238, 244));
             // this.cinco.setColorHover(new Color(204, 204, 204));
             //this.cinco.setColorPressed(new Color(204, 204, 204));
-            this.seis.setColorNormal(new Color(239, 238, 244));
+            this.btnAjustes.setColorNormal(new Color(239, 238, 244));
             // this.seis.setColorHover(new Color(204, 204, 204));
             //this.seis.setColorPressed(new Color(204, 204, 204));
 
@@ -564,21 +600,21 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMenuActionPerformed
 
     //Establecer el estado de seleccionado al correspondiente boton y los demas con el estado desactivado
-    private void seisMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seisMousePressed
+    private void btnAjustesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAjustesMousePressed
         this.btnUserTel.setSelected(false);
         this.btnEquipos.setSelected(false);
         this.btnFiniquitos.setSelected(false);
         this.btnLineasTelefonicas.setSelected(false);
 //        this.cinco.setSelected(false);
-        this.seis.setSelected(true);
+        this.btnAjustes.setSelected(true);
         //    this.siete.setSelected(false);
         //  this.ocho.setSelected(false);
-    }//GEN-LAST:event_seisMousePressed
+    }//GEN-LAST:event_btnAjustesMousePressed
 
     //Genera la accion para cambiar de panel llamando a la clase del paquete paneles y cambia los colores de los que se seleccionaron antes
-    private void seisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seisActionPerformed
+    private void btnAjustesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAjustesActionPerformed
         new CambiaPanel(pnlPrincipal, new paneles.pnlAndroid());
-        if (this.seis.isSelected()) {
+        if (this.btnAjustes.isSelected()) {
             this.btnUserTel.setColorNormal(new Color(239, 238, 244));
             // this.btnUserTel.setColorHover(new Color(204, 204, 204));
             //  this.btnUserTel.setColorPressed(new Color(204, 204, 204));
@@ -598,7 +634,7 @@ public class Principal extends javax.swing.JFrame {
 //            this.cinco.setColorNormal(new Color(239, 238, 244));
             //   this.cinco.setColorHover(new Color(204, 204, 204));
             //   this.cinco.setColorPressed(new Color(204, 204, 204));
-            this.seis.setColorNormal(new Color(204, 204, 204));
+            this.btnAjustes.setColorNormal(new Color(204, 204, 204));
             //    this.seis.setColorHover(new Color(204, 204, 204));
             //     this.seis.setColorPressed(new Color(204, 204, 204));
 
@@ -609,11 +645,11 @@ public class Principal extends javax.swing.JFrame {
             //   this.ocho.setColorHover(new Color(204, 204, 204));
             //    this.ocho.setColorPressed(new Color(204, 204, 204));
         } else {
-            this.seis.setColorNormal(new Color(239, 238, 244));
+            this.btnAjustes.setColorNormal(new Color(239, 238, 244));
             //    this.seis.setColorHover(new Color(204, 204, 204));
             //     this.seis.setColorPressed(new Color(204, 204, 204));
         }
-    }//GEN-LAST:event_seisActionPerformed
+    }//GEN-LAST:event_btnAjustesActionPerformed
 
     //Establecer el estado de seleccionado al correspondiente boton y los demas con el estado desactivado
     private void btnLineasTelefonicasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLineasTelefonicasMousePressed
@@ -622,7 +658,7 @@ public class Principal extends javax.swing.JFrame {
         this.btnFiniquitos.setSelected(false);
         this.btnLineasTelefonicas.setSelected(true);
 //        this.cinco.setSelected(false);
-        this.seis.setSelected(false);
+        this.btnAjustes.setSelected(false);
         //   this.siete.setSelected(false);
         //   this.ocho.setSelected(false);
     }//GEN-LAST:event_btnLineasTelefonicasMousePressed
@@ -650,7 +686,7 @@ public class Principal extends javax.swing.JFrame {
 //            this.cinco.setColorNormal(new Color(239, 238, 244));
             //     this.cinco.setColorHover(new Color(204, 204, 204));
             //   this.cinco.setColorPressed(new Color(204, 204, 204));
-            this.seis.setColorNormal(new Color(239, 238, 244));
+            this.btnAjustes.setColorNormal(new Color(239, 238, 244));
             //   this.seis.setColorHover(new Color(204, 204, 204));
             //   this.seis.setColorPressed(new Color(204, 204, 204));
 
@@ -686,24 +722,26 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private rsbuttom.RSButtonMetro btnAjustes;
     private rsbuttom.RSButtonMetro btnEquipos;
     private rsbuttom.RSButtonMetro btnFiniquitos;
     private rsbuttom.RSButtonMetro btnLineasTelefonicas;
     private javax.swing.JButton btnMenu;
     private rsbuttom.RSButtonMetro btnUserTel;
+    private javax.swing.Box.Filler filler1;
+    private javax.swing.Box.Filler filler2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblHora;
     private javax.swing.JLabel lblTelefonia;
     private javax.swing.JLabel lblTituloTelefonia;
     private javax.swing.JPanel pnlCentro;
     private javax.swing.JPanel pnlMenu;
     private javax.swing.JPanel pnlPrincipal;
-    private rsbuttom.RSButtonMetro seis;
     // End of variables declaration//GEN-END:variables
 }
