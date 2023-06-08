@@ -3,11 +3,12 @@ package paneles;
 import Clases.DatosTablas;
 import Clases.Reescalado_Imagenes;
 import paneles.ExtraUsuarios.CentroCosto;
+import paneles.ExtraUsuarios.Planilla;
 
-public class pnlCollection extends javax.swing.JPanel {
+public class pnlUsuarios extends javax.swing.JPanel {
 
 
-    public pnlCollection() {
+    public pnlUsuarios() {
         initComponents();
         Reescalado_Imagenes reescalar = new Reescalado_Imagenes();
         CargarDatosPrincipal();
@@ -20,6 +21,7 @@ public class pnlCollection extends javax.swing.JPanel {
         DatosTablas Datos = new DatosTablas();
         Datos.CargarTabla(tblUsuarios,null,"select * from VistaUsuarios");
         Datos.cargarComboBox("select CentroCosto from VistaCentroCosto", "CentroCosto", cmbCentroCosto);
+        Datos.cargarComboBox("select Planilla from VistaPlanillas", "Planilla", cmbPlanilla);
         
     }
 
@@ -58,7 +60,7 @@ public class pnlCollection extends javax.swing.JPanel {
         btnBuscar = new javax.swing.JButton();
         btnCrudCC = new javax.swing.JButton();
         btnCrudCC1 = new javax.swing.JButton();
-        btnCrudCC2 = new javax.swing.JButton();
+        btnCRUDPlanilla = new javax.swing.JButton();
         btnCrudCC3 = new javax.swing.JButton();
         btnCrudCC4 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -100,7 +102,7 @@ public class pnlCollection extends javax.swing.JPanel {
 
         cmbCentroCosto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
 
-        cmbPlanilla.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbPlanilla.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
 
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Centro de Costo:");
@@ -174,10 +176,10 @@ public class pnlCollection extends javax.swing.JPanel {
             }
         });
 
-        btnCrudCC2.setText("+");
-        btnCrudCC2.addActionListener(new java.awt.event.ActionListener() {
+        btnCRUDPlanilla.setText("+");
+        btnCRUDPlanilla.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCrudCC2ActionPerformed(evt);
+                btnCRUDPlanillaActionPerformed(evt);
             }
         });
 
@@ -245,7 +247,7 @@ public class pnlCollection extends javax.swing.JPanel {
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(cmbPlanilla, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(btnCrudCC2)))
+                                        .addComponent(btnCRUDPlanilla)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -276,7 +278,7 @@ public class pnlCollection extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
                             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -297,20 +299,20 @@ public class pnlCollection extends javax.swing.JPanel {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnCodigo1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnCodigo2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(33, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(btnCodigo2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel5)
-                                    .addComponent(cmbCentroCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnCrudCC, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnCrudCC, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jLabel5)
+                                        .addComponent(cmbCentroCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(12, 12, 12)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel7)
                                     .addComponent(cmbPlanilla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnCrudCC2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(btnCRUDPlanilla, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel6)
@@ -333,8 +335,8 @@ public class pnlCollection extends javax.swing.JPanel {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
                             .addComponent(cmdPuestoTrabajo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnCrudCC1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(74, Short.MAX_VALUE))))
+                            .addComponent(btnCrudCC1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         jScrollPane1.setPreferredSize(new java.awt.Dimension(800, 403));
@@ -395,7 +397,7 @@ public class pnlCollection extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void btnCrudCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrudCCActionPerformed
-        //Abrir Formulario de Recuperar Contraseña
+        //Abrir Formulario de CentroCosto
         CentroCosto CrudCosto = new CentroCosto(); 
         CrudCosto.setVisible(true);
         CrudCosto.pack();
@@ -406,9 +408,13 @@ public class pnlCollection extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCrudCC1ActionPerformed
 
-    private void btnCrudCC2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrudCC2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCrudCC2ActionPerformed
+    private void btnCRUDPlanillaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCRUDPlanillaActionPerformed
+       //Abrir Formulario de CentroCosto
+        Planilla CrudPlanilla = new Planilla(); 
+        CrudPlanilla.setVisible(true);
+        CrudPlanilla.pack();
+        CrudPlanilla.setLocationRelativeTo(null);
+    }//GEN-LAST:event_btnCRUDPlanillaActionPerformed
 
     private void btnCrudCC3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrudCC3ActionPerformed
         // TODO add your handling code here:
@@ -421,12 +427,12 @@ public class pnlCollection extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnCRUDPlanilla;
     private javax.swing.JButton btnCodigo;
     private javax.swing.JButton btnCodigo1;
     private javax.swing.JButton btnCodigo2;
     private javax.swing.JButton btnCrudCC;
     private javax.swing.JButton btnCrudCC1;
-    private javax.swing.JButton btnCrudCC2;
     private javax.swing.JButton btnCrudCC3;
     private javax.swing.JButton btnCrudCC4;
     private javax.swing.JComboBox<String> cmbCategoria;

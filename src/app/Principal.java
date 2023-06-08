@@ -44,7 +44,7 @@ public class Principal extends javax.swing.JFrame {
         lblTituloTelefonia.setIcon(reescalar.IconoTextoMenu(50, 50, "img1/Pollos-El-Cortijo.png"));
     }
 
-    ///
+    ///funcion para mostrar reloj
     private void Reloj() {
 
         // Crear un ActionListener para actualizar la hora
@@ -433,43 +433,17 @@ public class Principal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    //Genera la accion para cambiar de panel llamando a la clase del paquete paneles y cambia los colores de los que se seleccionaron antes
+    //Genera la accion para cambiar de panel USUARIOS llamando a la clase del paquete paneles y cambia los colores de los que se seleccionaron antes
     private void btnUserTelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserTelActionPerformed
-        new CambiaPanel(pnlPrincipal, new paneles.pnlHome());
+        new CambiaPanel(pnlPrincipal, new paneles.pnlUsuarios());
         if (this.btnUserTel.isSelected()) {
             this.btnUserTel.setColorNormal(new Color(204, 204, 204));
-            //this.btnUserTel.setColorHover(new Color(204, 204, 204));
-            // this.btnUserTel.setColorPressed(new Color(204, 204, 204));
-
             this.btnEquipos.setColorNormal(new Color(239, 238, 244));
-            //this.dos.setColorHover(new Color(204,204,204));
-            //this.dos.setColorPressed(new Color(204,204,204));
-
             this.btnFiniquitos.setColorNormal(new Color(239, 238, 244));
-            //this.tres.setColorHover(new Color(204,204,204));
-            //this.tres.setColorPressed(new Color(204,204,204));
-
             this.btnLineasTelefonicas.setColorNormal(new Color(239, 238, 244));
-            //this.cuatro.setColorHover(new Color(204,204,204));
-            //this.cuatro.setColorPressed(new Color(204,204,204));
-
-            //    this.cinco.setColorNormal(new Color(239, 238, 244));
-            //this.cinco.setColorHover(new Color(204,204,204));
-            //this.cinco.setColorPressed(new Color(204,204,204));
             this.btnAjustes.setColorNormal(new Color(239, 238, 244));
-            //this.seis.setColorHover(new Color(204,204,204));
-            //this.seis.setColorPressed(new Color(204,204,204));
-
-            // this.siete.setColorNormal(new Color(239, 238, 244));
-            //this.siete.setColorHover(new Color(204, 204, 204));
-            //this.siete.setColorPressed(new Color(204, 204, 204));
-            //  this.ocho.setColorNormal(new Color(239, 238, 244));
-            //this.ocho.setColorHover(new Color(204, 204, 204));
-            //this.ocho.setColorPressed(new Color(204, 204, 204));
         } else {
             this.btnUserTel.setColorNormal(new Color(239, 238, 244));
-            //this.btnUserTel.setColorHover(new Color(204, 204, 204));
-            //this.btnUserTel.setColorPressed(new Color(204, 204, 204));
         }
     }//GEN-LAST:event_btnUserTelActionPerformed
 
@@ -479,10 +453,7 @@ public class Principal extends javax.swing.JFrame {
         this.btnEquipos.setSelected(false);
         this.btnFiniquitos.setSelected(false);
         this.btnLineasTelefonicas.setSelected(false);
-        //  this.cinco.setSelected(false);
         this.btnAjustes.setSelected(false);
-        //   this.siete.setSelected(false);
-        // this.ocho.setSelected(false);
     }//GEN-LAST:event_btnUserTelMousePressed
 
     //Genera la accion para cambiar de panel llamando a la clase del paquete paneles y cambia los colores de los que se seleccionaron antes
@@ -490,38 +461,12 @@ public class Principal extends javax.swing.JFrame {
         new CambiaPanel(pnlPrincipal, new paneles.pnlChat());
         if (this.btnFiniquitos.isSelected()) {
             this.btnFiniquitos.setColorNormal(new Color(204, 204, 204));
-            //this.tres.setColorHover(new Color(204, 204, 204));
-            //this.tres.setColorPressed(new Color(204, 204, 204));
-
             this.btnUserTel.setColorNormal(new Color(239, 238, 244));
-            // this.btnUserTel.setColorHover(new Color(204, 204, 204));
-            //this.btnUserTel.setColorPressed(new Color(204, 204, 204));
-
             this.btnEquipos.setColorNormal(new Color(239, 238, 244));
-            //this.btnEquipos.setColorHover(new Color(204, 204, 204));
-            //this.btnEquipos.setColorPressed(new Color(204, 204, 204));
-
             this.btnLineasTelefonicas.setColorNormal(new Color(239, 238, 244));
-            //this.cuatro.setColorHover(new Color(204, 204, 204));
-            // this.cuatro.setColorPressed(new Color(204, 204, 204));
-
-            //   this.cinco.setColorNormal(new Color(239, 238, 244));
-            //this.cinco.setColorHover(new Color(204, 204, 204));
-            // this.cinco.setColorPressed(new Color(204, 204, 204));
             this.btnAjustes.setColorNormal(new Color(239, 238, 244));
-            //   this.seis.setColorHover(new Color(204, 204, 204));
-            //  this.seis.setColorPressed(new Color(204, 204, 204));
-
-            //   this.siete.setColorNormal(new Color(239, 238, 244));
-            //    this.siete.setColorHover(new Color(204, 204, 204));
-            //    this.siete.setColorPressed(new Color(204, 204, 204));
-            //   this.ocho.setColorNormal(new Color(239, 238, 244));
-            //  this.ocho.setColorHover(new Color(204, 204, 204));
-            // this.ocho.setColorPressed(new Color(204, 204, 204));
         } else {
             this.btnFiniquitos.setColorNormal(new Color(239, 238, 244));
-            // this.tres.setColorHover(new Color(204, 204, 204));
-            //  this.tres.setColorPressed(new Color(204, 204, 204));
         }
     }//GEN-LAST:event_btnFiniquitosActionPerformed
 
@@ -531,10 +476,7 @@ public class Principal extends javax.swing.JFrame {
         this.btnEquipos.setSelected(false);
         this.btnFiniquitos.setSelected(true);
         this.btnLineasTelefonicas.setSelected(false);
-        //this.cinco.setSelected(false);
         this.btnAjustes.setSelected(false);
-        //    this.siete.setSelected(false);
-        //     this.ocho.setSelected(false);
     }//GEN-LAST:event_btnFiniquitosMousePressed
 
     //Establecer el estado de seleccionado al correspondiente boton y los demas con el estado desactivado
@@ -543,49 +485,20 @@ public class Principal extends javax.swing.JFrame {
         this.btnEquipos.setSelected(true);
         this.btnFiniquitos.setSelected(false);
         this.btnLineasTelefonicas.setSelected(false);
-//        this.cinco.setSelected(false);
         this.btnAjustes.setSelected(false);
-        // this.siete.setSelected(false);
-        // this.ocho.setSelected(false);
     }//GEN-LAST:event_btnEquiposMousePressed
 
     //Genera la accion para cambiar de panel llamando a la clase del paquete paneles y cambia los colores de los que se seleccionaron antes
     private void btnEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEquiposActionPerformed
-        new CambiaPanel(pnlPrincipal, new paneles.pnlCollection());
+        new CambiaPanel(pnlPrincipal, new paneles.pnlUsuarios());
         if (this.btnEquipos.isSelected()) {
             this.btnEquipos.setColorNormal(new Color(204, 204, 204));
-            //this.btnEquipos.setColorHover(new Color(204, 204, 204));
-            //this.btnEquipos.setColorPressed(new Color(204, 204, 204));
-
             this.btnUserTel.setColorNormal(new Color(239, 238, 244));
-            //this.btnUserTel.setColorHover(new Color(204, 204, 204));
-            // this.btnUserTel.setColorPressed(new Color(204, 204, 204));
-
             this.btnFiniquitos.setColorNormal(new Color(239, 238, 244));
-            //this.tres.setColorHover(new Color(204, 204, 204));
-            // this.tres.setColorPressed(new Color(204, 204, 204));
-
             this.btnLineasTelefonicas.setColorNormal(new Color(239, 238, 244));
-            //this.cuatro.setColorHover(new Color(204, 204, 204));
-            // this.cuatro.setColorPressed(new Color(204, 204, 204));
-
-//            this.cinco.setColorNormal(new Color(239, 238, 244));
-            // this.cinco.setColorHover(new Color(204, 204, 204));
-            //this.cinco.setColorPressed(new Color(204, 204, 204));
             this.btnAjustes.setColorNormal(new Color(239, 238, 244));
-            // this.seis.setColorHover(new Color(204, 204, 204));
-            //this.seis.setColorPressed(new Color(204, 204, 204));
-
-            //  this.siete.setColorNormal(new Color(239, 238, 244));
-            //this.siete.setColorHover(new Color(204, 204, 204));
-            // this.siete.setColorPressed(new Color(204, 204, 204));
-            //   this.ocho.setColorNormal(new Color(239, 238, 244));
-            // this.ocho.setColorHover(new Color(204, 204, 204));
-            // this.ocho.setColorPressed(new Color(204, 204, 204));
         } else {
             this.btnEquipos.setColorNormal(new Color(239, 238, 244));
-            // this.btnEquipos.setColorHover(new Color(204, 204, 204));
-            // this.btnEquipos.setColorPressed(new Color(204, 204, 204));
         }
     }//GEN-LAST:event_btnEquiposActionPerformed
 
@@ -605,10 +518,7 @@ public class Principal extends javax.swing.JFrame {
         this.btnEquipos.setSelected(false);
         this.btnFiniquitos.setSelected(false);
         this.btnLineasTelefonicas.setSelected(false);
-//        this.cinco.setSelected(false);
         this.btnAjustes.setSelected(true);
-        //    this.siete.setSelected(false);
-        //  this.ocho.setSelected(false);
     }//GEN-LAST:event_btnAjustesMousePressed
 
     //Genera la accion para cambiar de panel llamando a la clase del paquete paneles y cambia los colores de los que se seleccionaron antes
@@ -616,38 +526,12 @@ public class Principal extends javax.swing.JFrame {
         new CambiaPanel(pnlPrincipal, new paneles.pnlAndroid());
         if (this.btnAjustes.isSelected()) {
             this.btnUserTel.setColorNormal(new Color(239, 238, 244));
-            // this.btnUserTel.setColorHover(new Color(204, 204, 204));
-            //  this.btnUserTel.setColorPressed(new Color(204, 204, 204));
-
             this.btnEquipos.setColorNormal(new Color(239, 238, 244));
-            //  this.btnEquipos.setColorHover(new Color(204, 204, 204));
-            //   this.btnEquipos.setColorPressed(new Color(204, 204, 204));
-
             this.btnFiniquitos.setColorNormal(new Color(239, 238, 244));
-            //    this.tres.setColorHover(new Color(204, 204, 204));
-            //  this.tres.setColorPressed(new Color(204, 204, 204));
-
             this.btnLineasTelefonicas.setColorNormal(new Color(239, 238, 244));
-            //  this.cuatro.setColorHover(new Color(204, 204, 204));
-            //   this.cuatro.setColorPressed(new Color(204, 204, 204));
-
-//            this.cinco.setColorNormal(new Color(239, 238, 244));
-            //   this.cinco.setColorHover(new Color(204, 204, 204));
-            //   this.cinco.setColorPressed(new Color(204, 204, 204));
             this.btnAjustes.setColorNormal(new Color(204, 204, 204));
-            //    this.seis.setColorHover(new Color(204, 204, 204));
-            //     this.seis.setColorPressed(new Color(204, 204, 204));
-
-            //    this.siete.setColorNormal(new Color(239, 238, 244));
-            //   this.siete.setColorHover(new Color(204, 204, 204));
-            //   this.siete.setColorPressed(new Color(204, 204, 204));
-            //   this.ocho.setColorNormal(new Color(239, 238, 244));
-            //   this.ocho.setColorHover(new Color(204, 204, 204));
-            //    this.ocho.setColorPressed(new Color(204, 204, 204));
         } else {
             this.btnAjustes.setColorNormal(new Color(239, 238, 244));
-            //    this.seis.setColorHover(new Color(204, 204, 204));
-            //     this.seis.setColorPressed(new Color(204, 204, 204));
         }
     }//GEN-LAST:event_btnAjustesActionPerformed
 
@@ -657,10 +541,7 @@ public class Principal extends javax.swing.JFrame {
         this.btnEquipos.setSelected(false);
         this.btnFiniquitos.setSelected(false);
         this.btnLineasTelefonicas.setSelected(true);
-//        this.cinco.setSelected(false);
         this.btnAjustes.setSelected(false);
-        //   this.siete.setSelected(false);
-        //   this.ocho.setSelected(false);
     }//GEN-LAST:event_btnLineasTelefonicasMousePressed
 
     //Genera la accion para cambiar de panel llamando a la clase del paquete paneles y cambia los colores de los que se seleccionaron antes
@@ -668,38 +549,12 @@ public class Principal extends javax.swing.JFrame {
         new CambiaPanel(pnlPrincipal, new paneles.pnlFeeBack());
         if (this.btnLineasTelefonicas.isSelected()) {
             this.btnUserTel.setColorNormal(new Color(239, 238, 244));
-            //  this.btnUserTel.setColorHover(new Color(204, 204, 204));
-            //   this.btnUserTel.setColorPressed(new Color(204, 204, 204));
-
             this.btnEquipos.setColorNormal(new Color(239, 238, 244));
-            //     this.btnEquipos.setColorHover(new Color(204, 204, 204));
-            //      this.btnEquipos.setColorPressed(new Color(204, 204, 204));
-
             this.btnFiniquitos.setColorNormal(new Color(239, 238, 244));
-            //     this.tres.setColorHover(new Color(204, 204, 204));
-            //    this.tres.setColorPressed(new Color(204, 204, 204));
-
             this.btnLineasTelefonicas.setColorNormal(new Color(204, 204, 204));
-            //     this.cuatro.setColorHover(new Color(204, 204, 204));
-            //   this.cuatro.setColorPressed(new Color(204, 204, 204));
-
-//            this.cinco.setColorNormal(new Color(239, 238, 244));
-            //     this.cinco.setColorHover(new Color(204, 204, 204));
-            //   this.cinco.setColorPressed(new Color(204, 204, 204));
             this.btnAjustes.setColorNormal(new Color(239, 238, 244));
-            //   this.seis.setColorHover(new Color(204, 204, 204));
-            //   this.seis.setColorPressed(new Color(204, 204, 204));
-
-            //     this.siete.setColorNormal(new Color(239, 238, 244));
-            //     this.siete.setColorHover(new Color(204, 204, 204));
-            //   this.siete.setColorPressed(new Color(204, 204, 204));
-            //    this.ocho.setColorNormal(new Color(239, 238, 244));
-            //     this.ocho.setColorHover(new Color(204, 204, 204));
-            //     this.ocho.setColorPressed(new Color(204, 204, 204));
         } else {
             this.btnLineasTelefonicas.setColorNormal(new Color(239, 238, 244));
-            //      this.cuatro.setColorHover(new Color(204, 204, 204));
-            //        this.cuatro.setColorPressed(new Color(204, 204, 204));
         }
     }//GEN-LAST:event_btnLineasTelefonicasActionPerformed
 

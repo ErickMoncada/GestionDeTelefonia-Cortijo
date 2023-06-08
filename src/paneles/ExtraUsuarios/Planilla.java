@@ -8,43 +8,40 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
-public class CentroCosto extends javax.swing.JFrame {
+public class Planilla extends javax.swing.JFrame {
 
-    public CentroCosto() {
+    public Planilla() {
 
         initComponents();
         CargarTabla();
         Limpiar();
+        txtID.setVisible(false);
     }
 
     //Funcion para cargar datos a la tabla
     private void CargarTabla() {
         DatosTablas CrearTabla = new DatosTablas();
-        int[] anchos = {50, 50};
-        CrearTabla.CargarTabla(tblCentro, anchos, "SELECT * from [VistaCentroCosto]");
+        int[] anchos = {50};
+        CrearTabla.CargarTabla(tblCentro, anchos, "SELECT Planilla from [VistaPlanillas]");
     }
 
     //Funcion para Validar campos
     private boolean Validar() {
-        if (txtNombre.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "El Nombre no puede estar en blanco", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            return false;
-        } else if (txtNumero.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "El Numero no puede estar en blanco", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        if (txtPlanilla.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "La Planilla no puede estar en blanco", "Advertencia", JOptionPane.WARNING_MESSAGE);
             return false;
         }
         return true;
     }
-    
+
     //desactivar botones y solo mostrar btnGurdar
-    private void Limpiar(){
+    private void Limpiar() {
         btnGuardar.setVisible(true);
-         btnModificar.setVisible(false);
-            btnEliminar.setVisible(false);
-            btnCancelar.setVisible(false);
-            txtNumero.enable(true);
-            txtNombre.setText("");
-            txtNumero.setText("");
+        btnModificar.setVisible(false);
+        btnEliminar.setVisible(false);
+        btnCancelar.setVisible(false);
+        txtPlanilla.setText("");
+        txtID.setText("");
     }
 
     @SuppressWarnings("unchecked")
@@ -53,14 +50,13 @@ public class CentroCosto extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        lblNombre = new javax.swing.JLabel();
-        txtNombre = new javax.swing.JTextField();
-        lblNumero = new javax.swing.JLabel();
-        txtNumero = new javax.swing.JTextField();
+        lblPlanilla = new javax.swing.JLabel();
+        txtPlanilla = new javax.swing.JTextField();
         btnEliminar = new rsbuttom.RSButtonMetro();
         btnModificar = new rsbuttom.RSButtonMetro();
         btnGuardar = new rsbuttom.RSButtonMetro();
         btnCancelar = new rsbuttom.RSButtonMetro();
+        txtID = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCentro = new javax.swing.JTable();
 
@@ -68,15 +64,10 @@ public class CentroCosto extends javax.swing.JFrame {
         setResizable(false);
         setType(java.awt.Window.Type.POPUP);
 
-        lblNombre.setForeground(new java.awt.Color(0, 0, 0));
-        lblNombre.setText("Nombre de Centro de Costo:");
+        lblPlanilla.setForeground(new java.awt.Color(0, 0, 0));
+        lblPlanilla.setText("Planilla:");
 
-        txtNombre.setPreferredSize(new java.awt.Dimension(65, 26));
-
-        lblNumero.setForeground(new java.awt.Color(0, 0, 0));
-        lblNumero.setText("Numero de Centro de Costo:");
-
-        txtNumero.setPreferredSize(new java.awt.Dimension(65, 26));
+        txtPlanilla.setPreferredSize(new java.awt.Dimension(65, 26));
 
         btnEliminar.setBackground(new java.awt.Color(114, 191, 68));
         btnEliminar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -150,6 +141,8 @@ public class CentroCosto extends javax.swing.JFrame {
             }
         });
 
+        txtID.setPreferredSize(new java.awt.Dimension(65, 26));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -157,58 +150,49 @@ public class CentroCosto extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblPlanilla)
+                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(124, 124, 124))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(lblNumero)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(lblNombre)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtPlanilla, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNumero)
-                    .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(lblPlanilla)
+                    .addComponent(txtPlanilla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
+                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblNombre)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGap(46, 46, 46))
         );
 
         tblCentro.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         tblCentro.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null},
+                {null},
+                {null},
+                {null}
             },
             new String [] {
-                "Numero Centro de Costo", "Nombre de centro de costo"
+                "Planilla"
             }
         ));
         tblCentro.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -232,8 +216,8 @@ public class CentroCosto extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -258,17 +242,16 @@ public class CentroCosto extends javax.swing.JFrame {
             btnEliminar.setVisible(true);
             btnCancelar.setVisible(true);
             int fila = tblCentro.getSelectedRow();
-            String id = tblCentro.getValueAt(fila, 0).toString();
+            String planilla = tblCentro.getValueAt(fila, 0).toString();
             PreparedStatement ps;
             ResultSet rs;
             Connection con = Conexion.getConexion();
-            ps = con.prepareStatement("SELECT CentroCosto from [VistaCentroCosto] where [NumCentroCosto]=?");
-            ps.setString(1, id);
+            ps = con.prepareStatement("SELECT [IDPlanilla],[Planilla] from VistaPlanillas where Planilla=?");
+            ps.setString(1, planilla);
             rs = ps.executeQuery();
-            while(rs.next()){
-                txtNumero.setText(id);
-                txtNombre.setText(rs.getString("CentroCosto"));
-                txtNumero.enable(false);
+            while (rs.next()) {
+                txtPlanilla.setText(rs.getString("Planilla"));
+                txtID.setText(rs.getString("IDPlanilla"));
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.toString());
@@ -282,35 +265,33 @@ public class CentroCosto extends javax.swing.JFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         //Agregar datos a la BD por medio de Procedimientos Almacenados
         if (Validar()) {
-            String numero = txtNumero.getText();
-            String nombre = txtNombre.getText();
+            String planilla = txtPlanilla.getText();
             try {
                 Connection con = Conexion.getConexion();
-                PreparedStatement ps = con.prepareStatement("exec AgregarCentroCosto ? , ?");
-                ps.setString(1, numero);
-                ps.setString(2, nombre);
+                PreparedStatement ps = con.prepareStatement("exec AgregarPlanilla ? ");
+                ps.setString(1, planilla);
                 ps.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Registro guardado","Informacion",JOptionPane.INFORMATION_MESSAGE);
-                txtNombre.setText("");
-                txtNumero.setText("");
+                JOptionPane.showMessageDialog(null, "Registro guardado", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+                txtID.setText("");
+                txtPlanilla.setText("");
                 CargarTabla();
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, e.toString());
+                JOptionPane.showMessageDialog(null, "Ups! " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        String numero = txtNumero.getText();
-        String nombre = txtNombre.getText();
+        String planilla = txtPlanilla.getText();
+        String id = txtID.getText();
 
         try {
             Connection con = Conexion.getConexion();
-            PreparedStatement ps = con.prepareStatement("exec UpdateCentroCosto ?,?");
-            ps.setString(1, numero);
-            ps.setString(2, nombre);
+            PreparedStatement ps = con.prepareStatement("exec UpdatePlanilla ?,?");
+            ps.setString(1, id);
+            ps.setString(2, planilla);
             ps.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Registro Actualizado","Informacion",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Registro Actualizado", "Informacion", JOptionPane.INFORMATION_MESSAGE);
             CargarTabla();
             Limpiar();
         } catch (SQLException e) {
@@ -319,26 +300,25 @@ public class CentroCosto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        String  id = txtNumero.getText();
+        String id = txtID.getText();
         try {
             Connection con = Conexion.getConexion();
-            PreparedStatement ps = con.prepareStatement("exec EliminarCentroCosto ?");
+            PreparedStatement ps = con.prepareStatement("exec EliminarPlanilla ?");
             ps.setString(1, id);
             ps.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Registro Eliminado","Informacion",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Registro Eliminado", "Informacion", JOptionPane.INFORMATION_MESSAGE);
             Limpiar();
             CargarTabla();
         } catch (SQLException e) {
-            int error=e.getErrorCode();
-            if (error==547){
-                JOptionPane.showMessageDialog(null, "El Centro de Costo NO se puede Eliminar por que esta asignado a un usuario","Error", JOptionPane.ERROR_MESSAGE);
-            }else{
+            int error = e.getErrorCode();
+            if (error == 547) {
+                JOptionPane.showMessageDialog(null, "La Planilla NO se puede Eliminar por que esta asignado a un usuario", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
                 JOptionPane.showMessageDialog(null, e.toString());
             }
 
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
-
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -356,10 +336,9 @@ public class CentroCosto extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblNombre;
-    private javax.swing.JLabel lblNumero;
+    private javax.swing.JLabel lblPlanilla;
     private javax.swing.JTable tblCentro;
-    private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtNumero;
+    private javax.swing.JTextField txtID;
+    private javax.swing.JTextField txtPlanilla;
     // End of variables declaration//GEN-END:variables
 }
