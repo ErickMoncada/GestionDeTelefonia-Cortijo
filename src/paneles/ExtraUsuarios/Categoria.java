@@ -246,11 +246,18 @@ public class Categoria extends javax.swing.JFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         AccionesCrud classcrud = new AccionesCrud();
         if (classcrud.Validar(txtCategoriaUser, "La Categoria de usuario")) {
-            if (classcrud.Guardar(txtCategoriaUser, "exec AgregarCategoriaUser ? ")) {
+        Object[] datos = new Object[1];
+       datos[0]= txtCategoriaUser.getText();
+       if(classcrud.Guardar(datos, "exec AgregarCategoriaUser ? ")){
+        txtID.setText("");
+                txtCategoriaUser.setText("");
+                CargarTabla();
+       }
+          /*  if (classcrud.Guardar(txtCategoriaUser, "exec AgregarCategoriaUser ? ")) {
                 txtID.setText("");
                 txtCategoriaUser.setText("");
                 CargarTabla();
-            }
+            }*/
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -267,7 +274,7 @@ public class Categoria extends javax.swing.JFrame {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         AccionesCrud classcrud = new AccionesCrud();
         if (classcrud.Validar(txtCategoriaUser, "La Categoria de usuario")) {
-            if (classcrud.Eliminar(txtID, "exec EliminarCategoriaUser ?", "usuario")) {
+            if (classcrud.Eliminar(txtID, "exec EliminarCategoriaUser ?")) {
                 CargarTabla();
                 Limpiar();
             }

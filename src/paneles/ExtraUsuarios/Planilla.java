@@ -246,11 +246,18 @@ public class Planilla extends javax.swing.JFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         AccionesCrud classcrud = new AccionesCrud();
         if (classcrud.Validar(txtPlanilla, "La Planilla")) {
-            if (classcrud.Guardar(txtPlanilla, "exec AgregarPlanilla ? ")) {
+            Object[] datos = new Object[1];
+       datos[0]= txtPlanilla.getText();
+       if(classcrud.Guardar(datos, "exec AgregarPlanilla ? ")){
+        txtID.setText("");
+                txtPlanilla.setText("");
+                CargarTabla();
+       }
+          /*  if (classcrud.Guardar(txtPlanilla, "exec AgregarPlanilla ? ")) {
                 txtID.setText("");
                 txtPlanilla.setText("");
                 CargarTabla();
-            }
+            }*/
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -267,7 +274,7 @@ public class Planilla extends javax.swing.JFrame {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         AccionesCrud classcrud = new AccionesCrud();
         if (classcrud.Validar(txtPlanilla, "La Ubicacion")) {
-            if (classcrud.Eliminar(txtID, "exec EliminarPlanilla ?", "usuario")) {
+            if (classcrud.Eliminar(txtID, "exec EliminarPlanilla ?")) {
                 CargarTabla();
                 Limpiar();
             }

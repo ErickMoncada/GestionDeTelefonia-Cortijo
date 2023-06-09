@@ -275,10 +275,10 @@ public class CentroCosto extends javax.swing.JFrame {
             ps.setString(1, id);
             rs = ps.executeQuery();
             while(rs.next()){
-                txtNumero.setText(id);
-                txtNombre.setText(rs.getString("CentroCosto"));
-                txtNumero.enable(false);
+                txtNombre.setText(rs.getString("CentroCosto"));           
             }
+            txtNumero.setText(id);
+            txtNumero.enable(false);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.toString());
         }
@@ -289,7 +289,18 @@ public class CentroCosto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        //Agregar datos a la BD por medio de Procedimientos Almacenados
+        if (Validar()) {
+               Object[] datos = new Object[2];
+       datos[0]= Integer.parseInt(txtNumero.getText());
+       datos[1]= txtNombre.getText();
+       AccionesCrud classcrud = new  AccionesCrud();
+      if(classcrud.Guardar(datos, "exec [AgregarCentroCosto] ?, ? ")){
+          txtNombre.setText("");
+                txtNumero.setText("");
+                CargarTabla();
+      }
+        }
+        /*/Agregar datos a la BD por medio de Procedimientos Almacenados
         if (Validar()) {
             String numero = txtNumero.getText();
             String nombre = txtNombre.getText();
@@ -306,7 +317,7 @@ public class CentroCosto extends javax.swing.JFrame {
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, e.toString());
             }
-        }
+        }*/
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
@@ -329,7 +340,7 @@ public class CentroCosto extends javax.swing.JFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
          AccionesCrud classcrud = new AccionesCrud();
-            if (classcrud.Eliminar(txtNumero, "exec EliminarCentroCosto ?", "usuario")) {
+            if (classcrud.Eliminar(txtNumero, "exec EliminarCentroCosto ?")) {
                 CargarTabla();
                 Limpiar();       
         }

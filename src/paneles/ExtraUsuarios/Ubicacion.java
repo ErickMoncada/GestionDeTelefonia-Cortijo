@@ -245,11 +245,18 @@ public class Ubicacion extends javax.swing.JFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         AccionesCrud classcrud = new AccionesCrud();
         if (classcrud.Validar(txtUbicaciones, "La Ubicacion")) {
-            if (classcrud.Guardar(txtUbicaciones, "exec AgregarUbicacion ? ")) {
+            Object[] datos = new Object[1];
+            datos[0] = txtUbicaciones.getText();
+            if (classcrud.Guardar(datos, "exec AgregarUbicacion ? ")) {
                 txtID.setText("");
                 txtUbicaciones.setText("");
                 CargarTabla();
             }
+            /*if (classcrud.Guardar(txtUbicaciones, "exec AgregarUbicacion ? ")) {
+                txtID.setText("");
+                txtUbicaciones.setText("");
+                CargarTabla();
+            }*/
 
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -267,7 +274,7 @@ public class Ubicacion extends javax.swing.JFrame {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         AccionesCrud classcrud = new AccionesCrud();
         if (classcrud.Validar(txtUbicaciones, "La Ubicacion")) {
-            if (classcrud.Eliminar(txtID, "exec EliminarUbicacion ?", "usuario")) {
+            if (classcrud.Eliminar(txtID, "exec EliminarUbicacion ?")) {
                 CargarTabla();
                 Limpiar();
             }

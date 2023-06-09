@@ -246,11 +246,18 @@ public class PuestoTrabajo extends javax.swing.JFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         AccionesCrud classcrud = new AccionesCrud();
         if (classcrud.Validar(txtPuesto, "El Puesto")) {
-            if (classcrud.Guardar(txtPuesto, "exec AgregarPuesto ? ")) {
+             Object[] datos = new Object[1];
+       datos[0]= txtPuesto.getText();
+       if(classcrud.Guardar(datos, "exec AgregarPuesto ? ")){
+        txtID.setText("");
+                txtPuesto.setText("");
+                CargarTabla();
+       }
+         /*   if (classcrud.Guardar(txtPuesto, "exec AgregarPuesto ? ")) {
                 txtID.setText("");
                 txtPuesto.setText("");
                 CargarTabla();
-            }
+            }*/
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -267,7 +274,7 @@ public class PuestoTrabajo extends javax.swing.JFrame {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         AccionesCrud classcrud = new AccionesCrud();
         if (classcrud.Validar(txtPuesto, "El Puesto")) {
-            if (classcrud.Eliminar(txtID, "exec EliminarPuesto ?", "usuario")) {
+            if (classcrud.Eliminar(txtID, "exec EliminarPuesto ?")) {
                 CargarTabla();
                 Limpiar();
             }
