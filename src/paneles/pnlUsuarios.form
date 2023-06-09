@@ -143,7 +143,7 @@
                                               <Group type="102" attributes="0">
                                                   <Component id="cmbUbicacion" min="-2" pref="158" max="-2" attributes="0"/>
                                                   <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="btnCrudCC4" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="btnCrudUbi" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <Component id="jTextField6" min="-2" pref="158" max="-2" attributes="0"/>
                                           </Group>
@@ -151,9 +151,9 @@
                                   </Group>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="cmdPuestoTrabajo" min="-2" pref="158" max="-2" attributes="0"/>
+                                  <Component id="cmbPuesto" min="-2" pref="158" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="btnCrudCC1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnCrudPuesto" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -226,7 +226,7 @@
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="cmbUbicacion" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="btnCrudCC4" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                                      <Component id="btnCrudUbi" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
@@ -239,8 +239,8 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="cmdPuestoTrabajo" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnCrudCC1" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
+                              <Component id="cmbPuesto" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnCrudPuesto" alignment="3" min="-2" pref="26" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -321,14 +321,11 @@
             <Property name="text" type="java.lang.String" value="Puesto de Trabajo:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="cmdPuestoTrabajo">
+        <Component class="javax.swing.JComboBox" name="cmbPuesto">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Item 1"/>
-                <StringItem index="1" value="Item 2"/>
-                <StringItem index="2" value="Item 3"/>
-                <StringItem index="3" value="Item 4"/>
+              <StringArray count="1">
+                <StringItem index="0" value=" "/>
               </StringArray>
             </Property>
           </Properties>
@@ -417,11 +414,8 @@
         <Component class="javax.swing.JComboBox" name="cmbUbicacion">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Item 1"/>
-                <StringItem index="1" value="Item 2"/>
-                <StringItem index="2" value="Item 3"/>
-                <StringItem index="3" value="Item 4"/>
+              <StringArray count="1">
+                <StringItem index="0" value=" "/>
               </StringArray>
             </Property>
           </Properties>
@@ -440,11 +434,8 @@
         <Component class="javax.swing.JComboBox" name="cmbCategoria">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="Item 1"/>
-                <StringItem index="1" value="Item 2"/>
-                <StringItem index="2" value="Item 3"/>
-                <StringItem index="3" value="Item 4"/>
+              <StringArray count="1">
+                <StringItem index="0" value=" "/>
               </StringArray>
             </Property>
           </Properties>
@@ -522,12 +513,12 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCrudCCActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnCrudCC1">
+        <Component class="javax.swing.JButton" name="btnCrudPuesto">
           <Properties>
             <Property name="text" type="java.lang.String" value="+"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCrudCC1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCrudPuestoActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnCRUDPlanilla">
@@ -546,12 +537,12 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCrudCC3ActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnCrudCC4">
+        <Component class="javax.swing.JButton" name="btnCrudUbi">
           <Properties>
             <Property name="text" type="java.lang.String" value="+"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCrudCC4ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCrudUbiActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

@@ -1,16 +1,17 @@
 
 package paneles;
 import Clases.DatosTablas;
-import Clases.Reescalado_Imagenes;
+import paneles.ExtraUsuarios.Categoria;
 import paneles.ExtraUsuarios.CentroCosto;
 import paneles.ExtraUsuarios.Planilla;
+import paneles.ExtraUsuarios.PuestoTrabajo;
+import paneles.ExtraUsuarios.Ubicacion;
 
 public class pnlUsuarios extends javax.swing.JPanel {
 
 
     public pnlUsuarios() {
         initComponents();
-        Reescalado_Imagenes reescalar = new Reescalado_Imagenes();
         CargarDatosPrincipal();
         
         
@@ -22,6 +23,9 @@ public class pnlUsuarios extends javax.swing.JPanel {
         Datos.CargarTabla(tblUsuarios,null,"select * from VistaUsuarios");
         Datos.cargarComboBox("select CentroCosto from VistaCentroCosto", "CentroCosto", cmbCentroCosto);
         Datos.cargarComboBox("select Planilla from VistaPlanillas", "Planilla", cmbPlanilla);
+        Datos.cargarComboBox("select Puesto from VistaPuestosTrabajos", "Puesto", cmbPuesto);
+        Datos.cargarComboBox("select Ubicacion from VistaUbicaciones", "Ubicacion", cmbUbicacion);
+        Datos.cargarComboBox("select Categoria from VistaCategoriaUser", "Categoria", cmbCategoria);
         
     }
 
@@ -41,7 +45,7 @@ public class pnlUsuarios extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        cmdPuestoTrabajo = new javax.swing.JComboBox<>();
+        cmbPuesto = new javax.swing.JComboBox<>();
         cmbCentroCosto = new javax.swing.JComboBox<>();
         cmbPlanilla = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
@@ -59,10 +63,10 @@ public class pnlUsuarios extends javax.swing.JPanel {
         btnCodigo2 = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
         btnCrudCC = new javax.swing.JButton();
-        btnCrudCC1 = new javax.swing.JButton();
+        btnCrudPuesto = new javax.swing.JButton();
         btnCRUDPlanilla = new javax.swing.JButton();
         btnCrudCC3 = new javax.swing.JButton();
-        btnCrudCC4 = new javax.swing.JButton();
+        btnCrudUbi = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblUsuarios = new javax.swing.JTable();
 
@@ -98,7 +102,7 @@ public class pnlUsuarios extends javax.swing.JPanel {
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Puesto de Trabajo:");
 
-        cmdPuestoTrabajo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbPuesto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
 
         cmbCentroCosto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
 
@@ -123,12 +127,12 @@ public class pnlUsuarios extends javax.swing.JPanel {
         jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("Ubicacion:");
 
-        cmbUbicacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbUbicacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
 
         jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("Categoria:");
 
-        cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
 
         btnCodigo.setBackground(new java.awt.Color(114, 191, 68));
         btnCodigo.setText("Guardar");
@@ -169,10 +173,10 @@ public class pnlUsuarios extends javax.swing.JPanel {
             }
         });
 
-        btnCrudCC1.setText("+");
-        btnCrudCC1.addActionListener(new java.awt.event.ActionListener() {
+        btnCrudPuesto.setText("+");
+        btnCrudPuesto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCrudCC1ActionPerformed(evt);
+                btnCrudPuestoActionPerformed(evt);
             }
         });
 
@@ -190,10 +194,10 @@ public class pnlUsuarios extends javax.swing.JPanel {
             }
         });
 
-        btnCrudCC4.setText("+");
-        btnCrudCC4.addActionListener(new java.awt.event.ActionListener() {
+        btnCrudUbi.setText("+");
+        btnCrudUbi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCrudCC4ActionPerformed(evt);
+                btnCrudUbiActionPerformed(evt);
             }
         });
 
@@ -265,12 +269,12 @@ public class pnlUsuarios extends javax.swing.JPanel {
                                             .addGroup(jPanel1Layout.createSequentialGroup()
                                                 .addComponent(cmbUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(btnCrudCC4))
+                                                .addComponent(btnCrudUbi))
                                             .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(cmdPuestoTrabajo, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cmbPuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnCrudCC1)))))
+                                .addComponent(btnCrudPuesto)))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -325,7 +329,7 @@ public class pnlUsuarios extends javax.swing.JPanel {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel10)
                                     .addComponent(cmbUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnCrudCC4, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(btnCrudUbi, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel11)
@@ -334,8 +338,8 @@ public class pnlUsuarios extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
-                            .addComponent(cmdPuestoTrabajo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnCrudCC1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(cmbPuesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCrudPuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
 
@@ -404,9 +408,13 @@ public class pnlUsuarios extends javax.swing.JPanel {
         CrudCosto.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnCrudCCActionPerformed
 
-    private void btnCrudCC1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrudCC1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCrudCC1ActionPerformed
+    private void btnCrudPuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrudPuestoActionPerformed
+          //Abrir Formulario de CentroCosto
+        PuestoTrabajo PuestoTrabajo = new PuestoTrabajo(); 
+        PuestoTrabajo.setVisible(true);
+        PuestoTrabajo.pack();
+        PuestoTrabajo.setLocationRelativeTo(null);
+    }//GEN-LAST:event_btnCrudPuestoActionPerformed
 
     private void btnCRUDPlanillaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCRUDPlanillaActionPerformed
        //Abrir Formulario de CentroCosto
@@ -417,12 +425,20 @@ public class pnlUsuarios extends javax.swing.JPanel {
     }//GEN-LAST:event_btnCRUDPlanillaActionPerformed
 
     private void btnCrudCC3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrudCC3ActionPerformed
-        // TODO add your handling code here:
+         //Abrir Formulario de Categoria de usuario
+        Categoria CrudCategoria = new Categoria(); 
+        CrudCategoria.setVisible(true);
+        CrudCategoria.pack();
+        CrudCategoria.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnCrudCC3ActionPerformed
 
-    private void btnCrudCC4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrudCC4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCrudCC4ActionPerformed
+    private void btnCrudUbiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrudUbiActionPerformed
+        //Abrir Formulario de Ubicacion
+        Ubicacion CrudUbicacion = new Ubicacion(); 
+        CrudUbicacion.setVisible(true);
+        CrudUbicacion.pack();
+        CrudUbicacion.setLocationRelativeTo(null);
+    }//GEN-LAST:event_btnCrudUbiActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -432,14 +448,14 @@ public class pnlUsuarios extends javax.swing.JPanel {
     private javax.swing.JButton btnCodigo1;
     private javax.swing.JButton btnCodigo2;
     private javax.swing.JButton btnCrudCC;
-    private javax.swing.JButton btnCrudCC1;
     private javax.swing.JButton btnCrudCC3;
-    private javax.swing.JButton btnCrudCC4;
+    private javax.swing.JButton btnCrudPuesto;
+    private javax.swing.JButton btnCrudUbi;
     private javax.swing.JComboBox<String> cmbCategoria;
     private javax.swing.JComboBox<String> cmbCentroCosto;
     private javax.swing.JComboBox<String> cmbPlanilla;
+    private javax.swing.JComboBox<String> cmbPuesto;
     private javax.swing.JComboBox<String> cmbUbicacion;
-    private javax.swing.JComboBox<String> cmdPuestoTrabajo;
     private javax.swing.Box.Filler filler1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

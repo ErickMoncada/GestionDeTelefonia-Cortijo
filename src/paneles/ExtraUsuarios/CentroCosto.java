@@ -1,5 +1,6 @@
 package paneles.ExtraUsuarios;
 
+import Clases.AccionesCrud;
 import Clases.DatosTablas;
 import app.Conexion;
 import java.sql.Connection;
@@ -210,7 +211,15 @@ public class CentroCosto extends javax.swing.JFrame {
             new String [] {
                 "Numero Centro de Costo", "Nombre de centro de costo"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tblCentro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblCentroMouseClicked(evt);
@@ -319,23 +328,10 @@ public class CentroCosto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        String  id = txtNumero.getText();
-        try {
-            Connection con = Conexion.getConexion();
-            PreparedStatement ps = con.prepareStatement("exec EliminarCentroCosto ?");
-            ps.setString(1, id);
-            ps.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Registro Eliminado","Informacion",JOptionPane.INFORMATION_MESSAGE);
-            Limpiar();
-            CargarTabla();
-        } catch (SQLException e) {
-            int error=e.getErrorCode();
-            if (error==547){
-                JOptionPane.showMessageDialog(null, "El Centro de Costo NO se puede Eliminar por que esta asignado a un usuario","Error", JOptionPane.ERROR_MESSAGE);
-            }else{
-                JOptionPane.showMessageDialog(null, e.toString());
-            }
-
+         AccionesCrud classcrud = new AccionesCrud();
+            if (classcrud.Eliminar(txtNumero, "exec EliminarCentroCosto ?", "usuario")) {
+                CargarTabla();
+                Limpiar();       
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 

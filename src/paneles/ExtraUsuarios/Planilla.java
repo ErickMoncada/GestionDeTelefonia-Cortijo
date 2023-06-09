@@ -1,17 +1,11 @@
 package paneles.ExtraUsuarios;
 
+import Clases.AccionesCrud;
 import Clases.DatosTablas;
-import app.Conexion;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import javax.swing.JOptionPane;
 
 public class Planilla extends javax.swing.JFrame {
 
     public Planilla() {
-
         initComponents();
         CargarTabla();
         Limpiar();
@@ -23,15 +17,6 @@ public class Planilla extends javax.swing.JFrame {
         DatosTablas CrearTabla = new DatosTablas();
         int[] anchos = {50};
         CrearTabla.CargarTabla(tblCentro, anchos, "SELECT Planilla from [VistaPlanillas]");
-    }
-
-    //Funcion para Validar campos
-    private boolean Validar() {
-        if (txtPlanilla.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "La Planilla no puede estar en blanco", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            return false;
-        }
-        return true;
     }
 
     //desactivar botones y solo mostrar btnGurdar
@@ -194,7 +179,15 @@ public class Planilla extends javax.swing.JFrame {
             new String [] {
                 "Planilla"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tblCentro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblCentroMouseClicked(evt);
@@ -236,26 +229,14 @@ public class Planilla extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblCentroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCentroMouseClicked
-        try {
+        AccionesCrud classcrud = new AccionesCrud();
+        if (classcrud.CargarDatoClick(tblCentro, "SELECT [IDPlanilla],[Planilla] from VistaPlanillas where Planilla=?", "Planilla", "IDPlanilla", txtPlanilla, txtID)) {
             btnGuardar.setVisible(false);
             btnModificar.setVisible(true);
             btnEliminar.setVisible(true);
             btnCancelar.setVisible(true);
-            int fila = tblCentro.getSelectedRow();
-            String planilla = tblCentro.getValueAt(fila, 0).toString();
-            PreparedStatement ps;
-            ResultSet rs;
-            Connection con = Conexion.getConexion();
-            ps = con.prepareStatement("SELECT [IDPlanilla],[Planilla] from VistaPlanillas where Planilla=?");
-            ps.setString(1, planilla);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                txtPlanilla.setText(rs.getString("Planilla"));
-                txtID.setText(rs.getString("IDPlanilla"));
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e.toString());
         }
+
     }//GEN-LAST:event_tblCentroMouseClicked
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -263,60 +244,33 @@ public class Planilla extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        //Agregar datos a la BD por medio de Procedimientos Almacenados
-        if (Validar()) {
-            String planilla = txtPlanilla.getText();
-            try {
-                Connection con = Conexion.getConexion();
-                PreparedStatement ps = con.prepareStatement("exec AgregarPlanilla ? ");
-                ps.setString(1, planilla);
-                ps.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Registro guardado", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+        AccionesCrud classcrud = new AccionesCrud();
+        if (classcrud.Validar(txtPlanilla, "La Planilla")) {
+            if (classcrud.Guardar(txtPlanilla, "exec AgregarPlanilla ? ")) {
                 txtID.setText("");
                 txtPlanilla.setText("");
                 CargarTabla();
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, "Ups! " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        String planilla = txtPlanilla.getText();
-        String id = txtID.getText();
-
-        try {
-            Connection con = Conexion.getConexion();
-            PreparedStatement ps = con.prepareStatement("exec UpdatePlanilla ?,?");
-            ps.setString(1, id);
-            ps.setString(2, planilla);
-            ps.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Registro Actualizado", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-            CargarTabla();
-            Limpiar();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e.toString());
+        AccionesCrud classcrud = new AccionesCrud();
+        if (classcrud.Validar(txtPlanilla, "La Planilla")) {
+            if (classcrud.Modificar(txtPlanilla, txtID, "exec UpdatePlanilla ?,?")) {
+                CargarTabla();
+                Limpiar();
+            }
         }
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        String id = txtID.getText();
-        try {
-            Connection con = Conexion.getConexion();
-            PreparedStatement ps = con.prepareStatement("exec EliminarPlanilla ?");
-            ps.setString(1, id);
-            ps.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Registro Eliminado", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-            Limpiar();
-            CargarTabla();
-        } catch (SQLException e) {
-            int error = e.getErrorCode();
-            if (error == 547) {
-                JOptionPane.showMessageDialog(null, "La Planilla NO se puede Eliminar por que esta asignado a un usuario", "Error", JOptionPane.ERROR_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(null, e.toString());
+        AccionesCrud classcrud = new AccionesCrud();
+        if (classcrud.Validar(txtPlanilla, "La Ubicacion")) {
+            if (classcrud.Eliminar(txtID, "exec EliminarPlanilla ?", "usuario")) {
+                CargarTabla();
+                Limpiar();
             }
-
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
