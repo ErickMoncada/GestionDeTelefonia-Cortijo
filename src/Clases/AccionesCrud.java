@@ -19,6 +19,7 @@ public class AccionesCrud {
         }
         return true;
     }
+
     //Modificar datos a la BD por medio de Procedimientos Almacenados
     public boolean Modificar(JTextField txtdato, JTextField txtID, String exec) {
         String dato = txtdato.getText();
@@ -37,6 +38,7 @@ public class AccionesCrud {
             return false;
         }
     }
+
     //Agregar datos a la BD por medio de Procedimientos Almacenados
     public boolean Guardar(JTextField txtdato, String exec) {
         String dato = txtdato.getText();
@@ -52,9 +54,10 @@ public class AccionesCrud {
             return false;
         }
     }
+
     //Eliminar datos a la BD por medio de Procedimientos Almacenados
-    public boolean Eliminar(JTextField txtID,String exec,String AsignadoA){
-    String id = txtID.getText();
+    public boolean Eliminar(JTextField txtID, String exec, String AsignadoA) {
+        String id = txtID.getText();
         try {
             Connection con = Conexion.getConexion();
             PreparedStatement ps = con.prepareStatement(exec);
@@ -65,16 +68,17 @@ public class AccionesCrud {
         } catch (SQLException e) {
             int error = e.getErrorCode();
             if (error == 547) {
-                JOptionPane.showMessageDialog(null, "NO se puede Eliminar por que esta asignado a un "+AsignadoA, "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "NO se puede Eliminar por que esta asignado a un " + AsignadoA, "Error", JOptionPane.ERROR_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(null, e.toString());
             }
             return false;
         }
     }
+
     //Cargar datos al textfield cuando se preciona click en una celda
-    public boolean CargarDatoClick(JTable tblCentro,String exec,String ExecCampo,String ExecId,JTextField campo,JTextField ID){
-     try {
+    public boolean CargarDatoClick(JTable tblCentro, String exec, String ExecCampo, String ExecId, JTextField campo, JTextField ID) {
+        try {
             int fila = tblCentro.getSelectedRow();
             String dato = tblCentro.getValueAt(fila, 0).toString();
             PreparedStatement ps;
@@ -92,6 +96,28 @@ public class AccionesCrud {
             JOptionPane.showMessageDialog(null, e.toString());
             return false;
         }
-    
+
+    }
+
+    public boolean GuardarUsuario(Object[] datos, String exec) {
+        int longitud = datos.length;
+        try {
+            Connection con = Conexion.getConexion();
+            PreparedStatement ps = con.prepareStatement(exec);
+            for (int i = 0; i < longitud; i++) {
+                if (datos[i] instanceof String) {
+                    ps.setString(i + 1, (String) datos[i]);       
+                } else if (datos[i] instanceof Integer) {
+               ps.setInt(i + 1, (Integer) datos[i]);
+                }
+            }
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Registro guardado", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            return true;
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Ups! " + e.getMessage() + e.getSQLState(), "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
     }
 }

@@ -13,6 +13,8 @@ public class Login extends javax.swing.JFrame {
         //asignar icono mediante otra clase
         Reescalado_Imagenes reescalar = new Reescalado_Imagenes();
         setIconImage(reescalar.getIconImage());
+        String gato=System.getenv("PERRO");
+        System.out.println(gato);
     }
 
     @SuppressWarnings("unchecked")
