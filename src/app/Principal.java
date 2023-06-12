@@ -490,7 +490,7 @@ public class Principal extends javax.swing.JFrame {
 
     //Genera la accion para cambiar de panel llamando a la clase del paquete paneles y cambia los colores de los que se seleccionaron antes
     private void btnEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEquiposActionPerformed
-        new CambiaPanel(pnlPrincipal, new paneles.pnlUsuarios());
+        new CambiaPanel(pnlPrincipal, new paneles.pnlEquipos());
         if (this.btnEquipos.isSelected()) {
             this.btnEquipos.setColorNormal(new Color(204, 204, 204));
             this.btnUserTel.setColorNormal(new Color(239, 238, 244));

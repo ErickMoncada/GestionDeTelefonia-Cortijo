@@ -106,7 +106,11 @@ public class AccionesCrud {
                     ps.setString(i + 1, (String) datos[i]);
                 } else if (datos[i] instanceof Integer) {
                     ps.setInt(i + 1, (Integer) datos[i]);
+                } else if(datos[i] instanceof Double) {
+                    ps.setDouble(i + 1, (Double) datos[i]);
                 }
+            System.out.println(datos[i] );
+
             }
             ps.executeUpdate();
             JOptionPane.showMessageDialog(null, "Registro guardado", "Informacion", JOptionPane.INFORMATION_MESSAGE);

@@ -1,11 +1,12 @@
-package paneles.ExtraUsuarios;
+package paneles.ExtraEquipos;
 
+import paneles.ExtraUsuarios.*;
 import Clases.AccionesCrud;
 import Clases.DatosTablas;
 
-public class Planilla extends javax.swing.JFrame {
+public class Categoria extends javax.swing.JFrame {
 
-    public Planilla() {
+    public Categoria() {
         initComponents();
         CargarTabla();
         Limpiar();
@@ -16,7 +17,7 @@ public class Planilla extends javax.swing.JFrame {
     private void CargarTabla() {
         DatosTablas CrearTabla = new DatosTablas();
         int[] anchos = {50};
-        CrearTabla.CargarTabla(tblCentro, anchos, "SELECT Planilla from [VistaPlanillas]");
+        CrearTabla.CargarTabla(tblCentro, anchos, "SELECT Categoria from [VistaCategoriaEquipo]");
     }
 
     //desactivar botones y solo mostrar btnGurdar
@@ -25,7 +26,7 @@ public class Planilla extends javax.swing.JFrame {
         btnModificar.setVisible(false);
         btnEliminar.setVisible(false);
         btnCancelar.setVisible(false);
-        txtPlanilla.setText("");
+        txtCategoria.setText("");
         txtID.setText("");
     }
 
@@ -36,7 +37,7 @@ public class Planilla extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         lblPlanilla = new javax.swing.JLabel();
-        txtPlanilla = new javax.swing.JTextField();
+        txtCategoria = new javax.swing.JTextField();
         btnEliminar = new rsbuttom.RSButtonMetro();
         btnModificar = new rsbuttom.RSButtonMetro();
         btnGuardar = new rsbuttom.RSButtonMetro();
@@ -50,9 +51,9 @@ public class Planilla extends javax.swing.JFrame {
         setType(java.awt.Window.Type.POPUP);
 
         lblPlanilla.setForeground(new java.awt.Color(0, 0, 0));
-        lblPlanilla.setText("Planilla:");
+        lblPlanilla.setText("Categoria de Equipo:");
 
-        txtPlanilla.setPreferredSize(new java.awt.Dimension(65, 26));
+        txtCategoria.setPreferredSize(new java.awt.Dimension(65, 26));
 
         btnEliminar.setBackground(new java.awt.Color(114, 191, 68));
         btnEliminar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -140,7 +141,7 @@ public class Planilla extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(txtPlanilla, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -157,7 +158,7 @@ public class Planilla extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPlanilla)
-                    .addComponent(txtPlanilla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
                     .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -177,7 +178,7 @@ public class Planilla extends javax.swing.JFrame {
                 {null}
             },
             new String [] {
-                "Planilla"
+                "Categoria del equipo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -230,7 +231,7 @@ public class Planilla extends javax.swing.JFrame {
 
     private void tblCentroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCentroMouseClicked
         AccionesCrud classcrud = new AccionesCrud();
-        if (classcrud.CargarDatoClick(tblCentro, "SELECT [IDPlanilla],[Planilla] from VistaPlanillas where Planilla=?", "Planilla", "IDPlanilla", txtPlanilla, txtID)) {
+        if (classcrud.CargarDatoClick(tblCentro, "SELECT [ID],[Categoria] from VistaCategoriaEquipo where Categoria=?", "Categoria", "ID", txtCategoria, txtID)) {
             btnGuardar.setVisible(false);
             btnModificar.setVisible(true);
             btnEliminar.setVisible(true);
@@ -245,12 +246,12 @@ public class Planilla extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         AccionesCrud classcrud = new AccionesCrud();
-        if (classcrud.Validar(txtPlanilla, "La Planilla")) {
+        if (classcrud.Validar(txtCategoria, "La Categoria del equipo")) {
             Object[] datos = new Object[1];
-       datos[0]= txtPlanilla.getText();
-       if(classcrud.Guardar(datos, "exec AgregarPlanilla ? ")){
+       datos[0]= txtCategoria.getText();
+       if(classcrud.Guardar(datos, "exec AgregarCategoriaEquipo ? ")){
         txtID.setText("");
-                txtPlanilla.setText("");
+                txtCategoria.setText("");
                 CargarTabla();
        }
           /*  if (classcrud.Guardar(txtPlanilla, "exec AgregarPlanilla ? ")) {
@@ -263,8 +264,8 @@ public class Planilla extends javax.swing.JFrame {
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         AccionesCrud classcrud = new AccionesCrud();
-        if (classcrud.Validar(txtPlanilla, "La Planilla")) {
-            if (classcrud.Modificar(txtPlanilla, txtID, "exec UpdatePlanilla ?,?")) {
+        if (classcrud.Validar(txtCategoria, "La Categoria del equipo")) {
+            if (classcrud.Modificar(txtCategoria, txtID, "exec UpdateCategoriaEquipo ?,?")) {
                 CargarTabla();
                 Limpiar();
             }
@@ -273,8 +274,8 @@ public class Planilla extends javax.swing.JFrame {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         AccionesCrud classcrud = new AccionesCrud();
-        if (classcrud.Validar(txtPlanilla, "La Planilla")) {
-            if (classcrud.Eliminar(txtID, "exec EliminarPlanilla ?")) {
+        if (classcrud.Validar(txtCategoria, "La Categoria del equipo")) {
+            if (classcrud.Eliminar(txtID, "exec EliminarCategoriaEquipo ?")) {
                 CargarTabla();
                 Limpiar();
             }
@@ -299,7 +300,7 @@ public class Planilla extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblPlanilla;
     private javax.swing.JTable tblCentro;
+    private javax.swing.JTextField txtCategoria;
     private javax.swing.JTextField txtID;
-    private javax.swing.JTextField txtPlanilla;
     // End of variables declaration//GEN-END:variables
 }
