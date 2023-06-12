@@ -2,9 +2,14 @@ package paneles;
 
 import Clases.AccionesCrud;
 import Clases.DatosTablas;
+import java.awt.Color;
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import paneles.ExtraUsuarios.Categoria;
 import paneles.ExtraUsuarios.CentroCosto;
@@ -52,6 +57,60 @@ public class pnlUsuarios extends javax.swing.JPanel {
         Datos.cargarComboBox("select Ubicacion from VistaUbicaciones", "Ubicacion", cmbUbicacion);
         Datos.cargarComboBox("select Categoria from VistaCategoriaUser", "Categoria", cmbCategoria);
 
+    }
+
+    private void correcto(JTextField campo,JComboBox campo2) {
+        if(campo!= null){campo.setBackground(Color.WHITE);}
+       //if(campo!= null){ campo.setBackground(Color.BLACK);}
+        if(campo2!= null){campo2.setBackground(Color.WHITE);}
+    }
+
+    private void incorrecto(JTextField campo,JComboBox campo2) {
+        if(campo!= null){campo.setBackground(Color.RED);}
+        if(campo2!= null){campo2.setBackground(Color.RED);}
+        //campo.setForeground(Color.white);
+    }
+
+    private boolean ValidarCampos() {
+
+        int valor1 = 1;
+      
+            if (txtNumExpediente.getText().isEmpty() || !txtNumExpediente.getText().matches("\\d{0,4}")) {
+                valor1 = 0;
+                incorrecto(txtNumExpediente,null);
+            }
+            if (txtCodEmpleado.getText().isEmpty() || !txtCodEmpleado.getText().matches("\\d{0,6}")) {
+                valor1 = 0;
+                incorrecto(txtCodEmpleado,null);
+            }
+            if (txtNombre.getText().isEmpty() || !txtNombre.getText().matches("^[A-Za-z\\s]+$")) {
+                valor1 = 0;
+                incorrecto(txtNombre,null);
+            }
+            if (txtSAP.getText().isEmpty() || !txtSAP.getText().matches("\\d{8}")) {
+                valor1 = 0;
+                incorrecto(txtSAP,null);
+            }
+            if (cmbCentroCosto.getSelectedItem() == null) {
+                valor1 = 0;
+                incorrecto(null,cmbCentroCosto);
+            }
+            if (cmbPlanilla.getSelectedItem() == null) {
+                valor1 = 0;
+                incorrecto(null,cmbPlanilla);
+            }
+            if (cmbCategoria.getSelectedItem() == null) {
+                valor1 = 0;
+                incorrecto(null,cmbCategoria);
+            }
+            if (cmbPuesto.getSelectedItem() == null) {
+                valor1 = 0;
+                incorrecto(null,cmbPuesto);
+            }
+        
+
+        return valor1 == 1; //Expreciones regulares de los campos
+        //4 o menos digitos numericos 
     }
 
     @SuppressWarnings("unchecked")
@@ -103,25 +162,64 @@ public class pnlUsuarios extends javax.swing.JPanel {
         jLabel1.setText("Numero de Expediente:");
 
         txtNumExpediente.setPreferredSize(new java.awt.Dimension(65, 26));
+        txtNumExpediente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNumExpedienteKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNumExpedienteKeyTyped(evt);
+            }
+        });
 
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Nombre de usuario:");
 
         txtNombre.setPreferredSize(new java.awt.Dimension(65, 26));
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNombreKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
 
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Codigo Empleado:");
 
         txtCodEmpleado.setPreferredSize(new java.awt.Dimension(65, 26));
+        txtCodEmpleado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCodEmpleadoKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCodEmpleadoKeyTyped(evt);
+            }
+        });
 
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Puesto de Trabajo:");
 
         cmbPuesto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+        cmbPuesto.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbPuestoItemStateChanged(evt);
+            }
+        });
 
         cmbCentroCosto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+        cmbCentroCosto.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbCentroCostoItemStateChanged(evt);
+            }
+        });
 
         cmbPlanilla.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+        cmbPlanilla.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbPlanillaItemStateChanged(evt);
+            }
+        });
 
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Centro de Costo:");
@@ -130,6 +228,14 @@ public class pnlUsuarios extends javax.swing.JPanel {
         jLabel6.setText("Codigo SAP:");
 
         txtSAP.setPreferredSize(new java.awt.Dimension(65, 26));
+        txtSAP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSAPKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSAPKeyTyped(evt);
+            }
+        });
 
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Planilla:");
@@ -138,6 +244,11 @@ public class pnlUsuarios extends javax.swing.JPanel {
         jLabel9.setText("Jefe:");
 
         txtJefe.setPreferredSize(new java.awt.Dimension(65, 26));
+        txtJefe.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtJefeKeyTyped(evt);
+            }
+        });
 
         jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("Ubicacion:");
@@ -148,6 +259,11 @@ public class pnlUsuarios extends javax.swing.JPanel {
         jLabel11.setText("Categoria:");
 
         cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+        cmbCategoria.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbCategoriaItemStateChanged(evt);
+            }
+        });
 
         btnCrudCC.setText("+");
         btnCrudCC.addActionListener(new java.awt.event.ActionListener() {
@@ -530,21 +646,31 @@ public class pnlUsuarios extends javax.swing.JPanel {
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        Object[] datos = new Object[10];
-        datos[0] = Integer.parseInt(txtNumExpediente.getText());
-        datos[1] = txtNombre.getText();
-        datos[2] = Integer.parseInt(txtCodEmpleado.getText());
-        datos[3] = cmbCentroCosto.getSelectedItem().toString();
-        datos[4] = cmbPlanilla.getSelectedItem().toString();
-        datos[5] = txtSAP.getText();
-        datos[6] = cmbPuesto.getSelectedItem().toString();
-        datos[7] = txtJefe.getText();
-        datos[8] = cmbUbicacion.getSelectedItem().toString();
-        datos[9] = cmbCategoria.getSelectedItem().toString();
-        AccionesCrud classcrud = new AccionesCrud();
-        if (classcrud.Guardar(datos, "exec [AgregarUsuario] ?, ? ,?  ,? ,? ,? ,? ,? ,? ,?")) {
-            DatosTablas Datos = new DatosTablas();
-            Datos.CargarTabla(tblUsuarios, null, "select * from VistaUsuarios");
+        if (ValidarCampos()) {
+            Object[] datos = new Object[10];
+            datos[0] = Integer.parseInt(txtNumExpediente.getText());
+            datos[1] = txtNombre.getText();
+            datos[2] = Integer.parseInt(txtCodEmpleado.getText());
+            datos[3] = cmbCentroCosto.getSelectedItem().toString();
+            datos[4] = cmbPlanilla.getSelectedItem().toString();
+            datos[5] = txtSAP.getText();
+             try {
+                datos[6] = cmbPuesto.getSelectedItem().toString();
+            } catch (Exception e) {
+                datos[6] = "";
+            }
+            datos[7] = txtJefe.getText();
+            try {
+                datos[8] = cmbUbicacion.getSelectedItem().toString();
+            } catch (Exception e) {
+                datos[8] = "";
+            }
+            datos[9] = cmbCategoria.getSelectedItem().toString();
+            AccionesCrud classcrud = new AccionesCrud();
+            if (classcrud.Guardar(datos, "exec [AgregarUsuario] ?, ? ,?  ,? ,? ,? ,? ,? ,? ,?")) {
+                DatosTablas Datos = new DatosTablas();
+                Datos.CargarTabla(tblUsuarios, null, "select * from VistaUsuarios");
+            }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -627,13 +753,90 @@ public class pnlUsuarios extends javax.swing.JPanel {
     }//GEN-LAST:event_cmbBuscarItemStateChanged
 
     private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
-       DatosTablas BusquedaTabla = new DatosTablas();
+        DatosTablas BusquedaTabla = new DatosTablas();
         //se limpia la tabla
-         DefaultTableModel modelo = (DefaultTableModel) tblUsuarios.getModel();
-         modelo.setRowCount(0);
-         //se muestra los resultados de la busqueda
+        DefaultTableModel modelo = (DefaultTableModel) tblUsuarios.getModel();
+        modelo.setRowCount(0);
+        //se muestra los resultados de la busqueda
         BusquedaTabla.CargarTabla(tblUsuarios, null, "select * from VistaUsuarios where " + Busqueda + " LIKE '%" + txtBuscar.getText() + "%'");
     }//GEN-LAST:event_txtBuscarKeyReleased
+
+    private void txtNumExpedienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumExpedienteKeyReleased
+        correcto(txtNumExpediente,null);
+    }//GEN-LAST:event_txtNumExpedienteKeyReleased
+
+    private void txtCodEmpleadoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodEmpleadoKeyReleased
+        correcto(txtCodEmpleado,null);
+    }//GEN-LAST:event_txtCodEmpleadoKeyReleased
+
+    private void txtNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyReleased
+        correcto(txtNombre,null);
+    }//GEN-LAST:event_txtNombreKeyReleased
+
+    private void txtSAPKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSAPKeyReleased
+        correcto(txtSAP,null);
+    }//GEN-LAST:event_txtSAPKeyReleased
+
+    private void cmbCategoriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbCategoriaItemStateChanged
+        correcto(null,cmbCategoria);
+    }//GEN-LAST:event_cmbCategoriaItemStateChanged
+
+    private void cmbCentroCostoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbCentroCostoItemStateChanged
+        correcto(null,cmbCentroCosto);
+    }//GEN-LAST:event_cmbCentroCostoItemStateChanged
+
+    private void cmbPlanillaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbPlanillaItemStateChanged
+        correcto(null,cmbPlanilla);
+    }//GEN-LAST:event_cmbPlanillaItemStateChanged
+
+    private void cmbPuestoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbPuestoItemStateChanged
+        correcto(null,cmbPuesto);
+    }//GEN-LAST:event_cmbPuestoItemStateChanged
+
+    private void txtNumExpedienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumExpedienteKeyTyped
+        int key =evt.getKeyChar();
+        boolean numero = key >=48 && key     <=57 || key == KeyEvent.VK_BACK_SPACE;
+        if(txtNumExpediente.getText().length() == 4 || !numero){
+        evt.consume();
+        Toolkit.getDefaultToolkit().beep();
+        }
+    }//GEN-LAST:event_txtNumExpedienteKeyTyped
+
+    private void txtCodEmpleadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodEmpleadoKeyTyped
+        int key =evt.getKeyChar();
+        boolean numero = key >=48 && key     <=57 || key == KeyEvent.VK_BACK_SPACE;
+        if(txtCodEmpleado.getText().length() == 5 || !numero){
+        evt.consume();
+        Toolkit.getDefaultToolkit().beep();
+        }
+    }//GEN-LAST:event_txtCodEmpleadoKeyTyped
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+        int key =evt.getKeyChar();
+        boolean letra = (key >= 65 && key <= 90) || (key >= 97 && key <= 122 || key == KeyEvent.VK_SPACE || key == KeyEvent.VK_BACK_SPACE);
+        if(txtNombre.getText().length() == 80 || !letra ){
+            evt.consume();
+        Toolkit.getDefaultToolkit().beep();
+        }
+    }//GEN-LAST:event_txtNombreKeyTyped
+
+    private void txtSAPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSAPKeyTyped
+         int key =evt.getKeyChar();
+        boolean numero = key >=48 && key     <=57 || key == KeyEvent.VK_BACK_SPACE;
+        if(txtSAP.getText().length() == 8 || !numero){
+        evt.consume();
+        Toolkit.getDefaultToolkit().beep();
+        }
+    }//GEN-LAST:event_txtSAPKeyTyped
+
+    private void txtJefeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtJefeKeyTyped
+        int key =evt.getKeyChar();
+        boolean letra = (key >= 65 && key <= 90) || (key >= 97 && key <= 122 || key >=48 && key     <=57||  key == KeyEvent.VK_SPACE || key == KeyEvent.VK_BACK_SPACE);
+        if(txtJefe.getText().length() == 50 || !letra ){
+            evt.consume();
+        Toolkit.getDefaultToolkit().beep();
+        }
+    }//GEN-LAST:event_txtJefeKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
