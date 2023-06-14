@@ -41,22 +41,6 @@ public class AccionesCrud {
         }
     }
 
-    /*/Agregar datos a la BD por medio de Procedimientos Almacenados
-    public boolean GuardarBORRAR(JTextField txtdato, String exec) {
-        String dato = txtdato.getText();
-        try {
-            Connection con = Conexion.getConexion();
-            PreparedStatement ps = con.prepareStatement(exec);
-            ps.setString(1, dato);
-            ps.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Registro guardado", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-            return true;
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Ups! " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            return false;
-        }
-    }*/
-
     //Eliminar datos a la BD por medio de Procedimientos Almacenados
     public boolean Eliminar(JTextField txtID, String exec) {
         String id = txtID.getText();
@@ -106,10 +90,9 @@ public class AccionesCrud {
                     ps.setString(i + 1, (String) datos[i]);
                 } else if (datos[i] instanceof Integer) {
                     ps.setInt(i + 1, (Integer) datos[i]);
-                } else if(datos[i] instanceof Double) {
+                } else if (datos[i] instanceof Double) {
                     ps.setDouble(i + 1, (Double) datos[i]);
                 }
-            System.out.println(datos[i] );
 
             }
             ps.executeUpdate();
@@ -140,14 +123,13 @@ public class AccionesCrud {
         }
 
     }
-    
-    public void Busqueda(JTable tabla,String busqueda,String exec){
-      
-         
+
+    public void Busqueda(JTable tabla, String busqueda, String exec) {
+
         try {
             PreparedStatement ps;
             ResultSet rs;
-    Connection con = Conexion.getConexion();
+            Connection con = Conexion.getConexion();
             ps = con.prepareStatement(exec);
         } catch (SQLException ex) {
             Logger.getLogger(AccionesCrud.class.getName()).log(Level.SEVERE, null, ex);

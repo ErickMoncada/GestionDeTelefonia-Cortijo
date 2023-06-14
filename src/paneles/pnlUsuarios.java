@@ -7,6 +7,7 @@ import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -59,55 +60,58 @@ public class pnlUsuarios extends javax.swing.JPanel {
 
     }
 
-    private void correcto(JTextField campo,JComboBox campo2) {
-        if(campo!= null){campo.setBackground(Color.WHITE);}
-       //if(campo!= null){ campo.setBackground(Color.BLACK);}
-        if(campo2!= null){campo2.setBackground(Color.WHITE);}
+    private void correcto(JTextField campo, JComboBox campo2) {
+        if (campo != null) {
+            campo.setBackground(Color.WHITE);
+        }
+        //if(campo!= null){ campo.setBackground(Color.BLACK);}
+        if (campo2 != null) {
+            campo2.setBackground(Color.WHITE);
+        }
     }
 
-    private void incorrecto(JTextField campo,JComboBox campo2) {
-        if(campo!= null){campo.setBackground(Color.RED);}
-        if(campo2!= null){campo2.setBackground(Color.RED);}
+    private void incorrecto(JTextField campo, JComboBox campo2) {
+        if (campo != null) {
+            campo.setBackground(Color.RED);
+        }
+        if (campo2 != null) {
+            campo2.setBackground(Color.RED);
+        }
         //campo.setForeground(Color.white);
     }
 
     private boolean ValidarCampos() {
 
         int valor1 = 1;
-      
-            if (txtNumExpediente.getText().isEmpty() || !txtNumExpediente.getText().matches("\\d{0,4}")) {
-                valor1 = 0;
-                incorrecto(txtNumExpediente,null);
-            }
-            if (txtCodEmpleado.getText().isEmpty() || !txtCodEmpleado.getText().matches("\\d{0,6}")) {
-                valor1 = 0;
-                incorrecto(txtCodEmpleado,null);
-            }
-            if (txtNombre.getText().isEmpty() || !txtNombre.getText().matches("^[A-Za-z\\s]+$")) {
-                valor1 = 0;
-                incorrecto(txtNombre,null);
-            }
-            if (txtSAP.getText().isEmpty() || !txtSAP.getText().matches("\\d{8}")) {
-                valor1 = 0;
-                incorrecto(txtSAP,null);
-            }
-            if (cmbCentroCosto.getSelectedItem() == null) {
-                valor1 = 0;
-                incorrecto(null,cmbCentroCosto);
-            }
-            if (cmbPlanilla.getSelectedItem() == null) {
-                valor1 = 0;
-                incorrecto(null,cmbPlanilla);
-            }
-            if (cmbCategoria.getSelectedItem() == null) {
-                valor1 = 0;
-                incorrecto(null,cmbCategoria);
-            }
-            if (cmbPuesto.getSelectedItem() == null) {
-                valor1 = 0;
-                incorrecto(null,cmbPuesto);
-            }
-        
+
+        if (txtNumExpediente.getText().isEmpty() || !txtNumExpediente.getText().matches("\\d{0,4}")) {
+            valor1 = 0;
+            incorrecto(txtNumExpediente, null);
+        }
+        if (txtCodEmpleado.getText().isEmpty() || !txtCodEmpleado.getText().matches("\\d{0,6}")) {
+            valor1 = 0;
+            incorrecto(txtCodEmpleado, null);
+        }
+        if (txtNombre.getText().isEmpty() || !txtNombre.getText().matches("^[A-Za-z\\s]+$")) {
+            valor1 = 0;
+            incorrecto(txtNombre, null);
+        }
+        if (txtSAP.getText().isEmpty() || !txtSAP.getText().matches("\\d{8}")) {
+            valor1 = 0;
+            incorrecto(txtSAP, null);
+        }
+        if (cmbCentroCosto.getSelectedItem() == null) {
+            valor1 = 0;
+            incorrecto(null, cmbCentroCosto);
+        }
+        if (cmbPlanilla.getSelectedItem() == null) {
+            valor1 = 0;
+            incorrecto(null, cmbPlanilla);
+        }
+        if (cmbCategoria.getSelectedItem() == null) {
+            valor1 = 0;
+            incorrecto(null, cmbCategoria);
+        }
 
         return valor1 == 1; //Expreciones regulares de los campos
         //4 o menos digitos numericos 
@@ -118,6 +122,8 @@ public class pnlUsuarios extends javax.swing.JPanel {
     private void initComponents() {
 
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtNumExpediente = new javax.swing.JTextField();
@@ -154,9 +160,20 @@ public class pnlUsuarios extends javax.swing.JPanel {
         cmbBuscar = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
 
+        jMenuItem1.setText("Actualizar datos desplegables");
+        jMenuItem1.setName("actualizarTabla"); // NOI18N
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(jMenuItem1);
+
         setBackground(new java.awt.Color(255, 255, 255));
+        setComponentPopupMenu(jPopupMenu1);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setComponentPopupMenu(jPopupMenu1);
 
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Numero de Expediente:");
@@ -505,6 +522,7 @@ public class pnlUsuarios extends javax.swing.JPanel {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
+        jScrollPane1.setComponentPopupMenu(jPopupMenu1);
         jScrollPane1.setPreferredSize(new java.awt.Dimension(800, 403));
 
         tblUsuarios.setBackground(new java.awt.Color(204, 255, 204));
@@ -627,22 +645,37 @@ public class pnlUsuarios extends javax.swing.JPanel {
     }//GEN-LAST:event_btnCrudUbiActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        Object[] datos = new Object[10];
-        datos[0] = Integer.parseInt(txtNumExpediente.getText());
-        datos[1] = txtNombre.getText();
-        datos[2] = Integer.parseInt(txtCodEmpleado.getText());
-        datos[3] = cmbCentroCosto.getSelectedItem().toString();
-        datos[4] = cmbPlanilla.getSelectedItem().toString();
-        datos[5] = txtSAP.getText();
-        datos[6] = cmbPuesto.getSelectedItem().toString();
-        datos[7] = txtJefe.getText();
-        datos[8] = cmbUbicacion.getSelectedItem().toString();
-        datos[9] = cmbCategoria.getSelectedItem().toString();
-        AccionesCrud classcrud = new AccionesCrud();
-        if (classcrud.Guardar(datos, "exec [UpdateUsuario] ?, ? ,?  ,? ,? ,? ,? ,? ,? ,?")) {
-            DatosTablas Datos = new DatosTablas();
-            Datos.CargarTabla(tblUsuarios, null, "select * from VistaUsuarios");
+        if (ValidarCampos()) {
+            Object[] datos = new Object[10];
+            datos[0] = Integer.parseInt(txtNumExpediente.getText());
+            datos[1] = txtNombre.getText();
+            datos[2] = Integer.parseInt(txtCodEmpleado.getText());
+            datos[3] = cmbCentroCosto.getSelectedItem().toString();
+            datos[4] = cmbPlanilla.getSelectedItem().toString();
+            datos[5] = txtSAP.getText();
+
+            if (cmbPuesto.getSelectedItem() != null) {
+                datos[6] = cmbPuesto.getSelectedItem().toString();
+            } else {
+                datos[6] = "";
+            }
+
+            datos[7] = txtJefe.getText();
+
+            if (cmbUbicacion.getSelectedItem() != null) {
+                datos[8] = cmbUbicacion.getSelectedItem().toString();
+            } else {
+                datos[8] = "";
+            }
+
+            datos[9] = cmbCategoria.getSelectedItem().toString();
+            AccionesCrud classcrud = new AccionesCrud();
+            if (classcrud.Guardar(datos, "exec [UpdateUsuario] ?, ? ,?  ,? ,? ,? ,? ,? ,? ,?")) {
+                DatosTablas Datos = new DatosTablas();
+                Datos.CargarTabla(tblUsuarios, null, "select * from VistaUsuarios");
+            }
         }
+
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -654,17 +687,21 @@ public class pnlUsuarios extends javax.swing.JPanel {
             datos[3] = cmbCentroCosto.getSelectedItem().toString();
             datos[4] = cmbPlanilla.getSelectedItem().toString();
             datos[5] = txtSAP.getText();
-             try {
+
+            if (cmbPuesto.getSelectedItem() != null) {
                 datos[6] = cmbPuesto.getSelectedItem().toString();
-            } catch (Exception e) {
+            } else {
                 datos[6] = "";
             }
+
             datos[7] = txtJefe.getText();
-            try {
+
+            if (cmbUbicacion.getSelectedItem() != null) {
                 datos[8] = cmbUbicacion.getSelectedItem().toString();
-            } catch (Exception e) {
+            } else {
                 datos[8] = "";
             }
+
             datos[9] = cmbCategoria.getSelectedItem().toString();
             AccionesCrud classcrud = new AccionesCrud();
             if (classcrud.Guardar(datos, "exec [AgregarUsuario] ?, ? ,?  ,? ,? ,? ,? ,? ,? ,?")) {
@@ -762,81 +799,100 @@ public class pnlUsuarios extends javax.swing.JPanel {
     }//GEN-LAST:event_txtBuscarKeyReleased
 
     private void txtNumExpedienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumExpedienteKeyReleased
-        correcto(txtNumExpediente,null);
+        correcto(txtNumExpediente, null);
     }//GEN-LAST:event_txtNumExpedienteKeyReleased
 
     private void txtCodEmpleadoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodEmpleadoKeyReleased
-        correcto(txtCodEmpleado,null);
+        correcto(txtCodEmpleado, null);
     }//GEN-LAST:event_txtCodEmpleadoKeyReleased
 
     private void txtNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyReleased
-        correcto(txtNombre,null);
+        correcto(txtNombre, null);
     }//GEN-LAST:event_txtNombreKeyReleased
 
     private void txtSAPKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSAPKeyReleased
-        correcto(txtSAP,null);
+        correcto(txtSAP, null);
     }//GEN-LAST:event_txtSAPKeyReleased
 
     private void cmbCategoriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbCategoriaItemStateChanged
-        correcto(null,cmbCategoria);
+        correcto(null, cmbCategoria);
     }//GEN-LAST:event_cmbCategoriaItemStateChanged
 
     private void cmbCentroCostoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbCentroCostoItemStateChanged
-        correcto(null,cmbCentroCosto);
+        correcto(null, cmbCentroCosto);
     }//GEN-LAST:event_cmbCentroCostoItemStateChanged
 
     private void cmbPlanillaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbPlanillaItemStateChanged
-        correcto(null,cmbPlanilla);
+        correcto(null, cmbPlanilla);
     }//GEN-LAST:event_cmbPlanillaItemStateChanged
 
     private void cmbPuestoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbPuestoItemStateChanged
-        correcto(null,cmbPuesto);
+        correcto(null, cmbPuesto);
     }//GEN-LAST:event_cmbPuestoItemStateChanged
 
     private void txtNumExpedienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumExpedienteKeyTyped
-        int key =evt.getKeyChar();
-        boolean numero = key >=48 && key     <=57 || key == KeyEvent.VK_BACK_SPACE;
-        if(txtNumExpediente.getText().length() == 4 || !numero){
-        evt.consume();
-        Toolkit.getDefaultToolkit().beep();
+        int key = evt.getKeyChar();
+        boolean numero = key >= 48 && key <= 57 || key == KeyEvent.VK_BACK_SPACE;
+        if (txtNumExpediente.getText().length() == 4 || !numero) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
         }
     }//GEN-LAST:event_txtNumExpedienteKeyTyped
 
     private void txtCodEmpleadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodEmpleadoKeyTyped
-        int key =evt.getKeyChar();
-        boolean numero = key >=48 && key     <=57 || key == KeyEvent.VK_BACK_SPACE;
-        if(txtCodEmpleado.getText().length() == 5 || !numero){
-        evt.consume();
-        Toolkit.getDefaultToolkit().beep();
+        int key = evt.getKeyChar();
+        boolean numero = key >= 48 && key <= 57 || key == KeyEvent.VK_BACK_SPACE;
+        if (txtCodEmpleado.getText().length() == 5 || !numero) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
         }
     }//GEN-LAST:event_txtCodEmpleadoKeyTyped
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
-        int key =evt.getKeyChar();
+        int key = evt.getKeyChar();
         boolean letra = (key >= 65 && key <= 90) || (key >= 97 && key <= 122 || key == KeyEvent.VK_SPACE || key == KeyEvent.VK_BACK_SPACE);
-        if(txtNombre.getText().length() == 80 || !letra ){
+        if (txtNombre.getText().length() == 80 || !letra) {
             evt.consume();
-        Toolkit.getDefaultToolkit().beep();
+            Toolkit.getDefaultToolkit().beep();
         }
     }//GEN-LAST:event_txtNombreKeyTyped
 
     private void txtSAPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSAPKeyTyped
-         int key =evt.getKeyChar();
-        boolean numero = key >=48 && key     <=57 || key == KeyEvent.VK_BACK_SPACE;
-        if(txtSAP.getText().length() == 8 || !numero){
-        evt.consume();
-        Toolkit.getDefaultToolkit().beep();
+        int key = evt.getKeyChar();
+        boolean numero = key >= 48 && key <= 57 || key == KeyEvent.VK_BACK_SPACE;
+        if (txtSAP.getText().length() == 8 || !numero) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
         }
     }//GEN-LAST:event_txtSAPKeyTyped
 
     private void txtJefeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtJefeKeyTyped
-        int key =evt.getKeyChar();
-        boolean letra = (key >= 65 && key <= 90) || (key >= 97 && key <= 122 || key >=48 && key     <=57||  key == KeyEvent.VK_SPACE || key == KeyEvent.VK_BACK_SPACE);
-        if(txtJefe.getText().length() == 50 || !letra ){
+        int key = evt.getKeyChar();
+        boolean letra = (key >= 65 && key <= 90) || (key >= 97 && key <= 122 || key >= 48 && key <= 57 || key == KeyEvent.VK_SPACE || key == KeyEvent.VK_BACK_SPACE);
+        if (txtJefe.getText().length() == 50 || !letra) {
             evt.consume();
-        Toolkit.getDefaultToolkit().beep();
+            Toolkit.getDefaultToolkit().beep();
         }
     }//GEN-LAST:event_txtJefeKeyTyped
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        DatosTablas Datos = new DatosTablas();
+        // Lista de JComboBox para actualizar datos
+        JComboBox[] comboBoxes = {cmbCentroCosto, cmbPlanilla, cmbPuesto, cmbUbicacion, cmbCategoria};
+
+        // Recorrer cada JComboBox y eliminar los elementos
+        for (JComboBox comboBox : comboBoxes) {
+            DefaultComboBoxModel model = (DefaultComboBoxModel) comboBox.getModel();
+            model.removeAllElements();
+            model.addElement(""); 
+        }
+
+        Datos.cargarComboBox("select CentroCosto from VistaCentroCosto", "CentroCosto", cmbCentroCosto);
+        Datos.cargarComboBox("select Planilla from VistaPlanillas", "Planilla", cmbPlanilla);
+        Datos.cargarComboBox("select Puesto from VistaPuestosTrabajos", "Puesto", cmbPuesto);
+        Datos.cargarComboBox("select Ubicacion from VistaUbicaciones", "Ubicacion", cmbUbicacion);
+        Datos.cargarComboBox("select Categoria from VistaCategoriaUser", "Categoria", cmbCategoria);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -867,7 +923,9 @@ public class pnlUsuarios extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblUsuarios;
     private javax.swing.JTextField txtBuscar;

@@ -94,10 +94,11 @@ public class Principal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Telefonia-Cortijo");
         setMinimumSize(new java.awt.Dimension(1300, 700));
-        setPreferredSize(new java.awt.Dimension(1300, 700));
-        setSize(new java.awt.Dimension(1300, 700));
+        setPreferredSize(new java.awt.Dimension(1450, 700));
+        setSize(new java.awt.Dimension(1450, 700));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1450, 700));
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
         pnlMenu.setBackground(new java.awt.Color(239, 238, 244));
@@ -339,7 +340,7 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(btnMenu)
                 .addGap(18, 18, 18)
                 .addComponent(lblTituloTelefonia)
-                .addContainerGap(988, Short.MAX_VALUE))
+                .addContainerGap(1233, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -375,7 +376,7 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblHora)
-                .addContainerGap(777, Short.MAX_VALUE))
+                .addContainerGap(1022, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -458,16 +459,7 @@ public class Principal extends javax.swing.JFrame {
 
     //Genera la accion para cambiar de panel llamando a la clase del paquete paneles y cambia los colores de los que se seleccionaron antes
     private void btnFiniquitosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiniquitosActionPerformed
-        new CambiaPanel(pnlPrincipal, new paneles.pnlChat());
-        if (this.btnFiniquitos.isSelected()) {
-            this.btnFiniquitos.setColorNormal(new Color(204, 204, 204));
-            this.btnUserTel.setColorNormal(new Color(239, 238, 244));
-            this.btnEquipos.setColorNormal(new Color(239, 238, 244));
-            this.btnLineasTelefonicas.setColorNormal(new Color(239, 238, 244));
-            this.btnAjustes.setColorNormal(new Color(239, 238, 244));
-        } else {
-            this.btnFiniquitos.setColorNormal(new Color(239, 238, 244));
-        }
+       
     }//GEN-LAST:event_btnFiniquitosActionPerformed
 
     //Establecer el estado de seleccionado al correspondiente boton y los demas con el estado desactivado
@@ -523,16 +515,7 @@ public class Principal extends javax.swing.JFrame {
 
     //Genera la accion para cambiar de panel llamando a la clase del paquete paneles y cambia los colores de los que se seleccionaron antes
     private void btnAjustesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAjustesActionPerformed
-        new CambiaPanel(pnlPrincipal, new paneles.pnlAndroid());
-        if (this.btnAjustes.isSelected()) {
-            this.btnUserTel.setColorNormal(new Color(239, 238, 244));
-            this.btnEquipos.setColorNormal(new Color(239, 238, 244));
-            this.btnFiniquitos.setColorNormal(new Color(239, 238, 244));
-            this.btnLineasTelefonicas.setColorNormal(new Color(239, 238, 244));
-            this.btnAjustes.setColorNormal(new Color(204, 204, 204));
-        } else {
-            this.btnAjustes.setColorNormal(new Color(239, 238, 244));
-        }
+      
     }//GEN-LAST:event_btnAjustesActionPerformed
 
     //Establecer el estado de seleccionado al correspondiente boton y los demas con el estado desactivado
@@ -546,16 +529,7 @@ public class Principal extends javax.swing.JFrame {
 
     //Genera la accion para cambiar de panel llamando a la clase del paquete paneles y cambia los colores de los que se seleccionaron antes
     private void btnLineasTelefonicasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLineasTelefonicasActionPerformed
-        new CambiaPanel(pnlPrincipal, new paneles.pnlFeeBack());
-        if (this.btnLineasTelefonicas.isSelected()) {
-            this.btnUserTel.setColorNormal(new Color(239, 238, 244));
-            this.btnEquipos.setColorNormal(new Color(239, 238, 244));
-            this.btnFiniquitos.setColorNormal(new Color(239, 238, 244));
-            this.btnLineasTelefonicas.setColorNormal(new Color(204, 204, 204));
-            this.btnAjustes.setColorNormal(new Color(239, 238, 244));
-        } else {
-            this.btnLineasTelefonicas.setColorNormal(new Color(239, 238, 244));
-        }
+      
     }//GEN-LAST:event_btnLineasTelefonicasActionPerformed
 
     public static void main(String args[]) {

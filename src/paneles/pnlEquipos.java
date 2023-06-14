@@ -7,7 +7,12 @@ import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -26,8 +31,8 @@ public class pnlEquipos extends javax.swing.JPanel {
         Limpiar();
 
     }
-    //se inicializa para la busqueda por medio de Categoria
-    String Busqueda = "CategoriaUser";
+    //se inicializa para la busqueda por medio de Imei
+    String Busqueda = "Imei";
 
     private void Limpiar() {
         btnCancelar.setVisible(false);
@@ -48,7 +53,8 @@ public class pnlEquipos extends javax.swing.JPanel {
         txtCosto.setText("");
         txtNumFactura.setText("");
         txtComentario.setText("");
-
+        dtpPrestamo.setDate(null);
+        dtpCompra.setDate(null);
     }
 
     private void CargarDatosPrincipal() {
@@ -105,6 +111,9 @@ public class pnlEquipos extends javax.swing.JPanel {
     private void initComponents() {
 
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtNumIMEI = new javax.swing.JTextField();
@@ -149,9 +158,27 @@ public class pnlEquipos extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblEquipos = new javax.swing.JTable();
 
+        jMenuItem1.setText("Actualizar datos desplegables");
+        jMenuItem1.setName("actualizarTabla"); // NOI18N
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(jMenuItem1);
+
+        jMenuItem2.setText("Limpiar Campos");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(jMenuItem2);
+
         setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setComponentPopupMenu(jPopupMenu1);
 
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Numero de IMEI:");
@@ -344,6 +371,11 @@ public class pnlEquipos extends javax.swing.JPanel {
             }
         });
 
+        txtBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscarActionPerformed(evt);
+            }
+        });
         txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtBuscarKeyReleased(evt);
@@ -431,8 +463,8 @@ public class pnlEquipos extends javax.swing.JPanel {
                                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtNumIMEI, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -592,6 +624,7 @@ public class pnlEquipos extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        jScrollPane1.setComponentPopupMenu(jPopupMenu1);
         jScrollPane1.setPreferredSize(new java.awt.Dimension(800, 403));
 
         tblEquipos.setBackground(new java.awt.Color(204, 255, 204));
@@ -655,13 +688,31 @@ public class pnlEquipos extends javax.swing.JPanel {
                 txtNumExpediente.setText(rs.getString("NumeroExpediente"));
                 cmbEstado.setSelectedItem(rs.getString("Estado del Equipo"));
                 cmbTipo.setSelectedItem(rs.getString("Tipo"));
-                dtpPrestamo.setDateFormatString(rs.getString("FechaPrestamo"));
+
+                //formato para mostrar la fecha en el JDateChooser
+                SimpleDateFormat formatofecha = new SimpleDateFormat("yyyy-MM-dd");
+                Date fecha;
+                try {
+                    fecha = formatofecha.parse(rs.getString("FechaPrestamo"));
+                    dtpPrestamo.setDate(fecha);
+                } catch (ParseException ex) {
+                    Logger.getLogger(pnlEquipos.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
                 cmbCategoria.setSelectedItem(rs.getString("Categoria"));
                 cmbMarca.setSelectedItem(rs.getString("Marca"));
                 txtModelo.setText(rs.getString("Modelo"));
                 txtAccesorio.setText(rs.getString("Accesorio"));
                 cmbLugar.setSelectedItem(rs.getString("Lugar"));
-                dtpCompra.setDateFormatString(rs.getString("FechaCompra"));
+
+                //formato para mostrar la fecha en el JDateChooser
+                try {
+                    fecha = formatofecha.parse(rs.getString("FechaCompra"));
+                    dtpCompra.setDate(fecha);
+                } catch (ParseException ex) {
+                    Logger.getLogger(pnlEquipos.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
                 txtCosto.setText(rs.getString("CostoEquipo"));
                 txtComentario.setText(rs.getString("Comentario"));
                 txtNumFactura.setText(rs.getString("NumDoc"));
@@ -690,27 +741,55 @@ public class pnlEquipos extends javax.swing.JPanel {
         if (ValidarCampos()) {
             Object[] datos = new Object[14];
             datos[0] = txtNumIMEI.getText();
-            datos[1] = cmbEstado.getSelectedItem().toString();
+            if (cmbEstado.getSelectedItem() != null) {
+                datos[1] = cmbEstado.getSelectedItem().toString();
+            } else {
+                datos[1] = "";
+            }
             datos[2] = Integer.parseInt(txtNumExpediente.getText());
-            
-            Date date2=dtpCompra.getDate();
-            long d2 = date2.getTime();
-            java.sql.Date fecha2 = new java.sql.Date(d2);
-            datos[3] = fecha2.toString();
-            
-            datos[4] = cmbTipo.getSelectedItem().toString();
-            datos[5] = cmbCategoria.getSelectedItem().toString();
-            datos[6] = cmbMarca.getSelectedItem().toString();
+            try {
+                Date date2 = dtpPrestamo.getDate();
+                long d2 = date2.getTime();
+                java.sql.Date fecha2 = new java.sql.Date(d2);
+                datos[3] = fecha2.toString();
+            } catch (Exception e) {
+                datos[3] = "";
+            }
+            if (cmbTipo.getSelectedItem() != null) {
+                datos[4] = cmbTipo.getSelectedItem().toString();
+            } else {
+                datos[4] = "";
+            }
+            if (cmbCategoria.getSelectedItem() != null) {
+                datos[5] = cmbCategoria.getSelectedItem().toString();
+            } else {
+                datos[5] = "";
+            }
+            if (cmbMarca.getSelectedItem() != null) {
+                datos[6] = cmbMarca.getSelectedItem().toString();
+            } else {
+                datos[6] = "";
+            }
             datos[7] = txtModelo.getText();
             datos[8] = txtAccesorio.getText();
-            datos[9] = cmbLugar.getSelectedItem().toString();
-            
-            Date date=dtpCompra.getDate();
-            long d = date.getTime();
-            java.sql.Date fecha = new java.sql.Date(d);
-            datos[10] = fecha.toString();
-            
-            datos[11] = Double.parseDouble(txtCosto.getText());
+            if (cmbLugar.getSelectedItem() != null) {
+                datos[9] = cmbLugar.getSelectedItem().toString();
+            } else {
+                datos[9] = "";
+            }
+            try {
+                Date date = dtpCompra.getDate();
+                long d = date.getTime();
+                java.sql.Date fecha = new java.sql.Date(d);
+                datos[10] = fecha.toString();
+            } catch (Exception e) {
+                datos[10] = "";
+            }
+            try {
+                datos[11] = Double.parseDouble(txtCosto.getText());
+            } catch (NumberFormatException e) {
+                datos[11] = "";
+            }
             datos[12] = txtNumFactura.getText();
             datos[13] = txtComentario.getText();
             AccionesCrud classcrud = new AccionesCrud();
@@ -725,17 +804,55 @@ public class pnlEquipos extends javax.swing.JPanel {
         if (ValidarCampos()) {
             Object[] datos = new Object[14];
             datos[0] = txtNumIMEI.getText();
-            datos[1] = cmbEstado.getSelectedItem().toString();
-            datos[2] = txtNumExpediente.getText();
-            datos[3] = dtpPrestamo.getDateFormatString();
-            datos[4] = cmbTipo.getSelectedItem().toString();
-            datos[5] = cmbCategoria.getSelectedItem().toString();
-            datos[6] = cmbMarca.getSelectedItem().toString();
+            if (cmbEstado.getSelectedItem() != null) {
+                datos[1] = cmbEstado.getSelectedItem().toString();
+            } else {
+                datos[1] = "";
+            }
+            datos[2] = Integer.parseInt(txtNumExpediente.getText());
+            try {
+                Date date2 = dtpPrestamo.getDate();
+                long d2 = date2.getTime();
+                java.sql.Date fecha2 = new java.sql.Date(d2);
+                datos[3] = fecha2.toString();
+            } catch (Exception e) {
+                datos[3] = "";
+            }
+            if (cmbTipo.getSelectedItem() != null) {
+                datos[4] = cmbTipo.getSelectedItem().toString();
+            } else {
+                datos[4] = "";
+            }
+            if (cmbCategoria.getSelectedItem() != null) {
+                datos[5] = cmbCategoria.getSelectedItem().toString();
+            } else {
+                datos[5] = "";
+            }
+            if (cmbMarca.getSelectedItem() != null) {
+                datos[6] = cmbMarca.getSelectedItem().toString();
+            } else {
+                datos[6] = "";
+            }
             datos[7] = txtModelo.getText();
             datos[8] = txtAccesorio.getText();
-            datos[9] = cmbLugar.getSelectedItem().toString();
-            datos[10] = dtpCompra.getDateFormatString();
-            datos[11] = txtCosto.getText();
+            if (cmbLugar.getSelectedItem() != null) {
+                datos[9] = cmbLugar.getSelectedItem().toString();
+            } else {
+                datos[9] = "";
+            }
+            try {
+                Date date = dtpCompra.getDate();
+                long d = date.getTime();
+                java.sql.Date fecha = new java.sql.Date(d);
+                datos[10] = fecha.toString();
+            } catch (Exception e) {
+                datos[10] = "";
+            }
+            try {
+                datos[11] = Double.parseDouble(txtCosto.getText());
+            } catch (NumberFormatException e) {
+                datos[11] = "";
+            }
             datos[12] = txtNumFactura.getText();
             datos[13] = txtComentario.getText();
             AccionesCrud classcrud = new AccionesCrud();
@@ -870,11 +987,12 @@ public class pnlEquipos extends javax.swing.JPanel {
 
     private void txtCostoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCostoKeyTyped
         int key = evt.getKeyChar();
-        boolean numero = key >= 48 && key <= 57 || key == 46 || key == KeyEvent.VK_BACK_SPACE;
+        boolean numero = (key >= 48 && key <= 57) || (key == 46 && !txtCosto.getText().contains(".")) || key == KeyEvent.VK_BACK_SPACE;
         if (txtCosto.getText().length() == 8 || !numero) {
             evt.consume();
             Toolkit.getDefaultToolkit().beep();
         }
+
     }//GEN-LAST:event_txtCostoKeyTyped
 
     private void txtAccesorioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAccesorioKeyTyped
@@ -928,6 +1046,33 @@ public class pnlEquipos extends javax.swing.JPanel {
         correcto(txtNumIMEI, null);
     }//GEN-LAST:event_txtNumIMEIKeyReleased
 
+    private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscarActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        DatosTablas Datos = new DatosTablas();
+        // Lista de JComboBox para actualizar datos
+        JComboBox[] comboBoxes = {cmbEstado, cmbTipo, cmbCategoria, cmbMarca,cmbLugar };
+
+        // Recorrer cada JComboBox y eliminar los elementos
+        for (JComboBox comboBox : comboBoxes) {
+            DefaultComboBoxModel model = (DefaultComboBoxModel) comboBox.getModel();
+            model.removeAllElements();
+            model.addElement("");
+        }
+
+        Datos.cargarComboBox("select Categoria from VistaCategoriaEquipo", "Categoria", cmbCategoria);
+        Datos.cargarComboBox("select Marca from VistaMarcaEquipos", "Marca", cmbMarca);
+        Datos.cargarComboBox("select Lugar from VistaLugarCompra", "Lugar", cmbLugar);
+        Datos.cargarComboBox("select Estado from VistaEstadoEquipos", "Estado", cmbEstado);
+        Datos.cargarComboBox("select Tipo from VistaTipoEquipos", "Tipo", cmbTipo);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        Limpiar();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rsbuttom.RSButtonMetro btnCancelar;
@@ -963,7 +1108,10 @@ public class pnlEquipos extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblEquipos;
     private javax.swing.JTextField txtAccesorio;
