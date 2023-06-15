@@ -110,7 +110,6 @@ public class pnlEquipos extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
         jPopupMenu1 = new javax.swing.JPopupMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -1092,7 +1091,6 @@ public class pnlEquipos extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cmbTipo;
     private com.toedter.calendar.JDateChooser dtpCompra;
     private com.toedter.calendar.JDateChooser dtpPrestamo;
-    private javax.swing.Box.Filler filler1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel13;

@@ -529,7 +529,16 @@ public class Principal extends javax.swing.JFrame {
 
     //Genera la accion para cambiar de panel llamando a la clase del paquete paneles y cambia los colores de los que se seleccionaron antes
     private void btnLineasTelefonicasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLineasTelefonicasActionPerformed
-      
+       new CambiaPanel(pnlPrincipal, new paneles.pnlLineasTelefonicas());
+        if (this.btnEquipos.isSelected()) {
+            this.btnEquipos.setColorNormal(new Color(204, 204, 204));
+            this.btnUserTel.setColorNormal(new Color(239, 238, 244));
+            this.btnFiniquitos.setColorNormal(new Color(239, 238, 244));
+            this.btnLineasTelefonicas.setColorNormal(new Color(239, 238, 244));
+            this.btnAjustes.setColorNormal(new Color(239, 238, 244));
+        } else {
+            this.btnEquipos.setColorNormal(new Color(239, 238, 244));
+        }
     }//GEN-LAST:event_btnLineasTelefonicasActionPerformed
 
     public static void main(String args[]) {
