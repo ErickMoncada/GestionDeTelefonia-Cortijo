@@ -32,6 +32,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         initComponents();
         CargarDatosPrincipal();
         Limpiar();
+        txtOtro.setVisible(false);
         btgPago.add(rdbSiSeguro);
         btgPago.add(rdbNoSeguro);
         btgFirma.add(rdbSiFirma);
@@ -62,7 +63,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         //rellenar datos de la tabla
         DatosTablas Datos = new DatosTablas();
         Datos.CargarTabla(tblLineas, null, "select * from [VistaLineasTelefonicas]");
-        Datos.cargarComboBox("select Disponible from VistaEstadoEquipos", "Disponible", cmbDisponibilidad);
+        Datos.cargarComboBox("select Disponible from VistaDisponibilidades", "Disponible", cmbDisponibilidad);
 
     }
 
@@ -90,7 +91,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
 
         int valor1 = 1;
 
-        if (txtLinea.getText().isEmpty() || !txtLinea.getText().matches("\\d{15}")) {
+        if (txtLinea.getText().isEmpty() ) {
             valor1 = 0;
             incorrecto(txtLinea, null);
         }
@@ -98,6 +99,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
             valor1 = 0;
             incorrecto(txtNumExpediente, null);
         }
+
 
         return valor1 == 1; //Expreciones regulares de los campos
         //4 o menos digitos numericos 
@@ -266,7 +268,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
             }
         });
 
-        cmbBuscar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Linea de Telefono", "N. expediente", "IMEI" }));
+        cmbBuscar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "IMEI", "Linea de Telefono", "N. expediente" }));
         cmbBuscar.setSelectedItem("IMEI");
         cmbBuscar.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -348,7 +350,6 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
 
         txtCuotas.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
 
-        txtYear.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         txtYear.setMaximum(2100);
         txtYear.setMinimum(1980);
 
@@ -408,15 +409,37 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         jLabel15.setForeground(new java.awt.Color(0, 0, 0));
         jLabel15.setText("Reconocimiento Mensual:");
 
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("Firma:");
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 12, -1, -1));
 
         rdbSiFirma.setText("SI");
+        rdbSiFirma.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                rdbSiFirmaItemStateChanged(evt);
+            }
+        });
+        jPanel2.add(rdbSiFirma, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 6, -1, -1));
 
         rdbNoFirma.setText("NO");
+        rdbNoFirma.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                rdbNoFirmaItemStateChanged(evt);
+            }
+        });
+        jPanel2.add(rdbNoFirma, new org.netbeans.lib.awtextra.AbsoluteConstraints(143, 6, -1, -1));
 
         rdbOtro.setText("Otro");
+        rdbOtro.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                rdbOtroItemStateChanged(evt);
+            }
+        });
+        jPanel2.add(rdbOtro, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 46, -1, -1));
 
+        txtOtro.setBackground(new java.awt.Color(255, 255, 255));
         txtOtro.setForeground(new java.awt.Color(0, 0, 0));
         txtOtro.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         txtOtro.setPreferredSize(new java.awt.Dimension(65, 26));
@@ -428,40 +451,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
                 txtOtroKeyTyped(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(jLabel9)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(rdbOtro)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtOtro, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(rdbSiFirma)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(rdbNoFirma)))
-                .addContainerGap(26, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(rdbSiFirma)
-                    .addComponent(rdbNoFirma))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rdbOtro)
-                    .addComponent(txtOtro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(16, 16, 16))
-        );
+        jPanel2.add(txtOtro, new org.netbeans.lib.awtextra.AbsoluteConstraints(163, 48, 165, -1));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -505,9 +495,9 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
                                                 .addComponent(jLabel18)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(txtCuotas, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(94, 94, 94)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addGap(207, 207, 207)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -518,15 +508,16 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
                                     .addComponent(dtpCambio, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(dtpAsignacion, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(91, 91, 91)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel8)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(rdbSiSeguro)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(rdbNoSeguro)))))
+                                        .addComponent(rdbNoSeguro)
+                                        .addGap(107, 107, 107)))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -626,17 +617,16 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(txtPresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(txtMensual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel15))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtMensual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel15)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(rdbSiSeguro)
                                 .addComponent(rdbNoSeguro)
                                 .addComponent(jLabel8)))
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
@@ -756,8 +746,6 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
                     default:
                         break;
                 }
-                
-                
 
             }
             txtLinea.enable(false);
@@ -772,47 +760,139 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         AccionesCrud classcrud = new AccionesCrud();
-        if (classcrud.Eliminar(txtLinea, "exec EliminarEquipo ?")) {
+        if (classcrud.Eliminar(txtLinea, "exec EliminarLineaTelefonica ?")) {
             DatosTablas Datos = new DatosTablas();
-            Datos.CargarTabla(tblLineas, null, "select * from [VistaEquipos]");
+            Datos.CargarTabla(tblLineas, null, "select * from [VistaLineasTelefonicas]");
             Limpiar();
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         if (ValidarCampos()) {
-            Object[] datos = new Object[14];
+            Object[] datos = new Object[15];
             datos[0] = txtLinea.getText();
+            datos[1] = txtNumExpediente.getText();
             if (cmbDisponibilidad.getSelectedItem() != null) {
-                datos[1] = cmbDisponibilidad.getSelectedItem().toString();
+                datos[2] = cmbDisponibilidad.getSelectedItem().toString();
             } else {
-                datos[1] = "";
+                datos[2] = "";
             }
-            datos[2] = Integer.parseInt(txtNumExpediente.getText());
+            datos[3] = txtYear.getYear();
+            datos[4] = (Integer) txtCuotas.getValue();
+            datos[5] = txtImei.getText();
+            try {
+                Date date = dtpAsignacion.getDate();
+                long d = date.getTime();
+                java.sql.Date fecha = new java.sql.Date(d);
+                datos[6] = fecha.toString();
+            } catch (Exception e) {
+                datos[6] = "";
+            }
+            try {
+                Date date = dtpCambio.getDate();
+                long d = date.getTime();
+                java.sql.Date fecha = new java.sql.Date(d);
+                datos[7] = fecha.toString();
+            } catch (Exception e) {
+                datos[7] = "";
+            }
+            try {
+                Date date = dtpFacturacion.getDate();
+                long d = date.getTime();
+                java.sql.Date fecha = new java.sql.Date(d);
+                datos[8] = fecha.toString();
+            } catch (Exception e) {
+                datos[8] = "";
+            }
+
+            if (rdbSiSeguro.isSelected() == true) {
+                datos[9] = 1;
+            } else if (rdbNoSeguro.isSelected() == true) {
+                datos[9] = 2;
+            }
+
+            if (rdbSiFirma.isSelected() == true) {
+                datos[10] = "SI";
+            } else if (rdbNoFirma.isSelected() == true) {
+                datos[10] = "NO";
+            } else if (rdbOtro.isSelected() == true) {
+                datos[10] = txtOtro.getText();
+            }
+
+            datos[11] = Double.parseDouble(txtAnterior.getText());
+            datos[12] = Double.parseDouble(txtNuevo.getText());
+            datos[13] = Double.parseDouble(txtPresupuesto.getText());
+            datos[14] = Double.parseDouble(txtMensual.getText());
 
             AccionesCrud classcrud = new AccionesCrud();
-            if (classcrud.Guardar(datos, "exec [AgregarEquipo] ?, ? ,?  ,? ,? ,? ,? ,? ,? ,?,?,?,?,?")) {
+            if (classcrud.Guardar(datos, "exec [AgregarLineaTelefonica] ?, ? ,?  ,? ,? ,? ,? ,? ,? ,?,?,?,?,?,?")) {
                 DatosTablas Datos = new DatosTablas();
-                Datos.CargarTabla(tblLineas, null, "select * from [VistaEquipos]");
+                Datos.CargarTabla(tblLineas, null, "select * from [VistaLineasTelefonicas]");
             }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         if (ValidarCampos()) {
-            Object[] datos = new Object[14];
+            Object[] datos = new Object[15];
             datos[0] = txtLinea.getText();
+            datos[1] = txtNumExpediente.getText();
             if (cmbDisponibilidad.getSelectedItem() != null) {
-                datos[1] = cmbDisponibilidad.getSelectedItem().toString();
+                datos[2] = cmbDisponibilidad.getSelectedItem().toString();
             } else {
-                datos[1] = "";
+                datos[2] = "";
             }
-            datos[2] = Integer.parseInt(txtNumExpediente.getText());
+            datos[3] = txtYear.getYear();
+            datos[4] = (Integer) txtCuotas.getValue();
+            datos[5] = txtImei.getText();
+            try {
+                Date date = dtpAsignacion.getDate();
+                long d = date.getTime();
+                java.sql.Date fecha = new java.sql.Date(d);
+                datos[6] = fecha.toString();
+            } catch (Exception e) {
+                datos[6] = "";
+            }
+            try {
+                Date date = dtpCambio.getDate();
+                long d = date.getTime();
+                java.sql.Date fecha = new java.sql.Date(d);
+                datos[7] = fecha.toString();
+            } catch (Exception e) {
+                datos[7] = "";
+            }
+            try {
+                Date date = dtpFacturacion.getDate();
+                long d = date.getTime();
+                java.sql.Date fecha = new java.sql.Date(d);
+                datos[8] = fecha.toString();
+            } catch (Exception e) {
+                datos[8] = "";
+            }
 
+            if (rdbSiSeguro.isSelected() == true) {
+                datos[9] = 1;
+            } else if (rdbNoSeguro.isSelected() == true) {
+                datos[9] =  2;
+            }
+
+            if (rdbSiFirma.isSelected() == true) {
+                datos[10] = "SI";
+            } else if (rdbNoFirma.isSelected() == true) {
+                datos[10] = "NO";
+            } else if (rdbOtro.isSelected() == true) {
+                datos[10] = txtOtro.getText();
+            }
+
+            datos[11] = Double.parseDouble(txtAnterior.getText());
+            datos[12] = Double.parseDouble(txtNuevo.getText());
+            datos[13] = Double.parseDouble(txtPresupuesto.getText());
+            datos[14] = Double.parseDouble(txtMensual.getText());
+            
             AccionesCrud classcrud = new AccionesCrud();
-            if (classcrud.Guardar(datos, "exec [UpdateEquipo] ?, ? ,?  ,? ,? ,? ,? ,? ,? ,?,?,?,?,?")) {
+            if (classcrud.Guardar(datos, "exec [UpdateLineaTelefonica] ?, ? ,?  ,? ,? ,? ,? ,? ,? ,?,?,?,?,?,?")) {
                 DatosTablas Datos = new DatosTablas();
-                Datos.CargarTabla(tblLineas, null, "select * from [VistaEquipos]");
+                Datos.CargarTabla(tblLineas, null, "select * from [VistaLineasTelefonicas]");
             }
         }
     }//GEN-LAST:event_btnModificarActionPerformed
@@ -820,28 +900,16 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
     //Funicon para asignar el tipo de busqueda que se va hacer por medio de un switc y los valores de la vista de la BD
     private void cmbBuscarItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbBuscarItemStateChanged
         String elementoSeleccionado = (String) cmbBuscar.getSelectedItem();
-        switch (elementoSeleccionado) {
-            case "Categoria":
-                Busqueda = "Categoria";
-                break;
-            case "Comentario":
-                Busqueda = "Comentario";
-                break;
-            case "Estado":
-                Busqueda = "Estado del Equipo";
-                break;
+        switch (elementoSeleccionado) {        
             case "IMEI":
                 Busqueda = "Imei";
                 break;
-            case "Marca":
-                Busqueda = "Marca";
+            case "Linea de Telefono":
+                Busqueda = "Linea";
                 break;
-            case "N. Expediente":
-                Busqueda = "NumeroExpediente";
-                break;
-            case "Tipo":
-                Busqueda = "Tipo";
-                break;
+            case "N. expediente":
+                Busqueda = "Expediente";
+                break;         
             default:
                 break;
         }
@@ -853,7 +921,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         DefaultTableModel modelo = (DefaultTableModel) tblLineas.getModel();
         modelo.setRowCount(0);
         //se muestra los resultados de la busqueda
-        BusquedaTabla.CargarTabla(tblLineas, null, "select * from VistaEquipos where " + Busqueda + " LIKE '%" + txtBuscar.getText() + "%'");
+        BusquedaTabla.CargarTabla(tblLineas, null, "select * from VistaLineasTelefonicas where " + Busqueda + " LIKE '%" + txtBuscar.getText() + "%'");
     }//GEN-LAST:event_txtBuscarKeyReleased
 
     private void btnDisponibilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDisponibilidadActionPerformed
@@ -914,7 +982,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
             model.addElement("");
         }
 
-        Datos.cargarComboBox("select Estado from VistaEstadoEquipos", "Estado", cmbDisponibilidad);
+        Datos.cargarComboBox("select Disponible from VistaDisponibilidades", "Disponible", cmbDisponibilidad);
 
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
@@ -974,6 +1042,20 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
     private void txtOtroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtOtroKeyReleased
         // TODO add your handling code here:
     }//GEN-LAST:event_txtOtroKeyReleased
+
+    private void rdbNoFirmaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rdbNoFirmaItemStateChanged
+        txtOtro.setVisible(false);
+    }//GEN-LAST:event_rdbNoFirmaItemStateChanged
+
+    private void rdbSiFirmaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rdbSiFirmaItemStateChanged
+        txtOtro.setVisible(false);
+    }//GEN-LAST:event_rdbSiFirmaItemStateChanged
+
+    private void rdbOtroItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rdbOtroItemStateChanged
+        txtOtro.setVisible(true);
+        txtOtro.requestFocus();
+        txtOtro.setBackground(Color.white);
+    }//GEN-LAST:event_rdbOtroItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
