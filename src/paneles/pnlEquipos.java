@@ -178,10 +178,13 @@ public class pnlEquipos extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setComponentPopupMenu(jPopupMenu1);
+        jPanel1.setFocusTraversalPolicy(null);
+        jPanel1.setNextFocusableComponent(txtNumIMEI);
 
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Numero de IMEI:");
 
+        txtNumIMEI.setNextFocusableComponent(txtNumExpediente);
         txtNumIMEI.setPreferredSize(new java.awt.Dimension(65, 26));
         txtNumIMEI.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -198,6 +201,7 @@ public class pnlEquipos extends javax.swing.JPanel {
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Numero de Expediente:");
 
+        txtNumExpediente.setNextFocusableComponent(cmbEstado);
         txtNumExpediente.setPreferredSize(new java.awt.Dimension(65, 26));
         txtNumExpediente.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -212,6 +216,7 @@ public class pnlEquipos extends javax.swing.JPanel {
         jLabel8.setText("Lugar de Compra:");
 
         cmbLugar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+        cmbLugar.setNextFocusableComponent(txtCosto);
         cmbLugar.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbLugarItemStateChanged(evt);
@@ -219,6 +224,7 @@ public class pnlEquipos extends javax.swing.JPanel {
         });
 
         cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+        cmbCategoria.setNextFocusableComponent(cmbMarca);
         cmbCategoria.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbCategoriaItemStateChanged(evt);
@@ -226,6 +232,7 @@ public class pnlEquipos extends javax.swing.JPanel {
         });
 
         cmbMarca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+        cmbMarca.setNextFocusableComponent(txtAccesorio);
         cmbMarca.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbMarcaItemStateChanged(evt);
@@ -238,6 +245,7 @@ public class pnlEquipos extends javax.swing.JPanel {
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Accesorio:");
 
+        txtAccesorio.setNextFocusableComponent(txtModelo);
         txtAccesorio.setPreferredSize(new java.awt.Dimension(65, 26));
         txtAccesorio.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -254,6 +262,7 @@ public class pnlEquipos extends javax.swing.JPanel {
         jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("Costo del Equipo:");
 
+        txtCosto.setNextFocusableComponent(txtNumFactura);
         txtCosto.setPreferredSize(new java.awt.Dimension(65, 26));
         txtCosto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -301,6 +310,7 @@ public class pnlEquipos extends javax.swing.JPanel {
         });
 
         cmbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+        cmbEstado.setNextFocusableComponent(cmbTipo);
         cmbEstado.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbEstadoItemStateChanged(evt);
@@ -318,6 +328,7 @@ public class pnlEquipos extends javax.swing.JPanel {
         jLabel13.setText("Tipo de Equipo:");
 
         cmbTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+        cmbTipo.setNextFocusableComponent(dtpPrestamo);
         cmbTipo.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbTipoItemStateChanged(evt);
@@ -337,6 +348,7 @@ public class pnlEquipos extends javax.swing.JPanel {
         jLabel15.setForeground(new java.awt.Color(0, 0, 0));
         jLabel15.setText("Numero de Factura:");
 
+        txtNumFactura.setNextFocusableComponent(txtComentario);
         txtNumFactura.setPreferredSize(new java.awt.Dimension(65, 26));
         txtNumFactura.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -347,6 +359,7 @@ public class pnlEquipos extends javax.swing.JPanel {
         jLabel16.setForeground(new java.awt.Color(0, 0, 0));
         jLabel16.setText("Comentario:");
 
+        txtComentario.setNextFocusableComponent(dtpCompra);
         txtComentario.setPreferredSize(new java.awt.Dimension(65, 26));
         txtComentario.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -354,12 +367,18 @@ public class pnlEquipos extends javax.swing.JPanel {
             }
         });
 
+        dtpPrestamo.setNextFocusableComponent(cmbCategoria);
+
         jLabel17.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel17.setText("Fecahd e Prestamo:");
+        jLabel17.setText("Fecha de Prestamo:");
+        jLabel17.setNextFocusableComponent(cmbCategoria);
+
+        dtpCompra.setNextFocusableComponent(btnGuardar);
 
         jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("Modelo:");
 
+        txtModelo.setNextFocusableComponent(cmbLugar);
         txtModelo.setPreferredSize(new java.awt.Dimension(65, 26));
         txtModelo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {

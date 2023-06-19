@@ -80,16 +80,14 @@ public class Principal extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         btnAjustes = new rsbuttom.RSButtonMetro();
         btnLineasTelefonicas = new rsbuttom.RSButtonMetro();
-        jPanel2 = new javax.swing.JPanel();
-        btnMenu = new javax.swing.JButton();
-        lblTituloTelefonia = new javax.swing.JLabel();
         pnlCentro = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         lblHora = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         pnlPrincipal = new javax.swing.JPanel();
-        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
-        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
+        jPanel2 = new javax.swing.JPanel();
+        btnMenu = new javax.swing.JButton();
+        lblTituloTelefonia = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Telefonia-Cortijo");
@@ -313,6 +311,62 @@ public class Principal extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 1);
         jPanel1.add(pnlMenu, gridBagConstraints);
 
+        pnlCentro.setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+
+        lblHora.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        lblHora.setForeground(new java.awt.Color(128, 128, 131));
+        lblHora.setText("9:57 A.M. Miercoles");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblHora)
+                .addContainerGap(1022, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblHora)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jScrollPane1.setBorder(null);
+
+        pnlPrincipal.setBackground(new java.awt.Color(255, 255, 255));
+        pnlPrincipal.setLayout(new javax.swing.BoxLayout(pnlPrincipal, javax.swing.BoxLayout.LINE_AXIS));
+        jScrollPane1.setViewportView(pnlPrincipal);
+
+        javax.swing.GroupLayout pnlCentroLayout = new javax.swing.GroupLayout(pnlCentro);
+        pnlCentro.setLayout(pnlCentroLayout);
+        pnlCentroLayout.setHorizontalGroup(
+            pnlCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
+        );
+        pnlCentroLayout.setVerticalGroup(
+            pnlCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlCentroLayout.createSequentialGroup()
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.4;
+        gridBagConstraints.weighty = 0.1;
+        jPanel1.add(pnlCentro, gridBagConstraints);
+
         jPanel2.setBackground(new java.awt.Color(57, 181, 74));
         jPanel2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
@@ -361,65 +415,6 @@ public class Principal extends javax.swing.JFrame {
         gridBagConstraints.weightx = 0.2;
         jPanel1.add(jPanel2, gridBagConstraints);
 
-        pnlCentro.setBackground(new java.awt.Color(255, 255, 255));
-
-        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
-
-        lblHora.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
-        lblHora.setForeground(new java.awt.Color(128, 128, 131));
-        lblHora.setText("9:57 A.M. Miercoles");
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblHora)
-                .addContainerGap(1022, Short.MAX_VALUE))
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblHora)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jScrollPane1.setBorder(null);
-
-        pnlPrincipal.setBackground(new java.awt.Color(255, 255, 255));
-        pnlPrincipal.setLayout(new javax.swing.BoxLayout(pnlPrincipal, javax.swing.BoxLayout.LINE_AXIS));
-        pnlPrincipal.add(filler1);
-        pnlPrincipal.add(filler2);
-
-        jScrollPane1.setViewportView(pnlPrincipal);
-
-        javax.swing.GroupLayout pnlCentroLayout = new javax.swing.GroupLayout(pnlCentro);
-        pnlCentro.setLayout(pnlCentroLayout);
-        pnlCentroLayout.setHorizontalGroup(
-            pnlCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane1)
-        );
-        pnlCentroLayout.setVerticalGroup(
-            pnlCentroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlCentroLayout.createSequentialGroup()
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 0.4;
-        gridBagConstraints.weighty = 0.1;
-        jPanel1.add(pnlCentro, gridBagConstraints);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -459,7 +454,7 @@ public class Principal extends javax.swing.JFrame {
 
     //Genera la accion para cambiar de panel llamando a la clase del paquete paneles y cambia los colores de los que se seleccionaron antes
     private void btnFiniquitosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiniquitosActionPerformed
-      new CambiaPanel(pnlPrincipal, new paneles.pnlFiniquitos());
+        new CambiaPanel(pnlPrincipal, new paneles.pnlFiniquitos());
         if (this.btnFiniquitos.isSelected()) {
             this.btnFiniquitos.setColorNormal(new Color(204, 204, 204));
             this.btnEquipos.setColorNormal(new Color(239, 238, 244));
@@ -468,7 +463,7 @@ public class Principal extends javax.swing.JFrame {
             this.btnAjustes.setColorNormal(new Color(239, 238, 244));
         } else {
             this.btnUserTel.setColorNormal(new Color(239, 238, 244));
-        }  
+        }
     }//GEN-LAST:event_btnFiniquitosActionPerformed
 
     //Establecer el estado de seleccionado al correspondiente boton y los demas con el estado desactivado
@@ -508,8 +503,18 @@ public class Principal extends javax.swing.JFrame {
         int posicion = pnlMenu.getX();
         if (posicion > -1) {
             Animacion.Animacion.mover_izquierda(0, -264, 2, 2, pnlMenu);
+            Timer timer = new Timer(400, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    pnlMenu.setVisible(false);
+                }
+            });
+            timer.setRepeats(false);
+            timer.start();
+
         } else {
             Animacion.Animacion.mover_derecha(-264, 0, 2, 2, pnlMenu);
+            pnlMenu.setVisible(true);
         }
     }//GEN-LAST:event_btnMenuActionPerformed
 
@@ -524,7 +529,7 @@ public class Principal extends javax.swing.JFrame {
 
     //Genera la accion para cambiar de panel llamando a la clase del paquete paneles y cambia los colores de los que se seleccionaron antes
     private void btnAjustesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAjustesActionPerformed
-      
+
     }//GEN-LAST:event_btnAjustesActionPerformed
 
     //Establecer el estado de seleccionado al correspondiente boton y los demas con el estado desactivado
@@ -538,7 +543,7 @@ public class Principal extends javax.swing.JFrame {
 
     //Genera la accion para cambiar de panel llamando a la clase del paquete paneles y cambia los colores de los que se seleccionaron antes
     private void btnLineasTelefonicasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLineasTelefonicasActionPerformed
-       new CambiaPanel(pnlPrincipal, new paneles.pnlLineasTelefonicas());
+        new CambiaPanel(pnlPrincipal, new paneles.pnlLineasTelefonicas());
         if (this.btnLineasTelefonicas.isSelected()) {
             this.btnLineasTelefonicas.setColorNormal(new Color(204, 204, 204));
             this.btnUserTel.setColorNormal(new Color(239, 238, 244));
@@ -575,8 +580,6 @@ public class Principal extends javax.swing.JFrame {
     private rsbuttom.RSButtonMetro btnLineasTelefonicas;
     private javax.swing.JButton btnMenu;
     private rsbuttom.RSButtonMetro btnUserTel;
-    private javax.swing.Box.Filler filler1;
-    private javax.swing.Box.Filler filler2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
