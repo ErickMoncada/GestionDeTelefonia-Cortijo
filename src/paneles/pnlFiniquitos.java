@@ -7,12 +7,15 @@ import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-
 
 public class pnlFiniquitos extends javax.swing.JPanel {
 
@@ -24,7 +27,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
 
     }
     //se inicializa para la busqueda por medio de Categoria
-    String Busqueda = "CategoriaUser";
+    String Busqueda = "Linea";
 
     private void Limpiar() {
         btnCancelar.setVisible(false);
@@ -37,14 +40,16 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         txtLinea.setText("");
         txtObs1.setText("");
         txtObs2.setText("");
+        dtpSolicitud.setDate(null);
+        dtpCorte.setDate(null);
+        dtpCobro.setDate(null);
 
     }
 
     private void CargarDatosPrincipal() {
         //rellenar datos de la tabla
         DatosTablas Datos = new DatosTablas();
-        Datos.CargarTabla(tblFiniquitos, null, "select * from VistaUsuarios");
-
+        Datos.CargarTabla(tblFiniquitos, null, "select * from VistaFiniquitos");
 
     }
 
@@ -72,11 +77,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
 
         int valor1 = 1;
 
-        if (txtIDFiniquitos.getText().isEmpty() || !txtIDFiniquitos.getText().matches("\\d{0,4}")) {
-            valor1 = 0;
-            incorrecto(txtIDFiniquitos, null);
-        }
-      
+
 
         return valor1 == 1; //Expreciones regulares de los campos
         //4 o menos digitos numericos 
@@ -259,10 +260,6 @@ public class pnlFiniquitos extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(dtpCobro, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel6)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -271,74 +268,83 @@ public class pnlFiniquitos extends javax.swing.JPanel {
                                     .addComponent(txtIDFiniquitos, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(dtpCorte, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(dtpSolicitud, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(dtpSolicitud, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(dtpCobro, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(50, 50, 50)
-                                .addComponent(jLabel10))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(56, 56, 56)
-                                .addComponent(jLabel9)))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtCobro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(50, 50, 50)
+                                        .addComponent(jLabel10))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(56, 56, 56)
+                                        .addComponent(jLabel9)))
                                 .addGap(18, 18, 18)
-                                .addComponent(jLabel11))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtLinea, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(txtCobro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel11))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(txtLinea, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel12)))
                                 .addGap(18, 18, 18)
-                                .addComponent(jLabel12)))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtObs2, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtObs1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(189, Short.MAX_VALUE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtObs2, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtObs1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(41, 41, 41)
+                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(717, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtIDFiniquitos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE))
+                .addComponent(txtIDFiniquitos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel9)
-                                    .addComponent(txtCobro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel11)
-                                    .addComponent(txtObs1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(3, 3, 3))
-                            .addComponent(dtpSolicitud, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(dtpCorte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel10)
-                        .addComponent(txtLinea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel12)
-                        .addComponent(txtObs2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(dtpCobro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel9)
+                                            .addComponent(txtCobro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel11)
+                                            .addComponent(txtObs1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(6, 6, 6))
+                                    .addComponent(dtpSolicitud, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(dtpCorte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel10)
+                                .addComponent(txtLinea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel12)
+                                .addComponent(txtObs2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(dtpCobro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jScrollPane1.setPreferredSize(new java.awt.Dimension(800, 403));
@@ -347,17 +353,17 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         tblFiniquitos.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         tblFiniquitos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID Finiquitos", "Fecha Solicitud RRHH", "Fecha de Corte", "Valor del Cobro", "Observacion 1", "Observacion 2"
+                "ID Finiquitos", "Linea Telefonica", "Fecha Solicitud RRHH", "Fecha de Corte", "Valor del Cobro", "Observacion 1", "Observacion 2", "Fecha Cobro"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -379,7 +385,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
             }
         });
 
-        cmbBuscar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Categoria", "Centro Costo", "Cod. Empleado", "Codigo SAP", "Jefe", "N. Expediente", "Nombre", "Planilla", "Puesto de Trabajo", "Ubicacion" }));
+        cmbBuscar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Linea Telefonica" }));
         cmbBuscar.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbBuscarItemStateChanged(evt);
@@ -396,7 +402,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1099, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1627, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -410,14 +416,14 @@ public class pnlFiniquitos extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 659, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -425,35 +431,38 @@ public class pnlFiniquitos extends javax.swing.JPanel {
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         if (ValidarCampos()) {
             Object[] datos = new Object[8];
+            //se manda el ID pero no se utiliza en Agregar
             datos[0] = Integer.parseInt(txtIDFiniquitos.getText());
             datos[1] = txtLinea.getText();
-            datos[2] = Double.parseDouble(txtCobro.getText());  
-            datos[3] = txtObs1.getText();
-            datos[4] = txtObs2.getText();       
-             try {
-                Date date2 = dtpSolicitud.getDate();
-                long d2 = date2.getTime();
-                java.sql.Date fecha2 = new java.sql.Date(d2);
-                datos[5] = fecha2.toString();
+
+            try {
+                Date date = dtpSolicitud.getDate();
+                long d = date.getTime();
+                java.sql.Date fecha = new java.sql.Date(d);
+                datos[2] = fecha.toString();
             } catch (Exception e) {
-                datos[5] = "";
+                datos[2] = "";
             }
-             try {
+            try {
                 Date date = dtpCorte.getDate();
                 long d = date.getTime();
                 java.sql.Date fecha = new java.sql.Date(d);
-                datos[6] = fecha.toString();
+                datos[3] = fecha.toString();
             } catch (Exception e) {
-                datos[6] = "";
+                datos[3] = "";
             }
-              try {
-                Date date = dtpCobro.getDate();
-                long d = date.getTime();
-                java.sql.Date fecha = new java.sql.Date(d);
-                datos[7] = fecha.toString();
+            datos[4] = Double.parseDouble(txtCobro.getText());
+            datos[5] = txtObs1.getText();
+            datos[6] = txtObs2.getText();
+ 
+            try {
+                Date date2 = dtpCobro.getDate();
+                long d2 = date2.getTime();
+                java.sql.Date fecha2 = new java.sql.Date(d2);
+                datos[7] = fecha2.toString();
             } catch (Exception e) {
                 datos[7] = "";
-            }
+            }         
 
             AccionesCrud classcrud = new AccionesCrud();
             if (classcrud.Guardar(datos, "exec [UpdateFiniquito] ?,?,?,?,?,?,?,?")) {
@@ -466,39 +475,43 @@ public class pnlFiniquitos extends javax.swing.JPanel {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         if (ValidarCampos()) {
-             Object[] datos = new Object[8];
-            datos[0] = Integer.parseInt(txtIDFiniquitos.getText());
+           Object[] datos = new Object[8];
+          
+           datos[0]="";
+            
             datos[1] = txtLinea.getText();
-            datos[2] = Double.parseDouble(txtCobro.getText());  
-            datos[3] = txtObs1.getText();
-            datos[4] = txtObs2.getText();       
-             try {
-                Date date2 = dtpSolicitud.getDate();
-                long d2 = date2.getTime();
-                java.sql.Date fecha2 = new java.sql.Date(d2);
-                datos[5] = fecha2.toString();
+
+            try {
+                Date date = dtpSolicitud.getDate();
+                long d = date.getTime();
+                java.sql.Date fecha = new java.sql.Date(d);
+                datos[2] = fecha.toString();
             } catch (Exception e) {
-                datos[5] = "";
+                datos[2] = "";
             }
-             try {
+            try {
                 Date date = dtpCorte.getDate();
                 long d = date.getTime();
                 java.sql.Date fecha = new java.sql.Date(d);
-                datos[6] = fecha.toString();
+                datos[3] = fecha.toString();
             } catch (Exception e) {
-                datos[6] = "";
+                datos[3] = "";
             }
-              try {
-                Date date = dtpCobro.getDate();
-                long d = date.getTime();
-                java.sql.Date fecha = new java.sql.Date(d);
-                datos[7] = fecha.toString();
+            datos[4] = Double.parseDouble(txtCobro.getText());
+            datos[5] = txtObs1.getText();
+            datos[6] = txtObs2.getText();
+ 
+            try {
+                Date date2 = dtpCobro.getDate();
+                long d2 = date2.getTime();
+                java.sql.Date fecha2 = new java.sql.Date(d2);
+                datos[7] = fecha2.toString();
             } catch (Exception e) {
                 datos[7] = "";
-            }
+            }         
 
             AccionesCrud classcrud = new AccionesCrud();
-            if (classcrud.Guardar(datos, "exec [UpdateFiniquito] ?,?,?,?,?,?,?,?")) {
+            if (classcrud.Guardar(datos, "exec [AgregarFiniquito] ?,?,?,?,?,?,?,?")) {
                 DatosTablas Datos = new DatosTablas();
                 Datos.CargarTabla(tblFiniquitos, null, "select * from VistaFiniquitos");
             }
@@ -507,9 +520,9 @@ public class pnlFiniquitos extends javax.swing.JPanel {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         AccionesCrud classcrud = new AccionesCrud();
-        if (classcrud.Eliminar(txtIDFiniquitos, "exec EliminarUsuario ?")) {
+        if (classcrud.Eliminar(txtIDFiniquitos, "exec EliminarFiniquito ?")) {
             DatosTablas Datos = new DatosTablas();
-            Datos.CargarTabla(tblFiniquitos, null, "select * from VistaUsuarios");
+            Datos.CargarTabla(tblFiniquitos, null, "select * from VistaFiniquitos");
             Limpiar();
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
@@ -521,9 +534,34 @@ public class pnlFiniquitos extends javax.swing.JPanel {
     private void tblFiniquitosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblFiniquitosMouseClicked
         try {
             AccionesCrud classcrud = new AccionesCrud();
-            ResultSet rs = classcrud.Seleccion(tblFiniquitos, "select * from [VistaUsuarios] where [NumeroExpediente]=?");
+            ResultSet rs = classcrud.Seleccion(tblFiniquitos, "select * from [VistaFiniquitos] where [ID]=?");
             while (rs.next()) {
-                txtIDFiniquitos.setText(rs.getString("NumeroExpediente"));
+                txtIDFiniquitos.setText(rs.getString("ID"));
+                 //formato para mostrar la fecha en el JDateChooser
+                SimpleDateFormat formatofecha = new SimpleDateFormat("yyyy-MM-dd");
+                Date fecha;
+                try {
+                    fecha = formatofecha.parse(rs.getString("Solicitud"));
+                    dtpSolicitud.setDate(fecha);
+                } catch (ParseException ex) {
+                    Logger.getLogger(pnlEquipos.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                 try {
+                    fecha = formatofecha.parse(rs.getString("Corte"));
+                    dtpCorte.setDate(fecha);
+                } catch (ParseException ex) {
+                    Logger.getLogger(pnlEquipos.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                  try {
+                    fecha = formatofecha.parse(rs.getString("Fecha Cobro"));
+                    dtpCobro.setDate(fecha);
+                } catch (ParseException ex) {
+                    Logger.getLogger(pnlEquipos.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                 txtCobro.setText(rs.getString("Valor Cobro")); 
+                 txtLinea.setText(rs.getString("Linea")); 
+                 txtObs1.setText(rs.getString("Observacion 1")); 
+                 txtObs2.setText(rs.getString("Observacion 2")); 
 
             }
             txtIDFiniquitos.enable(false);
@@ -540,36 +578,9 @@ public class pnlFiniquitos extends javax.swing.JPanel {
     private void cmbBuscarItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbBuscarItemStateChanged
         String elementoSeleccionado = (String) cmbBuscar.getSelectedItem();
         switch (elementoSeleccionado) {
-            case "Categoria":
-                Busqueda = "CategoriaUser";
-                break;
-            case "Centro Costo":
-                Busqueda = "CentroCosto";
-                break;
-            case "Cod. Empleado":
-                Busqueda = "CodigoEmpleado";
-                break;
-            case "Codigo SAP":
-                Busqueda = "CodSAP";
-                break;
-            case "Jefe":
-                Busqueda = "Superior_jefe";
-                break;
-            case "N. Expediente":
-                Busqueda = "NumeroExpediente";
-                break;
-            case "Nombre":
-                Busqueda = "UsuarioDeLinea";
-                break;
-            case "Planilla":
-                Busqueda = "Planilla";
-                break;
-            case "Puesto de Trabajo":
-                Busqueda = "Puesto";
-                break;
-            case "Ubicacion":
-                Busqueda = "Ubicacion";
-                break;
+            case "Linea Telefonica":
+                Busqueda = "Linea";
+                break;           
             default:
                 break;
         }

@@ -93,7 +93,6 @@ public class AccionesCrud {
                 } else if (datos[i] instanceof Double) {
                     ps.setDouble(i + 1, (Double) datos[i]);
                 }
-
             }
             ps.executeUpdate();
             JOptionPane.showMessageDialog(null, "Registro guardado", "Informacion", JOptionPane.INFORMATION_MESSAGE);

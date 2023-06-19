@@ -13,7 +13,6 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
-import javax.swing.ButtonModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -31,6 +30,8 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
     public pnlLineasTelefonicas() {
         initComponents();
         CargarDatosPrincipal();
+        lblTotalPlanNuevo.setText("Suma Total de los Plan Nuevos: "+SumarValores(12)+"$");
+        lblTotalPresupuesto.setText("Suma Total de los Presupuestos: "+SumarValores(13)+"$");
         Limpiar();
         txtOtro.setVisible(false);
         btgPago.add(rdbSiSeguro);
@@ -38,6 +39,16 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         btgFirma.add(rdbSiFirma);
         btgFirma.add(rdbNoFirma);
         btgFirma.add(rdbOtro);
+
+    }
+
+    private String SumarValores(int pocision) {
+        double total = 0;
+        for (int i = 0; i < tblLineas.getRowCount(); i++) {
+            Object value = tblLineas.getValueAt(i, pocision);
+                total += ((Number) value).doubleValue();          
+        }
+        return String.valueOf(total);
 
     }
 
@@ -50,6 +61,11 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
 
         txtLinea.setText("");
         txtNumExpediente.setText("");
+        txtAnterior.setText("");
+        txtNuevo.setText("");
+        txtPresupuesto.setText("");
+        txtMensual.setText("");
+        txtOtro.setText("");
         cmbDisponibilidad.setSelectedIndex(-1);
         txtYear.setYear(2023);
         txtCuotas.setValue(0);
@@ -57,6 +73,10 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         dtpAsignacion.setDate(null);
         dtpCambio.setDate(null);
         dtpFacturacion.setDate(null);
+        btgFirma.clearSelection();
+        btgPago.clearSelection();
+        txtOtro.setVisible(false);
+        txtLinea.requestFocus();
     }
 
     private void CargarDatosPrincipal() {
@@ -91,7 +111,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
 
         int valor1 = 1;
 
-        if (txtLinea.getText().isEmpty() ) {
+        if (txtLinea.getText().isEmpty()) {
             valor1 = 0;
             incorrecto(txtLinea, null);
         }
@@ -99,7 +119,6 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
             valor1 = 0;
             incorrecto(txtNumExpediente, null);
         }
-
 
         return valor1 == 1; //Expreciones regulares de los campos
         //4 o menos digitos numericos 
@@ -156,6 +175,9 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         rdbNoFirma = new javax.swing.JRadioButton();
         rdbOtro = new javax.swing.JRadioButton();
         txtOtro = new javax.swing.JTextField();
+        jPanel3 = new javax.swing.JPanel();
+        lblTotalPlanNuevo = new javax.swing.JLabel();
+        lblTotalPresupuesto = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblLineas = new javax.swing.JTable();
 
@@ -453,6 +475,33 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         });
         jPanel2.add(txtOtro, new org.netbeans.lib.awtextra.AbsoluteConstraints(163, 48, 165, -1));
 
+        lblTotalPlanNuevo.setForeground(new java.awt.Color(0, 0, 0));
+        lblTotalPlanNuevo.setText("Total del Plan Nuevo:");
+
+        lblTotalPresupuesto.setForeground(new java.awt.Color(0, 0, 0));
+        lblTotalPresupuesto.setText("Total del Presupuesto:");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTotalPlanNuevo)
+                    .addComponent(lblTotalPresupuesto))
+                .addContainerGap(242, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblTotalPlanNuevo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblTotalPresupuesto)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -551,7 +600,9 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
                                 .addComponent(cmbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -562,31 +613,31 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
                             .addComponent(txtLinea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE))
+                            .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel4)
-                                    .addComponent(txtNumExpediente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtNumExpediente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel3)
-                                    .addComponent(cmbDisponibilidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cmbDisponibilidad, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(btnDisponibilidad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtCuotas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(txtYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(txtCuotas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtYear, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtImei, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 75, Short.MAX_VALUE)
+                        .addGap(18, 18, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -604,30 +655,37 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
                                 .addComponent(txtAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel11)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(dtpCambio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(dtpCambio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(txtNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel12)))
+                                .addComponent(jLabel12))
+                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(dtpFacturacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(dtpFacturacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(txtPresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtMensual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel15)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(rdbSiSeguro)
-                                .addComponent(rdbNoSeguro)
-                                .addComponent(jLabel8)))
-                        .addGap(19, 19, 19)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(rdbNoSeguro))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtMensual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel15))
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 89, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(126, 126, 126)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap())))))
         );
 
         jScrollPane1.setComponentPopupMenu(jPopupMenu1);
@@ -726,22 +784,23 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
                 String rdbFirma = rs.getString("Firma");
                 switch (rdbFirma) {
                     case "SI":
-                        btgFirma.setSelected((ButtonModel) rdbSiFirma, true);
+                        btgFirma.setSelected(rdbSiFirma.getModel(), true);
                         break;
                     case "NO":
-                        btgFirma.setSelected((ButtonModel) rdbNoFirma, true);
+                        btgFirma.setSelected(rdbNoFirma.getModel(), true);
                         break;
                     default:
+                        btgFirma.setSelected(rdbOtro.getModel(), true);
                         txtOtro.setText(rdbFirma);
                 }
 
                 String rdbPagoSeguro = rs.getString("PagoSeguro");
                 switch (rdbPagoSeguro) {
-                    case "SI":
-                        btgPago.setSelected((ButtonModel) rdbSiSeguro, true);
+                    case "1":
+                        btgPago.setSelected(rdbSiSeguro.getModel(), true);
                         break;
-                    case "NO":
-                        btgPago.setSelected((ButtonModel) rdbNoSeguro, true);
+                    case "2":
+                        btgPago.setSelected(rdbNoSeguro.getModel(), true);
                         break;
                     default:
                         break;
@@ -834,7 +893,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         if (ValidarCampos()) {
-            Object[] datos = new Object[15];
+              Object[] datos = new Object[15];
             datos[0] = txtLinea.getText();
             datos[1] = txtNumExpediente.getText();
             if (cmbDisponibilidad.getSelectedItem() != null) {
@@ -873,7 +932,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
             if (rdbSiSeguro.isSelected() == true) {
                 datos[9] = 1;
             } else if (rdbNoSeguro.isSelected() == true) {
-                datos[9] =  2;
+                datos[9] = 2;
             }
 
             if (rdbSiFirma.isSelected() == true) {
@@ -900,7 +959,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
     //Funicon para asignar el tipo de busqueda que se va hacer por medio de un switc y los valores de la vista de la BD
     private void cmbBuscarItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbBuscarItemStateChanged
         String elementoSeleccionado = (String) cmbBuscar.getSelectedItem();
-        switch (elementoSeleccionado) {        
+        switch (elementoSeleccionado) {
             case "IMEI":
                 Busqueda = "Imei";
                 break;
@@ -909,7 +968,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
                 break;
             case "N. expediente":
                 Busqueda = "Expediente";
-                break;         
+                break;
             default:
                 break;
         }
@@ -922,6 +981,8 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         modelo.setRowCount(0);
         //se muestra los resultados de la busqueda
         BusquedaTabla.CargarTabla(tblLineas, null, "select * from VistaLineasTelefonicas where " + Busqueda + " LIKE '%" + txtBuscar.getText() + "%'");
+                lblTotalPlanNuevo.setText("Suma Total de los Plan Nuevos: "+SumarValores(12)+"$");
+        lblTotalPresupuesto.setText("Suma Total de los Presupuestos: "+SumarValores(13)+"$");
     }//GEN-LAST:event_txtBuscarKeyReleased
 
     private void btnDisponibilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDisponibilidadActionPerformed
@@ -1089,8 +1150,11 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblTotalPlanNuevo;
+    private javax.swing.JLabel lblTotalPresupuesto;
     private javax.swing.JRadioButton rdbNoFirma;
     private javax.swing.JRadioButton rdbNoSeguro;
     private javax.swing.JRadioButton rdbOtro;

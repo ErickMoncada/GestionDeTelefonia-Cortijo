@@ -20,7 +20,7 @@ public class Principal extends javax.swing.JFrame {
         this.setExtendedState(MAXIMIZED_BOTH);
         this.setLocationRelativeTo(this);
         //iniciar con la seleccion en el boton 1
-        this.btnUserTel.setSelected(true);
+        //this.btnUserTel.setSelected(true);
         //se declara la clase para cambiar de paneles, en este caso para mostrar el primer panel al cargar el form
         new CambiaPanel(pnlPrincipal, new paneles.pnlHome());
 
@@ -94,7 +94,6 @@ public class Principal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Telefonia-Cortijo");
         setMinimumSize(new java.awt.Dimension(1300, 700));
-        setPreferredSize(new java.awt.Dimension(1450, 700));
         setSize(new java.awt.Dimension(1450, 700));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -104,6 +103,7 @@ public class Principal extends javax.swing.JFrame {
         pnlMenu.setBackground(new java.awt.Color(239, 238, 244));
         pnlMenu.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 5, 0, 0, new java.awt.Color(239, 238, 244)));
 
+        btnUserTel.setBackground(new java.awt.Color(239, 238, 244));
         btnUserTel.setForeground(new java.awt.Color(128, 128, 131));
         btnUserTel.setText("Usuarios");
         btnUserTel.setColorHover(new java.awt.Color(204, 204, 204));
@@ -459,7 +459,16 @@ public class Principal extends javax.swing.JFrame {
 
     //Genera la accion para cambiar de panel llamando a la clase del paquete paneles y cambia los colores de los que se seleccionaron antes
     private void btnFiniquitosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiniquitosActionPerformed
-       
+      new CambiaPanel(pnlPrincipal, new paneles.pnlFiniquitos());
+        if (this.btnFiniquitos.isSelected()) {
+            this.btnFiniquitos.setColorNormal(new Color(204, 204, 204));
+            this.btnEquipos.setColorNormal(new Color(239, 238, 244));
+            this.btnUserTel.setColorNormal(new Color(239, 238, 244));
+            this.btnLineasTelefonicas.setColorNormal(new Color(239, 238, 244));
+            this.btnAjustes.setColorNormal(new Color(239, 238, 244));
+        } else {
+            this.btnUserTel.setColorNormal(new Color(239, 238, 244));
+        }  
     }//GEN-LAST:event_btnFiniquitosActionPerformed
 
     //Establecer el estado de seleccionado al correspondiente boton y los demas con el estado desactivado
