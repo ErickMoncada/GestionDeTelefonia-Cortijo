@@ -60,7 +60,7 @@ public class pnlEquipos extends javax.swing.JPanel {
     private void CargarDatosPrincipal() {
         //rellenar datos de la tabla
         DatosTablas Datos = new DatosTablas();
-        Datos.CargarTabla(tblEquipos, null, "select * from [VistaEquipos]");
+        Datos.CargarTabla(tblEquipos, "select * from [VistaEquipos]");
         Datos.cargarComboBox("select Categoria from VistaCategoriaEquipo", "Categoria", cmbCategoria);
         Datos.cargarComboBox("select Marca from VistaMarcaEquipos", "Marca", cmbMarca);
         Datos.cargarComboBox("select Lugar from VistaLugarCompra", "Lugar", cmbLugar);
@@ -750,7 +750,7 @@ public class pnlEquipos extends javax.swing.JPanel {
         AccionesCrud classcrud = new AccionesCrud();
         if (classcrud.Eliminar(txtNumIMEI, "exec EliminarEquipo ?")) {
             DatosTablas Datos = new DatosTablas();
-            Datos.CargarTabla(tblEquipos, null, "select * from [VistaEquipos]");
+            Datos.CargarTabla(tblEquipos, "select * from [VistaEquipos]");
             Limpiar();
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
@@ -811,9 +811,9 @@ public class pnlEquipos extends javax.swing.JPanel {
             datos[12] = txtNumFactura.getText();
             datos[13] = txtComentario.getText();
             AccionesCrud classcrud = new AccionesCrud();
-            if (classcrud.Guardar(datos, "exec [AgregarEquipo] ?, ? ,?  ,? ,? ,? ,? ,? ,? ,?,?,?,?,?")) {
+            if (classcrud.Guardar_Modificar(datos, "exec [AgregarEquipo] ?, ? ,?  ,? ,? ,? ,? ,? ,? ,?,?,?,?,?")) {
                 DatosTablas Datos = new DatosTablas();
-                Datos.CargarTabla(tblEquipos, null, "select * from [VistaEquipos]");
+                Datos.CargarTabla(tblEquipos, "select * from [VistaEquipos]");
             }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -874,9 +874,9 @@ public class pnlEquipos extends javax.swing.JPanel {
             datos[12] = txtNumFactura.getText();
             datos[13] = txtComentario.getText();
             AccionesCrud classcrud = new AccionesCrud();
-            if (classcrud.Guardar(datos, "exec [UpdateEquipo] ?, ? ,?  ,? ,? ,? ,? ,? ,? ,?,?,?,?,?")) {
+            if (classcrud.Guardar_Modificar(datos, "exec [UpdateEquipo] ?, ? ,?  ,? ,? ,? ,? ,? ,? ,?,?,?,?,?")) {
                 DatosTablas Datos = new DatosTablas();
-                Datos.CargarTabla(tblEquipos, null, "select * from [VistaEquipos]");
+                Datos.CargarTabla(tblEquipos, "select * from [VistaEquipos]");
             }
         }
     }//GEN-LAST:event_btnModificarActionPerformed
@@ -917,7 +917,7 @@ public class pnlEquipos extends javax.swing.JPanel {
         DefaultTableModel modelo = (DefaultTableModel) tblEquipos.getModel();
         modelo.setRowCount(0);
         //se muestra los resultados de la busqueda
-        BusquedaTabla.CargarTabla(tblEquipos, null, "select * from VistaEquipos where " + Busqueda + " LIKE '%" + txtBuscar.getText() + "%'");
+        BusquedaTabla.CargarTabla(tblEquipos, "select * from VistaEquipos where " + Busqueda + " LIKE '%" + txtBuscar.getText() + "%'");
     }//GEN-LAST:event_txtBuscarKeyReleased
 
     private void txtModeloKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtModeloKeyTyped

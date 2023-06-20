@@ -5,15 +5,17 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+/**
+ *
+ * @ErickMoncada Clase para ejecutar acciones de Crud en todas las pantallas
+ */
 public class AccionesCrud {
 
-    //Funcion para Validar campos
+    //Funcion para Validar campos de los paneles Extra
     public boolean Validar(JTextField campo, String elemento) {
         if (campo.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, elemento + " no puede estar en blanco", "Advertencia", JOptionPane.WARNING_MESSAGE);
@@ -22,7 +24,7 @@ public class AccionesCrud {
         return true;
     }
 
-    //Modificar datos a la BD por medio de Procedimientos Almacenados
+    //Modificar datos de paneles extra donde solo se tiene que modifica el nombre de un dato a la BD por medio de Procedimientos Almacenados
     public boolean Modificar(JTextField txtdato, JTextField txtID, String exec) {
         String dato = txtdato.getText();
         String id = txtID.getText();
@@ -42,6 +44,7 @@ public class AccionesCrud {
     }
 
     //Eliminar datos a la BD por medio de Procedimientos Almacenados
+    //se recibe el compo de texto donde esta el ID y el comando a ejecutar en sql
     public boolean Eliminar(JTextField txtID, String exec) {
         String id = txtID.getText();
         try {
@@ -57,7 +60,15 @@ public class AccionesCrud {
         }
     }
 
-    //Cargar datos al textfield cuando se preciona click en una celda
+    /*Cargar datos a los textfield de los paneles Extra cuando se preciona click en una celda
+    se Recibe:
+    tblCentro= tabla donde se carga los datos del panel requerido
+    exec= el comando de sql que se va ejecutar para obtener los datos
+     ID= Nombre del TextField del ID
+    campo=Nombre del TextField del campo
+    ExecCampo= el nombre de la columna del Nombre del Campo en el comando que se va ejecutar para establecerlo al textfield de campo
+    ExecCampo= el nombre de la columna del ID en el comando que se va ejecutar para establecerlo al textfield de ID
+     */
     public boolean CargarDatoClick(JTable tblCentro, String exec, String ExecCampo, String ExecId, JTextField campo, JTextField ID) {
         try {
             int fila = tblCentro.getSelectedRow();
@@ -80,7 +91,9 @@ public class AccionesCrud {
 
     }
 
-    public boolean Guardar(Object[] datos, String exec) {
+    //Funcion principal para Guardar o Modificar los datos de todos los cruds del app y 
+    //se recibe un arreglo de objetos donde estan todos los datos a ingresar al comando de sql ; Tambien recibe el comando de sql
+    public boolean Guardar_Modificar(Object[] datos, String exec) {
         int longitud = datos.length;
         try {
             Connection con = Conexion.getConexion();
@@ -104,7 +117,8 @@ public class AccionesCrud {
 
     }
 
-    //seleccionar elemento de las tablas a las que se les de click
+    //seleccionar elemento de las tablas a las que se les de click en los paneles que no son Extra 
+    //se recibe  la tabla de donde proceden los datos y el comando de sql para hacer el SELECT con WHERE
     public ResultSet Seleccion(JTable tabla, String exec) {
         try {
             int fila = tabla.getSelectedRow();
@@ -123,15 +137,4 @@ public class AccionesCrud {
 
     }
 
-    public void Busqueda(JTable tabla, String busqueda, String exec) {
-
-        try {
-            PreparedStatement ps;
-            ResultSet rs;
-            Connection con = Conexion.getConexion();
-            ps = con.prepareStatement(exec);
-        } catch (SQLException ex) {
-            Logger.getLogger(AccionesCrud.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
 }

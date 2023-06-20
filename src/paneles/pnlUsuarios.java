@@ -51,7 +51,7 @@ public class pnlUsuarios extends javax.swing.JPanel {
     private void CargarDatosPrincipal() {
         //rellenar datos de la tabla
         DatosTablas Datos = new DatosTablas();
-        Datos.CargarTabla(tblUsuarios, null, "select * from VistaUsuarios");
+        Datos.CargarTabla(tblUsuarios,  "select * from VistaUsuarios");
         Datos.cargarComboBox("select CentroCosto from VistaCentroCosto", "CentroCosto", cmbCentroCosto);
         Datos.cargarComboBox("select Planilla from VistaPlanillas", "Planilla", cmbPlanilla);
         Datos.cargarComboBox("select Puesto from VistaPuestosTrabajos", "Puesto", cmbPuesto);
@@ -669,9 +669,9 @@ public class pnlUsuarios extends javax.swing.JPanel {
 
             datos[9] = cmbCategoria.getSelectedItem().toString();
             AccionesCrud classcrud = new AccionesCrud();
-            if (classcrud.Guardar(datos, "exec [UpdateUsuario] ?, ? ,?  ,? ,? ,? ,? ,? ,? ,?")) {
+            if (classcrud.Guardar_Modificar(datos, "exec [UpdateUsuario] ?, ? ,?  ,? ,? ,? ,? ,? ,? ,?")) {
                 DatosTablas Datos = new DatosTablas();
-                Datos.CargarTabla(tblUsuarios, null, "select * from VistaUsuarios");
+                Datos.CargarTabla(tblUsuarios,  "select * from VistaUsuarios");
             }
         }
 
@@ -703,9 +703,9 @@ public class pnlUsuarios extends javax.swing.JPanel {
 
             datos[9] = cmbCategoria.getSelectedItem().toString();
             AccionesCrud classcrud = new AccionesCrud();
-            if (classcrud.Guardar(datos, "exec [AgregarUsuario] ?, ? ,?  ,? ,? ,? ,? ,? ,? ,?")) {
+            if (classcrud.Guardar_Modificar(datos, "exec [AgregarUsuario] ?, ? ,?  ,? ,? ,? ,? ,? ,? ,?")) {
                 DatosTablas Datos = new DatosTablas();
-                Datos.CargarTabla(tblUsuarios, null, "select * from VistaUsuarios");
+                Datos.CargarTabla(tblUsuarios,  "select * from VistaUsuarios");
             }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -714,7 +714,7 @@ public class pnlUsuarios extends javax.swing.JPanel {
         AccionesCrud classcrud = new AccionesCrud();
         if (classcrud.Eliminar(txtNumExpediente, "exec EliminarUsuario ?")) {
             DatosTablas Datos = new DatosTablas();
-            Datos.CargarTabla(tblUsuarios, null, "select * from VistaUsuarios");
+            Datos.CargarTabla(tblUsuarios,  "select * from VistaUsuarios");
             Limpiar();
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
@@ -794,7 +794,7 @@ public class pnlUsuarios extends javax.swing.JPanel {
         DefaultTableModel modelo = (DefaultTableModel) tblUsuarios.getModel();
         modelo.setRowCount(0);
         //se muestra los resultados de la busqueda
-        BusquedaTabla.CargarTabla(tblUsuarios, null, "select * from VistaUsuarios where " + Busqueda + " LIKE '%" + txtBuscar.getText() + "%'");
+        BusquedaTabla.CargarTabla(tblUsuarios,  "select * from VistaUsuarios where " + Busqueda + " LIKE '%" + txtBuscar.getText() + "%'");
     }//GEN-LAST:event_txtBuscarKeyReleased
 
     private void txtNumExpedienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumExpedienteKeyReleased

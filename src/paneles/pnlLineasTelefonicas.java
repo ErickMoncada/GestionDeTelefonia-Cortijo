@@ -23,7 +23,7 @@ import paneles.ExtraEquipos.Estado;
 public class pnlLineasTelefonicas extends javax.swing.JPanel {
 
     //se inicializa para la busqueda por medio de Imei
-    String Busqueda = "Linea";
+    String Busqueda = "Imei";
     ButtonGroup btgPago = new ButtonGroup();
     ButtonGroup btgFirma = new ButtonGroup();
 
@@ -82,7 +82,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
     private void CargarDatosPrincipal() {
         //rellenar datos de la tabla
         DatosTablas Datos = new DatosTablas();
-        Datos.CargarTabla(tblLineas, null, "select * from [VistaLineasTelefonicas]");
+        Datos.CargarTabla(tblLineas, "select * from [VistaLineasTelefonicas]");
         Datos.cargarComboBox("select Disponible from VistaDisponibilidades", "Disponible", cmbDisponibilidad);
 
     }
@@ -821,7 +821,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         AccionesCrud classcrud = new AccionesCrud();
         if (classcrud.Eliminar(txtLinea, "exec EliminarLineaTelefonica ?")) {
             DatosTablas Datos = new DatosTablas();
-            Datos.CargarTabla(tblLineas, null, "select * from [VistaLineasTelefonicas]");
+            Datos.CargarTabla(tblLineas, "select * from [VistaLineasTelefonicas]");
             Limpiar();
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
@@ -884,9 +884,9 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
             datos[14] = Double.parseDouble(txtMensual.getText());
 
             AccionesCrud classcrud = new AccionesCrud();
-            if (classcrud.Guardar(datos, "exec [AgregarLineaTelefonica] ?, ? ,?  ,? ,? ,? ,? ,? ,? ,?,?,?,?,?,?")) {
+            if (classcrud.Guardar_Modificar(datos, "exec [AgregarLineaTelefonica] ?, ? ,?  ,? ,? ,? ,? ,? ,? ,?,?,?,?,?,?")) {
                 DatosTablas Datos = new DatosTablas();
-                Datos.CargarTabla(tblLineas, null, "select * from [VistaLineasTelefonicas]");
+                Datos.CargarTabla(tblLineas, "select * from [VistaLineasTelefonicas]");
             }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -949,9 +949,9 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
             datos[14] = Double.parseDouble(txtMensual.getText());
             
             AccionesCrud classcrud = new AccionesCrud();
-            if (classcrud.Guardar(datos, "exec [UpdateLineaTelefonica] ?, ? ,?  ,? ,? ,? ,? ,? ,? ,?,?,?,?,?,?")) {
+            if (classcrud.Guardar_Modificar(datos, "exec [UpdateLineaTelefonica] ?, ? ,?  ,? ,? ,? ,? ,? ,? ,?,?,?,?,?,?")) {
                 DatosTablas Datos = new DatosTablas();
-                Datos.CargarTabla(tblLineas, null, "select * from [VistaLineasTelefonicas]");
+                Datos.CargarTabla(tblLineas, "select * from [VistaLineasTelefonicas]");
             }
         }
     }//GEN-LAST:event_btnModificarActionPerformed
@@ -980,7 +980,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         DefaultTableModel modelo = (DefaultTableModel) tblLineas.getModel();
         modelo.setRowCount(0);
         //se muestra los resultados de la busqueda
-        BusquedaTabla.CargarTabla(tblLineas, null, "select * from VistaLineasTelefonicas where " + Busqueda + " LIKE '%" + txtBuscar.getText() + "%'");
+        BusquedaTabla.CargarTabla(tblLineas, "select * from VistaLineasTelefonicas where " + Busqueda + " LIKE '%" + txtBuscar.getText() + "%'");
                 lblTotalPlanNuevo.setText("Suma Total de los Plan Nuevos: "+SumarValores(12)+"$");
         lblTotalPresupuesto.setText("Suma Total de los Presupuestos: "+SumarValores(13)+"$");
     }//GEN-LAST:event_txtBuscarKeyReleased

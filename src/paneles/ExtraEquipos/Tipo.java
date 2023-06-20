@@ -16,8 +16,7 @@ public class Tipo extends javax.swing.JFrame {
     //Funcion para cargar datos a la tabla
     private void CargarTabla() {
         DatosTablas CrearTabla = new DatosTablas();
-        int[] anchos = {50};
-        CrearTabla.CargarTabla(tblCentro, anchos, "SELECT Tipo from [VistaTipoEquipos]");
+        CrearTabla.CargarTabla(tblCentro,  "SELECT Tipo from [VistaTipoEquipos]");
     }
 
     //desactivar botones y solo mostrar btnGurdar
@@ -249,12 +248,12 @@ public class Tipo extends javax.swing.JFrame {
         if (classcrud.Validar(txtTipo, "El Tipo de equipo")) {
             Object[] datos = new Object[1];
        datos[0]= txtTipo.getText();
-       if(classcrud.Guardar(datos, "exec AgregarTipo ? ")){
+       if(classcrud.Guardar_Modificar(datos, "exec AgregarTipo ? ")){
         txtID.setText("");
                 txtTipo.setText("");
                 CargarTabla();
        }
-          /*  if (classcrud.Guardar(txtPlanilla, "exec AgregarPlanilla ? ")) {
+          /*  if (classcrud.Guardar_Modificar(txtPlanilla, "exec AgregarPlanilla ? ")) {
                 txtID.setText("");
                 txtPlanilla.setText("");
                 CargarTabla();

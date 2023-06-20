@@ -16,8 +16,7 @@ public class Marca extends javax.swing.JFrame {
     //Funcion para cargar datos a la tabla
     private void CargarTabla() {
         DatosTablas CrearTabla = new DatosTablas();
-        int[] anchos = {50};
-        CrearTabla.CargarTabla(tblCentro, anchos, "SELECT Marca from [VistaMarcaEquipos]");
+        CrearTabla.CargarTabla(tblCentro,  "SELECT Marca from [VistaMarcaEquipos]");
     }
 
     //desactivar botones y solo mostrar btnGurdar
@@ -249,12 +248,12 @@ public class Marca extends javax.swing.JFrame {
         if (classcrud.Validar(txtMarca, "La Marca del equipo")) {
             Object[] datos = new Object[1];
        datos[0]= txtMarca.getText();
-       if(classcrud.Guardar(datos, "exec AgregarMarcaEquipo ? ")){
+       if(classcrud.Guardar_Modificar(datos, "exec AgregarMarcaEquipo ? ")){
         txtID.setText("");
                 txtMarca.setText("");
                 CargarTabla();
        }
-          /*  if (classcrud.Guardar(txtPlanilla, "exec AgregarPlanilla ? ")) {
+          /*  if (classcrud.Guardar_Modificar(txtPlanilla, "exec AgregarPlanilla ? ")) {
                 txtID.setText("");
                 txtPlanilla.setText("");
                 CargarTabla();

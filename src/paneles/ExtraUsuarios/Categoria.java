@@ -15,8 +15,7 @@ public class Categoria extends javax.swing.JFrame {
     //Funcion para cargar datos a la tabla
     private void CargarTabla() {
         DatosTablas CrearTabla = new DatosTablas();
-        int[] anchos = {50};
-        CrearTabla.CargarTabla(tblCentro, anchos, "SELECT Categoria from [VistaCategoriaUser]");
+        CrearTabla.CargarTabla(tblCentro,  "SELECT Categoria from [VistaCategoriaUser]");
     }
 
     //desactivar botones y solo mostrar btnGurdar
@@ -248,12 +247,12 @@ public class Categoria extends javax.swing.JFrame {
         if (classcrud.Validar(txtCategoriaUser, "La Categoria de usuario")) {
         Object[] datos = new Object[1];
        datos[0]= txtCategoriaUser.getText();
-       if(classcrud.Guardar(datos, "exec AgregarCategoriaUser ? ")){
+       if(classcrud.Guardar_Modificar(datos, "exec AgregarCategoriaUser ? ")){
         txtID.setText("");
                 txtCategoriaUser.setText("");
                 CargarTabla();
        }
-          /*  if (classcrud.Guardar(txtCategoriaUser, "exec AgregarCategoriaUser ? ")) {
+          /*  if (classcrud.Guardar_Modificar(txtCategoriaUser, "exec AgregarCategoriaUser ? ")) {
                 txtID.setText("");
                 txtCategoriaUser.setText("");
                 CargarTabla();

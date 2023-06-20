@@ -16,8 +16,7 @@ public class Estado extends javax.swing.JFrame {
     //Funcion para cargar datos a la tabla
     private void CargarTabla() {
         DatosTablas CrearTabla = new DatosTablas();
-        int[] anchos = {50};
-        CrearTabla.CargarTabla(tblCentro, anchos, "SELECT Estado from [VistaEstadoEquipos]");
+        CrearTabla.CargarTabla(tblCentro,  "SELECT Estado from [VistaEstadoEquipos]");
     }
 
     //desactivar botones y solo mostrar btnGurdar
@@ -249,12 +248,12 @@ public class Estado extends javax.swing.JFrame {
         if (classcrud.Validar(txtEstado, "El Estado")) {
             Object[] datos = new Object[1];
        datos[0]= txtEstado.getText();
-       if(classcrud.Guardar(datos, "exec AgregarEstado ? ")){
+       if(classcrud.Guardar_Modificar(datos, "exec AgregarEstado ? ")){
         txtID.setText("");
                 txtEstado.setText("");
                 CargarTabla();
        }
-          /*  if (classcrud.Guardar(txtPlanilla, "exec AgregarPlanilla ? ")) {
+          /*  if (classcrud.Guardar_Modificar(txtPlanilla, "exec AgregarPlanilla ? ")) {
                 txtID.setText("");
                 txtPlanilla.setText("");
                 CargarTabla();

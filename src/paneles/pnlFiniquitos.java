@@ -49,7 +49,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
     private void CargarDatosPrincipal() {
         //rellenar datos de la tabla
         DatosTablas Datos = new DatosTablas();
-        Datos.CargarTabla(tblFiniquitos, null, "select * from VistaFiniquitos");
+        Datos.CargarTabla(tblFiniquitos, "select * from VistaFiniquitos");
 
     }
 
@@ -465,9 +465,9 @@ public class pnlFiniquitos extends javax.swing.JPanel {
             }         
 
             AccionesCrud classcrud = new AccionesCrud();
-            if (classcrud.Guardar(datos, "exec [UpdateFiniquito] ?,?,?,?,?,?,?,?")) {
+            if (classcrud.Guardar_Modificar(datos, "exec [UpdateFiniquito] ?,?,?,?,?,?,?,?")) {
                 DatosTablas Datos = new DatosTablas();
-                Datos.CargarTabla(tblFiniquitos, null, "select * from VistaFiniquitos");
+                Datos.CargarTabla(tblFiniquitos, "select * from VistaFiniquitos");
             }
         }
 
@@ -511,9 +511,9 @@ public class pnlFiniquitos extends javax.swing.JPanel {
             }         
 
             AccionesCrud classcrud = new AccionesCrud();
-            if (classcrud.Guardar(datos, "exec [AgregarFiniquito] ?,?,?,?,?,?,?,?")) {
+            if (classcrud.Guardar_Modificar(datos, "exec [AgregarFiniquito] ?,?,?,?,?,?,?,?")) {
                 DatosTablas Datos = new DatosTablas();
-                Datos.CargarTabla(tblFiniquitos, null, "select * from VistaFiniquitos");
+                Datos.CargarTabla(tblFiniquitos, "select * from VistaFiniquitos");
             }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -522,7 +522,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         AccionesCrud classcrud = new AccionesCrud();
         if (classcrud.Eliminar(txtIDFiniquitos, "exec EliminarFiniquito ?")) {
             DatosTablas Datos = new DatosTablas();
-            Datos.CargarTabla(tblFiniquitos, null, "select * from VistaFiniquitos");
+            Datos.CargarTabla(tblFiniquitos, "select * from VistaFiniquitos");
             Limpiar();
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
@@ -592,7 +592,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         DefaultTableModel modelo = (DefaultTableModel) tblFiniquitos.getModel();
         modelo.setRowCount(0);
         //se muestra los resultados de la busqueda
-        BusquedaTabla.CargarTabla(tblFiniquitos, null, "select * from VistaFiniquitos where " + Busqueda + " LIKE '%" + txtBuscar.getText() + "%'");
+        BusquedaTabla.CargarTabla(tblFiniquitos,  "select * from VistaFiniquitos where " + Busqueda + " LIKE '%" + txtBuscar.getText() + "%'");
     }//GEN-LAST:event_txtBuscarKeyReleased
 
     private void txtCobroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCobroKeyTyped

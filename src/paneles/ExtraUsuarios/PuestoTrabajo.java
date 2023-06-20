@@ -16,8 +16,7 @@ public class PuestoTrabajo extends javax.swing.JFrame {
     //Funcion para cargar datos a la tabla
     private void CargarTabla() {
         DatosTablas CrearTabla = new DatosTablas();
-        int[] anchos = {50};
-        CrearTabla.CargarTabla(tblCentro, anchos, "SELECT Puesto from [VistaPuestosTrabajos]");
+        CrearTabla.CargarTabla(tblCentro,  "SELECT Puesto from [VistaPuestosTrabajos]");
     }
 
     //desactivar botones y solo mostrar btnGurdar
@@ -248,12 +247,12 @@ public class PuestoTrabajo extends javax.swing.JFrame {
         if (classcrud.Validar(txtPuesto, "El Puesto")) {
              Object[] datos = new Object[1];
        datos[0]= txtPuesto.getText();
-       if(classcrud.Guardar(datos, "exec AgregarPuesto ? ")){
+       if(classcrud.Guardar_Modificar(datos, "exec AgregarPuesto ? ")){
         txtID.setText("");
                 txtPuesto.setText("");
                 CargarTabla();
        }
-         /*   if (classcrud.Guardar(txtPuesto, "exec AgregarPuesto ? ")) {
+         /*   if (classcrud.Guardar_Modificar(txtPuesto, "exec AgregarPuesto ? ")) {
                 txtID.setText("");
                 txtPuesto.setText("");
                 CargarTabla();

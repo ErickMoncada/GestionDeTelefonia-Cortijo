@@ -13,17 +13,17 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.Timer;
 
+/**
+ *
+ * @ErickMoncada Formulario de la pagina principal
+ */
 public class Principal extends javax.swing.JFrame {
 
     public Principal() {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
         this.setLocationRelativeTo(this);
-        //iniciar con la seleccion en el boton 1
-        //this.btnUserTel.setSelected(true);
-        //se declara la clase para cambiar de paneles, en este caso para mostrar el primer panel al cargar el form
         new CambiaPanel(pnlPrincipal, new paneles.pnlHome());
-
         //iniciar funcion para el icono
         Reescalado_Imagenes reescalar = new Reescalado_Imagenes();
         setIconImage(reescalar.getIconImage());
@@ -46,7 +46,6 @@ public class Principal extends javax.swing.JFrame {
 
     ///funcion para mostrar reloj
     private void Reloj() {
-
         // Crear un ActionListener para actualizar la hora
         ActionListener actualizarHora = new ActionListener() {
             public void actionPerformed(ActionEvent evento) {
@@ -561,7 +560,8 @@ public class Principal extends javax.swing.JFrame {
             public void run() {
                 try {
                     /*Se establece el aspecto visual del administrador de la interfaz de usuario (UIManager) con el aspecto visual predeterminado del sistema utilizando el método setLookAndFeel
-                    Se intenta cargar la clase del aspecto visual del sistema utilizando el método getSystemLookAndFeelClassName. Este método recupera el nombre de clase completamente cualificado del aspecto visual predeterminado proporcionado por el sistema operativo.
+                    Se intenta cargar la clase del aspecto visual del sistema utilizando el método getSystemLookAndFeelClassName. Este método recupera el nombre de clase completamente cualificado 
+                    del aspecto visual predeterminado proporcionado por el sistema operativo.
                      */
                     UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
                     new Principal().setVisible(true);

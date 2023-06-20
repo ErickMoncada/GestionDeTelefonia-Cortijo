@@ -15,8 +15,7 @@ public class Ubicacion extends javax.swing.JFrame {
     //Funcion para cargar datos a la tabla
     private void CargarTabla() {
         DatosTablas CrearTabla = new DatosTablas();
-        int[] anchos = {50};
-        CrearTabla.CargarTabla(tblCentro, anchos, "SELECT Ubicacion from [VistaUbicaciones]");
+        CrearTabla.CargarTabla(tblCentro,  "SELECT Ubicacion from [VistaUbicaciones]");
     }
 
     //desactivar botones y solo mostrar btnGurdar
@@ -247,12 +246,12 @@ public class Ubicacion extends javax.swing.JFrame {
         if (classcrud.Validar(txtUbicaciones, "La Ubicacion")) {
             Object[] datos = new Object[1];
             datos[0] = txtUbicaciones.getText();
-            if (classcrud.Guardar(datos, "exec AgregarUbicacion ? ")) {
+            if (classcrud.Guardar_Modificar(datos, "exec AgregarUbicacion ? ")) {
                 txtID.setText("");
                 txtUbicaciones.setText("");
                 CargarTabla();
             }
-            /*if (classcrud.Guardar(txtUbicaciones, "exec AgregarUbicacion ? ")) {
+            /*if (classcrud.Guardar_Modificar(txtUbicaciones, "exec AgregarUbicacion ? ")) {
                 txtID.setText("");
                 txtUbicaciones.setText("");
                 CargarTabla();

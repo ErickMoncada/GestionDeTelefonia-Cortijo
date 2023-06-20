@@ -13,30 +13,22 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Sebas
+ * @ErickMoncada Clase Para caargar datos a tablas y combobox
  */
 public class DatosTablas {
 
-    public void CargarTabla(JTable tabla, int[] anchos, String cmd) {
+    //Funcion para Cargar los datos a las tablas que se requieran 
+    //se recibe la tabla donde se van a cargar los datos y el comando de sql de donde se van a extraer
+    public void CargarTabla(JTable tabla, String cmd) {
         DefaultTableModel modeloTabla = (DefaultTableModel) tabla.getModel();
         modeloTabla.setRowCount(0);
         PreparedStatement ps;
         ResultSet rs;
         ResultSetMetaData rsmd;
         int columnas;
-        if (anchos != null) {
-            for (int i = 0; i < tabla.getColumnCount(); i++) {
-                tabla.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
-            }
-        }
-
         try {
             Connection con = Conexion.getConexion();
             ps = con.prepareStatement(cmd);
-            //ps = con.prepareStatement("SELECT id,matricula,nombre,sexo,email from alumnos where activo=1");
-            //ps = con.prepareStatement({call nombre_del_procedimiento(?, ?, ?)});
-            // String procedimientoAlmacenado = "{call nombre_del_procedimiento(?, ?, ?)}";
-            //CallableStatement ps = conexion.prepareCall(procedimientoAlmacenado);
             rs = ps.executeQuery();
             rsmd = rs.getMetaData();
             columnas = rsmd.getColumnCount();
@@ -53,6 +45,7 @@ public class DatosTablas {
     }
 
     //funcion de la clase DatoTablas para asignar datos a los combobox de las distintas pantallas
+    //Se recibe el comando de sql, el campo del select que tiene los datos que se necesitan y el ComboBox donde se van a cargar los datos
     public void cargarComboBox(String cmd, String campo, JComboBox cmbDestino) {
         PreparedStatement ps;
         ResultSet rs;

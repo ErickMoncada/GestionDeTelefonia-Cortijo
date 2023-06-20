@@ -16,8 +16,7 @@ public class LugarCompra extends javax.swing.JFrame {
     //Funcion para cargar datos a la tabla
     private void CargarTabla() {
         DatosTablas CrearTabla = new DatosTablas();
-        int[] anchos = {50};
-        CrearTabla.CargarTabla(tblCentro, anchos, "SELECT Lugar from [VistaLugarCompra]");
+        CrearTabla.CargarTabla(tblCentro,  "SELECT Lugar from [VistaLugarCompra]");
     }
 
     //desactivar botones y solo mostrar btnGurdar
@@ -249,12 +248,12 @@ public class LugarCompra extends javax.swing.JFrame {
         if (classcrud.Validar(txtMarca, "El Lugar de Compra")) {
             Object[] datos = new Object[1];
        datos[0]= txtMarca.getText();
-       if(classcrud.Guardar(datos, "exec AgregarLugarCompra ? ")){
+       if(classcrud.Guardar_Modificar(datos, "exec AgregarLugarCompra ? ")){
         txtID.setText("");
                 txtMarca.setText("");
                 CargarTabla();
        }
-          /*  if (classcrud.Guardar(txtPlanilla, "exec AgregarPlanilla ? ")) {
+          /*  if (classcrud.Guardar_Modificar(txtPlanilla, "exec AgregarPlanilla ? ")) {
                 txtID.setText("");
                 txtPlanilla.setText("");
                 CargarTabla();

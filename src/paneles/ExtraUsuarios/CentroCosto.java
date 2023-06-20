@@ -21,8 +21,7 @@ public class CentroCosto extends javax.swing.JFrame {
     //Funcion para cargar datos a la tabla
     private void CargarTabla() {
         DatosTablas CrearTabla = new DatosTablas();
-        int[] anchos = {50, 50};
-        CrearTabla.CargarTabla(tblCentro, anchos, "SELECT * from [VistaCentroCosto]");
+        CrearTabla.CargarTabla(tblCentro,  "SELECT * from [VistaCentroCosto]");
     }
 
     //Funcion para Validar campos
@@ -294,7 +293,7 @@ public class CentroCosto extends javax.swing.JFrame {
        datos[0]= Integer.parseInt(txtNumero.getText());
        datos[1]= txtNombre.getText();
        AccionesCrud classcrud = new  AccionesCrud();
-      if(classcrud.Guardar(datos, "exec [AgregarCentroCosto] ?, ? ")){
+      if(classcrud.Guardar_Modificar(datos, "exec [AgregarCentroCosto] ?, ? ")){
           txtNombre.setText("");
                 txtNumero.setText("");
                 CargarTabla();
