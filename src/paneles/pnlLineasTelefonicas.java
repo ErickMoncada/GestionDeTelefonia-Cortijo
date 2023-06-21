@@ -1015,11 +1015,15 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
     }//GEN-LAST:event_txtNumExpedienteKeyReleased
 
     private void txtLineaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLineaKeyTyped
+        String text = txtLinea.getText();
         int key = evt.getKeyChar();
-        boolean numero = key >= 48 && key <= 57 || key == KeyEvent.VK_BACK_SPACE;
-        if (txtLinea.getText().length() == 15 || !numero) {
+        boolean numero = ((key != 45));
+        boolean backSpace = (key == KeyEvent.VK_BACK_SPACE);
+        if (txtLinea.getText().length() == 9 || !numero) {
             evt.consume();
             Toolkit.getDefaultToolkit().beep();
+        }else if (text.length() == 4 && !backSpace) {
+            txtLinea.setText(text + "-");
         }
     }//GEN-LAST:event_txtLineaKeyTyped
 

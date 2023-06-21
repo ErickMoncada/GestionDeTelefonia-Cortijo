@@ -3,7 +3,6 @@ package paneles;
 import Clases.AccionesCrud;
 import Clases.DatosTablas;
 import Clases.validaciones;
-import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
@@ -15,9 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import paneles.ExtraEquipos.Categoria;
 import paneles.ExtraEquipos.Estado;
@@ -31,7 +28,6 @@ public class pnlEquipos extends javax.swing.JPanel {
         initComponents();
         CargarDatosPrincipal();
         Limpiar();
-        LimpiarErrores();
     }
     //se inicializa para la busqueda por medio de Imei
     String Busqueda = "Imei";
@@ -126,7 +122,6 @@ public class pnlEquipos extends javax.swing.JPanel {
         try {
             Date date = dtpPrestamo.getDate();
             long d = date.getTime();
-            java.sql.Date fecha = new java.sql.Date(d);
         } catch (Exception e) {
             error = "La fecha tiene que ser valida";
             val.DTPIncorrecto(lblErDatePrestamo, error);
@@ -1158,6 +1153,7 @@ public class pnlEquipos extends javax.swing.JPanel {
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+       LimpiarErrores();
         if (ValidarCampos()) {
             Object[] datos = new Object[14];
             datos[0] = txtNumIMEI.getText();

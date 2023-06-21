@@ -25,7 +25,6 @@ public class pnlUsuarios extends javax.swing.JPanel {
         initComponents();
         CargarDatosPrincipal();
         Limpiar();
-        LimpiarErrores();
     }
     //se inicializa para la busqueda por medio de Categoria
     String Busqueda = "CategoriaUser";
@@ -791,6 +790,7 @@ public class pnlUsuarios extends javax.swing.JPanel {
     }//GEN-LAST:event_btnCrudUbiActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        LimpiarErrores();
         if (ValidarCampos()) {
             Object[] datos = new Object[10];
             datos[0] = Integer.parseInt(txtNumExpediente.getText());
@@ -825,6 +825,7 @@ public class pnlUsuarios extends javax.swing.JPanel {
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+       LimpiarErrores();
         if (ValidarCampos()) {
             Object[] datos = new Object[10];
             datos[0] = Integer.parseInt(txtNumExpediente.getText());
