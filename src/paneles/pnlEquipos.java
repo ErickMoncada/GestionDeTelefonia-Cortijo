@@ -86,29 +86,7 @@ public class pnlEquipos extends javax.swing.JPanel {
         val.CMBcorrecto(cmbLugar, lblErLugar);
     }
 
-    private void correcto(JTextField campo, JComboBox campo2, JLabel msj) {
-        if (campo != null) {
-            campo.setForeground(Color.black);
-        }
-        //if(campo!= null){ campo.setBackground(Color.BLACK);}
-        if (campo2 != null) {
-            campo2.setForeground(Color.black);
-        }
-        if (msj != null) {
-            msj.setVisible(false);
-        }
-    }
-
-    private void incorrecto(JTextField campo, JComboBox campo2, JLabel msj) {
-        if (campo != null) {
-            campo.setForeground(Color.RED);
-        }
-        if (campo2 != null) {
-            //campo2.setForeground(Color.RED);
-        }
-        msj.setVisible(true);
-        //campo.setForeground(Color.white);
-    }
+  
 
     private boolean ValidarCampos() {
 
@@ -393,9 +371,6 @@ public class pnlEquipos extends javax.swing.JPanel {
         txtAccesorio.setNextFocusableComponent(txtModelo);
         txtAccesorio.setPreferredSize(new java.awt.Dimension(65, 26));
         txtAccesorio.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtAccesorioKeyReleased(evt);
-            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtAccesorioKeyTyped(evt);
             }
@@ -1035,7 +1010,7 @@ public class pnlEquipos extends javax.swing.JPanel {
     }//GEN-LAST:event_txtNumExpedienteKeyTyped
 
     private void txtNumExpedienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumExpedienteKeyReleased
-        correcto(txtNumExpediente, null, lblErExpediente);
+        val.TXTcorrecto(txtNumExpediente, lblErExpediente);
     }//GEN-LAST:event_txtNumExpedienteKeyReleased
 
     private void txtNumIMEIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumIMEIKeyTyped
@@ -1048,7 +1023,7 @@ public class pnlEquipos extends javax.swing.JPanel {
     }//GEN-LAST:event_txtNumIMEIKeyTyped
 
     private void txtNumIMEIKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumIMEIKeyReleased
-        correcto(txtNumIMEI, null, lblErImei);
+        val.TXTcorrecto(txtNumIMEI, lblErImei);
     }//GEN-LAST:event_txtNumIMEIKeyReleased
 
     private void btnLugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLugarActionPerformed
@@ -1084,10 +1059,6 @@ public class pnlEquipos extends javax.swing.JPanel {
             Toolkit.getDefaultToolkit().beep();
         }
     }//GEN-LAST:event_txtAccesorioKeyTyped
-
-    private void txtAccesorioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAccesorioKeyReleased
-        correcto(txtAccesorio, null, null);
-    }//GEN-LAST:event_txtAccesorioKeyReleased
 
     private void btnMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMarcaActionPerformed
         //Abrir Formulario de CentroCosto
