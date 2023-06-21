@@ -3,7 +3,6 @@ package paneles;
 import Clases.AccionesCrud;
 import Clases.DatosTablas;
 import Clases.validaciones;
-import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
@@ -13,9 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 public class pnlFiniquitos extends javax.swing.JPanel {
