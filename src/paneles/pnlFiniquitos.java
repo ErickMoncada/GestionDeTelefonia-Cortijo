@@ -53,9 +53,9 @@ public class pnlFiniquitos extends javax.swing.JPanel {
     }
 
     private void LimpiarErrores() {
-        val.DTPcorrecto(lblErSolicitud);
-        val.DTPcorrecto(lblErCorte);
-        val.DTPcorrecto(lblErCobro);
+        val.GENcorrecto(lblErSolicitud);
+        val.GENcorrecto(lblErCorte);
+        val.GENcorrecto(lblErCobro);
         val.TXTcorrecto(txtCobro, lblErValor);
         val.TXTcorrecto(txtLinea, lblErLinea);
     }
@@ -71,7 +71,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
             long d = date.getTime();
         } catch (Exception e) {
             error = "La fecha de Solicitud tiene que ser valida";
-            val.DTPIncorrecto(lblErSolicitud, error);
+            val.GENIncorrecto(lblErSolicitud, error);
             valor1 = 0;
         }
         try {
@@ -79,7 +79,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
             long d = date.getTime();
         } catch (Exception e) {
             error = "La fecha de Corte tiene que ser valida";
-            val.DTPIncorrecto(lblErCorte, error);
+            val.GENIncorrecto(lblErCorte, error);
             valor1 = 0;
         }
         try {
@@ -87,7 +87,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
             long d = date.getTime();
         } catch (Exception e) {
             error = "La fecha de Cobro tiene que ser valida";
-            val.DTPIncorrecto(lblErCobro, error);
+            val.GENIncorrecto(lblErCobro, error);
             valor1 = 0;
         }
         if (txtCobro.getText().isEmpty() || Double.parseDouble(txtCobro.getText()) <= 0) {

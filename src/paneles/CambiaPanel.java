@@ -9,7 +9,7 @@ public class CambiaPanel {
     private JPanel content;
 
     /**
-     * Constructor de clase que recibe 2 parametros para remplazar lo que aparece en el panle
+     * Constructor de clase que recibe 2 parametros para remplazar lo que aparece en el panel
      */
     public CambiaPanel(JPanel container, JPanel content) {
         this.container = container;

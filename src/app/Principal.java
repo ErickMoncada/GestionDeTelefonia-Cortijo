@@ -47,15 +47,13 @@ public class Principal extends javax.swing.JFrame {
     ///funcion para mostrar reloj
     private void Reloj() {
         // Crear un ActionListener para actualizar la hora
-        ActionListener actualizarHora = new ActionListener() {
-            public void actionPerformed(ActionEvent evento) {
-                // Obtener la hora actual
-                Date horaActual = new Date();
-                SimpleDateFormat formatoHora = new SimpleDateFormat("MMM dd yyyy, hh:mm a");
-
-                // Actualizar la etiqueta con la hora actual
-                lblHora.setText(formatoHora.format(horaActual));
-            }
+        ActionListener actualizarHora = (ActionEvent evento) -> {
+            // Obtener la hora actual
+            Date horaActual = new Date();
+            SimpleDateFormat formatoHora = new SimpleDateFormat("MMM dd yyyy, hh:mm a");
+            
+            // Actualizar la etiqueta con la hora actual
+            lblHora.setText(formatoHora.format(horaActual));
         };
 
         // Crear un Timer para actualizar la hora cada segundo

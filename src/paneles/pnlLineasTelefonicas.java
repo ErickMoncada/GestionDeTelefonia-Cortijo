@@ -95,12 +95,12 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         val.TXTcorrecto(txtLinea, lblErLinea);
         val.TXTcorrecto(txtNumExpediente, lblErExpediente);
         val.CMBcorrecto(cmbDisponibilidad, lblErDisponible);
-        val.DTPcorrecto(lblErCuotas);
+        val.GENcorrecto(lblErCuotas);
         val.TXTcorrecto(txtImei, lblErImei);
-        val.DTPcorrecto(lblErAsignacion);
-        val.DTPcorrecto(lblErCambio);
-        val.DTPcorrecto(lblErFacturacion);
-        val.DTPcorrecto(lblErPago);
+        val.GENcorrecto(lblErAsignacion);
+        val.GENcorrecto(lblErCambio);
+        val.GENcorrecto(lblErFacturacion);
+        val.GENcorrecto(lblErPago);
         val.TXTcorrecto(txtOtro, lblErFirma);
         val.TXTcorrecto(txtAnterior, lblErAnterior);
         val.TXTcorrecto(txtNuevo, lblErNuevo);
@@ -152,7 +152,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         if ((Integer) txtCuotas.getValue() <= 0) {
             valor1 = 0;
             error = "Las cuotas no pueden ser menor o igual a 0";
-            val.DTPIncorrecto(lblErCuotas, error);
+            val.GENIncorrecto(lblErCuotas, error);
         }
         if (txtImei.getText().isEmpty() || !txtImei.getText().matches("\\d{15}")) {
             valor1 = 0;
@@ -164,7 +164,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
             long d = date.getTime();
         } catch (Exception e) {
             error = "La fecha de Asignacion tiene que ser valida";
-            val.DTPIncorrecto(lblErAsignacion, error);
+            val.GENIncorrecto(lblErAsignacion, error);
             valor1 = 0;
         }
         try {
@@ -172,7 +172,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
             long d = date.getTime();
         } catch (Exception e) {
             error = "La fecha de Cambio tiene que ser valida";
-            val.DTPIncorrecto(lblErCambio, error);
+            val.GENIncorrecto(lblErCambio, error);
             valor1 = 0;
         }
         try {
@@ -180,13 +180,13 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
             long d = date.getTime();
         } catch (Exception e) {
             error = "La fecha de Facturacion tiene que ser valida";
-            val.DTPIncorrecto(lblErFacturacion, error);
+            val.GENIncorrecto(lblErFacturacion, error);
             valor1 = 0;
         }
         if (btgPago.getSelection() == null) {
             valor1 = 0;
             error = "Debe seleccionar una opcion de Pago de Seguro";
-            val.DTPIncorrecto(lblErPago, error);
+            val.GENIncorrecto(lblErPago, error);
         }
 
         if (rdbOtro.isSelected() && txtOtro.getText().isEmpty()) {
@@ -196,7 +196,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         } else if (btgFirma.getSelection() == null) {
             valor1 = 0;
             error = "Debe seleccionar una opcion de Firma";
-            val.DTPIncorrecto(lblErFirma, error);
+            val.GENIncorrecto(lblErFirma, error);
         }
         if (txtAnterior.getText().isEmpty()) {
             valor1 = 0;
@@ -1434,30 +1434,30 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
 
     private void rdbNoFirmaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rdbNoFirmaItemStateChanged
         txtOtro.setVisible(false);
-        val.DTPcorrecto(lblErFirma);
+        val.GENcorrecto(lblErFirma);
     }//GEN-LAST:event_rdbNoFirmaItemStateChanged
 
     private void rdbSiFirmaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rdbSiFirmaItemStateChanged
         txtOtro.setVisible(false);
-        val.DTPcorrecto(lblErFirma);
+        val.GENcorrecto(lblErFirma);
     }//GEN-LAST:event_rdbSiFirmaItemStateChanged
 
     private void rdbOtroItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rdbOtroItemStateChanged
         txtOtro.setVisible(true);
         txtOtro.requestFocus();
-        val.DTPcorrecto(lblErFirma);
+        val.GENcorrecto(lblErFirma);
     }//GEN-LAST:event_rdbOtroItemStateChanged
 
     private void txtCuotasStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_txtCuotasStateChanged
-        val.DTPcorrecto(lblErCuotas);
+        val.GENcorrecto(lblErCuotas);
     }//GEN-LAST:event_txtCuotasStateChanged
 
     private void rdbSiSeguroItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rdbSiSeguroItemStateChanged
-        val.DTPcorrecto(lblErPago);
+        val.GENcorrecto(lblErPago);
     }//GEN-LAST:event_rdbSiSeguroItemStateChanged
 
     private void rdbNoSeguroItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rdbNoSeguroItemStateChanged
-        val.DTPcorrecto(lblErPago);
+        val.GENcorrecto(lblErPago);
     }//GEN-LAST:event_rdbNoSeguroItemStateChanged
 
 
