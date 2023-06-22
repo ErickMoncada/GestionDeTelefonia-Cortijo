@@ -2,6 +2,8 @@ package paneles.ExtraUsuarios;
 
 import Clases.AccionesCrud;
 import Clases.DatosTablas;
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 
 public class Planilla extends javax.swing.JFrame {
 
@@ -9,13 +11,14 @@ public class Planilla extends javax.swing.JFrame {
         initComponents();
         CargarTabla();
         Limpiar();
+        //establecer invicible el campo de id
         txtID.setVisible(false);
     }
 
     //Funcion para cargar datos a la tabla
     private void CargarTabla() {
         DatosTablas CrearTabla = new DatosTablas();
-        CrearTabla.CargarTabla(tblCentro,  "SELECT Planilla from [VistaPlanillas]");
+        CrearTabla.CargarTabla(tblCentro, "SELECT Planilla from [VistaPlanillas]");
     }
 
     //desactivar botones y solo mostrar btnGurdar
@@ -52,6 +55,11 @@ public class Planilla extends javax.swing.JFrame {
         lblPlanilla.setText("Planilla:");
 
         txtPlanilla.setPreferredSize(new java.awt.Dimension(65, 26));
+        txtPlanilla.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPlanillaKeyTyped(evt);
+            }
+        });
 
         btnEliminar.setBackground(new java.awt.Color(114, 191, 68));
         btnEliminar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -202,7 +210,7 @@ public class Planilla extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -228,6 +236,7 @@ public class Planilla extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblCentroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCentroMouseClicked
+        //se trata de obtener los datos de la tabla para mostrarlos en las casillas respectivas con ayuda de sql
         AccionesCrud classcrud = new AccionesCrud();
         if (classcrud.CargarDatoClick(tblCentro, "SELECT [IDPlanilla],[Planilla] from VistaPlanillas where Planilla=?", "Planilla", "IDPlanilla", txtPlanilla, txtID)) {
             btnGuardar.setVisible(false);
@@ -235,7 +244,6 @@ public class Planilla extends javax.swing.JFrame {
             btnEliminar.setVisible(true);
             btnCancelar.setVisible(true);
         }
-
     }//GEN-LAST:event_tblCentroMouseClicked
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -243,24 +251,21 @@ public class Planilla extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
         AccionesCrud classcrud = new AccionesCrud();
         if (classcrud.Validar(txtPlanilla, "La Planilla")) {
             Object[] datos = new Object[1];
-       datos[0]= txtPlanilla.getText();
-       if(classcrud.Guardar_Modificar(datos, "exec AgregarPlanilla ? ")){
-        txtID.setText("");
-                txtPlanilla.setText("");
-                CargarTabla();
-       }
-          /*  if (classcrud.Guardar_Modificar(txtPlanilla, "exec AgregarPlanilla ? ")) {
+            datos[0] = txtPlanilla.getText();
+            if (classcrud.Guardar_Modificar(datos, "exec AgregarPlanilla ? ")) {
                 txtID.setText("");
                 txtPlanilla.setText("");
                 CargarTabla();
-            }*/
+            }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
         AccionesCrud classcrud = new AccionesCrud();
         if (classcrud.Validar(txtPlanilla, "La Planilla")) {
             if (classcrud.Modificar(txtPlanilla, txtID, "exec UpdatePlanilla ?,?")) {
@@ -271,6 +276,7 @@ public class Planilla extends javax.swing.JFrame {
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
         AccionesCrud classcrud = new AccionesCrud();
         if (classcrud.Validar(txtPlanilla, "La Planilla")) {
             if (classcrud.Eliminar(txtID, "exec EliminarPlanilla ?")) {
@@ -280,12 +286,18 @@ public class Planilla extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
+    private void txtPlanillaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPlanillaKeyTyped
+        int key = evt.getKeyChar();
+        // evaluar si la tecla presionada representa una letra (mayúscula o minúscula), un número, un espacio en blanco, la tecla de retroceso o cualquier otra tecla que no sea el signo "+" 
+        boolean letra = (key >= 65 && key <= 90) || (key >= 97 && key <= 122 || key >= 48 && key <= 57 || key == KeyEvent.VK_SPACE || key == KeyEvent.VK_BACK_SPACE);
+        if (txtPlanilla.getText().length() == 30 || !letra) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }
+    }//GEN-LAST:event_txtPlanillaKeyTyped
+
     public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CentroCosto().setVisible(true);
-            }
-        });
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

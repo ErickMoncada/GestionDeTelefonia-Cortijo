@@ -3,7 +3,6 @@ package paneles;
 import Clases.AccionesCrud;
 import Clases.DatosTablas;
 import Clases.validaciones;
-import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
@@ -17,18 +16,10 @@ import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import paneles.ExtraEquipos.Estado;
 
 public class pnlLineasTelefonicas extends javax.swing.JPanel {
-
-    //se inicializa para la busqueda por medio de Imei
-    String Busqueda = "Imei";
-    //se inicializa la clase de validaciones
-    validaciones val = new validaciones();
-    ButtonGroup btgPago = new ButtonGroup();
-    ButtonGroup btgFirma = new ButtonGroup();
 
     public pnlLineasTelefonicas() {
         initComponents();
@@ -42,10 +33,17 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         btgFirma.add(rdbSiFirma);
         btgFirma.add(rdbNoFirma);
         btgFirma.add(rdbOtro);
-
     }
+    //se inicializa para la busqueda por medio de Imei
+    String Busqueda = "Imei";
+    //se inicializa la clase de validaciones
+    validaciones val = new validaciones();
+    //se crean los grupos de botones para los radioButton
+    ButtonGroup btgPago = new ButtonGroup();
+    ButtonGroup btgFirma = new ButtonGroup();
 
     private String SumarValores(int pocision) {
+       //funcion para sumar la cantidad que brinda una columna
         double total = 0;
         for (int i = 0; i < tblLineas.getRowCount(); i++) {
             Object value = tblLineas.getValueAt(i, pocision);
@@ -56,6 +54,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
     }
 
     private void Limpiar() {
+        //funcion para reiniciar todos los valores de la pantalla
         btnCancelar.setVisible(false);
         btnModificar.setVisible(false);
         btnEliminar.setVisible(false);
@@ -87,11 +86,13 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         //rellenar datos de la tabla
         DatosTablas Datos = new DatosTablas();
         Datos.CargarTabla(tblLineas, "select * from [VistaLineasTelefonicas]");
+        //llenar los datos de los combobox
         Datos.cargarComboBox("select Disponible from VistaDisponibilidades", "Disponible", cmbDisponibilidad);
 
     }
 
     private void LimpiarErrores() {
+        //usando la clase de validaciones se establecen los valores en correcto
         val.TXTcorrecto(txtLinea, lblErLinea);
         val.TXTcorrecto(txtNumExpediente, lblErExpediente);
         val.CMBcorrecto(cmbDisponibilidad, lblErDisponible);
@@ -108,34 +109,16 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         val.TXTcorrecto(txtMensual, lblErMensual);
     }
 
-    private void correcto(JTextField campo, JComboBox campo2) {
-        if (campo != null) {
-            campo.setBackground(Color.WHITE);
-        }
-        //if(campo!= null){ campo.setBackground(Color.BLACK);}
-        if (campo2 != null) {
-            campo2.setBackground(Color.WHITE);
-        }
-    }
-
-    private void incorrecto(JTextField campo, JComboBox campo2) {
-        if (campo != null) {
-            campo.setBackground(Color.RED);
-        }
-        if (campo2 != null) {
-            campo2.setBackground(Color.RED);
-        }
-        //campo.setForeground(Color.white);
-    }
-
     private boolean ValidarCampos() {
-
         int valor1 = 1;
         String error;
-
+        //validar que no este vacio u otro parametro mas
         if (txtLinea.getText().isEmpty() || !txtLinea.getText().matches("\\d{4}-\\d{4}")) {
+            //asignar 0 al valor para devolver falso en la validacion
             valor1 = 0;
+            //mensaje de error para el respectivo campo de texto
             error = "Escriba un numero de telefono valido";
+            //asignar colores de error a cada campo
             val.TXTincorrecto(txtLinea, lblErLinea, error);
         }
         if (txtNumExpediente.getText().isEmpty()) {
@@ -159,6 +142,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
             error = "Escriba un numero de IMEI valido";
             val.TXTincorrecto(txtImei, lblErImei, error);
         }
+        //se trata de obtener la fecha y si no se puede genera un error
         try {
             Date date = dtpAsignacion.getDate();
             long d = date.getTime();
@@ -188,7 +172,6 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
             error = "Debe seleccionar una opcion de Pago de Seguro";
             val.GENIncorrecto(lblErPago, error);
         }
-
         if (rdbOtro.isSelected() && txtOtro.getText().isEmpty()) {
             valor1 = 0;
             error = "EL campo de Otro no puede estar en blanco";
@@ -220,7 +203,6 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         }
 
         return valor1 == 1; //Expreciones regulares de los campos
-        //4 o menos digitos numericos 
     }
 
     @SuppressWarnings("unchecked")
@@ -320,14 +302,12 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setComponentPopupMenu(jPopupMenu1);
 
-        txtBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtBuscarActionPerformed(evt);
-            }
-        });
         txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtBuscarKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyTyped(evt);
             }
         });
 
@@ -1034,6 +1014,8 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblLineasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblLineasMouseClicked
+        LimpiarErrores();
+         //se trata de obtener los datos de la tabla para mostrarlos en las casillas respectivas con ayuda de sql
         try {
             AccionesCrud classcrud = new AccionesCrud();
             ResultSet rs = classcrud.Seleccion(tblLineas, "select * from [VistaLineasTelefonicas] where [Linea]=?");
@@ -1071,6 +1053,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
                     Logger.getLogger(pnlEquipos.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
+                //switch para saber que radio button seleccionar
                 String rdbFirma = rs.getString("Firma");
                 switch (rdbFirma) {
                     case "SI":
@@ -1083,13 +1066,13 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
                         btgFirma.setSelected(rdbOtro.getModel(), true);
                         txtOtro.setText(rdbFirma);
                 }
-
+               //switch para saber que radio button seleccionar
                 String rdbPagoSeguro = rs.getString("PagoSeguro");
                 switch (rdbPagoSeguro) {
-                    case "1":
+                    case "SI":
                         btgPago.setSelected(rdbSiSeguro.getModel(), true);
                         break;
-                    case "2":
+                    case "NO":
                         btgPago.setSelected(rdbNoSeguro.getModel(), true);
                         break;
                     default:
@@ -1109,6 +1092,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
     }//GEN-LAST:event_tblLineasMouseClicked
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        //se utiliza la funcion Eliminar de la clase AccionesCrud enviando el ID
         AccionesCrud classcrud = new AccionesCrud();
         if (classcrud.Eliminar(txtLinea, "exec EliminarLineaTelefonica ?")) {
             DatosTablas Datos = new DatosTablas();
@@ -1122,6 +1106,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         LimpiarErrores();
         if (ValidarCampos()) {
+             //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
             Object[] datos = new Object[15];
             datos[0] = txtLinea.getText();
             datos[1] = txtNumExpediente.getText();
@@ -1157,13 +1142,11 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
             } catch (Exception e) {
                 datos[8] = "";
             }
-
             if (rdbSiSeguro.isSelected() == true) {
                 datos[9] = 1;
             } else if (rdbNoSeguro.isSelected() == true) {
                 datos[9] = 2;
             }
-
             if (rdbSiFirma.isSelected() == true) {
                 datos[10] = "SI";
             } else if (rdbNoFirma.isSelected() == true) {
@@ -1190,6 +1173,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         LimpiarErrores();
         if (ValidarCampos()) {
+             //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
             Object[] datos = new Object[15];
             datos[0] = txtLinea.getText();
             datos[1] = txtNumExpediente.getText();
@@ -1225,13 +1209,11 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
             } catch (Exception e) {
                 datos[8] = "";
             }
-
             if (rdbSiSeguro.isSelected() == true) {
                 datos[9] = 1;
             } else if (rdbNoSeguro.isSelected() == true) {
                 datos[9] = 2;
             }
-
             if (rdbSiFirma.isSelected() == true) {
                 datos[10] = "SI";
             } else if (rdbNoFirma.isSelected() == true) {
@@ -1239,7 +1221,6 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
             } else if (rdbOtro.isSelected() == true) {
                 datos[10] = txtOtro.getText();
             }
-
             datos[11] = Double.parseDouble(txtAnterior.getText());
             datos[12] = Double.parseDouble(txtNuevo.getText());
             datos[13] = Double.parseDouble(txtPresupuesto.getText());
@@ -1251,12 +1232,14 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
                 Datos.CargarTabla(tblLineas, "select * from [VistaLineasTelefonicas]");
                 lblTotalPlanNuevo.setText("Suma Total de los Plan Nuevos: " + SumarValores(12) + "$");
                 lblTotalPresupuesto.setText("Suma Total de los Presupuestos: " + SumarValores(13) + "$");
+                Limpiar();
             }
         }
     }//GEN-LAST:event_btnModificarActionPerformed
 
     //Funicon para asignar el tipo de busqueda que se va hacer por medio de un switc y los valores de la vista de la BD
     private void cmbBuscarItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbBuscarItemStateChanged
+        //Cada vez que se cambia el estado del combobox se cambia el filtro de busqueda global para la funcion de busqueda
         String elementoSeleccionado = (String) cmbBuscar.getSelectedItem();
         switch (elementoSeleccionado) {
             case "IMEI":
@@ -1274,6 +1257,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
     }//GEN-LAST:event_cmbBuscarItemStateChanged
 
     private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
+        //cada vez que se precione una tecla se va a buscar junto al filtro de busqueda en la vista correspondiente
         DatosTablas BusquedaTabla = new DatosTablas();
         //se limpia la tabla
         DefaultTableModel modelo = (DefaultTableModel) tblLineas.getModel();
@@ -1285,7 +1269,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
     }//GEN-LAST:event_txtBuscarKeyReleased
 
     private void btnDisponibilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDisponibilidadActionPerformed
-        //Abrir Formulario de Estado
+         //Abrir Formulario de Estado
         Estado CrudEstado = new Estado();
         CrudEstado.setVisible(true);
         CrudEstado.pack();
@@ -1293,6 +1277,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
     }//GEN-LAST:event_btnDisponibilidadActionPerformed
 
     private void cmbDisponibilidadItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDisponibilidadItemStateChanged
+        //al seleccionar un item se quita el estado de error
         val.CMBcorrecto(cmbDisponibilidad, lblErDisponible);
     }//GEN-LAST:event_cmbDisponibilidadItemStateChanged
 
@@ -1302,6 +1287,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
 
     private void txtNumExpedienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumExpedienteKeyTyped
         int key = evt.getKeyChar();
+        //solo perimitir numeros y retroceso
         boolean numero = key >= 48 && key <= 57 || key == KeyEvent.VK_BACK_SPACE;
         if (txtNumExpediente.getText().length() == 5 || !numero) {
             evt.consume();
@@ -1310,29 +1296,31 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
     }//GEN-LAST:event_txtNumExpedienteKeyTyped
 
     private void txtNumExpedienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumExpedienteKeyReleased
+         //al escribir se quita el estado de error
         val.TXTcorrecto(txtNumExpediente, lblErExpediente);
     }//GEN-LAST:event_txtNumExpedienteKeyReleased
 
     private void txtLineaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLineaKeyTyped
         String text = txtLinea.getText();
         int key = evt.getKeyChar();
-        boolean numero = ((key != 45));
+        //Solo permitir numeros
+        boolean numero= key >= 48 && key <= 57 || key == KeyEvent.VK_BACK_SPACE;
+        //identificar si es evento de retroceso
         boolean backSpace = (key == KeyEvent.VK_BACK_SPACE);
+        //no permitir mas de 9 digitos y que no sea un guion
         if (txtLinea.getText().length() == 9 || !numero) {
             evt.consume();
             Toolkit.getDefaultToolkit().beep();
+            //si son 4 caracteres y no es un retroceso se agrega un guion
         } else if (text.length() == 4 && !backSpace) {
             txtLinea.setText(text + "-");
         }
     }//GEN-LAST:event_txtLineaKeyTyped
 
     private void txtLineaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLineaKeyReleased
+        //al escribir se quita el estado de error
         val.TXTcorrecto(txtLinea, lblErLinea);
     }//GEN-LAST:event_txtLineaKeyReleased
-
-    private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtBuscarActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         DatosTablas Datos = new DatosTablas();
@@ -1345,7 +1333,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
             model.removeAllElements();
             model.addElement("");
         }
-
+        //vuelve a cargar los combobox
         Datos.cargarComboBox("select Disponible from VistaDisponibilidades", "Disponible", cmbDisponibilidad);
 
     }//GEN-LAST:event_jMenuItem1ActionPerformed
@@ -1355,11 +1343,13 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void txtImeiKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtImeiKeyReleased
+        //al escribir se quita el estado de error
         val.TXTcorrecto(txtImei, lblErImei);
     }//GEN-LAST:event_txtImeiKeyReleased
 
     private void txtImeiKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtImeiKeyTyped
         int key = evt.getKeyChar();
+        //solo permite numeros y retroceso
         boolean numero = key >= 48 && key <= 57 || key == KeyEvent.VK_BACK_SPACE;
         if (txtImei.getText().length() == 15 || !numero) {
             evt.consume();
@@ -1368,11 +1358,13 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
     }//GEN-LAST:event_txtImeiKeyTyped
 
     private void txtAnteriorKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAnteriorKeyReleased
+        //al escribir se quita el estado de error
         val.TXTcorrecto(txtAnterior, lblErAnterior);
     }//GEN-LAST:event_txtAnteriorKeyReleased
 
     private void txtAnteriorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAnteriorKeyTyped
         int key = evt.getKeyChar();
+        //expresion regular que solo permite numeros, tecla de eliminar y un punto
         boolean numero = (key >= 48 && key <= 57) || (key == 46 && !txtAnterior.getText().contains(".")) || key == KeyEvent.VK_BACK_SPACE;
         if (txtAnterior.getText().length() == 8 || !numero) {
             evt.consume();
@@ -1381,11 +1373,13 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
     }//GEN-LAST:event_txtAnteriorKeyTyped
 
     private void txtNuevoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNuevoKeyReleased
+        //al escribir se quita el estado de error
         val.TXTcorrecto(txtNuevo, lblErNuevo);
     }//GEN-LAST:event_txtNuevoKeyReleased
 
     private void txtNuevoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNuevoKeyTyped
         int key = evt.getKeyChar();
+        //expresion regular que solo permite numeros, tecla de eliminar y un punto
         boolean numero = (key >= 48 && key <= 57) || (key == 46 && !txtNuevo.getText().contains(".")) || key == KeyEvent.VK_BACK_SPACE;
         if (txtNuevo.getText().length() == 8 || !numero) {
             evt.consume();
@@ -1394,11 +1388,13 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
     }//GEN-LAST:event_txtNuevoKeyTyped
 
     private void txtPresupuestoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPresupuestoKeyReleased
+        //al escribir se quita el estado de error
         val.TXTcorrecto(txtPresupuesto, lblErPresupuesto);
     }//GEN-LAST:event_txtPresupuestoKeyReleased
 
     private void txtPresupuestoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPresupuestoKeyTyped
         int key = evt.getKeyChar();
+        //expresion regular que solo permite numeros, tecla de eliminar y un punto
         boolean numero = (key >= 48 && key <= 57) || (key == 46 && !txtPresupuesto.getText().contains(".")) || key == KeyEvent.VK_BACK_SPACE;
         if (txtPresupuesto.getText().length() == 8 || !numero) {
             evt.consume();
@@ -1407,11 +1403,13 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
     }//GEN-LAST:event_txtPresupuestoKeyTyped
 
     private void txtMensualKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMensualKeyReleased
+        //al escribir se quita el estado de error
         val.TXTcorrecto(txtMensual, lblErMensual);
     }//GEN-LAST:event_txtMensualKeyReleased
 
     private void txtMensualKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMensualKeyTyped
         int key = evt.getKeyChar();
+        //expresion regular que solo permite numeros, tecla de eliminar y un punto
         boolean numero = (key >= 48 && key <= 57) || (key == 46 && !txtMensual.getText().contains(".")) || key == KeyEvent.VK_BACK_SPACE;
         if (txtMensual.getText().length() == 8 || !numero) {
             evt.consume();
@@ -1421,6 +1419,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
 
     private void txtOtroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtOtroKeyTyped
         int key = evt.getKeyChar();
+        //perimite escribir solo letras , numeros y retroceso
         boolean letra = (key >= 65 && key <= 90) || (key >= 97 && key <= 122 || key >= 48 && key <= 57 || key == KeyEvent.VK_SPACE || key == KeyEvent.VK_BACK_SPACE);
         if (txtOtro.getText().length() == 50 || !letra) {
             evt.consume();
@@ -1429,36 +1428,53 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
     }//GEN-LAST:event_txtOtroKeyTyped
 
     private void txtOtroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtOtroKeyReleased
+        //al escribir se quita el estado de error
         val.TXTcorrecto(txtOtro, lblErFirma);
     }//GEN-LAST:event_txtOtroKeyReleased
 
     private void rdbNoFirmaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rdbNoFirmaItemStateChanged
+       //al seleccionar este radioButton se pone el estado en correcto y se pone invisible el txt de la opcion otro
         txtOtro.setVisible(false);
         val.GENcorrecto(lblErFirma);
     }//GEN-LAST:event_rdbNoFirmaItemStateChanged
 
     private void rdbSiFirmaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rdbSiFirmaItemStateChanged
+         //al seleccionar este radioButton se pone el estado en correcto y se pone invisible el txt de la opcion otro
         txtOtro.setVisible(false);
         val.GENcorrecto(lblErFirma);
     }//GEN-LAST:event_rdbSiFirmaItemStateChanged
 
     private void rdbOtroItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rdbOtroItemStateChanged
+         //al seleccionar este radioButton se pone el estado en correcto y se pone visible el text junto al focus para escribir
         txtOtro.setVisible(true);
         txtOtro.requestFocus();
         val.GENcorrecto(lblErFirma);
     }//GEN-LAST:event_rdbOtroItemStateChanged
 
     private void txtCuotasStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_txtCuotasStateChanged
+        //al cambiar el numero de cuotas se pone el estado en correcto
         val.GENcorrecto(lblErCuotas);
     }//GEN-LAST:event_txtCuotasStateChanged
 
     private void rdbSiSeguroItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rdbSiSeguroItemStateChanged
+        //al seleccionar un radio button de seguros se quita el mensaje de error
         val.GENcorrecto(lblErPago);
     }//GEN-LAST:event_rdbSiSeguroItemStateChanged
 
     private void rdbNoSeguroItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rdbNoSeguroItemStateChanged
+        //al seleccionar un radio button de seguros se quita el mensaje de error
         val.GENcorrecto(lblErPago);
     }//GEN-LAST:event_rdbNoSeguroItemStateChanged
+
+    private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
+        int key = evt.getKeyChar();
+        // evaluar si la tecla presionada representa una letra (mayúscula o minúscula), un número, un espacio en blanco, la tecla de retroceso o cualquier otra tecla que no sea el signo "+" 
+        boolean letra = (key >= 65 && key <= 90) || (key >= 97 && key <= 122 || key >= 46 && key <= 57 || (key != 43) || key == KeyEvent.VK_SPACE || key == KeyEvent.VK_BACK_SPACE);
+        if (txtBuscar.getText().length() == 30 || !letra) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }
+    }//GEN-LAST:event_txtBuscarKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

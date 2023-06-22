@@ -30,6 +30,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
     validaciones val = new validaciones();
 
     private void Limpiar() {
+        //funcion para reiniciar todos los valores de la pantalla
         btnCancelar.setVisible(false);
         btnModificar.setVisible(false);
         btnEliminar.setVisible(false);
@@ -49,10 +50,12 @@ public class pnlFiniquitos extends javax.swing.JPanel {
     private void CargarDatosPrincipal() {
         //rellenar datos de la tabla
         DatosTablas Datos = new DatosTablas();
+        //llenar los datos de los combobox
         Datos.CargarTabla(tblFiniquitos, "select * from VistaFiniquitos");
     }
 
     private void LimpiarErrores() {
+        //usando la clase de validaciones se establecen los valores en correcto
         val.GENcorrecto(lblErSolicitud);
         val.GENcorrecto(lblErCorte);
         val.GENcorrecto(lblErCobro);
@@ -90,6 +93,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
             val.GENIncorrecto(lblErCobro, error);
             valor1 = 0;
         }
+
         if (txtCobro.getText().isEmpty() || Double.parseDouble(txtCobro.getText()) <= 0) {
             valor1 = 0;
             error = "El valor del cobro no puede estar vacío o en 0";
@@ -102,7 +106,6 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         }
 
         return valor1 == 1; //Expreciones regulares de los campos
-        //4 o menos digitos numericos 
     }
 
     @SuppressWarnings("unchecked")
@@ -504,7 +507,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         LimpiarErrores();
         if (ValidarCampos()) {
             Object[] datos = new Object[8];
-            //se manda el ID pero no se utiliza en Agregar
+            //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
             datos[0] = Integer.parseInt(txtIDFiniquitos.getText());
             datos[1] = txtLinea.getText();
 
@@ -550,11 +553,9 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         LimpiarErrores();
         if (ValidarCampos()) {
             Object[] datos = new Object[8];
-
+            //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
             datos[0] = "";
-
             datos[1] = txtLinea.getText();
-
             try {
                 Date date = dtpSolicitud.getDate();
                 long d = date.getTime();
@@ -574,7 +575,6 @@ public class pnlFiniquitos extends javax.swing.JPanel {
             datos[4] = Double.parseDouble(txtCobro.getText());
             datos[5] = txtObs1.getText();
             datos[6] = txtObs2.getText();
-
             try {
                 Date date2 = dtpCobro.getDate();
                 long d2 = date2.getTime();
@@ -583,7 +583,6 @@ public class pnlFiniquitos extends javax.swing.JPanel {
             } catch (Exception e) {
                 datos[7] = "";
             }
-
             AccionesCrud classcrud = new AccionesCrud();
             if (classcrud.Guardar_Modificar(datos, "exec [AgregarFiniquito] ?,?,?,?,?,?,?,?")) {
                 DatosTablas Datos = new DatosTablas();
@@ -593,6 +592,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        //se utiliza la funcion Eliminar de la clase AccionesCrud enviando el ID
         AccionesCrud classcrud = new AccionesCrud();
         if (classcrud.Eliminar(txtIDFiniquitos, "exec EliminarFiniquito ?")) {
             DatosTablas Datos = new DatosTablas();
@@ -606,6 +606,8 @@ public class pnlFiniquitos extends javax.swing.JPanel {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void tblFiniquitosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblFiniquitosMouseClicked
+        LimpiarErrores();
+          //se trata de obtener los datos de la tabla para mostrarlos en las casillas respectivas con ayuda de sql
         try {
             AccionesCrud classcrud = new AccionesCrud();
             ResultSet rs = classcrud.Seleccion(tblFiniquitos, "select * from [VistaFiniquitos] where [ID]=?");
@@ -650,6 +652,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
 
     //Funicon para asignar el tipo de busqueda que se va hacer por medio de un switc y los valores de la vista de la BD
     private void cmbBuscarItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbBuscarItemStateChanged
+        //Cada vez que se cambia el estado del combobox se cambia el filtro de busqueda global para la funcion de busqueda
         String elementoSeleccionado = (String) cmbBuscar.getSelectedItem();
         switch (elementoSeleccionado) {
             case "Linea Telefonica":
@@ -661,6 +664,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
     }//GEN-LAST:event_cmbBuscarItemStateChanged
 
     private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
+          //cada vez que se precione una tecla se va a buscar junto al filtro de busqueda en la vista correspondiente
         DatosTablas BusquedaTabla = new DatosTablas();
         //se limpia la tabla
         DefaultTableModel modelo = (DefaultTableModel) tblFiniquitos.getModel();
@@ -671,6 +675,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
 
     private void txtCobroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCobroKeyTyped
         int key = evt.getKeyChar();
+        //expresion regular que solo permite numeros, tecla de eliminar y un punto
         boolean numero = (key >= 48 && key <= 57) || (key == 46 && !txtCobro.getText().contains(".")) || key == KeyEvent.VK_BACK_SPACE;
         if (txtCobro.getText().length() == 8 || !numero) {
             evt.consume();
@@ -681,21 +686,27 @@ public class pnlFiniquitos extends javax.swing.JPanel {
     private void txtLineaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLineaKeyTyped
         String text = txtLinea.getText();
         int key = evt.getKeyChar();
-        boolean numero = ((key != 45));
+        //Solo permitir numeros
+        boolean numero= key >= 48 && key <= 57 || key == KeyEvent.VK_BACK_SPACE;
+        //identificar si es evento de retroceso
         boolean backSpace = (key == KeyEvent.VK_BACK_SPACE);
+        //no permitir mas de 9 digitos y que no sea un guion
         if (txtLinea.getText().length() == 9 || !numero) {
             evt.consume();
             Toolkit.getDefaultToolkit().beep();
+            //si son 4 caracteres y no es un retroceso se agrega un guion
         } else if (text.length() == 4 && !backSpace) {
             txtLinea.setText(text + "-");
         }
     }//GEN-LAST:event_txtLineaKeyTyped
 
     private void txtLineaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLineaKeyReleased
+       //al escribir se quita el estado de error
         val.TXTcorrecto(txtLinea, lblErLinea);
     }//GEN-LAST:event_txtLineaKeyReleased
 
     private void txtCobroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCobroKeyReleased
+        //al escribir se quita el estado de error
         val.TXTcorrecto(txtCobro, lblErValor);
     }//GEN-LAST:event_txtCobroKeyReleased
 

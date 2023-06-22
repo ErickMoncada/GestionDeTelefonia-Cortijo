@@ -1272,7 +1272,7 @@ public class pnlEquipos extends javax.swing.JPanel {
           int key = evt.getKeyChar();
         // evaluar si la tecla presionada representa una letra (mayúscula o minúscula), un número, un espacio en blanco, la tecla de retroceso o cualquier otra tecla que no sea el signo "+" 
         boolean letra = (key >= 65 && key <= 90) || (key >= 97 && key <= 122 || key >= 46 && key <= 57 || (key != 43) || key == KeyEvent.VK_SPACE || key == KeyEvent.VK_BACK_SPACE);
-        if (txtAccesorio.getText().length() == 30 || !letra) {
+        if (txtBuscar.getText().length() == 30 || !letra) {
             evt.consume();
             Toolkit.getDefaultToolkit().beep();
         }

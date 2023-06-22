@@ -30,6 +30,7 @@ public class pnlUsuarios extends javax.swing.JPanel {
     validaciones val = new validaciones();
 
     private void Limpiar() {
+        //funcion para reiniciar todos los valores de la pantalla
         btnCancelar.setVisible(false);
         btnModificar.setVisible(false);
         btnEliminar.setVisible(false);
@@ -53,6 +54,7 @@ public class pnlUsuarios extends javax.swing.JPanel {
         //rellenar datos de la tabla
         DatosTablas Datos = new DatosTablas();
         Datos.CargarTabla(tblUsuarios, "select * from VistaUsuarios");
+        //llenar los datos de los combobox
         Datos.cargarComboBox("select CentroCosto from VistaCentroCosto", "CentroCosto", cmbCentroCosto);
         Datos.cargarComboBox("select Planilla from VistaPlanillas", "Planilla", cmbPlanilla);
         Datos.cargarComboBox("select Puesto from VistaPuestosTrabajos", "Puesto", cmbPuesto);
@@ -62,6 +64,7 @@ public class pnlUsuarios extends javax.swing.JPanel {
     }
 
     private void LimpiarErrores() {
+        //usando la clase de validaciones se establecen los valores en correcto
         val.TXTcorrecto(txtNumExpediente, lblErExpediente);
         val.TXTcorrecto(txtCodEmpleado, lblErCodigo);
         val.TXTcorrecto(txtNombre, lblErNombre);
@@ -76,10 +79,13 @@ public class pnlUsuarios extends javax.swing.JPanel {
 
         int valor1 = 1;
         String error;
-
+        //validar que no este vacio u otro parametro mas
         if (txtNumExpediente.getText().isEmpty() || !txtNumExpediente.getText().matches("\\d{0,4}")) {
+            //asignar 0 al valor para devolver falso en la validacion
             valor1 = 0;
+            //mensaje de error para el respectivo campo de texto
             error = "El numero de expediente no puede estar en blanco";
+            //asignar colores de error a cada campo
             val.TXTincorrecto(txtNumExpediente, lblErExpediente, error);
         }
         if (txtCodEmpleado.getText().isEmpty() || !txtCodEmpleado.getText().matches("\\d{0,6}")) {
@@ -119,14 +125,12 @@ public class pnlUsuarios extends javax.swing.JPanel {
         }
 
         return valor1 == 1; //Expreciones regulares de los campos
-        //4 o menos digitos numericos 
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
         jPopupMenu1 = new javax.swing.JPopupMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -314,6 +318,9 @@ public class pnlUsuarios extends javax.swing.JPanel {
         txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtBuscarKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyTyped(evt);
             }
         });
 
@@ -756,7 +763,7 @@ public class pnlUsuarios extends javax.swing.JPanel {
     }//GEN-LAST:event_btnCrudCCActionPerformed
 
     private void btnCrudPuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrudPuestoActionPerformed
-        //Abrir Formulario de CentroCosto
+        //Abrir Formulario de Puestos de Trabajo
         PuestoTrabajo PuestoTrabajo = new PuestoTrabajo();
         PuestoTrabajo.setVisible(true);
         PuestoTrabajo.pack();
@@ -764,7 +771,7 @@ public class pnlUsuarios extends javax.swing.JPanel {
     }//GEN-LAST:event_btnCrudPuestoActionPerformed
 
     private void btnCRUDPlanillaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCRUDPlanillaActionPerformed
-        //Abrir Formulario de CentroCosto
+        //Abrir Formulario de Planilla
         Planilla CrudPlanilla = new Planilla();
         CrudPlanilla.setVisible(true);
         CrudPlanilla.pack();
@@ -790,6 +797,7 @@ public class pnlUsuarios extends javax.swing.JPanel {
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         LimpiarErrores();
         if (ValidarCampos()) {
+            //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
             Object[] datos = new Object[10];
             datos[0] = Integer.parseInt(txtNumExpediente.getText());
             datos[1] = txtNombre.getText();
@@ -823,8 +831,9 @@ public class pnlUsuarios extends javax.swing.JPanel {
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-       LimpiarErrores();
+        LimpiarErrores();
         if (ValidarCampos()) {
+            //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
             Object[] datos = new Object[10];
             datos[0] = Integer.parseInt(txtNumExpediente.getText());
             datos[1] = txtNombre.getText();
@@ -857,6 +866,7 @@ public class pnlUsuarios extends javax.swing.JPanel {
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        //se utiliza la funcion Eliminar de la clase AccionesCrud enviando el ID
         AccionesCrud classcrud = new AccionesCrud();
         if (classcrud.Eliminar(txtNumExpediente, "exec EliminarUsuario ?")) {
             DatosTablas Datos = new DatosTablas();
@@ -870,6 +880,8 @@ public class pnlUsuarios extends javax.swing.JPanel {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void tblUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblUsuariosMouseClicked
+        LimpiarErrores();
+        //se trata de obtener los datos de la tabla para mostrarlos en las casillas respectivas con ayuda de sql
         try {
             AccionesCrud classcrud = new AccionesCrud();
             ResultSet rs = classcrud.Seleccion(tblUsuarios, "select * from [VistaUsuarios] where [NumeroExpediente]=?");
@@ -897,6 +909,7 @@ public class pnlUsuarios extends javax.swing.JPanel {
 
     //Funicon para asignar el tipo de busqueda que se va hacer por medio de un switc y los valores de la vista de la BD
     private void cmbBuscarItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbBuscarItemStateChanged
+          //Cada vez que se cambia el estado del combobox se cambia el filtro de busqueda global para la funcion de busqueda
         String elementoSeleccionado = (String) cmbBuscar.getSelectedItem();
         switch (elementoSeleccionado) {
             case "Categoria":
@@ -935,6 +948,7 @@ public class pnlUsuarios extends javax.swing.JPanel {
     }//GEN-LAST:event_cmbBuscarItemStateChanged
 
     private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
+           //cada vez que se precione una tecla se va a buscar junto al filtro de busqueda en la vista correspondiente
         DatosTablas BusquedaTabla = new DatosTablas();
         //se limpia la tabla
         DefaultTableModel modelo = (DefaultTableModel) tblUsuarios.getModel();
@@ -944,35 +958,43 @@ public class pnlUsuarios extends javax.swing.JPanel {
     }//GEN-LAST:event_txtBuscarKeyReleased
 
     private void txtNumExpedienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumExpedienteKeyReleased
+        //al escribir se quita el estado de error
         val.TXTcorrecto(txtNumExpediente, lblErExpediente);
     }//GEN-LAST:event_txtNumExpedienteKeyReleased
 
     private void txtCodEmpleadoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodEmpleadoKeyReleased
+        //al escribir se quita el estado de error
         val.TXTcorrecto(txtCodEmpleado, lblErCodigo);
     }//GEN-LAST:event_txtCodEmpleadoKeyReleased
 
     private void txtNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyReleased
+        //al escribir se quita el estado de error
         val.TXTcorrecto(txtNombre, lblErNombre);
     }//GEN-LAST:event_txtNombreKeyReleased
 
     private void cmbCategoriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbCategoriaItemStateChanged
+        //al seleccionar un item se quita el estado de error
         val.CMBcorrecto(cmbCategoria, lblErCategoria);
     }//GEN-LAST:event_cmbCategoriaItemStateChanged
 
     private void cmbCentroCostoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbCentroCostoItemStateChanged
+       //al seleccionar un item se quita el estado de error
         val.CMBcorrecto(cmbCentroCosto, lblErCosto);
     }//GEN-LAST:event_cmbCentroCostoItemStateChanged
 
     private void cmbPlanillaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbPlanillaItemStateChanged
+       //al seleccionar un item se quita el estado de error
         val.CMBcorrecto(cmbPlanilla, lblErPlanilla);
     }//GEN-LAST:event_cmbPlanillaItemStateChanged
 
     private void cmbPuestoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbPuestoItemStateChanged
+        //al seleccionar un item se quita el estado de error
         val.CMBcorrecto(cmbPuesto, lblErPuesto);
     }//GEN-LAST:event_cmbPuestoItemStateChanged
 
     private void txtNumExpedienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumExpedienteKeyTyped
         int key = evt.getKeyChar();
+        //solo permite escribir numeros
         boolean numero = key >= 48 && key <= 57 || key == KeyEvent.VK_BACK_SPACE;
         if (txtNumExpediente.getText().length() == 4 || !numero) {
             evt.consume();
@@ -982,6 +1004,7 @@ public class pnlUsuarios extends javax.swing.JPanel {
 
     private void txtCodEmpleadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodEmpleadoKeyTyped
         int key = evt.getKeyChar();
+        //solo permite escrbir numeros
         boolean numero = key >= 48 && key <= 57 || key == KeyEvent.VK_BACK_SPACE;
         if (txtCodEmpleado.getText().length() == 5 || !numero) {
             evt.consume();
@@ -991,6 +1014,7 @@ public class pnlUsuarios extends javax.swing.JPanel {
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
         int key = evt.getKeyChar();
+        //solo se permiten letras mayusculas y minusculas
         boolean letra = (key >= 65 && key <= 90) || (key >= 97 && key <= 122 || key == KeyEvent.VK_SPACE || key == KeyEvent.VK_BACK_SPACE);
         if (txtNombre.getText().length() == 80 || !letra) {
             evt.consume();
@@ -1000,6 +1024,7 @@ public class pnlUsuarios extends javax.swing.JPanel {
 
     private void txtSAPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSAPKeyTyped
         int key = evt.getKeyChar();
+        //expresion regular que solo permite numeros y la tecla de eliminar
         boolean numero = key >= 48 && key <= 57 || key == KeyEvent.VK_BACK_SPACE;
         if (txtSAP.getText().length() == 8 || !numero) {
             evt.consume();
@@ -1009,6 +1034,7 @@ public class pnlUsuarios extends javax.swing.JPanel {
 
     private void txtJefeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtJefeKeyTyped
         int key = evt.getKeyChar();
+         // evaluar si la tecla presionada representa una letra (mayúscula o minúscula), un número, un espacio en blanco, la tecla de retroceso o cualquier otra tecla que no sea el signo "+" 
         boolean letra = (key >= 65 && key <= 90) || (key >= 97 && key <= 122 || key >= 48 && key <= 57 || key == KeyEvent.VK_SPACE || key == KeyEvent.VK_BACK_SPACE);
         if (txtJefe.getText().length() == 50 || !letra) {
             evt.consume();
@@ -1027,7 +1053,7 @@ public class pnlUsuarios extends javax.swing.JPanel {
             model.removeAllElements();
             model.addElement("");
         }
-
+        //vuelve a cargar los combobox
         Datos.cargarComboBox("select CentroCosto from VistaCentroCosto", "CentroCosto", cmbCentroCosto);
         Datos.cargarComboBox("select Planilla from VistaPlanillas", "Planilla", cmbPlanilla);
         Datos.cargarComboBox("select Puesto from VistaPuestosTrabajos", "Puesto", cmbPuesto);
@@ -1036,12 +1062,23 @@ public class pnlUsuarios extends javax.swing.JPanel {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void cmbUbicacionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbUbicacionItemStateChanged
-        val.CMBcorrecto(cmbUbicacion,lblErUbicacion);
+        //al seleccionar un item se quita el estado de error
+        val.CMBcorrecto(cmbUbicacion, lblErUbicacion);
     }//GEN-LAST:event_cmbUbicacionItemStateChanged
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         Limpiar();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
+        int key = evt.getKeyChar();
+        // evaluar si la tecla presionada representa una letra (mayúscula o minúscula), un número, un espacio en blanco, la tecla de retroceso o cualquier otra tecla que no sea el signo "+" 
+        boolean letra = (key >= 65 && key <= 90) || (key >= 97 && key <= 122 || key >= 46 && key <= 57 || (key != 43) || key == KeyEvent.VK_SPACE || key == KeyEvent.VK_BACK_SPACE);
+        if (txtBuscar.getText().length() == 30 || !letra) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }
+    }//GEN-LAST:event_txtBuscarKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1060,7 +1097,6 @@ public class pnlUsuarios extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cmbPlanilla;
     private javax.swing.JComboBox<String> cmbPuesto;
     private javax.swing.JComboBox<String> cmbUbicacion;
-    private javax.swing.Box.Filler filler1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

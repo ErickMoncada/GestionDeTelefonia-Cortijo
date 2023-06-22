@@ -2,6 +2,8 @@ package paneles.ExtraUsuarios;
 
 import Clases.AccionesCrud;
 import Clases.DatosTablas;
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 
 public class Ubicacion extends javax.swing.JFrame {
 
@@ -9,6 +11,7 @@ public class Ubicacion extends javax.swing.JFrame {
         initComponents();
         CargarTabla();
         Limpiar();
+        //establecer invicible el campo de id
         txtID.setVisible(false);
     }
 
@@ -52,6 +55,11 @@ public class Ubicacion extends javax.swing.JFrame {
         lblUbicaciones.setText("Ubicaciones:");
 
         txtUbicaciones.setPreferredSize(new java.awt.Dimension(65, 26));
+        txtUbicaciones.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtUbicacionesKeyTyped(evt);
+            }
+        });
 
         btnEliminar.setBackground(new java.awt.Color(114, 191, 68));
         btnEliminar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -202,7 +210,7 @@ public class Ubicacion extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -228,6 +236,7 @@ public class Ubicacion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblCentroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCentroMouseClicked
+         //se trata de obtener los datos de la tabla para mostrarlos en las casillas respectivas con ayuda de sql
         AccionesCrud classcrud = new AccionesCrud();
         if (classcrud.CargarDatoClick(tblCentro, "SELECT [IDUbicacion],[Ubicacion] from VistaUbicaciones where Ubicacion=?", "Ubicacion", "IDUbicacion", txtUbicaciones, txtID)) {
             btnGuardar.setVisible(false);
@@ -242,6 +251,7 @@ public class Ubicacion extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
         AccionesCrud classcrud = new AccionesCrud();
         if (classcrud.Validar(txtUbicaciones, "La Ubicacion")) {
             Object[] datos = new Object[1];
@@ -251,16 +261,11 @@ public class Ubicacion extends javax.swing.JFrame {
                 txtUbicaciones.setText("");
                 CargarTabla();
             }
-            /*if (classcrud.Guardar_Modificar(txtUbicaciones, "exec AgregarUbicacion ? ")) {
-                txtID.setText("");
-                txtUbicaciones.setText("");
-                CargarTabla();
-            }*/
-
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
         AccionesCrud classcrud = new AccionesCrud();
         if (classcrud.Validar(txtUbicaciones, "La Ubicacion")) {
             if (classcrud.Modificar(txtUbicaciones, txtID, "exec UpdateUbicacion ?,?")) {
@@ -271,6 +276,7 @@ public class Ubicacion extends javax.swing.JFrame {
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        //se utiliza la funcion Eliminar de la clase AccionesCrud enviando el ID
         AccionesCrud classcrud = new AccionesCrud();
         if (classcrud.Validar(txtUbicaciones, "La Ubicacion")) {
             if (classcrud.Eliminar(txtID, "exec EliminarUbicacion ?")) {
@@ -280,12 +286,18 @@ public class Ubicacion extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
+    private void txtUbicacionesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUbicacionesKeyTyped
+        int key = evt.getKeyChar();
+        // evaluar si la tecla presionada representa una letra (mayúscula o minúscula), un número, un espacio en blanco, la tecla de retroceso o cualquier otra tecla que no sea el signo "+" 
+        boolean letra = (key >= 65 && key <= 90) || (key >= 97 && key <= 122 || key >= 48 && key <= 57 || key == KeyEvent.VK_SPACE || key == KeyEvent.VK_BACK_SPACE);
+        if (txtUbicaciones.getText().length() == 80 || !letra) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }
+    }//GEN-LAST:event_txtUbicacionesKeyTyped
+
     public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CentroCosto().setVisible(true);
-            }
-        });
+       
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

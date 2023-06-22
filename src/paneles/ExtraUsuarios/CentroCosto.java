@@ -3,6 +3,8 @@ package paneles.ExtraUsuarios;
 import Clases.AccionesCrud;
 import Clases.DatosTablas;
 import app.Conexion;
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,7 +23,7 @@ public class CentroCosto extends javax.swing.JFrame {
     //Funcion para cargar datos a la tabla
     private void CargarTabla() {
         DatosTablas CrearTabla = new DatosTablas();
-        CrearTabla.CargarTabla(tblCentro,  "SELECT * from [VistaCentroCosto]");
+        CrearTabla.CargarTabla(tblCentro, "SELECT * from [VistaCentroCosto]");
     }
 
     //Funcion para Validar campos
@@ -35,16 +37,16 @@ public class CentroCosto extends javax.swing.JFrame {
         }
         return true;
     }
-    
+
     //desactivar botones y solo mostrar btnGurdar
-    private void Limpiar(){
+    private void Limpiar() {
         btnGuardar.setVisible(true);
-         btnModificar.setVisible(false);
-            btnEliminar.setVisible(false);
-            btnCancelar.setVisible(false);
-            txtNumero.enable(true);
-            txtNombre.setText("");
-            txtNumero.setText("");
+        btnModificar.setVisible(false);
+        btnEliminar.setVisible(false);
+        btnCancelar.setVisible(false);
+        txtNumero.enable(true);
+        txtNombre.setText("");
+        txtNumero.setText("");
     }
 
     @SuppressWarnings("unchecked")
@@ -72,11 +74,21 @@ public class CentroCosto extends javax.swing.JFrame {
         lblNombre.setText("Nombre de Centro de Costo:");
 
         txtNombre.setPreferredSize(new java.awt.Dimension(65, 26));
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreKeyTyped(evt);
+            }
+        });
 
         lblNumero.setForeground(new java.awt.Color(0, 0, 0));
         lblNumero.setText("Numero de Centro de Costo:");
 
         txtNumero.setPreferredSize(new java.awt.Dimension(65, 26));
+        txtNumero.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNumeroKeyTyped(evt);
+            }
+        });
 
         btnEliminar.setBackground(new java.awt.Color(114, 191, 68));
         btnEliminar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -234,7 +246,7 @@ public class CentroCosto extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -260,6 +272,7 @@ public class CentroCosto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblCentroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCentroMouseClicked
+        //se trata de obtener los datos de la tabla para mostrarlos en las casillas respectivas con ayuda de sql
         try {
             btnGuardar.setVisible(false);
             btnModificar.setVisible(true);
@@ -273,8 +286,8 @@ public class CentroCosto extends javax.swing.JFrame {
             ps = con.prepareStatement("SELECT CentroCosto from [VistaCentroCosto] where [NumCentroCosto]=?");
             ps.setString(1, id);
             rs = ps.executeQuery();
-            while(rs.next()){
-                txtNombre.setText(rs.getString("CentroCosto"));           
+            while (rs.next()) {
+                txtNombre.setText(rs.getString("CentroCosto"));
             }
             txtNumero.setText(id);
             txtNumero.enable(false);
@@ -288,70 +301,68 @@ public class CentroCosto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
         if (Validar()) {
-               Object[] datos = new Object[2];
-       datos[0]= Integer.parseInt(txtNumero.getText());
-       datos[1]= txtNombre.getText();
-       AccionesCrud classcrud = new  AccionesCrud();
-      if(classcrud.Guardar_Modificar(datos, "exec [AgregarCentroCosto] ?, ? ")){
-          txtNombre.setText("");
-                txtNumero.setText("");
-                CargarTabla();
-      }
-        }
-        /*/Agregar datos a la BD por medio de Procedimientos Almacenados
-        if (Validar()) {
-            String numero = txtNumero.getText();
-            String nombre = txtNombre.getText();
-            try {
-                Connection con = Conexion.getConexion();
-                PreparedStatement ps = con.prepareStatement("exec AgregarCentroCosto ? , ?");
-                ps.setString(1, numero);
-                ps.setString(2, nombre);
-                ps.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Registro guardado","Informacion",JOptionPane.INFORMATION_MESSAGE);
+            Object[] datos = new Object[2];
+            datos[0] = txtNumero.getText();
+            datos[1] = txtNombre.getText();
+            AccionesCrud classcrud = new AccionesCrud();
+            if (classcrud.Guardar_Modificar(datos, "exec [AgregarCentroCosto] ?, ? ")) {
                 txtNombre.setText("");
                 txtNumero.setText("");
                 CargarTabla();
-            } catch (SQLException e) {
-                JOptionPane.showMessageDialog(null, e.toString());
+                Limpiar();
             }
-        }*/
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        String numero = txtNumero.getText();
-        String nombre = txtNombre.getText();
-
-        try {
-            Connection con = Conexion.getConexion();
-            PreparedStatement ps = con.prepareStatement("exec UpdateCentroCosto ?,?");
-            ps.setString(1, numero);
-            ps.setString(2, nombre);
-            ps.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Registro Actualizado","Informacion",JOptionPane.INFORMATION_MESSAGE);
-            CargarTabla();
-            Limpiar();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e.toString());
+        //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
+        if (Validar()) {
+            Object[] datos = new Object[2];
+            datos[0] = Integer.parseInt(txtNumero.getText());
+            datos[1] = txtNombre.getText();
+            AccionesCrud classcrud = new AccionesCrud();
+            if (classcrud.Guardar_Modificar(datos, "exec [UpdateCentroCosto] ?, ? ")) {
+                txtNombre.setText("");
+                txtNumero.setText("");
+                CargarTabla();
+                Limpiar();
+            }
         }
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-         AccionesCrud classcrud = new AccionesCrud();
-            if (classcrud.Eliminar(txtNumero, "exec EliminarCentroCosto ?")) {
-                CargarTabla();
-                Limpiar();       
+        //se utiliza la funcion Eliminar de la clase AccionesCrud enviando el ID
+        AccionesCrud classcrud = new AccionesCrud();
+        if (classcrud.Eliminar(txtNumero, "exec EliminarCentroCosto ?")) {
+            CargarTabla();
+            Limpiar();
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
+    private void txtNumeroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroKeyTyped
+        int key = evt.getKeyChar();
+        //solo permite numeros y retroceso
+        boolean numero = key >= 48 && key <= 57 || key == KeyEvent.VK_BACK_SPACE;
+        if (txtNumero.getText().length() == 10 || !numero) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }
+    }//GEN-LAST:event_txtNumeroKeyTyped
+
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
+        int key = evt.getKeyChar();
+        //perimite escribir solo letras , numeros y retroceso
+        boolean letra = (key >= 65 && key <= 90) || (key >= 97 && key <= 122 || key >= 48 && key <= 57 || key == KeyEvent.VK_SPACE || key == KeyEvent.VK_BACK_SPACE);
+        if (txtNombre.getText().length() == 80 || !letra) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }
+    }//GEN-LAST:event_txtNombreKeyTyped
 
     public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CentroCosto().setVisible(true);
-            }
-        });
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
