@@ -64,12 +64,7 @@ public class pnlEquipos extends javax.swing.JPanel {
         DatosTablas Datos = new DatosTablas();
         Datos.CargarTabla(tblEquipos, "select * from [VistaEquipos]");
         //llenar los datos de los combobox
-        Datos.cargarComboBox("select Categoria from VistaCategoriaEquipo", "Categoria", cmbCategoria);
-        Datos.cargarComboBox("select Marca from VistaMarcaEquipos", "Marca", cmbMarca);
-        Datos.cargarComboBox("select Lugar from VistaLugarCompra", "Lugar", cmbLugar);
-        Datos.cargarComboBox("select Estado from VistaEstadoEquipos", "Estado", cmbEstado);
-        Datos.cargarComboBox("select Tipo from VistaTipoEquipos", "Tipo", cmbTipo);
-
+        CargarListas();
     }
 
     private void LimpiarErrores() {
@@ -861,6 +856,7 @@ public class pnlEquipos extends javax.swing.JPanel {
 
     private void tblEquiposMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEquiposMouseClicked
         LimpiarErrores();
+        CargarListas();
         //se trata de obtener los datos de la tabla para mostrarlos en las casillas respectivas con ayuda de sql
         try {
             AccionesCrud classcrud = new AccionesCrud();
@@ -911,8 +907,11 @@ public class pnlEquipos extends javax.swing.JPanel {
     }//GEN-LAST:event_tblEquiposMouseClicked
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        DatosTablas Datos = new DatosTablas();
-        // Lista de JComboBox para actualizar datos
+        CargarListas();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+   
+    private void CargarListas() {
+          // Lista de JComboBox para actualizar datos
         JComboBox[] comboBoxes = {cmbEstado, cmbTipo, cmbCategoria, cmbMarca, cmbLugar};
 
         // Recorrer cada JComboBox y eliminar los elementos
@@ -921,14 +920,14 @@ public class pnlEquipos extends javax.swing.JPanel {
             model.removeAllElements();
             model.addElement("");
         }
-        //vuelve a cargar los combobox
+        //cargar los datos de los combobox
+        DatosTablas Datos = new DatosTablas();
         Datos.cargarComboBox("select Categoria from VistaCategoriaEquipo", "Categoria", cmbCategoria);
         Datos.cargarComboBox("select Marca from VistaMarcaEquipos", "Marca", cmbMarca);
         Datos.cargarComboBox("select Lugar from VistaLugarCompra", "Lugar", cmbLugar);
         Datos.cargarComboBox("select Estado from VistaEstadoEquipos", "Estado", cmbEstado);
         Datos.cargarComboBox("select Tipo from VistaTipoEquipos", "Tipo", cmbTipo);
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
-
+    }
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         Limpiar();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
@@ -1103,11 +1102,7 @@ public class pnlEquipos extends javax.swing.JPanel {
             //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
             Object[] datos = new Object[14];
             datos[0] = txtNumIMEI.getText();
-            if (cmbEstado.getSelectedItem() != null) {
-                datos[1] = cmbEstado.getSelectedItem().toString();
-            } else {
-                datos[1] = "";
-            }
+            datos[1] = cmbEstado.getSelectedItem().toString();
             datos[2] = Integer.parseInt(txtNumExpediente.getText());
             try {
                 Date date2 = dtpPrestamo.getDate();
@@ -1117,28 +1112,12 @@ public class pnlEquipos extends javax.swing.JPanel {
             } catch (Exception e) {
                 datos[3] = "";
             }
-            if (cmbTipo.getSelectedItem() != null) {
-                datos[4] = cmbTipo.getSelectedItem().toString();
-            } else {
-                datos[4] = "";
-            }
-            if (cmbCategoria.getSelectedItem() != null) {
-                datos[5] = cmbCategoria.getSelectedItem().toString();
-            } else {
-                datos[5] = "";
-            }
-            if (cmbMarca.getSelectedItem() != null) {
-                datos[6] = cmbMarca.getSelectedItem().toString();
-            } else {
-                datos[6] = "";
-            }
+            datos[4] = cmbTipo.getSelectedItem().toString();
+            datos[5] = cmbCategoria.getSelectedItem().toString();
+            datos[6] = cmbMarca.getSelectedItem().toString();
             datos[7] = txtModelo.getText();
             datos[8] = txtAccesorio.getText();
-            if (cmbLugar.getSelectedItem() != null) {
-                datos[9] = cmbLugar.getSelectedItem().toString();
-            } else {
-                datos[9] = "";
-            }
+            datos[9] = cmbLugar.getSelectedItem().toString();
             try {
                 Date date = dtpCompra.getDate();
                 long d = date.getTime();
@@ -1147,17 +1126,18 @@ public class pnlEquipos extends javax.swing.JPanel {
             } catch (Exception e) {
                 datos[10] = "";
             }
+            datos[11] = txtComentario.getText();
             try {
-                datos[11] = Double.parseDouble(txtCosto.getText());
+                datos[12] = Double.parseDouble(txtCosto.getText());
             } catch (NumberFormatException e) {
-                datos[11] = "";
-            }
-            datos[12] = txtNumFactura.getText();
-            datos[13] = txtComentario.getText();
+                datos[12] = "";
+            } 
+            datos[13] = txtNumFactura.getText();
             AccionesCrud classcrud = new AccionesCrud();
             if (classcrud.Guardar_Modificar(datos, "exec [AgregarEquipo] ?, ? ,?  ,? ,? ,? ,? ,? ,? ,?,?,?,?,?")) {
                 DatosTablas Datos = new DatosTablas();
                 Datos.CargarTabla(tblEquipos, "select * from [VistaEquipos]");
+                Limpiar();
             }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -1165,14 +1145,10 @@ public class pnlEquipos extends javax.swing.JPanel {
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         LimpiarErrores();
         if (ValidarCampos()) {
-            //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
+             //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
             Object[] datos = new Object[14];
             datos[0] = txtNumIMEI.getText();
-            if (cmbEstado.getSelectedItem() != null) {
-                datos[1] = cmbEstado.getSelectedItem().toString();
-            } else {
-                datos[1] = "";
-            }
+            datos[1] = cmbEstado.getSelectedItem().toString();
             datos[2] = Integer.parseInt(txtNumExpediente.getText());
             try {
                 Date date2 = dtpPrestamo.getDate();
@@ -1182,28 +1158,12 @@ public class pnlEquipos extends javax.swing.JPanel {
             } catch (Exception e) {
                 datos[3] = "";
             }
-            if (cmbTipo.getSelectedItem() != null) {
-                datos[4] = cmbTipo.getSelectedItem().toString();
-            } else {
-                datos[4] = "";
-            }
-            if (cmbCategoria.getSelectedItem() != null) {
-                datos[5] = cmbCategoria.getSelectedItem().toString();
-            } else {
-                datos[5] = "";
-            }
-            if (cmbMarca.getSelectedItem() != null) {
-                datos[6] = cmbMarca.getSelectedItem().toString();
-            } else {
-                datos[6] = "";
-            }
+            datos[4] = cmbTipo.getSelectedItem().toString();
+            datos[5] = cmbCategoria.getSelectedItem().toString();
+            datos[6] = cmbMarca.getSelectedItem().toString();
             datos[7] = txtModelo.getText();
             datos[8] = txtAccesorio.getText();
-            if (cmbLugar.getSelectedItem() != null) {
-                datos[9] = cmbLugar.getSelectedItem().toString();
-            } else {
-                datos[9] = "";
-            }
+            datos[9] = cmbLugar.getSelectedItem().toString();
             try {
                 Date date = dtpCompra.getDate();
                 long d = date.getTime();
@@ -1212,17 +1172,18 @@ public class pnlEquipos extends javax.swing.JPanel {
             } catch (Exception e) {
                 datos[10] = "";
             }
+            datos[11] = txtComentario.getText();
             try {
-                datos[11] = Double.parseDouble(txtCosto.getText());
+                datos[12] = Double.parseDouble(txtCosto.getText());
             } catch (NumberFormatException e) {
-                datos[11] = "";
-            }
-            datos[12] = txtNumFactura.getText();
-            datos[13] = txtComentario.getText();
+                datos[12] = "";
+            } 
+            datos[13] = txtNumFactura.getText();
             AccionesCrud classcrud = new AccionesCrud();
             if (classcrud.Guardar_Modificar(datos, "exec [UpdateEquipo] ?, ? ,?  ,? ,? ,? ,? ,? ,? ,?,?,?,?,?")) {
                 DatosTablas Datos = new DatosTablas();
                 Datos.CargarTabla(tblEquipos, "select * from [VistaEquipos]");
+                Limpiar();
             }
         }
     }//GEN-LAST:event_btnModificarActionPerformed
@@ -1269,7 +1230,7 @@ public class pnlEquipos extends javax.swing.JPanel {
     }//GEN-LAST:event_txtBuscarKeyReleased
 
     private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
-          int key = evt.getKeyChar();
+        int key = evt.getKeyChar();
         // evaluar si la tecla presionada representa una letra (mayúscula o minúscula), un número, un espacio en blanco, la tecla de retroceso o cualquier otra tecla que no sea el signo "+" 
         boolean letra = (key >= 65 && key <= 90) || (key >= 97 && key <= 122 || key >= 46 && key <= 57 || (key != 43) || key == KeyEvent.VK_SPACE || key == KeyEvent.VK_BACK_SPACE);
         if (txtBuscar.getText().length() == 30 || !letra) {

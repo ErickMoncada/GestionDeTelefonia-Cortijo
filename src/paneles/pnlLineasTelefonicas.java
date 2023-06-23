@@ -17,7 +17,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import paneles.ExtraEquipos.Estado;
+import paneles.ExtraDLineasTelefonicas.Disponibilidad;
 
 public class pnlLineasTelefonicas extends javax.swing.JPanel {
 
@@ -43,7 +43,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
     ButtonGroup btgFirma = new ButtonGroup();
 
     private String SumarValores(int pocision) {
-       //funcion para sumar la cantidad que brinda una columna
+        //funcion para sumar la cantidad que brinda una columna
         double total = 0;
         for (int i = 0; i < tblLineas.getRowCount(); i++) {
             Object value = tblLineas.getValueAt(i, pocision);
@@ -87,8 +87,23 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         DatosTablas Datos = new DatosTablas();
         Datos.CargarTabla(tblLineas, "select * from [VistaLineasTelefonicas]");
         //llenar los datos de los combobox
-        Datos.cargarComboBox("select Disponible from VistaDisponibilidades", "Disponible", cmbDisponibilidad);
+        CargarListas();
 
+    }
+
+    private void CargarListas() {
+        // Lista de JComboBox para actualizar datos
+        JComboBox[] comboBoxes = {cmbDisponibilidad};
+
+        // Recorrer cada JComboBox y eliminar los elementos
+        for (JComboBox comboBox : comboBoxes) {
+            DefaultComboBoxModel model = (DefaultComboBoxModel) comboBox.getModel();
+            model.removeAllElements();
+            model.addElement("");
+        }
+        //cargar los datos de los combobox
+        DatosTablas Datos = new DatosTablas();
+        Datos.cargarComboBox("select Disponible from VistaDisponibilidades", "Disponible", cmbDisponibilidad);
     }
 
     private void LimpiarErrores() {
@@ -1015,7 +1030,8 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
 
     private void tblLineasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblLineasMouseClicked
         LimpiarErrores();
-         //se trata de obtener los datos de la tabla para mostrarlos en las casillas respectivas con ayuda de sql
+        CargarListas();
+        //se trata de obtener los datos de la tabla para mostrarlos en las casillas respectivas con ayuda de sql
         try {
             AccionesCrud classcrud = new AccionesCrud();
             ResultSet rs = classcrud.Seleccion(tblLineas, "select * from [VistaLineasTelefonicas] where [Linea]=?");
@@ -1066,7 +1082,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
                         btgFirma.setSelected(rdbOtro.getModel(), true);
                         txtOtro.setText(rdbFirma);
                 }
-               //switch para saber que radio button seleccionar
+                //switch para saber que radio button seleccionar
                 String rdbPagoSeguro = rs.getString("PagoSeguro");
                 switch (rdbPagoSeguro) {
                     case "SI":
@@ -1106,15 +1122,11 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         LimpiarErrores();
         if (ValidarCampos()) {
-             //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
+            //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
             Object[] datos = new Object[15];
             datos[0] = txtLinea.getText();
             datos[1] = txtNumExpediente.getText();
-            if (cmbDisponibilidad.getSelectedItem() != null) {
-                datos[2] = cmbDisponibilidad.getSelectedItem().toString();
-            } else {
-                datos[2] = "";
-            }
+            datos[2] = cmbDisponibilidad.getSelectedItem().toString();
             datos[3] = txtYear.getYear();
             datos[4] = (Integer) txtCuotas.getValue();
             datos[5] = txtImei.getText();
@@ -1173,7 +1185,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         LimpiarErrores();
         if (ValidarCampos()) {
-             //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
+            //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
             Object[] datos = new Object[15];
             datos[0] = txtLinea.getText();
             datos[1] = txtNumExpediente.getText();
@@ -1269,11 +1281,11 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
     }//GEN-LAST:event_txtBuscarKeyReleased
 
     private void btnDisponibilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDisponibilidadActionPerformed
-         //Abrir Formulario de Estado
-        Estado CrudEstado = new Estado();
-        CrudEstado.setVisible(true);
-        CrudEstado.pack();
-        CrudEstado.setLocationRelativeTo(null);
+        //Abrir Formulario de Disponibilidad
+        Disponibilidad CrudDisponible = new Disponibilidad();
+        CrudDisponible.setVisible(true);
+        CrudDisponible.pack();
+        CrudDisponible.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnDisponibilidadActionPerformed
 
     private void cmbDisponibilidadItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbDisponibilidadItemStateChanged
@@ -1296,7 +1308,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
     }//GEN-LAST:event_txtNumExpedienteKeyTyped
 
     private void txtNumExpedienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumExpedienteKeyReleased
-         //al escribir se quita el estado de error
+        //al escribir se quita el estado de error
         val.TXTcorrecto(txtNumExpediente, lblErExpediente);
     }//GEN-LAST:event_txtNumExpedienteKeyReleased
 
@@ -1304,7 +1316,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         String text = txtLinea.getText();
         int key = evt.getKeyChar();
         //Solo permitir numeros
-        boolean numero= key >= 48 && key <= 57 || key == KeyEvent.VK_BACK_SPACE;
+        boolean numero = key >= 48 && key <= 57 || key == KeyEvent.VK_BACK_SPACE;
         //identificar si es evento de retroceso
         boolean backSpace = (key == KeyEvent.VK_BACK_SPACE);
         //no permitir mas de 9 digitos y que no sea un guion
@@ -1323,19 +1335,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
     }//GEN-LAST:event_txtLineaKeyReleased
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        DatosTablas Datos = new DatosTablas();
-        // Lista de JComboBox para actualizar datos
-        JComboBox[] comboBoxes = {cmbDisponibilidad};
-
-        // Recorrer cada JComboBox y eliminar los elementos
-        for (JComboBox comboBox : comboBoxes) {
-            DefaultComboBoxModel model = (DefaultComboBoxModel) comboBox.getModel();
-            model.removeAllElements();
-            model.addElement("");
-        }
-        //vuelve a cargar los combobox
-        Datos.cargarComboBox("select Disponible from VistaDisponibilidades", "Disponible", cmbDisponibilidad);
-
+        CargarListas();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -1433,19 +1433,19 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
     }//GEN-LAST:event_txtOtroKeyReleased
 
     private void rdbNoFirmaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rdbNoFirmaItemStateChanged
-       //al seleccionar este radioButton se pone el estado en correcto y se pone invisible el txt de la opcion otro
+        //al seleccionar este radioButton se pone el estado en correcto y se pone invisible el txt de la opcion otro
         txtOtro.setVisible(false);
         val.GENcorrecto(lblErFirma);
     }//GEN-LAST:event_rdbNoFirmaItemStateChanged
 
     private void rdbSiFirmaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rdbSiFirmaItemStateChanged
-         //al seleccionar este radioButton se pone el estado en correcto y se pone invisible el txt de la opcion otro
+        //al seleccionar este radioButton se pone el estado en correcto y se pone invisible el txt de la opcion otro
         txtOtro.setVisible(false);
         val.GENcorrecto(lblErFirma);
     }//GEN-LAST:event_rdbSiFirmaItemStateChanged
 
     private void rdbOtroItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rdbOtroItemStateChanged
-         //al seleccionar este radioButton se pone el estado en correcto y se pone visible el text junto al focus para escribir
+        //al seleccionar este radioButton se pone el estado en correcto y se pone visible el text junto al focus para escribir
         txtOtro.setVisible(true);
         txtOtro.requestFocus();
         val.GENcorrecto(lblErFirma);
