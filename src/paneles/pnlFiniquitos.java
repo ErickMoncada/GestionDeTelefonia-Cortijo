@@ -158,6 +158,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setComponentPopupMenu(jPopupMenu1);
+        jPanel1.setNextFocusableComponent(dtpSolicitud);
 
         txtIDFiniquitos.setPreferredSize(new java.awt.Dimension(65, 26));
 
@@ -191,6 +192,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         btnGuardar.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         btnGuardar.setMaximumSize(new java.awt.Dimension(55, 20));
         btnGuardar.setMinimumSize(new java.awt.Dimension(55, 20));
+        btnGuardar.setNextFocusableComponent(txtBuscar);
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
@@ -233,6 +235,8 @@ public class pnlFiniquitos extends javax.swing.JPanel {
             }
         });
 
+        dtpCorte.setNextFocusableComponent(dtpCobro);
+
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Fecha de Solicitud\n");
 
@@ -242,6 +246,9 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Fecha de Corte:");
 
+        dtpSolicitud.setNextFocusableComponent(dtpCorte);
+
+        txtCobro.setNextFocusableComponent(txtLinea);
         txtCobro.setPreferredSize(new java.awt.Dimension(65, 26));
         txtCobro.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -258,6 +265,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("Linea Telefonica:");
 
+        txtLinea.setNextFocusableComponent(txtObs1);
         txtLinea.setPreferredSize(new java.awt.Dimension(65, 26));
         txtLinea.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -268,11 +276,13 @@ public class pnlFiniquitos extends javax.swing.JPanel {
             }
         });
 
+        txtObs1.setNextFocusableComponent(txtObs2);
         txtObs1.setPreferredSize(new java.awt.Dimension(65, 26));
 
         jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("Observacion 1:");
 
+        txtObs2.setNextFocusableComponent(btnGuardar);
         txtObs2.setPreferredSize(new java.awt.Dimension(65, 26));
 
         jLabel12.setForeground(new java.awt.Color(0, 0, 0));
@@ -280,6 +290,8 @@ public class pnlFiniquitos extends javax.swing.JPanel {
 
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Fecha de Cobro:");
+
+        dtpCobro.setNextFocusableComponent(txtCobro);
 
         lblErSolicitud.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         lblErSolicitud.setForeground(new java.awt.Color(255, 0, 0));

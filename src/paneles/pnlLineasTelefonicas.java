@@ -141,7 +141,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
             error = "Escriba un numero de expediente";
             val.TXTincorrecto(txtNumExpediente, lblErExpediente, error);
         }
-        if (cmbDisponibilidad.getSelectedItem() == null) {
+        if (cmbDisponibilidad.getSelectedItem() == null || cmbDisponibilidad.getSelectedItem() == "") {
             valor1 = 0;
             error = "Debe seleccionar la disponibilidad";
             val.CMBincorrecto(cmbDisponibilidad, lblErDisponible, error);
@@ -313,9 +313,11 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         jPopupMenu1.add(jMenuItem2);
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setNextFocusableComponent(txtLinea);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setComponentPopupMenu(jPopupMenu1);
+        jPanel1.setNextFocusableComponent(txtLinea);
 
         txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -366,6 +368,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         btnGuardar.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         btnGuardar.setMaximumSize(new java.awt.Dimension(55, 20));
         btnGuardar.setMinimumSize(new java.awt.Dimension(55, 20));
+        btnGuardar.setNextFocusableComponent(txtBuscar);
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
@@ -460,11 +463,13 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         jScrollPane1.setViewportView(tblLineas);
 
         jPanel4.setComponentPopupMenu(jPopupMenu1);
+        jPanel4.setNextFocusableComponent(txtLinea);
         jPanel4.setOpaque(false);
 
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Linea Telefonica:");
 
+        txtLinea.setNextFocusableComponent(txtNumExpediente);
         txtLinea.setPreferredSize(new java.awt.Dimension(65, 26));
         txtLinea.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -500,6 +505,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Numero de Expediente:");
 
+        txtNumExpediente.setNextFocusableComponent(cmbDisponibilidad);
         txtNumExpediente.setPreferredSize(new java.awt.Dimension(65, 26));
         txtNumExpediente.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -518,6 +524,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         lblErExpediente.setText("Error");
 
         cmbDisponibilidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+        cmbDisponibilidad.setNextFocusableComponent(txtYear);
         cmbDisponibilidad.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbDisponibilidadItemStateChanged(evt);
@@ -540,11 +547,13 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
 
         txtYear.setMaximum(2100);
         txtYear.setMinimum(1980);
+        txtYear.setNextFocusableComponent(txtCuotas);
 
         jLabel18.setForeground(new java.awt.Color(0, 0, 0));
         jLabel18.setText("Cuotas:");
 
         txtCuotas.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        txtCuotas.setNextFocusableComponent(txtImei);
         txtCuotas.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 txtCuotasStateChanged(evt);
@@ -555,6 +564,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         lblErCuotas.setForeground(new java.awt.Color(255, 0, 0));
         lblErCuotas.setText("Error");
 
+        txtImei.setNextFocusableComponent(dtpAsignacion);
         txtImei.setPreferredSize(new java.awt.Dimension(65, 26));
         txtImei.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -659,10 +669,13 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         );
 
         jPanel5.setComponentPopupMenu(jPopupMenu1);
+        jPanel5.setNextFocusableComponent(txtLinea);
         jPanel5.setOpaque(false);
 
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Fecha de Asignacion:");
+
+        dtpAsignacion.setNextFocusableComponent(dtpCambio);
 
         lblErAsignacion.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         lblErAsignacion.setForeground(new java.awt.Color(255, 0, 0));
@@ -671,12 +684,16 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Fecha Cambio de Equipo:");
 
+        dtpCambio.setNextFocusableComponent(dtpFacturacion);
+
         lblErCambio.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         lblErCambio.setForeground(new java.awt.Color(255, 0, 0));
         lblErCambio.setText("Error");
 
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Fecha de Facturacion:");
+
+        dtpFacturacion.setNextFocusableComponent(rdbSiSeguro);
 
         jPanel2.setComponentPopupMenu(jPopupMenu1);
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -686,6 +703,8 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 12, -1, -1));
 
         rdbSiFirma.setText("SI");
+        rdbSiFirma.setName(""); // NOI18N
+        rdbSiFirma.setNextFocusableComponent(rdbNoFirma);
         rdbSiFirma.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 rdbSiFirmaItemStateChanged(evt);
@@ -694,14 +713,16 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         jPanel2.add(rdbSiFirma, new org.netbeans.lib.awtextra.AbsoluteConstraints(88, 6, -1, -1));
 
         rdbNoFirma.setText("NO");
+        rdbNoFirma.setNextFocusableComponent(rdbOtro);
         rdbNoFirma.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 rdbNoFirmaItemStateChanged(evt);
             }
         });
-        jPanel2.add(rdbNoFirma, new org.netbeans.lib.awtextra.AbsoluteConstraints(143, 6, -1, -1));
+        jPanel2.add(rdbNoFirma, new org.netbeans.lib.awtextra.AbsoluteConstraints(151, 6, -1, -1));
 
         rdbOtro.setText("Otro");
+        rdbOtro.setNextFocusableComponent(txtAnterior);
         rdbOtro.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 rdbOtroItemStateChanged(evt);
@@ -721,7 +742,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
                 txtOtroKeyTyped(evt);
             }
         });
-        jPanel2.add(txtOtro, new org.netbeans.lib.awtextra.AbsoluteConstraints(163, 48, 165, -1));
+        jPanel2.add(txtOtro, new org.netbeans.lib.awtextra.AbsoluteConstraints(151, 48, 182, -1));
 
         lblErFirma.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         lblErFirma.setForeground(new java.awt.Color(255, 0, 0));
@@ -738,6 +759,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         jPanel7.setOpaque(false);
 
         rdbSiSeguro.setText("SI");
+        rdbSiSeguro.setNextFocusableComponent(rdbNoSeguro);
         rdbSiSeguro.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 rdbSiSeguroItemStateChanged(evt);
@@ -745,6 +767,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         });
 
         rdbNoSeguro.setText("NO");
+        rdbNoSeguro.setNextFocusableComponent(rdbSiFirma);
         rdbNoSeguro.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 rdbNoSeguroItemStateChanged(evt);
@@ -780,8 +803,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel6)
@@ -798,8 +820,9 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
                                 .addComponent(dtpCambio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(dtpFacturacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(lblErFacturacion)
-                                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addContainerGap())
+                                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -831,16 +854,18 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblErPago, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel6.setComponentPopupMenu(jPopupMenu1);
+        jPanel6.setNextFocusableComponent(txtLinea);
         jPanel6.setOpaque(false);
 
         jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("Plan Anterior:");
 
+        txtAnterior.setNextFocusableComponent(txtNuevo);
         txtAnterior.setPreferredSize(new java.awt.Dimension(65, 26));
         txtAnterior.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -851,6 +876,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
             }
         });
 
+        txtNuevo.setNextFocusableComponent(txtPresupuesto);
         txtNuevo.setPreferredSize(new java.awt.Dimension(65, 26));
         txtNuevo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -878,6 +904,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         jLabel15.setForeground(new java.awt.Color(0, 0, 0));
         jLabel15.setText("Reconocimiento Mensual:");
 
+        txtPresupuesto.setNextFocusableComponent(txtMensual);
         txtPresupuesto.setPreferredSize(new java.awt.Dimension(65, 26));
         txtPresupuesto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -888,6 +915,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
             }
         });
 
+        txtMensual.setNextFocusableComponent(btnGuardar);
         txtMensual.setPreferredSize(new java.awt.Dimension(65, 26));
         txtMensual.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -1024,7 +1052,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addContainerGap(84, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

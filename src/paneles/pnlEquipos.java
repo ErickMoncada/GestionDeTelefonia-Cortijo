@@ -98,12 +98,12 @@ public class pnlEquipos extends javax.swing.JPanel {
             error = "Debe escribir un expediente";
             val.TXTincorrecto(txtNumExpediente, lblErExpediente, error);
         }
-        if (cmbEstado.getSelectedItem() == null) {
+        if (cmbEstado.getSelectedItem() == null || cmbEstado.getSelectedItem() == "") {
             valor1 = 0;
             error = "Debe seleccionar un Estado";
             val.CMBincorrecto(cmbEstado, lblErEstado, error);
         }
-        if (cmbTipo.getSelectedItem() == null) {
+        if (cmbTipo.getSelectedItem() == null || cmbTipo.getSelectedItem() == "") {
             valor1 = 0;
             error = "Debe seleccionar un Tipo de equipo";
             val.CMBincorrecto(cmbTipo, lblErTipo, error);
@@ -118,12 +118,12 @@ public class pnlEquipos extends javax.swing.JPanel {
             valor1 = 0;
         }
 
-        if (cmbCategoria.getSelectedItem() == null) {
+        if (cmbCategoria.getSelectedItem() == null || cmbCategoria.getSelectedItem() == "") {
             valor1 = 0;
             error = "Debe seleccionar una Categoria de equipo";
             val.CMBincorrecto(cmbCategoria, lblErCategoria, error);
         }
-        if (cmbMarca.getSelectedItem() == null) {
+        if (cmbMarca.getSelectedItem() == null || cmbMarca.getSelectedItem() == "") {
             valor1 = 0;
             error = "Debe seleccionar una Marca de equipo";
             val.CMBincorrecto(cmbMarca, lblErMarca, error);
@@ -133,7 +133,7 @@ public class pnlEquipos extends javax.swing.JPanel {
             error = "Debe ecribir un modelo de equipo";
             val.TXTincorrecto(txtModelo, lblErModelo, error);
         }
-        if (cmbLugar.getSelectedItem() == null) {
+        if (cmbLugar.getSelectedItem() == null || cmbLugar.getSelectedItem() == "") {
             valor1 = 0;
             error = "Debe seleccionar un lugar de compra del equipo";
             val.CMBincorrecto(cmbLugar, lblErLugar, error);
@@ -301,6 +301,7 @@ public class pnlEquipos extends javax.swing.JPanel {
             }
         });
 
+        jPanel2.setNextFocusableComponent(txtNumIMEI);
         jPanel2.setOpaque(false);
 
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
@@ -474,6 +475,7 @@ public class pnlEquipos extends javax.swing.JPanel {
                 .addGap(13, 13, 13))
         );
 
+        jPanel3.setNextFocusableComponent(txtNumIMEI);
         jPanel3.setOpaque(false);
 
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
@@ -657,6 +659,7 @@ public class pnlEquipos extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        jPanel4.setNextFocusableComponent(txtNumIMEI);
         jPanel4.setOpaque(false);
 
         jLabel14.setForeground(new java.awt.Color(0, 0, 0));

@@ -111,27 +111,27 @@ public class pnlUsuarios extends javax.swing.JPanel {
             error = "El nombre del empleado no puede estar en blanco";
             val.TXTincorrecto(txtNombre, lblErNombre, error);
         }
-        if (cmbCentroCosto.getSelectedItem() == null) {
+        if (cmbCentroCosto.getSelectedItem() == null || cmbCentroCosto.getSelectedItem() == "") {
             valor1 = 0;
             error = "Seleccione un Centro de Costo";
             val.CMBincorrecto(cmbCentroCosto, lblErCosto, error);
         }
-        if (cmbPlanilla.getSelectedItem() == null) {
+        if (cmbPlanilla.getSelectedItem() == null || cmbPlanilla.getSelectedItem() == "") {
             valor1 = 0;
             error = "Seleccione una planilla";
             val.CMBincorrecto(cmbPlanilla, lblErPlanilla, error);
         }
-        if (cmbCategoria.getSelectedItem() == null) {
+        if (cmbCategoria.getSelectedItem() == null || cmbCategoria.getSelectedItem() == "") {
             valor1 = 0;
             error = "Seleccione una Categoria";
             val.CMBincorrecto(cmbCategoria, lblErCategoria, error);
         }
-        if (cmbPuesto.getSelectedItem() == null) {
+        if (cmbPuesto.getSelectedItem() == null || cmbPuesto.getSelectedItem() == "") {
             valor1 = 0;
             error = "Seleccione un Puesto";
             val.CMBincorrecto(cmbPuesto, lblErPuesto, error);
         }
-        if (cmbUbicacion.getSelectedItem() == null) {
+        if (cmbUbicacion.getSelectedItem() == null || cmbUbicacion.getSelectedItem() == "") {
             valor1 = 0;
             error = "Seleccione una Ubicacion";
             val.CMBincorrecto(cmbUbicacion, lblErUbicacion, error);
@@ -213,6 +213,7 @@ public class pnlUsuarios extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
         setComponentPopupMenu(jPopupMenu1);
+        setNextFocusableComponent(txtNumExpediente);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setComponentPopupMenu(jPopupMenu1);
@@ -247,6 +248,7 @@ public class pnlUsuarios extends javax.swing.JPanel {
         btnGuardar.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         btnGuardar.setMaximumSize(new java.awt.Dimension(55, 20));
         btnGuardar.setMinimumSize(new java.awt.Dimension(55, 20));
+        btnGuardar.setNextFocusableComponent(txtBuscar);
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
@@ -346,11 +348,13 @@ public class pnlUsuarios extends javax.swing.JPanel {
 
         jLabel2.setText("Buscar por:");
 
+        jPanel3.setNextFocusableComponent(txtNumExpediente);
         jPanel3.setOpaque(false);
 
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Numero de Expediente:");
 
+        txtNumExpediente.setNextFocusableComponent(txtCodEmpleado);
         txtNumExpediente.setPreferredSize(new java.awt.Dimension(65, 26));
         txtNumExpediente.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -386,6 +390,7 @@ public class pnlUsuarios extends javax.swing.JPanel {
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Codigo Empleado:");
 
+        txtCodEmpleado.setNextFocusableComponent(txtNombre);
         txtCodEmpleado.setPreferredSize(new java.awt.Dimension(65, 26));
         txtCodEmpleado.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -403,6 +408,7 @@ public class pnlUsuarios extends javax.swing.JPanel {
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Nombre de usuario:");
 
+        txtNombre.setNextFocusableComponent(cmbCentroCosto);
         txtNombre.setPreferredSize(new java.awt.Dimension(65, 26));
         txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -465,6 +471,7 @@ public class pnlUsuarios extends javax.swing.JPanel {
                 .addContainerGap(44, Short.MAX_VALUE))
         );
 
+        jPanel4.setNextFocusableComponent(txtNumExpediente);
         jPanel4.setOpaque(false);
 
         btnCrudCC3.setText("+");
@@ -487,6 +494,7 @@ public class pnlUsuarios extends javax.swing.JPanel {
         jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("Jefe:");
 
+        txtJefe.setNextFocusableComponent(cmbUbicacion);
         txtJefe.setPreferredSize(new java.awt.Dimension(65, 26));
         txtJefe.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -495,6 +503,7 @@ public class pnlUsuarios extends javax.swing.JPanel {
         });
 
         cmbUbicacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+        cmbUbicacion.setNextFocusableComponent(cmbCategoria);
         cmbUbicacion.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbUbicacionItemStateChanged(evt);
@@ -505,6 +514,7 @@ public class pnlUsuarios extends javax.swing.JPanel {
         jLabel10.setText("Ubicacion:");
 
         cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+        cmbCategoria.setNextFocusableComponent(btnGuardar);
         cmbCategoria.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbCategoriaItemStateChanged(evt);
@@ -571,6 +581,7 @@ public class pnlUsuarios extends javax.swing.JPanel {
         );
 
         jPanel2.setMaximumSize(new java.awt.Dimension(319, 200));
+        jPanel2.setNextFocusableComponent(txtNumExpediente);
         jPanel2.setOpaque(false);
 
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
@@ -578,6 +589,7 @@ public class pnlUsuarios extends javax.swing.JPanel {
 
         cmbCentroCosto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
         cmbCentroCosto.setMaximumSize(new java.awt.Dimension(33, 26));
+        cmbCentroCosto.setNextFocusableComponent(cmbPlanilla);
         cmbCentroCosto.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbCentroCostoItemStateChanged(evt);
@@ -596,6 +608,7 @@ public class pnlUsuarios extends javax.swing.JPanel {
 
         cmbPlanilla.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
         cmbPlanilla.setMaximumSize(new java.awt.Dimension(33, 26));
+        cmbPlanilla.setNextFocusableComponent(txtSAP);
         cmbPlanilla.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbPlanillaItemStateChanged(evt);
@@ -620,6 +633,7 @@ public class pnlUsuarios extends javax.swing.JPanel {
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Codigo SAP:");
 
+        txtSAP.setNextFocusableComponent(cmbPuesto);
         txtSAP.setPreferredSize(new java.awt.Dimension(65, 26));
         txtSAP.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -632,6 +646,7 @@ public class pnlUsuarios extends javax.swing.JPanel {
 
         cmbPuesto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
         cmbPuesto.setMaximumSize(new java.awt.Dimension(33, 26));
+        cmbPuesto.setNextFocusableComponent(txtJefe);
         cmbPuesto.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbPuestoItemStateChanged(evt);
@@ -699,10 +714,11 @@ public class pnlUsuarios extends javax.swing.JPanel {
                     .addComponent(jLabel6)
                     .addComponent(txtSAP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
-                    .addComponent(btnCrudPuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbPuesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnCrudPuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmbPuesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblErPuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())

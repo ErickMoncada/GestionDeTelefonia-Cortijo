@@ -320,7 +320,7 @@ public class CentroCosto extends javax.swing.JFrame {
         //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
         if (Validar()) {
             Object[] datos = new Object[2];
-            datos[0] = Integer.parseInt(txtNumero.getText());
+            datos[0] = txtNumero.getText();
             datos[1] = txtNombre.getText();
             AccionesCrud classcrud = new AccionesCrud();
             if (classcrud.Guardar_Modificar(datos, "exec [UpdateCentroCosto] ?, ? ")) {
