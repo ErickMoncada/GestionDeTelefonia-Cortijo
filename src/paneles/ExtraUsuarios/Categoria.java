@@ -54,6 +54,11 @@ public class Categoria extends javax.swing.JFrame {
         lblCategoriaUser.setText("Categoria de Usuario:");
 
         txtCategoriaUser.setPreferredSize(new java.awt.Dimension(65, 26));
+        txtCategoriaUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCategoriaUserActionPerformed(evt);
+            }
+        });
         txtCategoriaUser.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtCategoriaUserKeyTyped(evt);
@@ -289,12 +294,16 @@ public class Categoria extends javax.swing.JFrame {
     private void txtCategoriaUserKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCategoriaUserKeyTyped
         int key = evt.getKeyChar();
         // evaluar si la tecla presionada representa una letra (mayúscula o minúscula), un número, un espacio en blanco, la tecla de retroceso o cualquier otra tecla que no sea el signo "+" 
-        boolean letra = (key >= 65 && key <= 90) || (key >= 97 && key <= 122 || key >= 48 && key <= 57 || key == KeyEvent.VK_SPACE || key == KeyEvent.VK_BACK_SPACE);
+        boolean letra = (key >= 65 && key <= 90) || (key >= 97 && key <= 122 || key >= 48 && key <= 57 || key == KeyEvent.VK_SPACE || key == KeyEvent.VK_BACK_SPACE || key == 45);
         if (txtCategoriaUser.getText().length() == 15 || !letra) {
             evt.consume();
             Toolkit.getDefaultToolkit().beep();
         }
     }//GEN-LAST:event_txtCategoriaUserKeyTyped
+
+    private void txtCategoriaUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCategoriaUserActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCategoriaUserActionPerformed
 
     public static void main(String args[]) {
 

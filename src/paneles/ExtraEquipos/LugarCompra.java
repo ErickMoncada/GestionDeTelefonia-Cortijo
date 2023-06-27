@@ -27,7 +27,7 @@ public class LugarCompra extends javax.swing.JFrame {
         btnModificar.setVisible(false);
         btnEliminar.setVisible(false);
         btnCancelar.setVisible(false);
-        txtMarca.setText("");
+        txtLugar.setText("");
         txtID.setText("");
     }
 
@@ -38,7 +38,7 @@ public class LugarCompra extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         lblPlanilla = new javax.swing.JLabel();
-        txtMarca = new javax.swing.JTextField();
+        txtLugar = new javax.swing.JTextField();
         btnEliminar = new rsbuttom.RSButtonMetro();
         btnModificar = new rsbuttom.RSButtonMetro();
         btnGuardar = new rsbuttom.RSButtonMetro();
@@ -52,12 +52,12 @@ public class LugarCompra extends javax.swing.JFrame {
         setType(java.awt.Window.Type.POPUP);
 
         lblPlanilla.setForeground(new java.awt.Color(0, 0, 0));
-        lblPlanilla.setText("Marca de Equipo:");
+        lblPlanilla.setText("Lugar de Compra:");
 
-        txtMarca.setPreferredSize(new java.awt.Dimension(65, 26));
-        txtMarca.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtLugar.setPreferredSize(new java.awt.Dimension(65, 26));
+        txtLugar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtMarcaKeyTyped(evt);
+                txtLugarKeyTyped(evt);
             }
         });
 
@@ -147,7 +147,7 @@ public class LugarCompra extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtLugar, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -164,7 +164,7 @@ public class LugarCompra extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPlanilla)
-                    .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtLugar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
                     .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -184,7 +184,7 @@ public class LugarCompra extends javax.swing.JFrame {
                 {null}
             },
             new String [] {
-                "Marca del equipo"
+                "Lugar de Compra"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -238,7 +238,7 @@ public class LugarCompra extends javax.swing.JFrame {
     private void tblCentroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCentroMouseClicked
         //se trata de obtener los datos de la tabla para mostrarlos en las casillas respectivas con ayuda de sql
         AccionesCrud classcrud = new AccionesCrud();
-        if (classcrud.CargarDatoClick(tblCentro, "SELECT [ID],[Lugar] from VistaLugarCompra where Lugar=?", "Lugar", "ID", txtMarca, txtID)) {
+        if (classcrud.CargarDatoClick(tblCentro, "SELECT [ID],[Lugar] from VistaLugarCompra where Lugar=?", "Lugar", "ID", txtLugar, txtID)) {
             btnGuardar.setVisible(false);
             btnModificar.setVisible(true);
             btnEliminar.setVisible(true);
@@ -254,12 +254,12 @@ public class LugarCompra extends javax.swing.JFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
         AccionesCrud classcrud = new AccionesCrud();
-        if (classcrud.Validar(txtMarca, "El Lugar de Compra")) {
+        if (classcrud.Validar(txtLugar, "El Lugar de Compra")) {
             Object[] datos = new Object[1];
-            datos[0] = txtMarca.getText();
+            datos[0] = txtLugar.getText();
             if (classcrud.Guardar_Modificar(datos, "exec AgregarLugarCompra ? ")) {
                 txtID.setText("");
-                txtMarca.setText("");
+                txtLugar.setText("");
                 CargarTabla();
             }
         }
@@ -268,8 +268,8 @@ public class LugarCompra extends javax.swing.JFrame {
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
         AccionesCrud classcrud = new AccionesCrud();
-        if (classcrud.Validar(txtMarca, "El Lugar de Compra")) {
-            if (classcrud.Modificar(txtMarca, txtID, "exec UpdateLugarCompra ?,?")) {
+        if (classcrud.Validar(txtLugar, "El Lugar de Compra")) {
+            if (classcrud.Modificar(txtLugar, txtID, "exec UpdateLugarCompra ?,?")) {
                 CargarTabla();
                 Limpiar();
             }
@@ -279,7 +279,7 @@ public class LugarCompra extends javax.swing.JFrame {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         //se utiliza la funcion Eliminar de la clase AccionesCrud enviando el ID
         AccionesCrud classcrud = new AccionesCrud();
-        if (classcrud.Validar(txtMarca, "El Lugar de Compra")) {
+        if (classcrud.Validar(txtLugar, "El Lugar de Compra")) {
             if (classcrud.Eliminar(txtID, "exec EliminarLugarCompra ?")) {
                 CargarTabla();
                 Limpiar();
@@ -287,15 +287,15 @@ public class LugarCompra extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
-    private void txtMarcaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMarcaKeyTyped
+    private void txtLugarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLugarKeyTyped
         int key = evt.getKeyChar();
         // evaluar si la tecla presionada representa una letra (mayúscula o minúscula), un número, un espacio en blanco, la tecla de retroceso o cualquier otra tecla que no sea el signo "+" 
         boolean letra = (key >= 65 && key <= 90) || (key >= 97 && key <= 122 || key >= 48 && key <= 57 || key == KeyEvent.VK_SPACE || key == KeyEvent.VK_BACK_SPACE);
-        if (txtMarca.getText().length() == 30 || !letra) {
+        if (txtLugar.getText().length() == 30 || !letra) {
             evt.consume();
             Toolkit.getDefaultToolkit().beep();
         }
-    }//GEN-LAST:event_txtMarcaKeyTyped
+    }//GEN-LAST:event_txtLugarKeyTyped
 
     public static void main(String args[]) {
 
@@ -312,6 +312,6 @@ public class LugarCompra extends javax.swing.JFrame {
     private javax.swing.JLabel lblPlanilla;
     private javax.swing.JTable tblCentro;
     private javax.swing.JTextField txtID;
-    private javax.swing.JTextField txtMarca;
+    private javax.swing.JTextField txtLugar;
     // End of variables declaration//GEN-END:variables
 }
