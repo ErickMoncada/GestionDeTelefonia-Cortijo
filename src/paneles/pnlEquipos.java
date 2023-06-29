@@ -415,7 +415,7 @@ public class pnlEquipos extends javax.swing.JPanel {
                                 .addComponent(cmbMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnMarca)))))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(131, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -597,7 +597,7 @@ public class pnlEquipos extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnTipo))
                     .addComponent(dtpPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(131, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -827,7 +827,7 @@ public class pnlEquipos extends javax.swing.JPanel {
             tblEquipos.getColumnModel().getColumn(7).setPreferredWidth(150);
             tblEquipos.getColumnModel().getColumn(7).setMaxWidth(170);
             tblEquipos.getColumnModel().getColumn(8).setMinWidth(130);
-            tblEquipos.getColumnModel().getColumn(8).setPreferredWidth(13);
+            tblEquipos.getColumnModel().getColumn(8).setPreferredWidth(130);
             tblEquipos.getColumnModel().getColumn(8).setMaxWidth(130);
             tblEquipos.getColumnModel().getColumn(9).setMinWidth(60);
             tblEquipos.getColumnModel().getColumn(9).setPreferredWidth(120);
@@ -879,7 +879,7 @@ public class pnlEquipos extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel2)

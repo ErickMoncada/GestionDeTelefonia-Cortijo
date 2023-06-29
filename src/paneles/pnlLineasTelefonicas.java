@@ -22,8 +22,8 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
     public pnlLineasTelefonicas() {
         initComponents();
         CargarDatosPrincipal();
-        lblTotalPlanNuevo.setText("Suma Total de los Plan Nuevos: " + SumarValores(12) + "$");
-        lblTotalPresupuesto.setText("Suma Total de los Presupuestos: " + SumarValores(13) + "$");
+        lblTotalPlanNuevo.setText("Suma Total de los Plan Nuevos: " + SumarValores("Plan Nuevo") + "$");
+        lblTotalPresupuesto.setText("Suma Total de los Presupuestos: " + SumarValores("Presupuesto") + "$");
         Limpiar();
         txtOtro.setVisible(false);
         btgPago.add(rdbSiSeguro);
@@ -40,11 +40,12 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
     ButtonGroup btgPago = new ButtonGroup();
     ButtonGroup btgFirma = new ButtonGroup();
 
-    private String SumarValores(int pocision) {
+    private String SumarValores(String nombreColumna) {
         //funcion para sumar la cantidad que brinda una columna
         double total = 0;
+        int indiceColumna = tblLineas.getColumnModel().getColumnIndex(nombreColumna);
         for (int i = 0; i < tblLineas.getRowCount(); i++) {
-            Object value = tblLineas.getValueAt(i, pocision);
+            Object value = tblLineas.getValueAt(i, indiceColumna);
             total += ((Number) value).doubleValue();
         }
         return String.valueOf(total);
@@ -434,17 +435,17 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         tblLineas.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         tblLineas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Linea Telefonica", "N Expediente", "Disponibilidad", "Año de  renovacion", "IMEI", "Cuotas", "Asignado", "Cambio de Equipo", "Facturado", "Firma", "Paga Seguro?", "Plan Anterior", "Plan Nuevo", "Presupuesto", "Reconocido del Plan"
+                "Expediente", "Firma", "Linea Telefonica", "Cod.Empleado", "Usuario", "Centro Costo", "Estado Equipo", "Facturado", "Cambio de Equipo", "Equipo", "IMEI", "Paga Seguro?", "Presupuesto", "Cuotas", "Plan Anterior", "Plan Nuevo", "Disponibilidad", "Jefe", "Categoria", "Reconocido del Plan", "Planilla", "Año de  renovacion", "Asignado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -459,6 +460,70 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
             }
         });
         jScrollPane1.setViewportView(tblLineas);
+        if (tblLineas.getColumnModel().getColumnCount() > 0) {
+            tblLineas.getColumnModel().getColumn(0).setResizable(false);
+            tblLineas.getColumnModel().getColumn(0).setPreferredWidth(60);
+            tblLineas.getColumnModel().getColumn(1).setMinWidth(60);
+            tblLineas.getColumnModel().getColumn(1).setPreferredWidth(70);
+            tblLineas.getColumnModel().getColumn(1).setMaxWidth(80);
+            tblLineas.getColumnModel().getColumn(2).setMinWidth(80);
+            tblLineas.getColumnModel().getColumn(2).setPreferredWidth(90);
+            tblLineas.getColumnModel().getColumn(2).setMaxWidth(100);
+            tblLineas.getColumnModel().getColumn(3).setMinWidth(70);
+            tblLineas.getColumnModel().getColumn(3).setPreferredWidth(80);
+            tblLineas.getColumnModel().getColumn(3).setMaxWidth(90);
+            tblLineas.getColumnModel().getColumn(4).setMinWidth(100);
+            tblLineas.getColumnModel().getColumn(4).setPreferredWidth(130);
+            tblLineas.getColumnModel().getColumn(4).setMaxWidth(300);
+            tblLineas.getColumnModel().getColumn(5).setMinWidth(100);
+            tblLineas.getColumnModel().getColumn(5).setPreferredWidth(150);
+            tblLineas.getColumnModel().getColumn(5).setMaxWidth(330);
+            tblLineas.getColumnModel().getColumn(6).setMinWidth(80);
+            tblLineas.getColumnModel().getColumn(6).setPreferredWidth(90);
+            tblLineas.getColumnModel().getColumn(6).setMaxWidth(110);
+            tblLineas.getColumnModel().getColumn(7).setMinWidth(80);
+            tblLineas.getColumnModel().getColumn(7).setPreferredWidth(130);
+            tblLineas.getColumnModel().getColumn(7).setMaxWidth(140);
+            tblLineas.getColumnModel().getColumn(8).setMinWidth(80);
+            tblLineas.getColumnModel().getColumn(8).setPreferredWidth(130);
+            tblLineas.getColumnModel().getColumn(8).setMaxWidth(140);
+            tblLineas.getColumnModel().getColumn(9).setMinWidth(90);
+            tblLineas.getColumnModel().getColumn(9).setPreferredWidth(110);
+            tblLineas.getColumnModel().getColumn(9).setMaxWidth(300);
+            tblLineas.getColumnModel().getColumn(10).setMinWidth(130);
+            tblLineas.getColumnModel().getColumn(10).setPreferredWidth(130);
+            tblLineas.getColumnModel().getColumn(10).setMaxWidth(130);
+            tblLineas.getColumnModel().getColumn(11).setMinWidth(60);
+            tblLineas.getColumnModel().getColumn(11).setPreferredWidth(60);
+            tblLineas.getColumnModel().getColumn(11).setMaxWidth(60);
+            tblLineas.getColumnModel().getColumn(12).setMinWidth(50);
+            tblLineas.getColumnModel().getColumn(12).setPreferredWidth(90);
+            tblLineas.getColumnModel().getColumn(12).setMaxWidth(100);
+            tblLineas.getColumnModel().getColumn(13).setMinWidth(50);
+            tblLineas.getColumnModel().getColumn(13).setPreferredWidth(60);
+            tblLineas.getColumnModel().getColumn(13).setMaxWidth(60);
+            tblLineas.getColumnModel().getColumn(14).setMinWidth(50);
+            tblLineas.getColumnModel().getColumn(14).setPreferredWidth(90);
+            tblLineas.getColumnModel().getColumn(14).setMaxWidth(100);
+            tblLineas.getColumnModel().getColumn(15).setMinWidth(50);
+            tblLineas.getColumnModel().getColumn(15).setPreferredWidth(90);
+            tblLineas.getColumnModel().getColumn(15).setMaxWidth(100);
+            tblLineas.getColumnModel().getColumn(16).setMinWidth(80);
+            tblLineas.getColumnModel().getColumn(16).setPreferredWidth(90);
+            tblLineas.getColumnModel().getColumn(16).setMaxWidth(120);
+            tblLineas.getColumnModel().getColumn(17).setMinWidth(60);
+            tblLineas.getColumnModel().getColumn(17).setPreferredWidth(60);
+            tblLineas.getColumnModel().getColumn(17).setMaxWidth(60);
+            tblLineas.getColumnModel().getColumn(18).setMinWidth(60);
+            tblLineas.getColumnModel().getColumn(18).setPreferredWidth(60);
+            tblLineas.getColumnModel().getColumn(18).setMaxWidth(60);
+            tblLineas.getColumnModel().getColumn(19).setMinWidth(60);
+            tblLineas.getColumnModel().getColumn(19).setPreferredWidth(110);
+            tblLineas.getColumnModel().getColumn(19).setMaxWidth(110);
+            tblLineas.getColumnModel().getColumn(20).setMinWidth(60);
+            tblLineas.getColumnModel().getColumn(20).setPreferredWidth(80);
+            tblLineas.getColumnModel().getColumn(20).setMaxWidth(90);
+        }
 
         jPanel4.setComponentPopupMenu(jPopupMenu1);
         jPanel4.setNextFocusableComponent(txtLinea);
@@ -1017,20 +1082,21 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 2111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -1040,17 +1106,14 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(84, Short.MAX_VALUE))
+                        .addGap(12, 12, 12)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -1060,7 +1123,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         //se trata de obtener los datos de la tabla para mostrarlos en las casillas respectivas con ayuda de sql
         try {
             AccionesCrud classcrud = new AccionesCrud();
-            ResultSet rs = classcrud.Seleccion(tblLineas, "select * from [VistaLineasTelefonicas] where [Linea]=?","Linea Telefonica");
+            ResultSet rs = classcrud.Seleccion(tblLineas, "select * from [VistaLineasTelefonicas] where [Linea]=?", "Linea Telefonica");
             while (rs.next()) {
                 txtLinea.setText(rs.getString("Linea"));
                 txtNumExpediente.setText(rs.getString("Expediente"));
@@ -1138,61 +1201,61 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
             DatosTablas Datos = new DatosTablas();
             Datos.CargarTabla(tblLineas, "select * from [VistaLineasTelefonicas]");
             Limpiar();
-            lblTotalPlanNuevo.setText("Suma Total de los Plan Nuevos: " + SumarValores(12) + "$");
-            lblTotalPresupuesto.setText("Suma Total de los Presupuestos: " + SumarValores(13) + "$");
+            lblTotalPlanNuevo.setText("Suma Total de los Plan Nuevos: " + SumarValores("Plan Nuevo") + "$");
+            lblTotalPresupuesto.setText("Suma Total de los Presupuestos: " + SumarValores("Presupuesto") + "$");
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
-    private Object[] ArregloDatos(){
-       //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
-            Object[] datos = new Object[15];
-            datos[0] = txtLinea.getText();
-            datos[1] = txtNumExpediente.getText();
-            datos[2] = cmbDisponibilidad.getSelectedItem().toString();
-            datos[3] = txtYear.getYear();
-            datos[4] = (Integer) txtCuotas.getValue();
-            datos[5] = txtImei.getText();
-            try {
-                Date date = dtpAsignacion.getDate();
-                long d = date.getTime();
-                java.sql.Date fecha = new java.sql.Date(d);
-                datos[6] = fecha.toString();
-            } catch (Exception e) {
-                datos[6] = "";
-            }
-            try {
-                Date date = dtpCambio.getDate();
-                long d = date.getTime();
-                java.sql.Date fecha = new java.sql.Date(d);
-                datos[7] = fecha.toString();
-            } catch (Exception e) {
-                datos[7] = "";
-            }
-            try {
-                Date date = dtpFacturacion.getDate();
-                long d = date.getTime();
-                java.sql.Date fecha = new java.sql.Date(d);
-                datos[8] = fecha.toString();
-            } catch (Exception e) {
-                datos[8] = "";
-            }
-            if (rdbSiSeguro.isSelected() == true) {
-                datos[9] = 1;
-            } else if (rdbNoSeguro.isSelected() == true) {
-                datos[9] = 2;
-            }
-            if (rdbSiFirma.isSelected() == true) {
-                datos[10] = "SI";
-            } else if (rdbNoFirma.isSelected() == true) {
-                datos[10] = "NO";
-            } else if (rdbOtro.isSelected() == true) {
-                datos[10] = txtOtro.getText();
-            }
-            datos[11] = Double.parseDouble(txtAnterior.getText());
-            datos[12] = Double.parseDouble(txtNuevo.getText());
-            datos[13] = Double.parseDouble(txtPresupuesto.getText());
-            datos[14] = Double.parseDouble(txtMensual.getText());
-            return datos;
+    private Object[] ArregloDatos() {
+        //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
+        Object[] datos = new Object[15];
+        datos[0] = txtLinea.getText();
+        datos[1] = txtNumExpediente.getText();
+        datos[2] = cmbDisponibilidad.getSelectedItem().toString();
+        datos[3] = txtYear.getYear();
+        datos[4] = (Integer) txtCuotas.getValue();
+        datos[5] = txtImei.getText();
+        try {
+            Date date = dtpAsignacion.getDate();
+            long d = date.getTime();
+            java.sql.Date fecha = new java.sql.Date(d);
+            datos[6] = fecha.toString();
+        } catch (Exception e) {
+            datos[6] = "";
+        }
+        try {
+            Date date = dtpCambio.getDate();
+            long d = date.getTime();
+            java.sql.Date fecha = new java.sql.Date(d);
+            datos[7] = fecha.toString();
+        } catch (Exception e) {
+            datos[7] = "";
+        }
+        try {
+            Date date = dtpFacturacion.getDate();
+            long d = date.getTime();
+            java.sql.Date fecha = new java.sql.Date(d);
+            datos[8] = fecha.toString();
+        } catch (Exception e) {
+            datos[8] = "";
+        }
+        if (rdbSiSeguro.isSelected() == true) {
+            datos[9] = 1;
+        } else if (rdbNoSeguro.isSelected() == true) {
+            datos[9] = 2;
+        }
+        if (rdbSiFirma.isSelected() == true) {
+            datos[10] = "SI";
+        } else if (rdbNoFirma.isSelected() == true) {
+            datos[10] = "NO";
+        } else if (rdbOtro.isSelected() == true) {
+            datos[10] = txtOtro.getText();
+        }
+        datos[11] = Double.parseDouble(txtAnterior.getText());
+        datos[12] = Double.parseDouble(txtNuevo.getText());
+        datos[13] = Double.parseDouble(txtPresupuesto.getText());
+        datos[14] = Double.parseDouble(txtMensual.getText());
+        return datos;
     }
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         LimpiarErrores();
@@ -1201,8 +1264,8 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
             if (classcrud.Guardar_Modificar(ArregloDatos(), "exec [AgregarLineaTelefonica] ?, ? ,?  ,? ,? ,? ,? ,? ,? ,?,?,?,?,?,?")) {
                 DatosTablas Datos = new DatosTablas();
                 Datos.CargarTabla(tblLineas, "select * from [VistaLineasTelefonicas]");
-                lblTotalPlanNuevo.setText("Suma Total de los Plan Nuevos: " + SumarValores(12) + "$");
-                lblTotalPresupuesto.setText("Suma Total de los Presupuestos: " + SumarValores(13) + "$");
+                lblTotalPlanNuevo.setText("Suma Total de los Plan Nuevos: " + SumarValores("Plan Nuevo") + "$");
+                lblTotalPresupuesto.setText("Suma Total de los Presupuestos: " + SumarValores("Presupuesto") + "$");
             }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -1214,8 +1277,8 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
             if (classcrud.Guardar_Modificar(ArregloDatos(), "exec [UpdateLineaTelefonica] ?, ? ,?  ,? ,? ,? ,? ,? ,? ,?,?,?,?,?,?")) {
                 DatosTablas Datos = new DatosTablas();
                 Datos.CargarTabla(tblLineas, "select * from [VistaLineasTelefonicas]");
-                lblTotalPlanNuevo.setText("Suma Total de los Plan Nuevos: " + SumarValores(12) + "$");
-                lblTotalPresupuesto.setText("Suma Total de los Presupuestos: " + SumarValores(13) + "$");
+                lblTotalPlanNuevo.setText("Suma Total de los Plan Nuevos: " + SumarValores("Plan Nuevo") + "$");
+                lblTotalPresupuesto.setText("Suma Total de los Presupuestos: " + SumarValores("Presupuesto") + "$");
                 Limpiar();
             }
         }
@@ -1249,8 +1312,8 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         modelo.setRowCount(0);
         //se muestra los resultados de la busqueda
         BusquedaTabla.CargarTabla(tblLineas, "select * from VistaLineasTelefonicas where " + Busqueda + " LIKE '%" + txtBuscar.getText().trim() + "%'");
-        lblTotalPlanNuevo.setText("Suma Total de los Plan Nuevos: " + SumarValores(12) + "$");
-        lblTotalPresupuesto.setText("Suma Total de los Presupuestos: " + SumarValores(13) + "$");
+        lblTotalPlanNuevo.setText("Suma Total de los Plan Nuevos: " + SumarValores("Plan Nuevo") + "$");
+        lblTotalPresupuesto.setText("Suma Total de los Presupuestos: " + SumarValores("Presupuesto") + "$");
     }//GEN-LAST:event_txtBuscarKeyReleased
 
     private void btnDisponibilidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDisponibilidadActionPerformed
@@ -1401,7 +1464,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
                 val.EntradaNumeros(txtBuscar, evt, 15);
                 break;
             case "Expediente":
-                val.EntradaNumeros(txtBuscar, evt,4);
+                val.EntradaNumeros(txtBuscar, evt, 4);
                 break;
             default:
                 break;
