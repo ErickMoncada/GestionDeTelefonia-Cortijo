@@ -313,10 +313,11 @@
               <Font name="Dialog" size="12" style="1"/>
             </Property>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="10" rowCount="4">
+              <Table columnCount="11" rowCount="4">
                 <Column editable="false" title="N. Expediente" type="java.lang.Object"/>
                 <Column editable="false" title="Nombre" type="java.lang.Object"/>
                 <Column editable="false" title="Cod. Empleado" type="java.lang.Object"/>
+                <Column editable="false" title="Num. Centro Costo" type="java.lang.Object"/>
                 <Column editable="false" title="Centro de Costo" type="java.lang.Object"/>
                 <Column editable="false" title="Planilla" type="java.lang.Object"/>
                 <Column editable="false" title="Cod. SAP" type="java.lang.Object"/>
@@ -328,6 +329,11 @@
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>

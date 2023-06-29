@@ -3,8 +3,6 @@ package paneles;
 import Clases.AccionesCrud;
 import Clases.DatosTablas;
 import Clases.validaciones;
-import java.awt.Toolkit;
-import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -150,9 +148,6 @@ public class pnlEquipos extends javax.swing.JPanel {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
-        txtBuscar = new javax.swing.JTextField();
-        cmbBuscar = new javax.swing.JComboBox<>();
-        jLabel2 = new javax.swing.JLabel();
         btnModificar = new rsbuttom.RSButtonMetro();
         btnGuardar = new rsbuttom.RSButtonMetro();
         btnEliminar = new rsbuttom.RSButtonMetro();
@@ -204,6 +199,9 @@ public class pnlEquipos extends javax.swing.JPanel {
         txtCosto = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblEquipos = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        cmbBuscar = new javax.swing.JComboBox<>();
+        txtBuscar = new javax.swing.JTextField();
 
         jMenuItem1.setText("Actualizar datos desplegables");
         jMenuItem1.setName("actualizarTabla"); // NOI18N
@@ -227,25 +225,6 @@ public class pnlEquipos extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setComponentPopupMenu(jPopupMenu1);
         jPanel1.setNextFocusableComponent(txtNumIMEI);
-
-        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtBuscarKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtBuscarKeyTyped(evt);
-            }
-        });
-
-        cmbBuscar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Categoria", "Comentario", "Estado", "IMEI", "Marca", "N. Expediente", "Tipo" }));
-        cmbBuscar.setSelectedItem("IMEI");
-        cmbBuscar.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cmbBuscarItemStateChanged(evt);
-            }
-        });
-
-        jLabel2.setText("Buscar por:");
 
         btnModificar.setBackground(new java.awt.Color(114, 191, 68));
         btnModificar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -436,7 +415,7 @@ public class pnlEquipos extends javax.swing.JPanel {
                                 .addComponent(cmbMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnMarca)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -618,7 +597,7 @@ public class pnlEquipos extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnTipo))
                     .addComponent(dtpPrestamo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -762,14 +741,6 @@ public class pnlEquipos extends javax.swing.JPanel {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cmbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(1054, 1054, 1054))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -791,35 +762,30 @@ public class pnlEquipos extends javax.swing.JPanel {
                             .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18))
+                        .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(74, 74, 74)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addContainerGap())
+                        .addGap(106, 106, 106))))
         );
 
         jScrollPane1.setComponentPopupMenu(jPopupMenu1);
         jScrollPane1.setPreferredSize(new java.awt.Dimension(800, 403));
 
         tblEquipos.setBackground(new java.awt.Color(204, 255, 204));
-        tblEquipos.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        tblEquipos.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         tblEquipos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "IMEI", "Estado del Equipo", "Num. Expediente", "Fecha de Prestamo", "Tipo", "Categoria", "Marca", "Modelo", "Accesorio", "Lugar", "Fecha de Compra", "Costo", "Num. Factura", "Comentario"
+                "¿Quién lo posee? ", "Área", "Expediente", "Fecha de Prestamo", "Tipo", "Categoria", "Marca", "Modelo", "IMEI", "Accesorio", "Estado", "Lugar", "Fecha de Compra", "Costo", "Num. Factura", "Comentario"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, true, false
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -828,12 +794,82 @@ public class pnlEquipos extends javax.swing.JPanel {
         });
         tblEquipos.setGridColor(new java.awt.Color(0, 0, 0));
         tblEquipos.setSelectionBackground(new java.awt.Color(51, 153, 0));
+        tblEquipos.getTableHeader().setReorderingAllowed(false);
         tblEquipos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblEquiposMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tblEquipos);
+        if (tblEquipos.getColumnModel().getColumnCount() > 0) {
+            tblEquipos.getColumnModel().getColumn(0).setMinWidth(100);
+            tblEquipos.getColumnModel().getColumn(0).setPreferredWidth(200);
+            tblEquipos.getColumnModel().getColumn(0).setMaxWidth(300);
+            tblEquipos.getColumnModel().getColumn(1).setMinWidth(100);
+            tblEquipos.getColumnModel().getColumn(1).setPreferredWidth(200);
+            tblEquipos.getColumnModel().getColumn(1).setMaxWidth(300);
+            tblEquipos.getColumnModel().getColumn(2).setMinWidth(50);
+            tblEquipos.getColumnModel().getColumn(2).setPreferredWidth(60);
+            tblEquipos.getColumnModel().getColumn(2).setMaxWidth(70);
+            tblEquipos.getColumnModel().getColumn(3).setMinWidth(90);
+            tblEquipos.getColumnModel().getColumn(3).setPreferredWidth(150);
+            tblEquipos.getColumnModel().getColumn(3).setMaxWidth(160);
+            tblEquipos.getColumnModel().getColumn(4).setMinWidth(50);
+            tblEquipos.getColumnModel().getColumn(4).setPreferredWidth(150);
+            tblEquipos.getColumnModel().getColumn(4).setMaxWidth(170);
+            tblEquipos.getColumnModel().getColumn(5).setMinWidth(50);
+            tblEquipos.getColumnModel().getColumn(5).setPreferredWidth(150);
+            tblEquipos.getColumnModel().getColumn(5).setMaxWidth(170);
+            tblEquipos.getColumnModel().getColumn(6).setMinWidth(50);
+            tblEquipos.getColumnModel().getColumn(6).setPreferredWidth(150);
+            tblEquipos.getColumnModel().getColumn(6).setMaxWidth(170);
+            tblEquipos.getColumnModel().getColumn(7).setMinWidth(50);
+            tblEquipos.getColumnModel().getColumn(7).setPreferredWidth(150);
+            tblEquipos.getColumnModel().getColumn(7).setMaxWidth(170);
+            tblEquipos.getColumnModel().getColumn(8).setMinWidth(130);
+            tblEquipos.getColumnModel().getColumn(8).setPreferredWidth(13);
+            tblEquipos.getColumnModel().getColumn(8).setMaxWidth(130);
+            tblEquipos.getColumnModel().getColumn(9).setMinWidth(60);
+            tblEquipos.getColumnModel().getColumn(9).setPreferredWidth(120);
+            tblEquipos.getColumnModel().getColumn(9).setMaxWidth(150);
+            tblEquipos.getColumnModel().getColumn(10).setMinWidth(50);
+            tblEquipos.getColumnModel().getColumn(10).setPreferredWidth(80);
+            tblEquipos.getColumnModel().getColumn(10).setMaxWidth(100);
+            tblEquipos.getColumnModel().getColumn(11).setMinWidth(50);
+            tblEquipos.getColumnModel().getColumn(11).setPreferredWidth(75);
+            tblEquipos.getColumnModel().getColumn(11).setMaxWidth(90);
+            tblEquipos.getColumnModel().getColumn(12).setMinWidth(90);
+            tblEquipos.getColumnModel().getColumn(12).setPreferredWidth(120);
+            tblEquipos.getColumnModel().getColumn(12).setMaxWidth(150);
+            tblEquipos.getColumnModel().getColumn(13).setMinWidth(40);
+            tblEquipos.getColumnModel().getColumn(13).setPreferredWidth(75);
+            tblEquipos.getColumnModel().getColumn(13).setMaxWidth(90);
+            tblEquipos.getColumnModel().getColumn(14).setMinWidth(80);
+            tblEquipos.getColumnModel().getColumn(14).setPreferredWidth(120);
+            tblEquipos.getColumnModel().getColumn(14).setMaxWidth(280);
+            tblEquipos.getColumnModel().getColumn(15).setMinWidth(80);
+            tblEquipos.getColumnModel().getColumn(15).setPreferredWidth(120);
+            tblEquipos.getColumnModel().getColumn(15).setMaxWidth(350);
+        }
+
+        jLabel2.setText("Buscar por:");
+
+        cmbBuscar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Categoria", "Comentario", "Estado", "IMEI", "Marca", "N. Expediente", "Tipo" }));
+        cmbBuscar.setSelectedItem("IMEI");
+        cmbBuscar.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbBuscarItemStateChanged(evt);
+            }
+        });
+
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -845,13 +881,25 @@ public class pnlEquipos extends javax.swing.JPanel {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cmbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(4, 4, 4)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -863,7 +911,7 @@ public class pnlEquipos extends javax.swing.JPanel {
         //se trata de obtener los datos de la tabla para mostrarlos en las casillas respectivas con ayuda de sql
         try {
             AccionesCrud classcrud = new AccionesCrud();
-            ResultSet rs = classcrud.Seleccion(tblEquipos, "select * from [VistaEquipos] where [IMEI]=?");
+            ResultSet rs = classcrud.Seleccion(tblEquipos, "select * from [VistaEquipos] where [IMEI]=?","IMEI");
             while (rs.next()) {
                 txtNumIMEI.setText(rs.getString("IMEI"));
                 txtNumExpediente.setText(rs.getString("NumeroExpediente"));
@@ -879,7 +927,6 @@ public class pnlEquipos extends javax.swing.JPanel {
                 } catch (ParseException ex) {
                     Logger.getLogger(pnlEquipos.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
                 cmbCategoria.setSelectedItem(rs.getString("Categoria"));
                 cmbMarca.setSelectedItem(rs.getString("Marca"));
                 txtModelo.setText(rs.getString("Modelo"));
@@ -936,33 +983,17 @@ public class pnlEquipos extends javax.swing.JPanel {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void txtCostoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCostoKeyTyped
-        int key = evt.getKeyChar();
-        //expresion regular que solo permite numeros, tecla de eliminar y un punto
-        boolean numero = (key >= 48 && key <= 57) || (key == 46 && !txtCosto.getText().contains(".")) || key == KeyEvent.VK_BACK_SPACE;
-        if (txtCosto.getText().length() == 8 || !numero) {
-            evt.consume();
-            Toolkit.getDefaultToolkit().beep();
-        }
+       val.EntradaDinero(txtCosto, evt);
     }//GEN-LAST:event_txtCostoKeyTyped
 
     private void txtComentarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtComentarioKeyTyped
-        int key = evt.getKeyChar();
-        // evaluar si la tecla presionada representa una letra (mayúscula o minúscula), un número, un espacio en blanco, la tecla de retroceso o cualquier otra tecla que no sea el signo "+" 
-        boolean letra = (key >= 65 && key <= 90) || (key >= 97 && key <= 122 || key >= 48 && key <= 57 || (key != 43) || key == KeyEvent.VK_SPACE || key == KeyEvent.VK_BACK_SPACE);
-        if (txtAccesorio.getText().length() == 50 || !letra) {
-            evt.consume();
-            Toolkit.getDefaultToolkit().beep();
-        }
+       //validacion para un campo de tipo normal
+        val.EntradaTextoNormal(txtComentario, evt, 50);
     }//GEN-LAST:event_txtComentarioKeyTyped
 
     private void txtNumFacturaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumFacturaKeyTyped
-        int key = evt.getKeyChar();
-        // evaluar si la tecla presionada representa una letra (mayúscula o minúscula), un número, un espacio en blanco, la tecla de retroceso o cualquier otra tecla que no sea el signo "+" 
-        boolean letra = (key >= 65 && key <= 90) || (key >= 97 && key <= 122 || key >= 48 && key <= 57 || (key != 43) || key == KeyEvent.VK_SPACE || key == KeyEvent.VK_BACK_SPACE);
-        if (txtNumFactura.getText().length() == 30 || !letra) {
-            evt.consume();
-            Toolkit.getDefaultToolkit().beep();
-        }
+       //validadcion para un campo tipo normal
+        val.EntradaTextoNormal( txtNumFactura, evt, 30);
     }//GEN-LAST:event_txtNumFacturaKeyTyped
 
     private void btnEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstadoActionPerformed
@@ -996,13 +1027,8 @@ public class pnlEquipos extends javax.swing.JPanel {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void txtNumExpedienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumExpedienteKeyTyped
-        int key = evt.getKeyChar();
-        //expresion regular que solo permite numeros y la tecla de eliminar
-        boolean numero = key >= 48 && key <= 57 || key == KeyEvent.VK_BACK_SPACE;
-        if (txtNumExpediente.getText().length() == 5 || !numero) {
-            evt.consume();
-            Toolkit.getDefaultToolkit().beep();
-        }
+       //validado para el tipo de entrada Expediente
+        val.EntradaNumeros(txtNumExpediente, evt, 4);
     }//GEN-LAST:event_txtNumExpedienteKeyTyped
 
     private void txtNumExpedienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumExpedienteKeyReleased
@@ -1011,13 +1037,8 @@ public class pnlEquipos extends javax.swing.JPanel {
     }//GEN-LAST:event_txtNumExpedienteKeyReleased
 
     private void txtNumIMEIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumIMEIKeyTyped
-        int key = evt.getKeyChar();
-        //expresion regular que solo permite numeros y la tecla de eliminar
-        boolean numero = key >= 48 && key <= 57 || key == KeyEvent.VK_BACK_SPACE;
-        if (txtNumIMEI.getText().length() == 15 || !numero) {
-            evt.consume();
-            Toolkit.getDefaultToolkit().beep();
-        }
+       //validado para el tipo de campo IMEI
+        val.EntradaNumeros(txtNumIMEI, evt, 15);
     }//GEN-LAST:event_txtNumIMEIKeyTyped
 
     private void txtNumIMEIKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumIMEIKeyReleased
@@ -1039,13 +1060,8 @@ public class pnlEquipos extends javax.swing.JPanel {
     }//GEN-LAST:event_cmbLugarItemStateChanged
 
     private void txtModeloKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtModeloKeyTyped
-        int key = evt.getKeyChar();
-        // evaluar si la tecla presionada representa una letra (mayúscula o minúscula), un número, un espacio en blanco, la tecla de retroceso o cualquier otra tecla que no sea el signo "+" 
-        boolean letra = (key >= 65 && key <= 90) || (key >= 97 && key <= 122 || key >= 48 && key <= 57 || key == KeyEvent.VK_SPACE || key == KeyEvent.VK_BACK_SPACE);
-        if (txtModelo.getText().length() == 50 || !letra) {
-            evt.consume();
-            Toolkit.getDefaultToolkit().beep();
-        }
+       // validado para un campo de tipo normal 
+        val.EntradaTextoNormal(txtModelo, evt, 50);
     }//GEN-LAST:event_txtModeloKeyTyped
 
     private void txtModeloKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtModeloKeyReleased
@@ -1054,13 +1070,8 @@ public class pnlEquipos extends javax.swing.JPanel {
     }//GEN-LAST:event_txtModeloKeyReleased
 
     private void txtAccesorioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAccesorioKeyTyped
-        int key = evt.getKeyChar();
-        // evaluar si la tecla presionada representa una letra (mayúscula o minúscula), un número, un espacio en blanco, la tecla de retroceso o cualquier otra tecla que no sea el signo "+" 
-        boolean letra = (key >= 65 && key <= 90) || (key >= 97 && key <= 122 || key >= 46 && key <= 57 || (key != 43) || key == KeyEvent.VK_SPACE || key == KeyEvent.VK_BACK_SPACE);
-        if (txtAccesorio.getText().length() == 30 || !letra) {
-            evt.consume();
-            Toolkit.getDefaultToolkit().beep();
-        }
+        // validado para un campo de tipo normal 
+        val.EntradaTextoNormal(txtAccesorio, evt, 30);
     }//GEN-LAST:event_txtAccesorioKeyTyped
 
     private void btnMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMarcaActionPerformed
@@ -1099,11 +1110,9 @@ public class pnlEquipos extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        LimpiarErrores();
-        if (ValidarCampos()) {
-            //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
-            Object[] datos = new Object[14];
+    private Object[] ArregloDatos(){
+      //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
+     Object[] datos = new Object[14];
             datos[0] = txtNumIMEI.getText();
             datos[1] = cmbEstado.getSelectedItem().toString();
             datos[2] = Integer.parseInt(txtNumExpediente.getText());
@@ -1118,8 +1127,8 @@ public class pnlEquipos extends javax.swing.JPanel {
             datos[4] = cmbTipo.getSelectedItem().toString();
             datos[5] = cmbCategoria.getSelectedItem().toString();
             datos[6] = cmbMarca.getSelectedItem().toString();
-            datos[7] = txtModelo.getText();
-            datos[8] = txtAccesorio.getText();
+            datos[7] = txtModelo.getText().trim();
+            datos[8] = txtAccesorio.getText().trim();
             datos[9] = cmbLugar.getSelectedItem().toString();
             try {
                 Date date = dtpCompra.getDate();
@@ -1129,15 +1138,20 @@ public class pnlEquipos extends javax.swing.JPanel {
             } catch (Exception e) {
                 datos[10] = "";
             }
-            datos[11] = txtComentario.getText();
+            datos[11] = txtComentario.getText().trim();
             try {
                 datos[12] = Double.parseDouble(txtCosto.getText());
             } catch (NumberFormatException e) {
                 datos[12] = "";
             } 
-            datos[13] = txtNumFactura.getText();
+            datos[13] = txtNumFactura.getText().trim();
+           return datos;
+    }
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        LimpiarErrores();
+        if (ValidarCampos()) {
             AccionesCrud classcrud = new AccionesCrud();
-            if (classcrud.Guardar_Modificar(datos, "exec [AgregarEquipo] ?, ? ,?  ,? ,? ,? ,? ,? ,? ,?,?,?,?,?")) {
+            if (classcrud.Guardar_Modificar(ArregloDatos(), "exec [AgregarEquipo] ?, ? ,?  ,? ,? ,? ,? ,? ,? ,?,?,?,?,?")) {
                 DatosTablas Datos = new DatosTablas();
                 Datos.CargarTabla(tblEquipos, "select * from [VistaEquipos]");
                 Limpiar();
@@ -1148,42 +1162,8 @@ public class pnlEquipos extends javax.swing.JPanel {
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         LimpiarErrores();
         if (ValidarCampos()) {
-             //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
-            Object[] datos = new Object[14];
-            datos[0] = txtNumIMEI.getText();
-            datos[1] = cmbEstado.getSelectedItem().toString();
-            datos[2] = Integer.parseInt(txtNumExpediente.getText());
-            try {
-                Date date2 = dtpPrestamo.getDate();
-                long d2 = date2.getTime();
-                java.sql.Date fecha2 = new java.sql.Date(d2);
-                datos[3] = fecha2.toString();
-            } catch (Exception e) {
-                datos[3] = "";
-            }
-            datos[4] = cmbTipo.getSelectedItem().toString();
-            datos[5] = cmbCategoria.getSelectedItem().toString();
-            datos[6] = cmbMarca.getSelectedItem().toString();
-            datos[7] = txtModelo.getText();
-            datos[8] = txtAccesorio.getText();
-            datos[9] = cmbLugar.getSelectedItem().toString();
-            try {
-                Date date = dtpCompra.getDate();
-                long d = date.getTime();
-                java.sql.Date fecha = new java.sql.Date(d);
-                datos[10] = fecha.toString();
-            } catch (Exception e) {
-                datos[10] = "";
-            }
-            datos[11] = txtComentario.getText();
-            try {
-                datos[12] = Double.parseDouble(txtCosto.getText());
-            } catch (NumberFormatException e) {
-                datos[12] = "";
-            } 
-            datos[13] = txtNumFactura.getText();
             AccionesCrud classcrud = new AccionesCrud();
-            if (classcrud.Guardar_Modificar(datos, "exec [UpdateEquipo] ?, ? ,?  ,? ,? ,? ,? ,? ,? ,?,?,?,?,?")) {
+            if (classcrud.Guardar_Modificar(ArregloDatos(), "exec [UpdateEquipo] ?, ? ,?  ,? ,? ,? ,? ,? ,? ,?,?,?,?,?")) {
                 DatosTablas Datos = new DatosTablas();
                 Datos.CargarTabla(tblEquipos, "select * from [VistaEquipos]");
                 Limpiar();
@@ -1220,6 +1200,7 @@ public class pnlEquipos extends javax.swing.JPanel {
             default:
                 break;
         }
+        txtBuscar.setText("");
     }//GEN-LAST:event_cmbBuscarItemStateChanged
 
     private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
@@ -1229,16 +1210,35 @@ public class pnlEquipos extends javax.swing.JPanel {
         DefaultTableModel modelo = (DefaultTableModel) tblEquipos.getModel();
         modelo.setRowCount(0);
         //se muestra los resultados de la busqueda
-        BusquedaTabla.CargarTabla(tblEquipos, "select * from VistaEquipos where " + Busqueda + " LIKE '%" + txtBuscar.getText() + "%'");
+        BusquedaTabla.CargarTabla(tblEquipos, "select * from VistaEquipos where " + Busqueda + " LIKE '%" + txtBuscar.getText().trim() + "%'");
     }//GEN-LAST:event_txtBuscarKeyReleased
 
     private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
-        int key = evt.getKeyChar();
-        // evaluar si la tecla presionada representa una letra (mayúscula o minúscula), un número, un espacio en blanco, la tecla de retroceso o cualquier otra tecla que no sea el signo "+" 
-        boolean letra = (key >= 65 && key <= 90) || (key >= 97 && key <= 122 || key >= 46 && key <= 57 || (key != 43) || key == KeyEvent.VK_SPACE || key == KeyEvent.VK_BACK_SPACE);
-        if (txtBuscar.getText().length() == 30 || !letra) {
-            evt.consume();
-            Toolkit.getDefaultToolkit().beep();
+       //switch para decidir que validacion establecer cada ves que se preciona una tecla en buscar
+        switch (Busqueda) {
+            case "Categoria":
+                val.EntradaTextoNormal(txtBuscar, evt, 50);
+                break;
+            case "Comentario":
+                val.EntradaTextoNormal(txtBuscar, evt, 50);
+                break;
+            case "Estado del Equipo":
+                val.EntradaTextoNormal(txtBuscar, evt, 50);
+                break;
+            case "Imei":
+                val.EntradaNumeros(txtBuscar, evt,15);
+                break;
+            case "Marca":
+                val.EntradaTextoNormal(txtBuscar, evt, 50);
+                break;
+            case "NumeroExpediente":
+                val.EntradaNumeros(txtBuscar, evt,4);
+                break;
+            case "Tipo":
+                val.EntradaTextoNormal(txtBuscar, evt, 50);
+                break;
+            default:
+                break;
         }
     }//GEN-LAST:event_txtBuscarKeyTyped
 

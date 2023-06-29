@@ -1,50 +1,124 @@
 package Clases;
 
 import java.awt.Color;
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 /**
  *
- * @ErickMoncada clase para mostrar y cambiar estilo de campos cuando aparece un error
+ * @ErickMoncada clase para mostrar y cambiar estilo de campos cuando aparece un
+ * error
  */
 public class validaciones {
 
     //se establece que un textfield esta correcto se recive el TextField para el color de fuente y el Label del error para ponerlo invisible
-    public void TXTcorrecto(JTextField campo,JLabel msj) {
+    public void TXTcorrecto(JTextField campo, JLabel msj) {
         campo.setForeground(Color.BLACK);
         msj.setVisible(false);
     }
 
     //establece que un textfield esta incorrecto se recive el TextField, el Label del error y un String para el mensaje del error
-    public void TXTincorrecto(JTextField campo,JLabel msj,String MsjError) {
+    public void TXTincorrecto(JTextField campo, JLabel msj, String MsjError) {
         campo.setForeground(Color.RED);
         msj.setText(MsjError);
         msj.setVisible(true);
     }
 
     //se establece un combobox correcto se recive el JComboBox que se esta validando y el Label del error
-    public void CMBcorrecto(JComboBox campo,JLabel msj) {
+    public void CMBcorrecto(JComboBox campo, JLabel msj) {
         campo.setForeground(Color.BLACK);
         msj.setVisible(false);
     }
 
     //se establece que un combobox esta incorrecto se recive el JComboBox que se esta validando y el Label del error
-    public void CMBincorrecto(JComboBox campo,JLabel msj,String MsjError) {
-            campo.setForeground(Color.RED);
-            msj.setText(MsjError);
-            msj.setVisible(true);
+    public void CMBincorrecto(JComboBox campo, JLabel msj, String MsjError) {
+        campo.setForeground(Color.RED);
+        msj.setText(MsjError);
+        msj.setVisible(true);
+    }
+
+    // (general) se establece que un campo diferente a textbox o a label esta incorrecto manipulando solo su label de error
+    public void GENIncorrecto(JLabel msj, String MsjError) {
+        msj.setText(MsjError);
+        msj.setVisible(true);
+    }
+
+    //se establece que un campo diferente a textbox o a label esta correcto manipulando solo su label de error
+    public void GENcorrecto(JLabel msj) {
+        msj.setVisible(false);
+    }
+
+    public void EntradaLinea(JTextField txtLinea, java.awt.event.KeyEvent evt) {
+        // establecer parametros de entrada de teclado de la linea telefonica     
+        int key = evt.getKeyChar();
+        String text = txtLinea.getText();
+        boolean numero = key >= 48 && key <= 57 || key == KeyEvent.VK_BACK_SPACE;
+        boolean backSpace = (key == KeyEvent.VK_BACK_SPACE);
+        if (text.length() == 9 || !numero) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+            //si son 4 caracteres y no es un retroceso se agrega un guion
+        } else if (txtLinea.getText().length() == 4 && !backSpace) {
+            txtLinea.setText(text + "-");
+        }
+    }
+
+    public void EntradaDinero(JTextField txtNumerico, java.awt.event.KeyEvent evt) {
+        // establecer parametros de entrada de teclado de campos de dinero 
+        int key = evt.getKeyChar();
+        //expresion regular que solo permite numeros, tecla de eliminar y un punto
+        boolean numero = (key >= 48 && key <= 57) || (key == 46 && !txtNumerico.getText().contains(".")) || key == KeyEvent.VK_BACK_SPACE;
+        if (txtNumerico.getText().length() == 8 || !numero) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }
+    }
+
+    public void EntradaTextoNormal(JTextField txtTexto, java.awt.event.KeyEvent evt, int longitud) {
+        // establecer parametros de entrada de teclado para letras y numeros
+        int key = evt.getKeyChar();
+        //perimite escribir solo letras , numeros y retroceso
+        boolean letra = (key >= 65 && key <= 90) || (key >= 97 && key <= 122 || key >= 48 && key <= 57 || key == KeyEvent.VK_SPACE || key == KeyEvent.VK_BACK_SPACE);
+        if (txtTexto.getText().length() == longitud || !letra) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }
+    }
+
+    public void EntradaSoloLetas(JTextField txtTexto, java.awt.event.KeyEvent evt, int longitud) {
+        // establecer parametros de entrada de teclado para solo letras   
+        int key = evt.getKeyChar();
+        //perimite escribir solo letras y retroceso
+        boolean letra = (key >= 65 && key <= 90) || (key >= 97 && key <= 122 || key == KeyEvent.VK_SPACE || key == KeyEvent.VK_BACK_SPACE);
+        if (txtTexto.getText().length() == longitud || !letra) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }
+    }
+
+    public void EntradaNumeros(JTextField txtTexto, java.awt.event.KeyEvent evt, int longitud) {
+        // establecer parametros de entrada de teclado para solo numeros   
+        int key = evt.getKeyChar();
+        //perimite escribir solo  numeros y retroceso
+        boolean letra = (key >= 48 && key <= 57 || key == KeyEvent.VK_BACK_SPACE);
+        if (txtTexto.getText().length() == longitud || !letra) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }
     }
     
-    // (general) se establece que un campo diferente a textbox o a label esta incorrecto manipulando solo su label de error
-    public void GENIncorrecto(JLabel msj,String MsjError) {
-            msj.setText(MsjError);
-            msj.setVisible(true);
-    }
-    //se establece que un campo diferente a textbox o a label esta correcto manipulando solo su label de error
-     public void GENcorrecto(JLabel msj) {
-            msj.setVisible(false);
+    public void EntradaLetrasNumeroGuion(JTextField txtTexto, java.awt.event.KeyEvent evt, int longitud){
+     // establecer parametros de entrada de teclado para letras y numeros y guiones
+        int key = evt.getKeyChar();
+        //perimite escribir solo letras , numeros y retroceso
+        boolean letra = (key >= 65 && key <= 90) || (key >= 97 && key <= 122 || key >= 48 && key <= 57 || key == 45 ||key == KeyEvent.VK_SPACE || key == KeyEvent.VK_BACK_SPACE);
+        if (txtTexto.getText().length() == longitud || !letra) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }
     }
 
 }

@@ -2,6 +2,8 @@
 package app;
 
 import Clases.Reescalado_Imagenes;
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 
 
 
@@ -25,7 +27,7 @@ public class Login extends javax.swing.JFrame {
         pnlDerecha = new javax.swing.JPanel();
         lblTitulo = new javax.swing.JLabel();
         lblCorreo = new javax.swing.JLabel();
-        txtCorreo = new javax.swing.JTextField();
+        txtUsuario = new javax.swing.JTextField();
         lblPassword = new javax.swing.JLabel();
         txtPassword = new javax.swing.JPasswordField();
         btnEntrar = new javax.swing.JButton();
@@ -81,17 +83,28 @@ public class Login extends javax.swing.JFrame {
         lblTitulo.setText("Inicia sesión");
 
         lblCorreo.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
-        lblCorreo.setText("Correo");
+        lblCorreo.setText("Usuario");
 
-        txtCorreo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtCorreo.addActionListener(new java.awt.event.ActionListener() {
+        txtUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCorreoActionPerformed(evt);
+                txtUsuarioActionPerformed(evt);
+            }
+        });
+        txtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtUsuarioKeyTyped(evt);
             }
         });
 
         lblPassword.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         lblPassword.setText("Contraseña");
+
+        txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPasswordKeyTyped(evt);
+            }
+        });
 
         btnEntrar.setBackground(new java.awt.Color(0, 136, 64));
         btnEntrar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
@@ -125,7 +138,7 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(pnlDerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlDerechaLayout.createSequentialGroup()
                         .addGroup(pnlDerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblCorreo)
                             .addComponent(lblPassword)
                             .addComponent(btnEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -150,7 +163,7 @@ public class Login extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addComponent(lblCorreo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addComponent(lblPassword)
                 .addGap(18, 18, 18)
@@ -183,9 +196,9 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCorreoActionPerformed
+    private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtCorreoActionPerformed
+    }//GEN-LAST:event_txtUsuarioActionPerformed
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
         //Abrir Formulario de Menu Principal
@@ -205,6 +218,26 @@ public class Login extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnRecoveryActionPerformed
 
+    private void txtUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyTyped
+          int key = evt.getKeyChar();
+        // evaluar si la tecla presionada representa una letra (mayúscula o minúscula), un número, un espacio en blanco, la tecla de retroceso 
+        boolean TeclaBuscar = (key >= 65 && key <= 90 || key >= 97 && key <= 122 || key >= 48 && key <= 57 || key == KeyEvent.VK_SPACE || key == KeyEvent.VK_BACK_SPACE);
+        if (txtUsuario.getText().length() == 30 || !TeclaBuscar) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }
+    }//GEN-LAST:event_txtUsuarioKeyTyped
+
+    private void txtPasswordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyTyped
+        int key = evt.getKeyChar();
+        // evaluar si la tecla presionada representa una letra (mayúscula o minúscula), un número, un espacio en blanco, la tecla de retroceso 
+        boolean TeclaBuscar = (key >= 65 && key <= 90 || key >= 97 && key <= 122 || key >= 48 && key <= 57 || key == KeyEvent.VK_SPACE || key == KeyEvent.VK_BACK_SPACE);
+        if (txtPassword.getText().length() == 30 || !TeclaBuscar) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }
+    }//GEN-LAST:event_txtPasswordKeyTyped
+
 
     public static void main(String args[]) {
 
@@ -222,7 +255,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JPanel pnlDerecha;
     private javax.swing.JPanel pnlIzquierda;
-    private javax.swing.JTextField txtCorreo;
     private javax.swing.JPasswordField txtPassword;
+    private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

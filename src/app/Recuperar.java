@@ -1,6 +1,8 @@
 package app;
 
 import Clases.Reescalado_Imagenes;
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 
 public class Recuperar extends javax.swing.JFrame {
 
@@ -85,6 +87,11 @@ public class Recuperar extends javax.swing.JFrame {
                 txtCorreoActionPerformed(evt);
             }
         });
+        txtCorreo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCorreoKeyTyped(evt);
+            }
+        });
 
         btnEnviar.setBackground(new java.awt.Color(0, 136, 64));
         btnEnviar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
@@ -97,11 +104,23 @@ public class Recuperar extends javax.swing.JFrame {
             }
         });
 
+        txtNewPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNewPasswordKeyTyped(evt);
+            }
+        });
+
         lblNewPassword.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         lblNewPassword.setText("Contraseña Nueva");
 
         lblRepPassword.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         lblRepPassword.setText("Repetir Contraseña");
+
+        txtRepPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtRepPasswordKeyTyped(evt);
+            }
+        });
 
         btnCambiar.setBackground(new java.awt.Color(114, 191, 68));
         btnCambiar.setText("Cambiar Contraseña");
@@ -115,6 +134,11 @@ public class Recuperar extends javax.swing.JFrame {
         txtCodigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCodigoActionPerformed(evt);
+            }
+        });
+        txtCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCodigoKeyTyped(evt);
             }
         });
 
@@ -264,6 +288,56 @@ public class Recuperar extends javax.swing.JFrame {
         LoginFrame.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_btnInicioActionPerformed
+
+    private void txtCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCorreoKeyTyped
+          int key = evt.getKeyChar();
+        boolean TeclaBuscar = (key >= 65 && key <= 90) || // Letras mayúsculas
+                      (key >= 97 && key <= 122) || // Letras minúsculas
+                      (key >= 48 && key <= 57) || // Números
+                      (key == KeyEvent.VK_BACK_SPACE) || // Retroceso
+                      (key == 64 && !txtCorreo.getText().contains("@"))|| // Símbolo @
+                      (key == 46 && !txtCorreo.getText().contains(".")); // Punto
+        if (txtCorreo.getText().length() == 80 || !TeclaBuscar) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }
+    }//GEN-LAST:event_txtCorreoKeyTyped
+
+    private void txtCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyTyped
+        int key = evt.getKeyChar();
+        boolean TeclaBuscar = 
+                      (key >= 48 && key <= 57) || // Números
+                      (key == KeyEvent.VK_SPACE) || // Espacio
+                      (key == KeyEvent.VK_BACK_SPACE); // Retroceso
+        if (txtCodigo.getText().length() == 5 || !TeclaBuscar) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }
+    }//GEN-LAST:event_txtCodigoKeyTyped
+
+    private void txtNewPasswordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNewPasswordKeyTyped
+           int key = evt.getKeyChar();
+        boolean TeclaBuscar = (key >= 65 && key <= 90) || // Letras mayúsculas
+                      (key >= 97 && key <= 122) || // Letras minúsculas
+                      (key >= 48 && key <= 57) || // Números
+                      (key == KeyEvent.VK_BACK_SPACE) ; // Retroceso
+        if (txtNewPassword.getText().length() == 50 || !TeclaBuscar) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }
+    }//GEN-LAST:event_txtNewPasswordKeyTyped
+
+    private void txtRepPasswordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRepPasswordKeyTyped
+        int key = evt.getKeyChar();
+        boolean TeclaBuscar = (key >= 65 && key <= 90) || // Letras mayúsculas
+                      (key >= 97 && key <= 122) || // Letras minúsculas
+                      (key >= 48 && key <= 57) || // Números
+                      (key == KeyEvent.VK_BACK_SPACE) ; // Retroceso
+        if (txtRepPassword.getText().length() == 50 || !TeclaBuscar) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }
+    }//GEN-LAST:event_txtRepPasswordKeyTyped
 
 
 

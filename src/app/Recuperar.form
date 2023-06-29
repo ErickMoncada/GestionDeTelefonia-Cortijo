@@ -239,6 +239,7 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCorreoActionPerformed"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtCorreoKeyTyped"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnEnviar">
@@ -262,6 +263,9 @@
               </Events>
             </Component>
             <Component class="javax.swing.JPasswordField" name="txtNewPassword">
+              <Events>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNewPasswordKeyTyped"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblNewPassword">
               <Properties>
@@ -280,6 +284,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JPasswordField" name="txtRepPassword">
+              <Events>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtRepPasswordKeyTyped"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnCambiar">
               <Properties>
@@ -300,6 +307,7 @@
             <Component class="javax.swing.JTextField" name="txtCodigo">
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCodigoActionPerformed"/>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtCodigoKeyTyped"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblCodigo">

@@ -118,11 +118,12 @@ public class AccionesCrud {
     }
 
     //seleccionar elemento de las tablas a las que se les de click en los paneles que no son Extra 
-    //se recibe  la tabla de donde proceden los datos y el comando de sql para hacer el SELECT con WHERE
-    public ResultSet Seleccion(JTable tabla, String exec) {
+    //se recibe  la tabla de donde proceden los datos , el comando de sql para hacer el SELECT con WHERE y el nombre de la columna con el ID
+    public ResultSet Seleccion(JTable tabla, String exec,String nombreColumna) {
         try {
             int fila = tabla.getSelectedRow();
-            String id = tabla.getValueAt(fila, 0).toString();
+            int indiceColumna = tabla.getColumnModel().getColumnIndex(nombreColumna);
+            String id = tabla.getValueAt(fila, indiceColumna).toString();
             PreparedStatement ps;
             ResultSet rs;
             Connection con = Conexion.getConexion();

@@ -3,8 +3,6 @@ package paneles;
 import Clases.AccionesCrud;
 import Clases.DatosTablas;
 import Clases.validaciones;
-import java.awt.Toolkit;
-import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.DefaultComboBoxModel;
@@ -304,17 +302,17 @@ public class pnlUsuarios extends javax.swing.JPanel {
         tblUsuarios.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         tblUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "N. Expediente", "Nombre", "Cod. Empleado", "Centro de Costo", "Planilla", "Cod. SAP", "Puesto de Trabajo", "Jefe", "Ubicacion", "Categoria"
+                "N. Expediente", "Nombre", "Cod. Empleado", "Num. Centro Costo", "Centro de Costo", "Planilla", "Cod. SAP", "Puesto de Trabajo", "Jefe", "Ubicacion", "Categoria"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -811,35 +809,34 @@ public class pnlUsuarios extends javax.swing.JPanel {
         CrudUbicacion.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnCrudUbiActionPerformed
 
-    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        LimpiarErrores();
-        if (ValidarCampos()) {
-            //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
+    private Object[] ArregloDatos(){
+    //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
             Object[] datos = new Object[10];
             datos[0] = Integer.parseInt(txtNumExpediente.getText());
-            datos[1] = txtNombre.getText();
+            datos[1] = txtNombre.getText().trim();
             datos[2] = Integer.parseInt(txtCodEmpleado.getText());
             datos[3] = cmbCentroCosto.getSelectedItem().toString();
             datos[4] = cmbPlanilla.getSelectedItem().toString();
             datos[5] = txtSAP.getText();
-
             if (cmbPuesto.getSelectedItem() != null) {
                 datos[6] = cmbPuesto.getSelectedItem().toString();
             } else {
                 datos[6] = "";
             }
-
-            datos[7] = txtJefe.getText();
-
+            datos[7] = txtJefe.getText().trim();
             if (cmbUbicacion.getSelectedItem() != null) {
                 datos[8] = cmbUbicacion.getSelectedItem().toString();
             } else {
                 datos[8] = "";
             }
-
             datos[9] = cmbCategoria.getSelectedItem().toString();
+            return datos;
+    }
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        LimpiarErrores();
+        if (ValidarCampos()) {
             AccionesCrud classcrud = new AccionesCrud();
-            if (classcrud.Guardar_Modificar(datos, "exec [UpdateUsuario] ?, ? ,?  ,? ,? ,? ,? ,? ,? ,?")) {
+            if (classcrud.Guardar_Modificar(ArregloDatos(), "exec [UpdateUsuario] ?, ? ,?  ,? ,? ,? ,? ,? ,? ,?")) {
                 DatosTablas Datos = new DatosTablas();
                 Datos.CargarTabla(tblUsuarios, "select * from VistaUsuarios");
             }
@@ -850,32 +847,8 @@ public class pnlUsuarios extends javax.swing.JPanel {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         LimpiarErrores();
         if (ValidarCampos()) {
-            //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
-            Object[] datos = new Object[10];
-            datos[0] = Integer.parseInt(txtNumExpediente.getText());
-            datos[1] = txtNombre.getText();
-            datos[2] = Integer.parseInt(txtCodEmpleado.getText());
-            datos[3] = cmbCentroCosto.getSelectedItem().toString();
-            datos[4] = cmbPlanilla.getSelectedItem().toString();
-            datos[5] = txtSAP.getText();
-
-            if (cmbPuesto.getSelectedItem() != null) {
-                datos[6] = cmbPuesto.getSelectedItem().toString();
-            } else {
-                datos[6] = "";
-            }
-
-            datos[7] = txtJefe.getText();
-
-            if (cmbUbicacion.getSelectedItem() != null) {
-                datos[8] = cmbUbicacion.getSelectedItem().toString();
-            } else {
-                datos[8] = "";
-            }
-
-            datos[9] = cmbCategoria.getSelectedItem().toString();
             AccionesCrud classcrud = new AccionesCrud();
-            if (classcrud.Guardar_Modificar(datos, "exec [AgregarUsuario] ?, ? ,?  ,? ,? ,? ,? ,? ,? ,?")) {
+            if (classcrud.Guardar_Modificar(ArregloDatos(), "exec [AgregarUsuario] ?, ? ,?  ,? ,? ,? ,? ,? ,? ,?")) {
                 DatosTablas Datos = new DatosTablas();
                 Datos.CargarTabla(tblUsuarios, "select * from VistaUsuarios");
             }
@@ -902,11 +875,11 @@ public class pnlUsuarios extends javax.swing.JPanel {
         //se trata de obtener los datos de la tabla para mostrarlos en las casillas respectivas con ayuda de sql
         try {
             AccionesCrud classcrud = new AccionesCrud();
-            ResultSet rs = classcrud.Seleccion(tblUsuarios, "select * from [VistaUsuarios] where [NumeroExpediente]=?");
+            ResultSet rs = classcrud.Seleccion(tblUsuarios, "select * from [VistaUsuarios] where [NumeroExpediente]=?","N. Expediente");
             while (rs.next()) {
                 txtNumExpediente.setText(rs.getString("NumeroExpediente"));
                 txtNombre.setText(rs.getString("UsuarioDeLinea"));
-                txtCodEmpleado.setText(rs.getString("CodigoEmpleado"));
+                txtCodEmpleado.setText(rs.getString("CodigoEmpleado"));         
                 cmbCentroCosto.setSelectedItem(rs.getString("CentroCosto"));
                 cmbPlanilla.setSelectedItem(rs.getString("Planilla"));
                 txtSAP.setText(rs.getString("CodSAP"));
@@ -963,6 +936,7 @@ public class pnlUsuarios extends javax.swing.JPanel {
             default:
                 break;
         }
+        txtBuscar.setText("");
     }//GEN-LAST:event_cmbBuscarItemStateChanged
 
     private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
@@ -972,7 +946,7 @@ public class pnlUsuarios extends javax.swing.JPanel {
         DefaultTableModel modelo = (DefaultTableModel) tblUsuarios.getModel();
         modelo.setRowCount(0);
         //se muestra los resultados de la busqueda
-        BusquedaTabla.CargarTabla(tblUsuarios, "select * from VistaUsuarios where " + Busqueda + " LIKE '%" + txtBuscar.getText() + "%'");
+        BusquedaTabla.CargarTabla(tblUsuarios, "select * from VistaUsuarios where " + Busqueda + " LIKE '%" + txtBuscar.getText().trim() + "%'");
     }//GEN-LAST:event_txtBuscarKeyReleased
 
     private void txtNumExpedienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumExpedienteKeyReleased
@@ -988,6 +962,8 @@ public class pnlUsuarios extends javax.swing.JPanel {
     private void txtNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyReleased
         //al escribir se quita el estado de error
         val.TXTcorrecto(txtNombre, lblErNombre);
+        String nombre= txtNombre.getText().toUpperCase();
+        txtNombre.setText(nombre);
     }//GEN-LAST:event_txtNombreKeyReleased
 
     private void cmbCategoriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbCategoriaItemStateChanged
@@ -1011,53 +987,26 @@ public class pnlUsuarios extends javax.swing.JPanel {
     }//GEN-LAST:event_cmbPuestoItemStateChanged
 
     private void txtNumExpedienteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumExpedienteKeyTyped
-        int key = evt.getKeyChar();
-        //solo permite escribir numeros
-        boolean numero = key >= 48 && key <= 57 || key == KeyEvent.VK_BACK_SPACE;
-        if (txtNumExpediente.getText().length() == 4 || !numero) {
-            evt.consume();
-            Toolkit.getDefaultToolkit().beep();
-        }
+       val.EntradaNumeros(txtNumExpediente, evt, 4);
     }//GEN-LAST:event_txtNumExpedienteKeyTyped
 
     private void txtCodEmpleadoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodEmpleadoKeyTyped
-        int key = evt.getKeyChar();
-        //solo permite escrbir numeros
-        boolean numero = key >= 48 && key <= 57 || key == KeyEvent.VK_BACK_SPACE;
-        if (txtCodEmpleado.getText().length() == 5 || !numero) {
-            evt.consume();
-            Toolkit.getDefaultToolkit().beep();
-        }
+     val.EntradaNumeros(txtCodEmpleado, evt, 5);
     }//GEN-LAST:event_txtCodEmpleadoKeyTyped
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
-        int key = evt.getKeyChar();
-        //solo se permiten letras mayusculas y minusculas
-        boolean letra = (key >= 65 && key <= 90) || (key >= 97 && key <= 122 || key == KeyEvent.VK_SPACE || key == KeyEvent.VK_BACK_SPACE);
-        if (txtNombre.getText().length() == 80 || !letra) {
-            evt.consume();
-            Toolkit.getDefaultToolkit().beep();
-        }
+        //validado para campo de tipo normal
+        val.EntradaSoloLetas(txtNombre, evt, 80);
     }//GEN-LAST:event_txtNombreKeyTyped
 
     private void txtSAPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSAPKeyTyped
-        int key = evt.getKeyChar();
-        //expresion regular que solo permite numeros y la tecla de eliminar
-        boolean numero = key >= 48 && key <= 57 || key == KeyEvent.VK_BACK_SPACE;
-        if (txtSAP.getText().length() == 8 || !numero) {
-            evt.consume();
-            Toolkit.getDefaultToolkit().beep();
-        }
+       //validado para el campo tipo SAP
+        val.EntradaNumeros(txtSAP, evt, 8);
     }//GEN-LAST:event_txtSAPKeyTyped
 
     private void txtJefeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtJefeKeyTyped
-        int key = evt.getKeyChar();
-         // evaluar si la tecla presionada representa una letra (mayúscula o minúscula), un número, un espacio en blanco, la tecla de retroceso o cualquier otra tecla que no sea el signo "+" 
-        boolean letra = (key >= 65 && key <= 90) || (key >= 97 && key <= 122 || key >= 48 && key <= 57 || key == KeyEvent.VK_SPACE || key == KeyEvent.VK_BACK_SPACE);
-        if (txtJefe.getText().length() == 50 || !letra) {
-            evt.consume();
-            Toolkit.getDefaultToolkit().beep();
-        }
+        //validacion para un campo de tipo normal
+        val.EntradaTextoNormal(txtJefe, evt, 50);
     }//GEN-LAST:event_txtJefeKeyTyped
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -1074,12 +1023,39 @@ public class pnlUsuarios extends javax.swing.JPanel {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
-        int key = evt.getKeyChar();
-        // evaluar si la tecla presionada representa una letra (mayúscula o minúscula), un número, un espacio en blanco, la tecla de retroceso o cualquier otra tecla que no sea el signo "+" 
-        boolean letra = (key >= 65 && key <= 90) || (key >= 97 && key <= 122 || key >= 46 && key <= 57 || (key != 43) || key == KeyEvent.VK_SPACE || key == KeyEvent.VK_BACK_SPACE);
-        if (txtBuscar.getText().length() == 30 || !letra) {
-            evt.consume();
-            Toolkit.getDefaultToolkit().beep();
+        switch (Busqueda) {
+            case "CategoriaUser":
+                val.EntradaLetrasNumeroGuion(txtBuscar, evt, 15);
+                break;
+            case "CentroCosto":
+                val.EntradaTextoNormal(txtBuscar, evt, 80);
+                break;
+            case "CodigoEmpleado":
+                val.EntradaNumeros(txtBuscar, evt, 5);
+                break;
+            case "CodSAP":
+                val.EntradaNumeros(txtBuscar, evt, 8);
+                break;
+            case "Superior_jefe":
+                val.EntradaTextoNormal(txtBuscar, evt, 50);
+                break;
+            case "NumeroExpediente":
+                val.EntradaNumeros(txtBuscar, evt, 4);
+                break;
+            case "UsuarioDeLinea":
+                val.EntradaSoloLetas(txtBuscar, evt, 80);
+                break;
+            case "Planilla":
+                val.EntradaTextoNormal(txtBuscar, evt, 30);
+                break;
+            case "Puesto":
+                val.EntradaTextoNormal(txtBuscar, evt, 60);
+                break;
+            case "Ubicacion":
+                val.EntradaTextoNormal(txtBuscar, evt, 80);
+                break;
+            default:
+                break;
         }
     }//GEN-LAST:event_txtBuscarKeyTyped
 

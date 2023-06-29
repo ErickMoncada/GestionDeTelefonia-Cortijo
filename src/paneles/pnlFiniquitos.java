@@ -3,8 +3,6 @@ package paneles;
 import Clases.AccionesCrud;
 import Clases.DatosTablas;
 import Clases.validaciones;
-import java.awt.Toolkit;
-import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -278,12 +276,22 @@ public class pnlFiniquitos extends javax.swing.JPanel {
 
         txtObs1.setNextFocusableComponent(txtObs2);
         txtObs1.setPreferredSize(new java.awt.Dimension(65, 26));
+        txtObs1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtObs1KeyTyped(evt);
+            }
+        });
 
         jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("Observacion 1:");
 
         txtObs2.setNextFocusableComponent(btnGuardar);
         txtObs2.setPreferredSize(new java.awt.Dimension(65, 26));
+        txtObs2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtObs2KeyTyped(evt);
+            }
+        });
 
         jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setText("Observacion 2:");
@@ -437,20 +445,20 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         jScrollPane1.setPreferredSize(new java.awt.Dimension(800, 403));
 
         tblFiniquitos.setBackground(new java.awt.Color(204, 255, 204));
-        tblFiniquitos.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        tblFiniquitos.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         tblFiniquitos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID Finiquitos", "Linea Telefonica", "Fecha Solicitud RRHH", "Fecha de Corte", "Valor del Cobro", "Observacion 1", "Observacion 2", "Fecha Cobro"
+                "ID", "Expediente", "Solicitud RRHH", "Linea Telefonica", "Cod. Empleado", "Usuario", "Departamento", "Fecha de Corte", "Valor del Cobro", "Fecha Cobro", "Observacion 1", "Observacion 2"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -459,16 +467,52 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         });
         tblFiniquitos.setGridColor(new java.awt.Color(0, 0, 0));
         tblFiniquitos.setSelectionBackground(new java.awt.Color(51, 153, 0));
+        tblFiniquitos.getTableHeader().setReorderingAllowed(false);
         tblFiniquitos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblFiniquitosMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tblFiniquitos);
+        if (tblFiniquitos.getColumnModel().getColumnCount() > 0) {
+            tblFiniquitos.getColumnModel().getColumn(0).setMinWidth(43);
+            tblFiniquitos.getColumnModel().getColumn(0).setPreferredWidth(43);
+            tblFiniquitos.getColumnModel().getColumn(0).setMaxWidth(43);
+            tblFiniquitos.getColumnModel().getColumn(1).setMinWidth(46);
+            tblFiniquitos.getColumnModel().getColumn(1).setPreferredWidth(46);
+            tblFiniquitos.getColumnModel().getColumn(1).setMaxWidth(46);
+            tblFiniquitos.getColumnModel().getColumn(2).setMinWidth(80);
+            tblFiniquitos.getColumnModel().getColumn(2).setPreferredWidth(120);
+            tblFiniquitos.getColumnModel().getColumn(2).setMaxWidth(130);
+            tblFiniquitos.getColumnModel().getColumn(3).setMinWidth(50);
+            tblFiniquitos.getColumnModel().getColumn(3).setPreferredWidth(80);
+            tblFiniquitos.getColumnModel().getColumn(3).setMaxWidth(100);
+            tblFiniquitos.getColumnModel().getColumn(4).setMinWidth(50);
+            tblFiniquitos.getColumnModel().getColumn(4).setPreferredWidth(80);
+            tblFiniquitos.getColumnModel().getColumn(4).setMaxWidth(100);
+            tblFiniquitos.getColumnModel().getColumn(5).setMinWidth(80);
+            tblFiniquitos.getColumnModel().getColumn(5).setPreferredWidth(300);
+            tblFiniquitos.getColumnModel().getColumn(5).setMaxWidth(300);
+            tblFiniquitos.getColumnModel().getColumn(6).setMinWidth(100);
+            tblFiniquitos.getColumnModel().getColumn(6).setPreferredWidth(300);
+            tblFiniquitos.getColumnModel().getColumn(6).setMaxWidth(300);
+            tblFiniquitos.getColumnModel().getColumn(7).setMinWidth(80);
+            tblFiniquitos.getColumnModel().getColumn(7).setPreferredWidth(130);
+            tblFiniquitos.getColumnModel().getColumn(7).setMaxWidth(140);
+            tblFiniquitos.getColumnModel().getColumn(8).setMinWidth(50);
+            tblFiniquitos.getColumnModel().getColumn(8).setPreferredWidth(90);
+            tblFiniquitos.getColumnModel().getColumn(8).setMaxWidth(100);
+            tblFiniquitos.getColumnModel().getColumn(9).setMinWidth(80);
+            tblFiniquitos.getColumnModel().getColumn(9).setPreferredWidth(130);
+            tblFiniquitos.getColumnModel().getColumn(9).setMaxWidth(140);
+        }
 
         txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtBuscarKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyTyped(evt);
             }
         });
 
@@ -515,14 +559,11 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        LimpiarErrores();
-        if (ValidarCampos()) {
-            Object[] datos = new Object[8];
+    private Object[] ArregloDatos(){
+      Object[] datos = new Object[8];
             //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
-            datos[0] = Integer.parseInt(txtIDFiniquitos.getText());
+            datos[0] = txtIDFiniquitos.getText();
             datos[1] = txtLinea.getText();
-
             try {
                 Date date = dtpSolicitud.getDate();
                 long d = date.getTime();
@@ -540,9 +581,8 @@ public class pnlFiniquitos extends javax.swing.JPanel {
                 datos[3] = "";
             }
             datos[4] = Double.parseDouble(txtCobro.getText());
-            datos[5] = txtObs1.getText();
-            datos[6] = txtObs2.getText();
-
+            datos[5] = txtObs1.getText().trim();
+            datos[6] = txtObs2.getText().trim();
             try {
                 Date date2 = dtpCobro.getDate();
                 long d2 = date2.getTime();
@@ -551,9 +591,13 @@ public class pnlFiniquitos extends javax.swing.JPanel {
             } catch (Exception e) {
                 datos[7] = "";
             }
-
+            return datos;
+    }
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        LimpiarErrores();
+        if (ValidarCampos()) {
             AccionesCrud classcrud = new AccionesCrud();
-            if (classcrud.Guardar_Modificar(datos, "exec [UpdateFiniquito] ?,?,?,?,?,?,?,?")) {
+            if (classcrud.Guardar_Modificar(ArregloDatos(), "exec [UpdateFiniquito] ?,?,?,?,?,?,?,?")) {
                 DatosTablas Datos = new DatosTablas();
                 Datos.CargarTabla(tblFiniquitos, "select * from VistaFiniquitos");
             }
@@ -564,39 +608,8 @@ public class pnlFiniquitos extends javax.swing.JPanel {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         LimpiarErrores();
         if (ValidarCampos()) {
-            Object[] datos = new Object[8];
-            //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
-            datos[0] = "";
-            datos[1] = txtLinea.getText();
-            try {
-                Date date = dtpSolicitud.getDate();
-                long d = date.getTime();
-                java.sql.Date fecha = new java.sql.Date(d);
-                datos[2] = fecha.toString();
-            } catch (Exception e) {
-                datos[2] = "";
-            }
-            try {
-                Date date = dtpCorte.getDate();
-                long d = date.getTime();
-                java.sql.Date fecha = new java.sql.Date(d);
-                datos[3] = fecha.toString();
-            } catch (Exception e) {
-                datos[3] = "";
-            }
-            datos[4] = Double.parseDouble(txtCobro.getText());
-            datos[5] = txtObs1.getText();
-            datos[6] = txtObs2.getText();
-            try {
-                Date date2 = dtpCobro.getDate();
-                long d2 = date2.getTime();
-                java.sql.Date fecha2 = new java.sql.Date(d2);
-                datos[7] = fecha2.toString();
-            } catch (Exception e) {
-                datos[7] = "";
-            }
             AccionesCrud classcrud = new AccionesCrud();
-            if (classcrud.Guardar_Modificar(datos, "exec [AgregarFiniquito] ?,?,?,?,?,?,?,?")) {
+            if (classcrud.Guardar_Modificar(ArregloDatos(), "exec [AgregarFiniquito] ?,?,?,?,?,?,?,?")) {
                 DatosTablas Datos = new DatosTablas();
                 Datos.CargarTabla(tblFiniquitos, "select * from VistaFiniquitos");
             }
@@ -622,7 +635,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
           //se trata de obtener los datos de la tabla para mostrarlos en las casillas respectivas con ayuda de sql
         try {
             AccionesCrud classcrud = new AccionesCrud();
-            ResultSet rs = classcrud.Seleccion(tblFiniquitos, "select * from [VistaFiniquitos] where [ID]=?");
+            ResultSet rs = classcrud.Seleccion(tblFiniquitos, "select * from [VistaFiniquitos] where [ID]=?","ID");
             while (rs.next()) {
                 txtIDFiniquitos.setText(rs.getString("ID"));
                 //formato para mostrar la fecha en el JDateChooser
@@ -650,7 +663,6 @@ public class pnlFiniquitos extends javax.swing.JPanel {
                 txtLinea.setText(rs.getString("Linea"));
                 txtObs1.setText(rs.getString("Observacion 1"));
                 txtObs2.setText(rs.getString("Observacion 2"));
-
             }
             txtIDFiniquitos.enable(false);
             btnModificar.setVisible(true);
@@ -673,6 +685,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
             default:
                 break;
         }
+        txtBuscar.setText("");
     }//GEN-LAST:event_cmbBuscarItemStateChanged
 
     private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
@@ -682,34 +695,17 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         DefaultTableModel modelo = (DefaultTableModel) tblFiniquitos.getModel();
         modelo.setRowCount(0);
         //se muestra los resultados de la busqueda
-        BusquedaTabla.CargarTabla(tblFiniquitos, "select * from VistaFiniquitos where " + Busqueda + " LIKE '%" + txtBuscar.getText() + "%'");
+        BusquedaTabla.CargarTabla(tblFiniquitos, "select * from VistaFiniquitos where " + Busqueda + " LIKE '%" + txtBuscar.getText().trim() + "%'");
     }//GEN-LAST:event_txtBuscarKeyReleased
 
     private void txtCobroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCobroKeyTyped
-        int key = evt.getKeyChar();
-        //expresion regular que solo permite numeros, tecla de eliminar y un punto
-        boolean numero = (key >= 48 && key <= 57) || (key == 46 && !txtCobro.getText().contains(".")) || key == KeyEvent.VK_BACK_SPACE;
-        if (txtCobro.getText().length() == 8 || !numero) {
-            evt.consume();
-            Toolkit.getDefaultToolkit().beep();
-        }
+        // validado para un campo de tipo monetario
+        val.EntradaDinero(txtCobro, evt);
     }//GEN-LAST:event_txtCobroKeyTyped
 
     private void txtLineaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLineaKeyTyped
-        String text = txtLinea.getText();
-        int key = evt.getKeyChar();
-        //Solo permitir numeros
-        boolean numero= key >= 48 && key <= 57 || key == KeyEvent.VK_BACK_SPACE;
-        //identificar si es evento de retroceso
-        boolean backSpace = (key == KeyEvent.VK_BACK_SPACE);
-        //no permitir mas de 9 digitos y que no sea un guion
-        if (txtLinea.getText().length() == 9 || !numero) {
-            evt.consume();
-            Toolkit.getDefaultToolkit().beep();
-            //si son 4 caracteres y no es un retroceso se agrega un guion
-        } else if (text.length() == 4 && !backSpace) {
-            txtLinea.setText(text + "-");
-        }
+       // validado para un campo de tipo linea telefonica
+        val.EntradaLinea(txtLinea, evt);
     }//GEN-LAST:event_txtLineaKeyTyped
 
     private void txtLineaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLineaKeyReleased
@@ -725,6 +721,27 @@ public class pnlFiniquitos extends javax.swing.JPanel {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         Limpiar();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void txtObs1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtObs1KeyTyped
+         // validado para un campo de tipo texto normal con el parametro de la longitud deseada
+        val.EntradaTextoNormal(txtObs1, evt, 80);
+    }//GEN-LAST:event_txtObs1KeyTyped
+
+    private void txtObs2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtObs2KeyTyped
+        // validado para un campo de tipo texto normal con el parametro de la longitud deseada
+        val.EntradaTextoNormal(txtObs2, evt, 80);
+    }//GEN-LAST:event_txtObs2KeyTyped
+
+    private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
+          //switch para decidir que validacion establecer cada ves que se preciona una tecla en buscar
+        switch (Busqueda) {
+            case "Linea":
+                val.EntradaLinea(txtBuscar, evt);
+                break;
+            default:
+                break;
+        }
+    }//GEN-LAST:event_txtBuscarKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
