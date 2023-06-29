@@ -3,6 +3,10 @@ package paneles;
 import Clases.AccionesCrud;
 import Clases.DatosTablas;
 import Clases.validaciones;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -10,8 +14,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.Timer;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
 public class pnlFiniquitos extends javax.swing.JPanel {
 
@@ -20,12 +30,17 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         CargarDatosPrincipal();
         Limpiar();
         txtIDFiniquitos.setVisible(false);
+        btgEstatus.add(rdbProgreso);
+        btgEstatus.add(rdbCerrado);
+        btgEstatus.add(rdbActivo);
 
     }
     //se inicializa para la busqueda por medio de Categoria
     String Busqueda = "Linea";
     //se inicializa la clase de validaciones
     validaciones val = new validaciones();
+    //se crean los grupos de botones para los radioButton
+    ButtonGroup btgEstatus = new ButtonGroup();
 
     private void Limpiar() {
         //funcion para reiniciar todos los valores de la pantalla
@@ -42,6 +57,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         dtpSolicitud.setDate(null);
         dtpCorte.setDate(null);
         dtpCobro.setDate(null);
+        btgEstatus.clearSelection();
         LimpiarErrores();
     }
 
@@ -50,7 +66,40 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         DatosTablas Datos = new DatosTablas();
         //llenar los datos de los combobox
         Datos.CargarTabla(tblFiniquitos, "select * from VistaFiniquitos");
+
+        // Aplicar el renderizador de celdas a todas las columnas para pintarlos segun el estado
+        for (int i = 0; i < tblFiniquitos.getColumnCount(); i++) {
+            tblFiniquitos.getColumnModel().getColumn(i).setCellRenderer(rowRenderer);
+        }
+        
+
     }
+
+    // Renderizador de celdas personalizado para cambiar el color de la fila
+    DefaultTableCellRenderer rowRenderer = new DefaultTableCellRenderer() {
+        @Override
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            // Obtener el componente renderizado por defecto
+            Component cellComponent = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+            // Obtener el estado de la fila
+           int indiceColumna = tblFiniquitos.getColumnModel().getColumnIndex("Estado");
+            String estado = table.getValueAt(row, indiceColumna).toString();
+
+            // Cambiar el color de fondo de la fila según el estado
+            if (estado.equals("1")) {
+                cellComponent.setBackground(new Color(204, 255, 204));
+            }
+            if (estado.equals("2")) {
+                cellComponent.setBackground(Color.GREEN);
+            }
+            if (estado.equals("3")) {
+                cellComponent.setBackground(Color.YELLOW);
+            }
+
+            return cellComponent;
+        }
+    };
 
     private void LimpiarErrores() {
         //usando la clase de validaciones se establecen los valores en correcto
@@ -59,6 +108,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         val.GENcorrecto(lblErCobro);
         val.TXTcorrecto(txtCobro, lblErValor);
         val.TXTcorrecto(txtLinea, lblErLinea);
+        val.GENcorrecto(lblErEstado);
     }
 
     private boolean ValidarCampos() {
@@ -102,6 +152,11 @@ public class pnlFiniquitos extends javax.swing.JPanel {
             error = "Escriba un numero de telefono valido";
             val.TXTincorrecto(txtLinea, lblErLinea, error);
         }
+        if (btgEstatus.getSelection() == null) {
+            valor1 = 0;
+            error = "Debe seleccionar una opcion de Estado";
+            val.GENIncorrecto(lblErEstado, error);
+        }
 
         return valor1 == 1; //Expreciones regulares de los campos
     }
@@ -138,6 +193,12 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         lblErCobro = new javax.swing.JLabel();
         lblErValor = new javax.swing.JLabel();
         lblErLinea = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        rdbActivo = new javax.swing.JRadioButton();
+        rdbCerrado = new javax.swing.JRadioButton();
+        rdbProgreso = new javax.swing.JRadioButton();
+        lblErEstado = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblFiniquitos = new javax.swing.JTable();
         txtBuscar = new javax.swing.JTextField();
@@ -321,6 +382,48 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         lblErLinea.setForeground(new java.awt.Color(255, 0, 0));
         lblErLinea.setText("Error");
 
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel13.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel13.setText("Estatus:");
+        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 12, -1, -1));
+
+        rdbActivo.setText("ACTIVO");
+        rdbActivo.setName(""); // NOI18N
+        rdbActivo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                rdbActivoItemStateChanged(evt);
+            }
+        });
+        rdbActivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdbActivoActionPerformed(evt);
+            }
+        });
+        jPanel2.add(rdbActivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, -1, -1));
+        rdbActivo.getAccessibleContext().setAccessibleName("ACTIVO");
+
+        rdbCerrado.setText("CERRADO");
+        rdbCerrado.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                rdbCerradoItemStateChanged(evt);
+            }
+        });
+        jPanel2.add(rdbCerrado, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, -1, -1));
+
+        rdbProgreso.setText("EN PROGRESO");
+        rdbProgreso.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                rdbProgresoItemStateChanged(evt);
+            }
+        });
+        jPanel2.add(rdbProgreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, -1, -1));
+
+        lblErEstado.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+        lblErEstado.setForeground(new java.awt.Color(255, 0, 0));
+        lblErEstado.setText("Error");
+        jPanel2.add(lblErEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, -1, -1));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -379,59 +482,67 @@ public class pnlFiniquitos extends javax.swing.JPanel {
                                         .addGap(18, 18, 18)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(txtObs1, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-                                            .addComponent(txtObs2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))))
-                .addContainerGap(552, Short.MAX_VALUE))
+                                            .addComponent(txtObs2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(237, 237, 237))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtIDFiniquitos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(3, 3, 3)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(dtpSolicitud, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblErSolicitud)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(dtpCorte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblErCorte))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtCobro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel9))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblErValor)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel10)
-                                    .addComponent(txtLinea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel11)
-                                    .addComponent(txtObs1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtIDFiniquitos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel12)
-                                    .addComponent(txtObs2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(dtpSolicitud, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblErSolicitud)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(dtpCorte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblErCorte))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(txtCobro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel9))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lblErValor)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel10)
+                                            .addComponent(txtLinea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel11)
+                                            .addComponent(txtObs1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel12)
+                                            .addComponent(txtObs2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblErLinea)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblErLinea)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dtpCobro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(dtpCobro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
                 .addComponent(lblErCobro)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -448,17 +559,17 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         tblFiniquitos.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         tblFiniquitos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Expediente", "Solicitud RRHH", "Linea Telefonica", "Cod. Empleado", "Usuario", "Departamento", "Fecha de Corte", "Valor del Cobro", "Fecha Cobro", "Observacion 1", "Observacion 2"
+                "ID", "Expediente", "Solicitud RRHH", "Linea Telefonica", "Cod. Empleado", "Usuario", "Departamento", "Fecha de Corte", "Valor del Cobro", "Fecha Cobro", "Observacion 1", "Observacion 2", "Estado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -559,45 +670,52 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private Object[] ArregloDatos(){
-      Object[] datos = new Object[8];
-            //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
-            datos[0] = txtIDFiniquitos.getText();
-            datos[1] = txtLinea.getText();
-            try {
-                Date date = dtpSolicitud.getDate();
-                long d = date.getTime();
-                java.sql.Date fecha = new java.sql.Date(d);
-                datos[2] = fecha.toString();
-            } catch (Exception e) {
-                datos[2] = "";
-            }
-            try {
-                Date date = dtpCorte.getDate();
-                long d = date.getTime();
-                java.sql.Date fecha = new java.sql.Date(d);
-                datos[3] = fecha.toString();
-            } catch (Exception e) {
-                datos[3] = "";
-            }
-            datos[4] = Double.parseDouble(txtCobro.getText());
-            datos[5] = txtObs1.getText().trim();
-            datos[6] = txtObs2.getText().trim();
-            try {
-                Date date2 = dtpCobro.getDate();
-                long d2 = date2.getTime();
-                java.sql.Date fecha2 = new java.sql.Date(d2);
-                datos[7] = fecha2.toString();
-            } catch (Exception e) {
-                datos[7] = "";
-            }
-            return datos;
+    private Object[] ArregloDatos() {
+        Object[] datos = new Object[9];
+        //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
+        datos[0] = txtIDFiniquitos.getText();
+        datos[1] = txtLinea.getText();
+        try {
+            Date date = dtpSolicitud.getDate();
+            long d = date.getTime();
+            java.sql.Date fecha = new java.sql.Date(d);
+            datos[2] = fecha.toString();
+        } catch (Exception e) {
+            datos[2] = "";
+        }
+        try {
+            Date date = dtpCorte.getDate();
+            long d = date.getTime();
+            java.sql.Date fecha = new java.sql.Date(d);
+            datos[3] = fecha.toString();
+        } catch (Exception e) {
+            datos[3] = "";
+        }
+        datos[4] = Double.parseDouble(txtCobro.getText());
+        datos[5] = txtObs1.getText().trim();
+        datos[6] = txtObs2.getText().trim();
+        try {
+            Date date2 = dtpCobro.getDate();
+            long d2 = date2.getTime();
+            java.sql.Date fecha2 = new java.sql.Date(d2);
+            datos[7] = fecha2.toString();
+        } catch (Exception e) {
+            datos[7] = "";
+        }
+        if (rdbActivo.isSelected() == true) {
+            datos[8] = 1;
+        } else if (rdbCerrado.isSelected() == true) {
+            datos[8] = 2;
+        } else if (rdbProgreso.isSelected() == true) {
+            datos[8] = 3;
+        }
+        return datos;
     }
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         LimpiarErrores();
         if (ValidarCampos()) {
             AccionesCrud classcrud = new AccionesCrud();
-            if (classcrud.Guardar_Modificar(ArregloDatos(), "exec [UpdateFiniquito] ?,?,?,?,?,?,?,?")) {
+            if (classcrud.Guardar_Modificar(ArregloDatos(), "exec [UpdateFiniquito] ?,?,?,?,?,?,?,?,?")) {
                 DatosTablas Datos = new DatosTablas();
                 Datos.CargarTabla(tblFiniquitos, "select * from VistaFiniquitos");
             }
@@ -609,7 +727,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         LimpiarErrores();
         if (ValidarCampos()) {
             AccionesCrud classcrud = new AccionesCrud();
-            if (classcrud.Guardar_Modificar(ArregloDatos(), "exec [AgregarFiniquito] ?,?,?,?,?,?,?,?")) {
+            if (classcrud.Guardar_Modificar(ArregloDatos(), "exec [AgregarFiniquito] ?,?,?,?,?,?,?,?,?")) {
                 DatosTablas Datos = new DatosTablas();
                 Datos.CargarTabla(tblFiniquitos, "select * from VistaFiniquitos");
             }
@@ -632,10 +750,10 @@ public class pnlFiniquitos extends javax.swing.JPanel {
 
     private void tblFiniquitosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblFiniquitosMouseClicked
         LimpiarErrores();
-          //se trata de obtener los datos de la tabla para mostrarlos en las casillas respectivas con ayuda de sql
+        //se trata de obtener los datos de la tabla para mostrarlos en las casillas respectivas con ayuda de sql
         try {
             AccionesCrud classcrud = new AccionesCrud();
-            ResultSet rs = classcrud.Seleccion(tblFiniquitos, "select * from [VistaFiniquitos] where [ID]=?","ID");
+            ResultSet rs = classcrud.Seleccion(tblFiniquitos, "select * from [VistaFiniquitos] where [ID]=?", "ID");
             while (rs.next()) {
                 txtIDFiniquitos.setText(rs.getString("ID"));
                 //formato para mostrar la fecha en el JDateChooser
@@ -663,6 +781,18 @@ public class pnlFiniquitos extends javax.swing.JPanel {
                 txtLinea.setText(rs.getString("Linea"));
                 txtObs1.setText(rs.getString("Observacion 1"));
                 txtObs2.setText(rs.getString("Observacion 2"));
+                //switch para saber que radio button seleccionar
+                String rdbEstado = rs.getString("Estado");
+                switch (rdbEstado) {
+                    case "1":
+                        btgEstatus.setSelected(rdbActivo.getModel(), true);
+                        break;
+                    case "2":
+                        btgEstatus.setSelected(rdbCerrado.getModel(), true);
+                        break;
+                    default:
+                        btgEstatus.setSelected(rdbProgreso.getModel(), true);
+                }
             }
             txtIDFiniquitos.enable(false);
             btnModificar.setVisible(true);
@@ -689,7 +819,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
     }//GEN-LAST:event_cmbBuscarItemStateChanged
 
     private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
-          //cada vez que se precione una tecla se va a buscar junto al filtro de busqueda en la vista correspondiente
+        //cada vez que se precione una tecla se va a buscar junto al filtro de busqueda en la vista correspondiente
         DatosTablas BusquedaTabla = new DatosTablas();
         //se limpia la tabla
         DefaultTableModel modelo = (DefaultTableModel) tblFiniquitos.getModel();
@@ -704,12 +834,12 @@ public class pnlFiniquitos extends javax.swing.JPanel {
     }//GEN-LAST:event_txtCobroKeyTyped
 
     private void txtLineaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLineaKeyTyped
-       // validado para un campo de tipo linea telefonica
+        // validado para un campo de tipo linea telefonica
         val.EntradaLinea(txtLinea, evt);
     }//GEN-LAST:event_txtLineaKeyTyped
 
     private void txtLineaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLineaKeyReleased
-       //al escribir se quita el estado de error
+        //al escribir se quita el estado de error
         val.TXTcorrecto(txtLinea, lblErLinea);
     }//GEN-LAST:event_txtLineaKeyReleased
 
@@ -723,7 +853,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void txtObs1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtObs1KeyTyped
-         // validado para un campo de tipo texto normal con el parametro de la longitud deseada
+        // validado para un campo de tipo texto normal con el parametro de la longitud deseada
         val.EntradaTextoNormal(txtObs1, evt, 80);
     }//GEN-LAST:event_txtObs1KeyTyped
 
@@ -733,7 +863,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
     }//GEN-LAST:event_txtObs2KeyTyped
 
     private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
-          //switch para decidir que validacion establecer cada ves que se preciona una tecla en buscar
+        //switch para decidir que validacion establecer cada ves que se preciona una tecla en buscar
         switch (Busqueda) {
             case "Linea":
                 val.EntradaLinea(txtBuscar, evt);
@@ -742,6 +872,25 @@ public class pnlFiniquitos extends javax.swing.JPanel {
                 break;
         }
     }//GEN-LAST:event_txtBuscarKeyTyped
+
+    private void rdbActivoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rdbActivoItemStateChanged
+        //al seleccionar este radioButton se pone el estado en correcto 
+        val.GENcorrecto(lblErEstado);
+    }//GEN-LAST:event_rdbActivoItemStateChanged
+
+    private void rdbCerradoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rdbCerradoItemStateChanged
+        //al seleccionar este radioButton se pone el estado en correcto 
+        val.GENcorrecto(lblErEstado);
+    }//GEN-LAST:event_rdbCerradoItemStateChanged
+
+    private void rdbProgresoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rdbProgresoItemStateChanged
+        //al seleccionar este radioButton se pone el estado en correcto 
+        val.GENcorrecto(lblErEstado);
+    }//GEN-LAST:event_rdbProgresoItemStateChanged
+
+    private void rdbActivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbActivoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rdbActivoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -756,6 +905,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -764,13 +914,18 @@ public class pnlFiniquitos extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblErCobro;
     private javax.swing.JLabel lblErCorte;
+    private javax.swing.JLabel lblErEstado;
     private javax.swing.JLabel lblErLinea;
     private javax.swing.JLabel lblErSolicitud;
     private javax.swing.JLabel lblErValor;
+    private javax.swing.JRadioButton rdbActivo;
+    private javax.swing.JRadioButton rdbCerrado;
+    private javax.swing.JRadioButton rdbProgreso;
     private javax.swing.JTable tblFiniquitos;
     private javax.swing.JTextField txtBuscar;
     private javax.swing.JTextField txtCobro;
