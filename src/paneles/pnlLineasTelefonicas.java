@@ -3,6 +3,8 @@ package paneles;
 import Clases.AccionesCrud;
 import Clases.DatosTablas;
 import Clases.validaciones;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -13,6 +15,7 @@ import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import paneles.ExtraDLineasTelefonicas.Disponibilidad;
@@ -31,6 +34,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         btgFirma.add(rdbSiFirma);
         btgFirma.add(rdbNoFirma);
         btgFirma.add(rdbOtro);
+        asignarEventos();
     }
     //se inicializa para la busqueda por medio de Imei
     String Busqueda = "Imei";
@@ -79,6 +83,26 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         txtOtro.setVisible(false);
         txtLinea.requestFocus();
         LimpiarErrores();
+    }
+    
+   
+    
+     private void asignarEventos() {
+         //funcion para asignar los eventos a los mensajes de obligatorio con la clase de validaciones
+        val.asignarEventosMouse(lblObligatorio);
+        val.asignarEventosMouse(lblObligatorio1);
+        val.asignarEventosMouse(lblObligatorio2);
+        val.asignarEventosMouse(lblObligatorio3);
+        val.asignarEventosMouse(lblObligatorio4);
+        val.asignarEventosMouse(lblObligatorio5);
+        val.asignarEventosMouse(lblObligatorio6);
+        val.asignarEventosMouse(lblObligatorio7);
+        val.asignarEventosMouse(lblObligatorio8);
+        val.asignarEventosMouse(lblObligatorio9);
+        val.asignarEventosMouse(lblObligatorio10);
+        val.asignarEventosMouse(lblObligatorio11);
+        val.asignarEventosMouse(lblObligatorio12);
+        val.asignarEventosMouse(lblObligatorio13);
     }
 
     private void CargarDatosPrincipal() {
@@ -255,6 +279,11 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         txtImei = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
         lblErImei = new javax.swing.JLabel();
+        lblObligatorio = new javax.swing.JLabel();
+        lblObligatorio1 = new javax.swing.JLabel();
+        lblObligatorio2 = new javax.swing.JLabel();
+        lblObligatorio3 = new javax.swing.JLabel();
+        lblObligatorio4 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         dtpAsignacion = new com.toedter.calendar.JDateChooser();
@@ -271,12 +300,17 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         rdbOtro = new javax.swing.JRadioButton();
         txtOtro = new javax.swing.JTextField();
         lblErFirma = new javax.swing.JLabel();
+        lblObligatorio9 = new javax.swing.JLabel();
         lblErFacturacion = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         rdbSiSeguro = new javax.swing.JRadioButton();
         rdbNoSeguro = new javax.swing.JRadioButton();
+        lblObligatorio8 = new javax.swing.JLabel();
         lblErPago = new javax.swing.JLabel();
+        lblObligatorio5 = new javax.swing.JLabel();
+        lblObligatorio6 = new javax.swing.JLabel();
+        lblObligatorio7 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         txtAnterior = new javax.swing.JTextField();
@@ -290,6 +324,10 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         txtMensual = new javax.swing.JTextField();
         lblErPresupuesto = new javax.swing.JLabel();
         lblErMensual = new javax.swing.JLabel();
+        lblObligatorio10 = new javax.swing.JLabel();
+        lblObligatorio11 = new javax.swing.JLabel();
+        lblObligatorio12 = new javax.swing.JLabel();
+        lblObligatorio13 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         lblTotalPlanNuevo = new javax.swing.JLabel();
         lblTotalPresupuesto = new javax.swing.JLabel();
@@ -454,6 +492,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         });
         tblLineas.setGridColor(new java.awt.Color(0, 0, 0));
         tblLineas.setSelectionBackground(new java.awt.Color(51, 153, 0));
+        tblLineas.getTableHeader().setReorderingAllowed(false);
         tblLineas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblLineasMouseClicked(evt);
@@ -645,6 +684,31 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         lblErImei.setForeground(new java.awt.Color(255, 0, 0));
         lblErImei.setText("Error");
 
+        lblObligatorio.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        lblObligatorio.setForeground(new java.awt.Color(51, 51, 51));
+        lblObligatorio.setText("*");
+        lblObligatorio.setToolTipText("");
+
+        lblObligatorio1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        lblObligatorio1.setForeground(new java.awt.Color(51, 51, 51));
+        lblObligatorio1.setText("*");
+        lblObligatorio1.setToolTipText("");
+
+        lblObligatorio2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        lblObligatorio2.setForeground(new java.awt.Color(51, 51, 51));
+        lblObligatorio2.setText("*");
+        lblObligatorio2.setToolTipText("");
+
+        lblObligatorio3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        lblObligatorio3.setForeground(new java.awt.Color(51, 51, 51));
+        lblObligatorio3.setText("*");
+        lblObligatorio3.setToolTipText("");
+
+        lblObligatorio4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        lblObligatorio4.setForeground(new java.awt.Color(51, 51, 51));
+        lblObligatorio4.setText("*");
+        lblObligatorio4.setToolTipText("");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -661,33 +725,47 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(txtLinea, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtNumExpediente, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtNumExpediente, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblObligatorio1))
                             .addComponent(lblErLinea)
                             .addComponent(lblErExpediente)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(cmbDisponibilidad, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnDisponibilidad))
                             .addComponent(lblErDisponible)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(txtYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel18)
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblErCuotas)
-                                    .addComponent(txtCuotas, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGap(85, 85, 85)
+                                .addComponent(lblErCuotas))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(cmbDisponibilidad, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblObligatorio2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnDisponibilidad))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(txtLinea, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblObligatorio)
+                                .addGap(5, 5, 5)
+                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(105, 105, 105)
                         .addComponent(jLabel17)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblErImei)
-                            .addComponent(txtImei, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(58, Short.MAX_VALUE))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel4Layout.createSequentialGroup()
+                                        .addComponent(jLabel18)
+                                        .addGap(12, 12, 12)
+                                        .addComponent(txtCuotas, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(13, 13, 13))
+                                    .addComponent(txtImei, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblObligatorio4)
+                                    .addComponent(lblObligatorio3))))))
+                .addContainerGap(114, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -696,39 +774,45 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtLinea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblObligatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblErLinea, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNumExpediente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtNumExpediente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblObligatorio1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblErExpediente, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmbDisponibilidad, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDisponibilidad, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnDisponibilidad, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblObligatorio2, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblErDisponible, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtYear, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtYear, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblErCuotas)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtImei, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblObligatorio4, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblErImei, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtCuotas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblErCuotas)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtImei, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblErImei, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
+                        .addComponent(txtCuotas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblObligatorio3, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(56, 56, 56))
         );
 
         jPanel5.setComponentPopupMenu(jPopupMenu1);
@@ -812,6 +896,12 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         lblErFirma.setText("Error");
         jPanel2.add(lblErFirma, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, -1, 13));
 
+        lblObligatorio9.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        lblObligatorio9.setForeground(new java.awt.Color(51, 51, 51));
+        lblObligatorio9.setText("*");
+        lblObligatorio9.setToolTipText("");
+        jPanel2.add(lblObligatorio9, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, -1, -1));
+
         lblErFacturacion.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         lblErFacturacion.setForeground(new java.awt.Color(255, 0, 0));
         lblErFacturacion.setText("Error");
@@ -837,6 +927,11 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
             }
         });
 
+        lblObligatorio8.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        lblObligatorio8.setForeground(new java.awt.Color(51, 51, 51));
+        lblObligatorio8.setText("*");
+        lblObligatorio8.setToolTipText("");
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -845,6 +940,8 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
                 .addComponent(rdbSiSeguro)
                 .addGap(36, 36, 36)
                 .addComponent(rdbNoSeguro)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblObligatorio8)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
@@ -852,13 +949,29 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rdbSiSeguro)
-                    .addComponent(rdbNoSeguro))
+                    .addComponent(rdbNoSeguro)
+                    .addComponent(lblObligatorio8, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 9, Short.MAX_VALUE))
         );
 
         lblErPago.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         lblErPago.setForeground(new java.awt.Color(255, 0, 0));
         lblErPago.setText("Error");
+
+        lblObligatorio5.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        lblObligatorio5.setForeground(new java.awt.Color(51, 51, 51));
+        lblObligatorio5.setText("*");
+        lblObligatorio5.setToolTipText("");
+
+        lblObligatorio6.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        lblObligatorio6.setForeground(new java.awt.Color(51, 51, 51));
+        lblObligatorio6.setText("*");
+        lblObligatorio6.setToolTipText("");
+
+        lblObligatorio7.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        lblObligatorio7.setForeground(new java.awt.Color(51, 51, 51));
+        lblObligatorio7.setText("*");
+        lblObligatorio7.setToolTipText("");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -875,37 +988,52 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
                             .addComponent(jLabel8))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblErPago)
-                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(lblErCambio)
-                                .addComponent(lblErAsignacion)
-                                .addComponent(dtpAsignacion, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
-                                .addComponent(dtpCambio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(dtpFacturacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblErFacturacion)
-                                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)))
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(lblErPago)
+                                .addContainerGap())
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(lblErCambio)
+                                    .addComponent(lblErAsignacion)
+                                    .addComponent(dtpAsignacion, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
+                                    .addComponent(dtpCambio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(dtpFacturacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblErFacturacion)
+                                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblObligatorio5)
+                                    .addComponent(lblObligatorio6)
+                                    .addComponent(lblObligatorio7)))))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 13, Short.MAX_VALUE))))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dtpAsignacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(dtpAsignacion, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblObligatorio5, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblErAsignacion, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dtpCambio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(dtpCambio, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblObligatorio6, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblErCambio, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dtpFacturacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(dtpFacturacion, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblObligatorio7, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblErFacturacion, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4)
@@ -997,6 +1125,26 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         lblErMensual.setForeground(new java.awt.Color(255, 0, 0));
         lblErMensual.setText("Error");
 
+        lblObligatorio10.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        lblObligatorio10.setForeground(new java.awt.Color(51, 51, 51));
+        lblObligatorio10.setText("*");
+        lblObligatorio10.setToolTipText("");
+
+        lblObligatorio11.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        lblObligatorio11.setForeground(new java.awt.Color(51, 51, 51));
+        lblObligatorio11.setText("*");
+        lblObligatorio11.setToolTipText("");
+
+        lblObligatorio12.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        lblObligatorio12.setForeground(new java.awt.Color(51, 51, 51));
+        lblObligatorio12.setText("*");
+        lblObligatorio12.setToolTipText("");
+
+        lblObligatorio13.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        lblObligatorio13.setForeground(new java.awt.Color(51, 51, 51));
+        lblObligatorio13.setText("*");
+        lblObligatorio13.setToolTipText("");
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -1011,14 +1159,26 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblErMensual)
-                    .addComponent(txtNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(txtNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblObligatorio11))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(txtAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblObligatorio10))
                     .addComponent(lblErAnterior)
                     .addComponent(lblErNuevo)
-                    .addComponent(txtPresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(txtPresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblObligatorio12))
                     .addComponent(lblErPresupuesto)
-                    .addComponent(txtMensual, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(txtMensual, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblObligatorio13)))
+                .addContainerGap(11, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1026,25 +1186,29 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11))
+                    .addComponent(jLabel11)
+                    .addComponent(lblObligatorio10, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(2, 2, 2)
                 .addComponent(lblErAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3)
+                .addGap(2, 2, 2)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12))
+                    .addComponent(jLabel12)
+                    .addComponent(lblObligatorio11, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(1, 1, 1)
                 .addComponent(lblErNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblObligatorio12, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblErPresupuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtMensual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblObligatorio13, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblErMensual, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(148, 148, 148))
@@ -1470,7 +1634,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
                 break;
         }
     }//GEN-LAST:event_txtBuscarKeyTyped
-
+  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rsbuttom.RSButtonMetro btnCancelar;
@@ -1524,6 +1688,20 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
     private javax.swing.JLabel lblErNuevo;
     private javax.swing.JLabel lblErPago;
     private javax.swing.JLabel lblErPresupuesto;
+    private javax.swing.JLabel lblObligatorio;
+    private javax.swing.JLabel lblObligatorio1;
+    private javax.swing.JLabel lblObligatorio10;
+    private javax.swing.JLabel lblObligatorio11;
+    private javax.swing.JLabel lblObligatorio12;
+    private javax.swing.JLabel lblObligatorio13;
+    private javax.swing.JLabel lblObligatorio2;
+    private javax.swing.JLabel lblObligatorio3;
+    private javax.swing.JLabel lblObligatorio4;
+    private javax.swing.JLabel lblObligatorio5;
+    private javax.swing.JLabel lblObligatorio6;
+    private javax.swing.JLabel lblObligatorio7;
+    private javax.swing.JLabel lblObligatorio8;
+    private javax.swing.JLabel lblObligatorio9;
     private javax.swing.JLabel lblTotalPlanNuevo;
     private javax.swing.JLabel lblTotalPresupuesto;
     private javax.swing.JRadioButton rdbNoFirma;

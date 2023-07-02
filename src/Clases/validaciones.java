@@ -1,8 +1,11 @@
 package Clases;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -109,16 +112,38 @@ public class validaciones {
             Toolkit.getDefaultToolkit().beep();
         }
     }
-    
-    public void EntradaLetrasNumeroGuion(JTextField txtTexto, java.awt.event.KeyEvent evt, int longitud){
-     // establecer parametros de entrada de teclado para letras y numeros y guiones
+
+    public void EntradaLetrasNumeroGuion(JTextField txtTexto, java.awt.event.KeyEvent evt, int longitud) {
+        // establecer parametros de entrada de teclado para letras y numeros y guiones
         int key = evt.getKeyChar();
         //perimite escribir solo letras , numeros y retroceso
-        boolean letra = (key >= 65 && key <= 90) || (key >= 97 && key <= 122 || key >= 48 && key <= 57 || key == 45 ||key == KeyEvent.VK_SPACE || key == KeyEvent.VK_BACK_SPACE);
+        boolean letra = (key >= 65 && key <= 90) || (key >= 97 && key <= 122 || key >= 48 && key <= 57 || key == 45 || key == KeyEvent.VK_SPACE || key == KeyEvent.VK_BACK_SPACE);
         if (txtTexto.getText().length() == longitud || !letra) {
             evt.consume();
             Toolkit.getDefaultToolkit().beep();
         }
+    }
+
+    
+    public void asignarEventosMouse(JLabel label) {
+        //funcion para asignar los eventos a los mensajes de obligatorio (para ahorrar lineas de codigo)
+        label.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                //Mostrar mensaje de obligatorio cuando se pase el mause por encima
+                label.setText("*Obligatorio");
+                Font font = new Font("Dialog", Font.PLAIN, 11);
+                label.setFont(font);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                //Quitar mensaje de obligatorio cuando se quite el mause por encima
+                label.setText("*");
+                Font font = new Font("Dialog", Font.BOLD, 18);
+                label.setFont(font);
+            }
+        });
     }
 
 }
