@@ -26,7 +26,7 @@ public class AccionesCrud {
 
     //Modificar datos de paneles extra donde solo se tiene que modifica el nombre de un dato a la BD por medio de Procedimientos Almacenados
     public boolean Modificar(JTextField txtdato, JTextField txtID, String exec) {
-        String dato = txtdato.getText();
+        String dato = txtdato.getText().trim();
         String id = txtID.getText();
 
         try {

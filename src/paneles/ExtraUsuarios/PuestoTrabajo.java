@@ -2,8 +2,7 @@ package paneles.ExtraUsuarios;
 
 import Clases.AccionesCrud;
 import Clases.DatosTablas;
-import java.awt.Toolkit;
-import java.awt.event.KeyEvent;
+import Clases.validaciones;
 
 public class PuestoTrabajo extends javax.swing.JFrame {
 
@@ -16,10 +15,13 @@ public class PuestoTrabajo extends javax.swing.JFrame {
         txtID.setVisible(false);
     }
 
+    //cargar clase de validaciones
+    validaciones val = new validaciones();
+
     //Funcion para cargar datos a la tabla
     private void CargarTabla() {
         DatosTablas CrearTabla = new DatosTablas();
-        CrearTabla.CargarTabla(tblCentro,  "SELECT Puesto from [VistaPuestosTrabajos]");
+        CrearTabla.CargarTabla(tblCentro, "SELECT Puesto from [VistaPuestosTrabajos]");
     }
 
     //desactivar botones y solo mostrar btnGurdar
@@ -237,7 +239,7 @@ public class PuestoTrabajo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblCentroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCentroMouseClicked
-         //se trata de obtener los datos de la tabla para mostrarlos en las casillas respectivas con ayuda de sql
+        //se trata de obtener los datos de la tabla para mostrarlos en las casillas respectivas con ayuda de sql
         AccionesCrud classcrud = new AccionesCrud();
         if (classcrud.CargarDatoClick(tblCentro, "SELECT [IDPuesto],[Puesto] from VistaPuestosTrabajos where Puesto=?", "Puesto", "IDPuesto", txtPuesto, txtID)) {
             btnGuardar.setVisible(false);
@@ -252,21 +254,21 @@ public class PuestoTrabajo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-         //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
+        //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
         AccionesCrud classcrud = new AccionesCrud();
         if (classcrud.Validar(txtPuesto, "El Puesto")) {
-             Object[] datos = new Object[1];
-       datos[0]= txtPuesto.getText();
-       if(classcrud.Guardar_Modificar(datos, "exec AgregarPuesto ? ")){
-        txtID.setText("");
+            Object[] datos = new Object[1];
+            datos[0] = txtPuesto.getText().trim();
+            if (classcrud.Guardar_Modificar(datos, "exec AgregarPuesto ? ")) {
+                txtID.setText("");
                 txtPuesto.setText("");
                 CargarTabla();
-       }
+            }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-          //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
+        //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
         AccionesCrud classcrud = new AccionesCrud();
         if (classcrud.Validar(txtPuesto, "El Puesto")) {
             if (classcrud.Modificar(txtPuesto, txtID, "exec UpdatePuesto ?,?")) {
@@ -288,17 +290,12 @@ public class PuestoTrabajo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void txtPuestoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPuestoKeyTyped
-         int key = evt.getKeyChar();
-        // evaluar si la tecla presionada representa una letra (mayúscula o minúscula), un número, un espacio en blanco, la tecla de retroceso o cualquier otra tecla que no sea el signo "+" 
-        boolean letra = (key >= 65 && key <= 90) || (key >= 97 && key <= 122 || key >= 48 && key <= 57 || key == KeyEvent.VK_SPACE || key == KeyEvent.VK_BACK_SPACE);
-        if (txtPuesto.getText().length() == 60 || !letra) {
-            evt.consume();
-            Toolkit.getDefaultToolkit().beep();
-        }
+        // validado para un campo de tipo texto normal con el parametro de la longitud deseada
+        val.EntradaTextoNormal(txtPuesto, evt, 60);
     }//GEN-LAST:event_txtPuestoKeyTyped
 
     public static void main(String args[]) {
-      
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

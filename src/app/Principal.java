@@ -1,16 +1,18 @@
 package app;
 
 import java.awt.Color;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import paneles.CambiaPanel;
 import Clases.Reescalado_Imagenes;
+import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 /**
@@ -19,29 +21,36 @@ import javax.swing.Timer;
  */
 public class Principal extends javax.swing.JFrame {
 
-    public Principal() {
+    //Se inicializa la variable de nivel de acceso
+    String NivelDeAcceso;
+    public Principal(String NIVEL) {
         initComponents();
+        //se Recive el nivel de aceso a travez del login y se asigna a una variable global
+        NivelDeAcceso=NIVEL;
         this.setExtendedState(MAXIMIZED_BOTH);
         this.setLocationRelativeTo(this);
         new CambiaPanel(pnlPrincipal, new paneles.pnlHome());
         //iniciar funcion para el icono
         Reescalado_Imagenes reescalar = new Reescalado_Imagenes();
         setIconImage(reescalar.getIconImage());
-        //Iniciar funcion para iconos del submenu y titulo
+        //Iniciar funcion para iconos del submenu , titulo y boton salir
         IconosBarraLateral();
         //iniciar funcion de hora
         Reloj();
-
     }
+    //se inicia la clase para reescalar imagenes
+    Reescalado_Imagenes reescalar = new Reescalado_Imagenes();
+    
+    
 
-    //asignar los iconos de cada submenu y titulo
+    //asignar los iconos de cada submenu , titulo y boton de salir
     private void IconosBarraLateral() {
-        Reescalado_Imagenes reescalar = new Reescalado_Imagenes();
         btnUserTel.setIcon(reescalar.IconoTextoMenu(50, 50, "img1/agregar-usuario.png"));
         btnEquipos.setIcon(reescalar.IconoTextoMenu(50, 50, "img1/equipos.png"));
         btnFiniquitos.setIcon(reescalar.IconoTextoMenu(50, 50, "img1/pago.png"));
         btnLineasTelefonicas.setIcon(reescalar.IconoTextoMenu(50, 50, "img1/signal.png"));
         lblTituloTelefonia.setIcon(reescalar.IconoTextoMenu(50, 50, "img1/Pollos-El-Cortijo.png"));
+        btnSalir.setIcon(reescalar.IconoTextoMenu(40, 40, "img1/cerrar-sesion.png"));
     }
 
     ///funcion para mostrar reloj
@@ -51,7 +60,7 @@ public class Principal extends javax.swing.JFrame {
             // Obtener la hora actual
             Date horaActual = new Date();
             SimpleDateFormat formatoHora = new SimpleDateFormat("MMM dd yyyy, hh:mm a");
-            
+
             // Actualizar la etiqueta con la hora actual
             lblHora.setText(formatoHora.format(horaActual));
         };
@@ -85,6 +94,7 @@ public class Principal extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         btnMenu = new javax.swing.JButton();
         lblTituloTelefonia = new javax.swing.JLabel();
+        btnSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Telefonia-Cortijo");
@@ -98,7 +108,6 @@ public class Principal extends javax.swing.JFrame {
         pnlMenu.setBackground(new java.awt.Color(239, 238, 244));
         pnlMenu.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 5, 0, 0, new java.awt.Color(239, 238, 244)));
 
-        btnUserTel.setBackground(new java.awt.Color(239, 238, 244));
         btnUserTel.setForeground(new java.awt.Color(128, 128, 131));
         btnUserTel.setText("Usuarios");
         btnUserTel.setColorHover(new java.awt.Color(204, 204, 204));
@@ -382,6 +391,16 @@ public class Principal extends javax.swing.JFrame {
         lblTituloTelefonia.setForeground(new java.awt.Color(255, 255, 255));
         lblTituloTelefonia.setText("Telefonia - Cortijo");
 
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img1/cerrar-sesion.png"))); // NOI18N
+        btnSalir.setBorder(null);
+        btnSalir.setContentAreaFilled(false);
+        btnSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -391,7 +410,9 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(btnMenu)
                 .addGap(18, 18, 18)
                 .addComponent(lblTituloTelefonia)
-                .addContainerGap(1233, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1187, Short.MAX_VALUE)
+                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -399,7 +420,8 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblTituloTelefonia, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblTituloTelefonia, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -428,7 +450,7 @@ public class Principal extends javax.swing.JFrame {
 
     //Genera la accion para cambiar de panel USUARIOS llamando a la clase del paquete paneles y cambia los colores de los que se seleccionaron antes
     private void btnUserTelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserTelActionPerformed
-        new CambiaPanel(pnlPrincipal, new paneles.pnlUsuarios());
+        new CambiaPanel(pnlPrincipal, new paneles.pnlUsuarios(NivelDeAcceso));
         if (this.btnUserTel.isSelected()) {
             this.btnUserTel.setColorNormal(new Color(204, 204, 204));
             this.btnEquipos.setColorNormal(new Color(239, 238, 244));
@@ -451,7 +473,7 @@ public class Principal extends javax.swing.JFrame {
 
     //Genera la accion para cambiar de panel llamando a la clase del paquete paneles y cambia los colores de los que se seleccionaron antes
     private void btnFiniquitosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiniquitosActionPerformed
-        new CambiaPanel(pnlPrincipal, new paneles.pnlFiniquitos());
+        new CambiaPanel(pnlPrincipal, new paneles.pnlFiniquitos(NivelDeAcceso));
         if (this.btnFiniquitos.isSelected()) {
             this.btnFiniquitos.setColorNormal(new Color(204, 204, 204));
             this.btnEquipos.setColorNormal(new Color(239, 238, 244));
@@ -483,7 +505,7 @@ public class Principal extends javax.swing.JFrame {
 
     //Genera la accion para cambiar de panel llamando a la clase del paquete paneles y cambia los colores de los que se seleccionaron antes
     private void btnEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEquiposActionPerformed
-        new CambiaPanel(pnlPrincipal, new paneles.pnlEquipos());
+        new CambiaPanel(pnlPrincipal, new paneles.pnlEquipos(NivelDeAcceso));
         if (this.btnEquipos.isSelected()) {
             this.btnEquipos.setColorNormal(new Color(204, 204, 204));
             this.btnUserTel.setColorNormal(new Color(239, 238, 244));
@@ -495,25 +517,20 @@ public class Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnEquiposActionPerformed
 
-    //Accion de boton hamburguesa para desplegar o esconder el menu lateral utilizando la libreria de NefAnimacion
-    private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
-        int posicion = pnlMenu.getX();
-        if (posicion > -1) {
-            Animacion.Animacion.mover_izquierda(0, -264, 2, 2, pnlMenu);
-            Timer timer = new Timer(400, new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    pnlMenu.setVisible(false);
-                }
-            });
-            timer.setRepeats(false);
-            timer.start();
+    private Icon rotateIcon(Icon icon, double angleDegrees) {
+        int width = icon.getIconWidth();
+        int height = icon.getIconHeight();
 
-        } else {
-            Animacion.Animacion.mover_derecha(-264, 0, 2, 2, pnlMenu);
-            pnlMenu.setVisible(true);
-        }
-    }//GEN-LAST:event_btnMenuActionPerformed
+        BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = bufferedImage.createGraphics();
+
+        AffineTransform transform = new AffineTransform();
+        transform.rotate(Math.toRadians(angleDegrees), width / 2, height / 2);
+        g2d.drawImage(((ImageIcon) icon).getImage(), transform, null);
+        g2d.dispose();
+
+        return new ImageIcon(bufferedImage);
+    }
 
     //Establecer el estado de seleccionado al correspondiente boton y los demas con el estado desactivado
     private void btnAjustesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAjustesMousePressed
@@ -540,7 +557,7 @@ public class Principal extends javax.swing.JFrame {
 
     //Genera la accion para cambiar de panel llamando a la clase del paquete paneles y cambia los colores de los que se seleccionaron antes
     private void btnLineasTelefonicasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLineasTelefonicasActionPerformed
-        new CambiaPanel(pnlPrincipal, new paneles.pnlLineasTelefonicas());
+        new CambiaPanel(pnlPrincipal, new paneles.pnlLineasTelefonicas(NivelDeAcceso));
         if (this.btnLineasTelefonicas.isSelected()) {
             this.btnLineasTelefonicas.setColorNormal(new Color(204, 204, 204));
             this.btnUserTel.setColorNormal(new Color(239, 238, 244));
@@ -552,23 +569,49 @@ public class Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnLineasTelefonicasActionPerformed
 
+    //Accion de boton hamburguesa para desplegar o esconder el menu lateral utilizando la libreria de NefAnimacion
+    private void btnMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuActionPerformed
+        Icon originalIcon = new ImageIcon("src/img1/menu.png");
+        int posicion = pnlMenu.getX();
+        if (posicion > -1) {
+            Animacion.Animacion.mover_izquierda(0, -264, 2, 2, pnlMenu);
+            Timer timer = new Timer(400, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    pnlMenu.setVisible(false);
+                }
+            });
+            timer.setRepeats(false);
+            timer.start();
+            // Girar el icono 90 grados
+            Icon rotatedIcon = rotateIcon(originalIcon, 90);
+            btnMenu.setIcon(rotatedIcon);
+
+        } else {
+            Animacion.Animacion.mover_derecha(-264, 0, 2, 2, pnlMenu);
+            pnlMenu.setVisible(true);
+            // Establecer el icono de manera normal
+            btnMenu.setIcon(originalIcon);
+        }
+    }//GEN-LAST:event_btnMenuActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        // Ventana de aviso para cerrar sesion
+        int opcion = JOptionPane.showConfirmDialog(null, "¿Seguro que desea Cerrar Sesion?", "Cerrar Sesion", JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+        if (opcion == JOptionPane.YES_OPTION) {
+            //Abrir Formulario de Menu Principal
+            Login MenuLogin = new Login();
+            MenuLogin.setVisible(true);
+            MenuLogin.pack();
+            MenuLogin.setLocationRelativeTo(null);
+            this.dispose();
+        } else {
+            System.out.println("Se seleccionó No");
+        }
+    }//GEN-LAST:event_btnSalirActionPerformed
+
     public static void main(String args[]) {
 
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    /*Se establece el aspecto visual del administrador de la interfaz de usuario (UIManager) con el aspecto visual predeterminado del sistema utilizando el método setLookAndFeel
-                    Se intenta cargar la clase del aspecto visual del sistema utilizando el método getSystemLookAndFeelClassName. Este método recupera el nombre de clase completamente cualificado 
-                    del aspecto visual predeterminado proporcionado por el sistema operativo.
-                     */
-                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-                    new Principal().setVisible(true);
-                } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-                    //se registra un mensaje de error utilizando la clase Logger, que forma parte de la API de registro de Java.
-                    Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -577,6 +620,7 @@ public class Principal extends javax.swing.JFrame {
     private rsbuttom.RSButtonMetro btnFiniquitos;
     private rsbuttom.RSButtonMetro btnLineasTelefonicas;
     private javax.swing.JButton btnMenu;
+    private javax.swing.JButton btnSalir;
     private rsbuttom.RSButtonMetro btnUserTel;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;

@@ -16,8 +16,6 @@ public class Reescalado_Imagenes {
         Image imagenOriginal = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource(ruta));
 
         // Escalar la imagen al nuevo tamaño deseado
-        nuevoAncho = 50; // nuevo ancho en píxeles
-        nuevoAlto = 50; // nuevo alto en píxeles
         Image imagenEscalada = imagenOriginal.getScaledInstance(nuevoAncho, nuevoAlto, Image.SCALE_SMOOTH);
 
         // Crear un nuevo ImageIcon a partir de la imagen escalada

@@ -123,6 +123,7 @@ public class Recuperar extends javax.swing.JFrame {
         });
 
         btnCambiar.setBackground(new java.awt.Color(114, 191, 68));
+        btnCambiar.setForeground(new java.awt.Color(255, 255, 255));
         btnCambiar.setText("Cambiar Contraseña");
         btnCambiar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnCambiar.addActionListener(new java.awt.event.ActionListener() {
@@ -146,6 +147,7 @@ public class Recuperar extends javax.swing.JFrame {
         lblCodigo.setText("Ingresa el codigo:");
 
         btnCodigo.setBackground(new java.awt.Color(114, 191, 68));
+        btnCodigo.setForeground(new java.awt.Color(255, 255, 255));
         btnCodigo.setText("Confirmar");
         btnCodigo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnCodigo.addActionListener(new java.awt.event.ActionListener() {

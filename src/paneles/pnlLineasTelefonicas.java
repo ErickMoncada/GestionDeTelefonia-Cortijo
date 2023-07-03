@@ -3,8 +3,6 @@ package paneles;
 import Clases.AccionesCrud;
 import Clases.DatosTablas;
 import Clases.validaciones;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -15,14 +13,13 @@ import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import paneles.ExtraDLineasTelefonicas.Disponibilidad;
 
 public class pnlLineasTelefonicas extends javax.swing.JPanel {
 
-    public pnlLineasTelefonicas() {
+    public pnlLineasTelefonicas(String NIVEL) {
         initComponents();
         CargarDatosPrincipal();
         lblTotalPlanNuevo.setText("Suma Total de los Plan Nuevos: " + SumarValores("Plan Nuevo") + "$");
@@ -35,9 +32,18 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         btgFirma.add(rdbNoFirma);
         btgFirma.add(rdbOtro);
         asignarEventos();
+        if ("Lector".equals(NIVEL)) {
+            jPanel4.setVisible(false);
+            jPanel5.setVisible(false);
+            jPanel6.setVisible(false);
+            btnGuardar.setVisible(false);
+        }
+        NivelAcceso = NIVEL;
     }
     //se inicializa para la busqueda por medio de Imei
     String Busqueda = "Imei";
+    //se Inicializa la variabl del nivel para tneerlo en el Jframe
+    String NivelAcceso;
     //se inicializa la clase de validaciones
     validaciones val = new validaciones();
     //se crean los grupos de botones para los radioButton
@@ -84,11 +90,9 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         txtLinea.requestFocus();
         LimpiarErrores();
     }
-    
-   
-    
-     private void asignarEventos() {
-         //funcion para asignar los eventos a los mensajes de obligatorio con la clase de validaciones
+
+    private void asignarEventos() {
+        //funcion para asignar los eventos a los mensajes de obligatorio con la clase de validaciones
         val.asignarEventosMouse(lblObligatorio);
         val.asignarEventosMouse(lblObligatorio1);
         val.asignarEventosMouse(lblObligatorio2);
@@ -733,8 +737,17 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
                             .addComponent(lblErDisponible)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(txtYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(85, 85, 85)
-                                .addComponent(lblErCuotas))
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel4Layout.createSequentialGroup()
+                                        .addGap(85, 85, 85)
+                                        .addComponent(lblErCuotas))
+                                    .addGroup(jPanel4Layout.createSequentialGroup()
+                                        .addGap(35, 35, 35)
+                                        .addComponent(jLabel18)
+                                        .addGap(12, 12, 12)
+                                        .addComponent(txtCuotas, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(31, 31, 31)
+                                        .addComponent(lblObligatorio3))))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(cmbDisponibilidad, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -754,17 +767,9 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblErImei)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanel4Layout.createSequentialGroup()
-                                        .addComponent(jLabel18)
-                                        .addGap(12, 12, 12)
-                                        .addComponent(txtCuotas, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(13, 13, 13))
-                                    .addComponent(txtImei, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtImei, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblObligatorio4)
-                                    .addComponent(lblObligatorio3))))))
+                                .addComponent(lblObligatorio4)))))
                 .addContainerGap(114, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -1272,89 +1277,90 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 493, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblLineasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblLineasMouseClicked
-        LimpiarErrores();
-        CargarListas();
-        //se trata de obtener los datos de la tabla para mostrarlos en las casillas respectivas con ayuda de sql
-        try {
-            AccionesCrud classcrud = new AccionesCrud();
-            ResultSet rs = classcrud.Seleccion(tblLineas, "select * from [VistaLineasTelefonicas] where [Linea]=?", "Linea Telefonica");
-            while (rs.next()) {
-                txtLinea.setText(rs.getString("Linea"));
-                txtNumExpediente.setText(rs.getString("Expediente"));
-                cmbDisponibilidad.setSelectedItem(rs.getString("Disponible"));
-                txtYear.setValue(rs.getInt("Año Renovacion"));
-                txtCuotas.setValue(rs.getInt("Cuotas"));
-                txtImei.setText(rs.getString("Imei"));
-                txtAnterior.setText(rs.getString("PlanAnterior"));
-                txtNuevo.setText(rs.getString("NuevoPlan"));
-                txtPresupuesto.setText(rs.getString("Presupuesto"));
-                txtMensual.setText(rs.getString("ReconocidoPlan"));
-
-                //formato para mostrar la fecha en el JDateChooser
-                SimpleDateFormat formatofecha = new SimpleDateFormat("yyyy-MM-dd");
-                Date fecha;
-                try {
-                    fecha = formatofecha.parse(rs.getString("FechaAsignacion"));
-                    dtpAsignacion.setDate(fecha);
-                } catch (ParseException ex) {
-                    Logger.getLogger(pnlEquipos.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                try {
-                    fecha = formatofecha.parse(rs.getString("FechaCambioEquipo"));
-                    dtpCambio.setDate(fecha);
-                } catch (ParseException ex) {
-                    Logger.getLogger(pnlEquipos.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                try {
-                    fecha = formatofecha.parse(rs.getString("FechaFacturacion"));
-                    dtpFacturacion.setDate(fecha);
-                } catch (ParseException ex) {
-                    Logger.getLogger(pnlEquipos.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                //switch para saber que radio button seleccionar
-                String rdbFirma = rs.getString("Firma");
-                switch (rdbFirma) {
-                    case "SI":
-                        btgFirma.setSelected(rdbSiFirma.getModel(), true);
-                        break;
-                    case "NO":
-                        btgFirma.setSelected(rdbNoFirma.getModel(), true);
-                        break;
-                    default:
-                        btgFirma.setSelected(rdbOtro.getModel(), true);
-                        txtOtro.setText(rdbFirma);
-                }
-                //switch para saber que radio button seleccionar
-                String rdbPagoSeguro = rs.getString("PagoSeguro");
-                switch (rdbPagoSeguro) {
-                    case "SI":
-                        btgPago.setSelected(rdbSiSeguro.getModel(), true);
-                        break;
-                    case "NO":
-                        btgPago.setSelected(rdbNoSeguro.getModel(), true);
-                        break;
-                    default:
-                        break;
-                }
-            }
-            txtLinea.enable(false);
-            btnModificar.setVisible(true);
-            btnEliminar.setVisible(true);
-            btnCancelar.setVisible(true);
-            btnGuardar.setVisible(false);
+        if ("Administrador".equals(NivelAcceso)) {
             LimpiarErrores();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e.toString());
+            CargarListas();
+            //se trata de obtener los datos de la tabla para mostrarlos en las casillas respectivas con ayuda de sql
+            try {
+                AccionesCrud classcrud = new AccionesCrud();
+                ResultSet rs = classcrud.Seleccion(tblLineas, "select * from [VistaLineasTelefonicas] where [Linea]=?", "Linea Telefonica");
+                while (rs.next()) {
+                    txtLinea.setText(rs.getString("Linea"));
+                    txtNumExpediente.setText(rs.getString("Expediente"));
+                    cmbDisponibilidad.setSelectedItem(rs.getString("Disponible"));
+                    txtYear.setValue(rs.getInt("Año Renovacion"));
+                    txtCuotas.setValue(rs.getInt("Cuotas"));
+                    txtImei.setText(rs.getString("Imei"));
+                    txtAnterior.setText(rs.getString("PlanAnterior"));
+                    txtNuevo.setText(rs.getString("NuevoPlan"));
+                    txtPresupuesto.setText(rs.getString("Presupuesto"));
+                    txtMensual.setText(rs.getString("ReconocidoPlan"));
+
+                    //formato para mostrar la fecha en el JDateChooser
+                    SimpleDateFormat formatofecha = new SimpleDateFormat("yyyy-MM-dd");
+                    Date fecha;
+                    try {
+                        fecha = formatofecha.parse(rs.getString("FechaAsignacion"));
+                        dtpAsignacion.setDate(fecha);
+                    } catch (ParseException ex) {
+                        Logger.getLogger(pnlEquipos.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    try {
+                        fecha = formatofecha.parse(rs.getString("FechaCambioEquipo"));
+                        dtpCambio.setDate(fecha);
+                    } catch (ParseException ex) {
+                        Logger.getLogger(pnlEquipos.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    try {
+                        fecha = formatofecha.parse(rs.getString("FechaFacturacion"));
+                        dtpFacturacion.setDate(fecha);
+                    } catch (ParseException ex) {
+                        Logger.getLogger(pnlEquipos.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    //switch para saber que radio button seleccionar
+                    String rdbFirma = rs.getString("Firma");
+                    switch (rdbFirma) {
+                        case "SI":
+                            btgFirma.setSelected(rdbSiFirma.getModel(), true);
+                            break;
+                        case "NO":
+                            btgFirma.setSelected(rdbNoFirma.getModel(), true);
+                            break;
+                        default:
+                            btgFirma.setSelected(rdbOtro.getModel(), true);
+                            txtOtro.setText(rdbFirma);
+                    }
+                    //switch para saber que radio button seleccionar
+                    String rdbPagoSeguro = rs.getString("PagoSeguro");
+                    switch (rdbPagoSeguro) {
+                        case "SI":
+                            btgPago.setSelected(rdbSiSeguro.getModel(), true);
+                            break;
+                        case "NO":
+                            btgPago.setSelected(rdbNoSeguro.getModel(), true);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                txtLinea.enable(false);
+                btnModificar.setVisible(true);
+                btnEliminar.setVisible(true);
+                btnCancelar.setVisible(true);
+                btnGuardar.setVisible(false);
+                LimpiarErrores();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e.toString());
+            }
         }
     }//GEN-LAST:event_tblLineasMouseClicked
 
@@ -1634,7 +1640,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
                 break;
         }
     }//GEN-LAST:event_txtBuscarKeyTyped
-  
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rsbuttom.RSButtonMetro btnCancelar;

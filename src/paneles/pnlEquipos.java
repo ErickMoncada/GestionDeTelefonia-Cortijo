@@ -22,14 +22,20 @@ import paneles.ExtraEquipos.Tipo;
 
 public class pnlEquipos extends javax.swing.JPanel {
 
-    public pnlEquipos() {
+    public pnlEquipos(String NIVEL) {
         initComponents();
         CargarDatosPrincipal();
         Limpiar();
         asignarEventos();
+        if ("Lector".equals(NIVEL)) {
+            jPanel1.setVisible(false);
+        }
+        NivelAcceso = NIVEL;
     }
     //se inicializa para la busqueda por medio de Imei
     String Busqueda = "Imei";
+    //se Inicializa la variabl del nivel para tneerlo en el Jframe
+    String NivelAcceso;
     //se inicializa la clase de validaciones
     validaciones val = new validaciones();
 
@@ -57,8 +63,9 @@ public class pnlEquipos extends javax.swing.JPanel {
         dtpCompra.setDate(null);
         LimpiarErrores();
     }
+
     private void asignarEventos() {
-         //funcion para asignar los eventos a los mensajes de obligatorio con la clase de validaciones
+        //funcion para asignar los eventos a los mensajes de obligatorio con la clase de validaciones
         val.asignarEventosMouse(lblObligatorio);
         val.asignarEventosMouse(lblObligatorio1);
         val.asignarEventosMouse(lblObligatorio2);
@@ -467,7 +474,7 @@ public class pnlEquipos extends javax.swing.JPanel {
                                         .addComponent(lblObligatorio6)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(btnMarca)))))))
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -692,7 +699,7 @@ public class pnlEquipos extends javax.swing.JPanel {
                                 .addComponent(lblObligatorio2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnEstado)))))
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -980,7 +987,9 @@ public class pnlEquipos extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1635, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1724, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel2)
@@ -994,66 +1003,68 @@ public class pnlEquipos extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addGap(4, 4, 4)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 772, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblEquiposMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEquiposMouseClicked
-        LimpiarErrores();
-        CargarListas();
-        //se trata de obtener los datos de la tabla para mostrarlos en las casillas respectivas con ayuda de sql
-        try {
-            AccionesCrud classcrud = new AccionesCrud();
-            ResultSet rs = classcrud.Seleccion(tblEquipos, "select * from [VistaEquipos] where [IMEI]=?", "IMEI");
-            while (rs.next()) {
-                txtNumIMEI.setText(rs.getString("IMEI"));
-                txtNumExpediente.setText(rs.getString("NumeroExpediente"));
-                cmbEstado.setSelectedItem(rs.getString("Estado del Equipo"));
-                cmbTipo.setSelectedItem(rs.getString("Tipo"));
+        if ("Administrador".equals(NivelAcceso)) {
+            LimpiarErrores();
+            CargarListas();
+            //se trata de obtener los datos de la tabla para mostrarlos en las casillas respectivas con ayuda de sql
+            try {
+                AccionesCrud classcrud = new AccionesCrud();
+                ResultSet rs = classcrud.Seleccion(tblEquipos, "select * from [VistaEquipos] where [IMEI]=?", "IMEI");
+                while (rs.next()) {
+                    txtNumIMEI.setText(rs.getString("IMEI"));
+                    txtNumExpediente.setText(rs.getString("NumeroExpediente"));
+                    cmbEstado.setSelectedItem(rs.getString("Estado del Equipo"));
+                    cmbTipo.setSelectedItem(rs.getString("Tipo"));
 
-                //formato para mostrar la fecha en el JDateChooser
-                SimpleDateFormat formatofecha = new SimpleDateFormat("yyyy-MM-dd");
-                Date fecha;
-                try {
-                    fecha = formatofecha.parse(rs.getString("FechaPrestamo"));
-                    dtpPrestamo.setDate(fecha);
-                } catch (ParseException ex) {
-                    Logger.getLogger(pnlEquipos.class.getName()).log(Level.SEVERE, null, ex);
+                    //formato para mostrar la fecha en el JDateChooser
+                    SimpleDateFormat formatofecha = new SimpleDateFormat("yyyy-MM-dd");
+                    Date fecha;
+                    try {
+                        fecha = formatofecha.parse(rs.getString("FechaPrestamo"));
+                        dtpPrestamo.setDate(fecha);
+                    } catch (ParseException ex) {
+                        Logger.getLogger(pnlEquipos.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    cmbCategoria.setSelectedItem(rs.getString("Categoria"));
+                    cmbMarca.setSelectedItem(rs.getString("Marca"));
+                    txtModelo.setText(rs.getString("Modelo"));
+                    txtAccesorio.setText(rs.getString("Accesorio"));
+                    cmbLugar.setSelectedItem(rs.getString("Lugar"));
+
+                    //formato para mostrar la fecha en el JDateChooser
+                    try {
+                        fecha = formatofecha.parse(rs.getString("FechaCompra"));
+                        dtpCompra.setDate(fecha);
+                    } catch (ParseException ex) {
+                        Logger.getLogger(pnlEquipos.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                    txtCosto.setText(rs.getString("CostoEquipo"));
+                    txtComentario.setText(rs.getString("Comentario"));
+                    txtNumFactura.setText(rs.getString("NumDoc"));
+
                 }
-                cmbCategoria.setSelectedItem(rs.getString("Categoria"));
-                cmbMarca.setSelectedItem(rs.getString("Marca"));
-                txtModelo.setText(rs.getString("Modelo"));
-                txtAccesorio.setText(rs.getString("Accesorio"));
-                cmbLugar.setSelectedItem(rs.getString("Lugar"));
-
-                //formato para mostrar la fecha en el JDateChooser
-                try {
-                    fecha = formatofecha.parse(rs.getString("FechaCompra"));
-                    dtpCompra.setDate(fecha);
-                } catch (ParseException ex) {
-                    Logger.getLogger(pnlEquipos.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-                txtCosto.setText(rs.getString("CostoEquipo"));
-                txtComentario.setText(rs.getString("Comentario"));
-                txtNumFactura.setText(rs.getString("NumDoc"));
-
+                txtNumIMEI.enable(false);
+                btnModificar.setVisible(true);
+                btnEliminar.setVisible(true);
+                btnCancelar.setVisible(true);
+                btnGuardar.setVisible(false);
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e.toString());
             }
-            txtNumIMEI.enable(false);
-            btnModificar.setVisible(true);
-            btnEliminar.setVisible(true);
-            btnCancelar.setVisible(true);
-            btnGuardar.setVisible(false);
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e.toString());
         }
     }//GEN-LAST:event_tblEquiposMouseClicked
 
@@ -1082,6 +1093,114 @@ public class pnlEquipos extends javax.swing.JPanel {
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         Limpiar();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private Object[] ArregloDatos() {
+        //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
+        Object[] datos = new Object[14];
+        datos[0] = txtNumIMEI.getText();
+        datos[1] = cmbEstado.getSelectedItem().toString();
+        datos[2] = Integer.parseInt(txtNumExpediente.getText());
+        try {
+            Date date2 = dtpPrestamo.getDate();
+            long d2 = date2.getTime();
+            java.sql.Date fecha2 = new java.sql.Date(d2);
+            datos[3] = fecha2.toString();
+        } catch (Exception e) {
+            datos[3] = "";
+        }
+        datos[4] = cmbTipo.getSelectedItem().toString();
+        datos[5] = cmbCategoria.getSelectedItem().toString();
+        datos[6] = cmbMarca.getSelectedItem().toString();
+        datos[7] = txtModelo.getText().trim();
+        datos[8] = txtAccesorio.getText().trim();
+        datos[9] = cmbLugar.getSelectedItem().toString();
+        try {
+            Date date = dtpCompra.getDate();
+            long d = date.getTime();
+            java.sql.Date fecha = new java.sql.Date(d);
+            datos[10] = fecha.toString();
+        } catch (Exception e) {
+            datos[10] = "";
+        }
+        datos[11] = txtComentario.getText().trim();
+        try {
+            datos[12] = Double.parseDouble(txtCosto.getText());
+        } catch (NumberFormatException e) {
+            datos[12] = "";
+        }
+        datos[13] = txtNumFactura.getText().trim();
+        return datos;
+    }
+    //Funicon para asignar el tipo de busqueda que se va hacer por medio de un switc y los valores de la vista de la BD
+    private void cmbBuscarItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbBuscarItemStateChanged
+        //Cada vez que se cambia el estado del combobox se cambia el filtro de busqueda global para la funcion de busqueda
+        String elementoSeleccionado = (String) cmbBuscar.getSelectedItem();
+        switch (elementoSeleccionado) {
+            case "Categoria":
+                Busqueda = "Categoria";
+                break;
+            case "Comentario":
+                Busqueda = "Comentario";
+                break;
+            case "Estado":
+                Busqueda = "Estado del Equipo";
+                break;
+            case "IMEI":
+                Busqueda = "Imei";
+                break;
+            case "Marca":
+                Busqueda = "Marca";
+                break;
+            case "N. Expediente":
+                Busqueda = "NumeroExpediente";
+                break;
+            case "Tipo":
+                Busqueda = "Tipo";
+                break;
+            default:
+                break;
+        }
+        txtBuscar.setText("");
+    }//GEN-LAST:event_cmbBuscarItemStateChanged
+
+    private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
+        //cada vez que se precione una tecla se va a buscar junto al filtro de busqueda en la vista correspondiente
+        DatosTablas BusquedaTabla = new DatosTablas();
+        //se limpia la tabla
+        DefaultTableModel modelo = (DefaultTableModel) tblEquipos.getModel();
+        modelo.setRowCount(0);
+        //se muestra los resultados de la busqueda
+        BusquedaTabla.CargarTabla(tblEquipos, "select * from VistaEquipos where " + Busqueda + " LIKE '%" + txtBuscar.getText().trim() + "%'");
+    }//GEN-LAST:event_txtBuscarKeyReleased
+
+    private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
+        //switch para decidir que validacion establecer cada ves que se preciona una tecla en buscar
+        switch (Busqueda) {
+            case "Categoria":
+                val.EntradaTextoNormal(txtBuscar, evt, 50);
+                break;
+            case "Comentario":
+                val.EntradaTextoNormal(txtBuscar, evt, 50);
+                break;
+            case "Estado del Equipo":
+                val.EntradaTextoNormal(txtBuscar, evt, 50);
+                break;
+            case "Imei":
+                val.EntradaNumeros(txtBuscar, evt, 15);
+                break;
+            case "Marca":
+                val.EntradaTextoNormal(txtBuscar, evt, 50);
+                break;
+            case "NumeroExpediente":
+                val.EntradaNumeros(txtBuscar, evt, 4);
+                break;
+            case "Tipo":
+                val.EntradaTextoNormal(txtBuscar, evt, 50);
+                break;
+            default:
+                break;
+        }
+    }//GEN-LAST:event_txtBuscarKeyTyped
 
     private void txtCostoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCostoKeyTyped
         val.EntradaDinero(txtCosto, evt);
@@ -1161,7 +1280,7 @@ public class pnlEquipos extends javax.swing.JPanel {
     }//GEN-LAST:event_cmbLugarItemStateChanged
 
     private void txtModeloKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtModeloKeyTyped
-        // validado para un campo de tipo normal 
+        // validado para un campo de tipo normal
         val.EntradaTextoNormal(txtModelo, evt, 50);
     }//GEN-LAST:event_txtModeloKeyTyped
 
@@ -1171,7 +1290,7 @@ public class pnlEquipos extends javax.swing.JPanel {
     }//GEN-LAST:event_txtModeloKeyReleased
 
     private void txtAccesorioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAccesorioKeyTyped
-        // validado para un campo de tipo normal 
+        // validado para un campo de tipo normal
         val.EntradaTextoNormal(txtAccesorio, evt, 30);
     }//GEN-LAST:event_txtAccesorioKeyTyped
 
@@ -1211,43 +1330,6 @@ public class pnlEquipos extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
-    private Object[] ArregloDatos() {
-        //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
-        Object[] datos = new Object[14];
-        datos[0] = txtNumIMEI.getText();
-        datos[1] = cmbEstado.getSelectedItem().toString();
-        datos[2] = Integer.parseInt(txtNumExpediente.getText());
-        try {
-            Date date2 = dtpPrestamo.getDate();
-            long d2 = date2.getTime();
-            java.sql.Date fecha2 = new java.sql.Date(d2);
-            datos[3] = fecha2.toString();
-        } catch (Exception e) {
-            datos[3] = "";
-        }
-        datos[4] = cmbTipo.getSelectedItem().toString();
-        datos[5] = cmbCategoria.getSelectedItem().toString();
-        datos[6] = cmbMarca.getSelectedItem().toString();
-        datos[7] = txtModelo.getText().trim();
-        datos[8] = txtAccesorio.getText().trim();
-        datos[9] = cmbLugar.getSelectedItem().toString();
-        try {
-            Date date = dtpCompra.getDate();
-            long d = date.getTime();
-            java.sql.Date fecha = new java.sql.Date(d);
-            datos[10] = fecha.toString();
-        } catch (Exception e) {
-            datos[10] = "";
-        }
-        datos[11] = txtComentario.getText().trim();
-        try {
-            datos[12] = Double.parseDouble(txtCosto.getText());
-        } catch (NumberFormatException e) {
-            datos[12] = "";
-        }
-        datos[13] = txtNumFactura.getText().trim();
-        return datos;
-    }
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         LimpiarErrores();
         if (ValidarCampos()) {
@@ -1271,77 +1353,6 @@ public class pnlEquipos extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_btnModificarActionPerformed
-
-    //Funicon para asignar el tipo de busqueda que se va hacer por medio de un switc y los valores de la vista de la BD
-    private void cmbBuscarItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbBuscarItemStateChanged
-        //Cada vez que se cambia el estado del combobox se cambia el filtro de busqueda global para la funcion de busqueda
-        String elementoSeleccionado = (String) cmbBuscar.getSelectedItem();
-        switch (elementoSeleccionado) {
-            case "Categoria":
-                Busqueda = "Categoria";
-                break;
-            case "Comentario":
-                Busqueda = "Comentario";
-                break;
-            case "Estado":
-                Busqueda = "Estado del Equipo";
-                break;
-            case "IMEI":
-                Busqueda = "Imei";
-                break;
-            case "Marca":
-                Busqueda = "Marca";
-                break;
-            case "N. Expediente":
-                Busqueda = "NumeroExpediente";
-                break;
-            case "Tipo":
-                Busqueda = "Tipo";
-                break;
-            default:
-                break;
-        }
-        txtBuscar.setText("");
-    }//GEN-LAST:event_cmbBuscarItemStateChanged
-
-    private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
-        //cada vez que se precione una tecla se va a buscar junto al filtro de busqueda en la vista correspondiente
-        DatosTablas BusquedaTabla = new DatosTablas();
-        //se limpia la tabla
-        DefaultTableModel modelo = (DefaultTableModel) tblEquipos.getModel();
-        modelo.setRowCount(0);
-        //se muestra los resultados de la busqueda
-        BusquedaTabla.CargarTabla(tblEquipos, "select * from VistaEquipos where " + Busqueda + " LIKE '%" + txtBuscar.getText().trim() + "%'");
-    }//GEN-LAST:event_txtBuscarKeyReleased
-
-    private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
-        //switch para decidir que validacion establecer cada ves que se preciona una tecla en buscar
-        switch (Busqueda) {
-            case "Categoria":
-                val.EntradaTextoNormal(txtBuscar, evt, 50);
-                break;
-            case "Comentario":
-                val.EntradaTextoNormal(txtBuscar, evt, 50);
-                break;
-            case "Estado del Equipo":
-                val.EntradaTextoNormal(txtBuscar, evt, 50);
-                break;
-            case "Imei":
-                val.EntradaNumeros(txtBuscar, evt, 15);
-                break;
-            case "Marca":
-                val.EntradaTextoNormal(txtBuscar, evt, 50);
-                break;
-            case "NumeroExpediente":
-                val.EntradaNumeros(txtBuscar, evt, 4);
-                break;
-            case "Tipo":
-                val.EntradaTextoNormal(txtBuscar, evt, 50);
-                break;
-            default:
-                break;
-        }
-    }//GEN-LAST:event_txtBuscarKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

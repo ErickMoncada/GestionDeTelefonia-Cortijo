@@ -2,9 +2,8 @@ package paneles.ExtraUsuarios;
 
 import Clases.AccionesCrud;
 import Clases.DatosTablas;
+import Clases.validaciones;
 import app.Conexion;
-import java.awt.Toolkit;
-import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,6 +18,9 @@ public class CentroCosto extends javax.swing.JFrame {
         CargarTabla();
         Limpiar();
     }
+
+    //cargar clase de validaciones
+    validaciones val = new validaciones();
 
     //Funcion para cargar datos a la tabla
     private void CargarTabla() {
@@ -304,8 +306,8 @@ public class CentroCosto extends javax.swing.JFrame {
         //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
         if (Validar()) {
             Object[] datos = new Object[2];
-            datos[0] = txtNumero.getText();
-            datos[1] = txtNombre.getText();
+            datos[0] = txtNumero.getText().trim();
+            datos[1] = txtNombre.getText().trim();
             AccionesCrud classcrud = new AccionesCrud();
             if (classcrud.Guardar_Modificar(datos, "exec [AgregarCentroCosto] ?, ? ")) {
                 txtNombre.setText("");
@@ -320,8 +322,8 @@ public class CentroCosto extends javax.swing.JFrame {
         //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
         if (Validar()) {
             Object[] datos = new Object[2];
-            datos[0] = txtNumero.getText();
-            datos[1] = txtNombre.getText();
+            datos[0] = txtNumero.getText().trim();
+            datos[1] = txtNombre.getText().trim();
             AccionesCrud classcrud = new AccionesCrud();
             if (classcrud.Guardar_Modificar(datos, "exec [UpdateCentroCosto] ?, ? ")) {
                 txtNombre.setText("");
@@ -342,23 +344,13 @@ public class CentroCosto extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void txtNumeroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumeroKeyTyped
-        int key = evt.getKeyChar();
-        //solo permite numeros y retroceso
-        boolean numero = key >= 48 && key <= 57 || key == KeyEvent.VK_BACK_SPACE;
-        if (txtNumero.getText().length() == 10 || !numero) {
-            evt.consume();
-            Toolkit.getDefaultToolkit().beep();
-        }
+        // validado para un campo de tipo numerico con el parametro de la longitud deseada
+        val.EntradaNumeros(txtNumero, evt, 10);
     }//GEN-LAST:event_txtNumeroKeyTyped
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
-        int key = evt.getKeyChar();
-        //perimite escribir solo letras , numeros y retroceso
-        boolean letra = (key >= 65 && key <= 90) || (key >= 97 && key <= 122 || key >= 48 && key <= 57 || key == KeyEvent.VK_SPACE || key == KeyEvent.VK_BACK_SPACE);
-        if (txtNombre.getText().length() == 80 || !letra) {
-            evt.consume();
-            Toolkit.getDefaultToolkit().beep();
-        }
+        // validado para un campo de tipo texto normal con el parametro de la longitud deseada
+        val.EntradaTextoNormal(txtNombre, evt, 80);
     }//GEN-LAST:event_txtNombreKeyTyped
 
     public static void main(String args[]) {

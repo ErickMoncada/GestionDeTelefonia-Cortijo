@@ -2,8 +2,7 @@ package paneles.ExtraUsuarios;
 
 import Clases.AccionesCrud;
 import Clases.DatosTablas;
-import java.awt.Toolkit;
-import java.awt.event.KeyEvent;
+import Clases.validaciones;
 
 public class Categoria extends javax.swing.JFrame {
 
@@ -13,6 +12,9 @@ public class Categoria extends javax.swing.JFrame {
         Limpiar();
         txtID.setVisible(false);
     }
+
+    //cargar clase de validaciones
+    validaciones val = new validaciones();
 
     //Funcion para cargar datos a la tabla
     private void CargarTabla() {
@@ -54,11 +56,6 @@ public class Categoria extends javax.swing.JFrame {
         lblCategoriaUser.setText("Categoria de Usuario:");
 
         txtCategoriaUser.setPreferredSize(new java.awt.Dimension(65, 26));
-        txtCategoriaUser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCategoriaUserActionPerformed(evt);
-            }
-        });
         txtCategoriaUser.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtCategoriaUserKeyTyped(evt);
@@ -260,7 +257,7 @@ public class Categoria extends javax.swing.JFrame {
         AccionesCrud classcrud = new AccionesCrud();
         if (classcrud.Validar(txtCategoriaUser, "La Categoria de usuario")) {
             Object[] datos = new Object[1];
-            datos[0] = txtCategoriaUser.getText();
+            datos[0] = txtCategoriaUser.getText().trim();
             if (classcrud.Guardar_Modificar(datos, "exec AgregarCategoriaUser ? ")) {
                 txtID.setText("");
                 txtCategoriaUser.setText("");
@@ -292,18 +289,9 @@ public class Categoria extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void txtCategoriaUserKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCategoriaUserKeyTyped
-        int key = evt.getKeyChar();
-        // evaluar si la tecla presionada representa una letra (mayúscula o minúscula), un número, un espacio en blanco, la tecla de retroceso o cualquier otra tecla que no sea el signo "+" 
-        boolean letra = (key >= 65 && key <= 90) || (key >= 97 && key <= 122 || key >= 48 && key <= 57 || key == KeyEvent.VK_SPACE || key == KeyEvent.VK_BACK_SPACE || key == 45);
-        if (txtCategoriaUser.getText().length() == 15 || !letra) {
-            evt.consume();
-            Toolkit.getDefaultToolkit().beep();
-        }
+        // validado para un campo de tipo texto normal con el parametro de la longitud deseada
+        val.EntradaLetrasNumeroGuion(txtCategoriaUser, evt, 15);
     }//GEN-LAST:event_txtCategoriaUserKeyTyped
-
-    private void txtCategoriaUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCategoriaUserActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCategoriaUserActionPerformed
 
     public static void main(String args[]) {
 

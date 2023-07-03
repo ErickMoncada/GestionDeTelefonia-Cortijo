@@ -2,8 +2,7 @@ package paneles.ExtraEquipos;
 
 import Clases.AccionesCrud;
 import Clases.DatosTablas;
-import java.awt.Toolkit;
-import java.awt.event.KeyEvent;
+import Clases.validaciones;
 
 public class Categoria extends javax.swing.JFrame {
 
@@ -14,6 +13,8 @@ public class Categoria extends javax.swing.JFrame {
         //establecer invicible el campo de id
         txtID.setVisible(false);
     }
+    //cargar clase de validaciones
+    validaciones val = new validaciones();
 
     //Funcion para cargar datos a la tabla
     private void CargarTabla() {
@@ -255,7 +256,7 @@ public class Categoria extends javax.swing.JFrame {
         AccionesCrud classcrud = new AccionesCrud();
         if (classcrud.Validar(txtCategoria, "La Categoria del equipo")) {
             Object[] datos = new Object[1];
-            datos[0] = txtCategoria.getText();
+            datos[0] = txtCategoria.getText().trim();
             if (classcrud.Guardar_Modificar(datos, "exec AgregarCategoriaEquipo ? ")) {
                 txtID.setText("");
                 txtCategoria.setText("");
@@ -287,13 +288,8 @@ public class Categoria extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void txtCategoriaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCategoriaKeyTyped
-        int key = evt.getKeyChar();
-        // evaluar si la tecla presionada representa una letra (mayúscula o minúscula), un número, un espacio en blanco, la tecla de retroceso o cualquier otra tecla que no sea el signo "+" 
-        boolean letra = (key >= 65 && key <= 90) || (key >= 97 && key <= 122 || key >= 48 && key <= 57 || key == KeyEvent.VK_SPACE || key == KeyEvent.VK_BACK_SPACE);
-        if (txtCategoria.getText().length() == 50 || !letra) {
-            evt.consume();
-            Toolkit.getDefaultToolkit().beep();
-        }
+        // validado para un campo de tipo texto normal y guion con el parametro de la longitud deseada
+        val.EntradaLetrasNumeroGuion(txtCategoria, evt, 50);
     }//GEN-LAST:event_txtCategoriaKeyTyped
 
     public static void main(String args[]) {

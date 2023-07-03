@@ -17,14 +17,24 @@ import paneles.ExtraUsuarios.Ubicacion;
 
 public class pnlUsuarios extends javax.swing.JPanel {
 
-    public pnlUsuarios() {
+    public pnlUsuarios(String NIVEL) { 
         initComponents();
         CargarDatosPrincipal();
         Limpiar();
         asignarEventos();
+        //se comprueba si es lector o administrador
+        if("Lector".equals(NIVEL)){
+        jPanel3.setVisible(false);
+        jPanel2.setVisible(false);
+        jPanel4.setVisible(false);
+        btnGuardar.setVisible(false);
+        }
+        NivelAcceso=NIVEL;
     }
     //se inicializa para la busqueda por medio de Categoria
     String Busqueda = "CategoriaUser";
+    //se Inicializa la variabl del nivel para tneerlo en el Jframe
+    String NivelAcceso;
     //se inicializa la clase de validaciones
     validaciones val = new validaciones();
 
@@ -232,6 +242,7 @@ public class pnlUsuarios extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 255, 255));
         setComponentPopupMenu(jPopupMenu1);
         setNextFocusableComponent(txtNumExpediente);
+        setPreferredSize(new java.awt.Dimension(1920, 781));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setComponentPopupMenu(jPopupMenu1);
@@ -839,10 +850,10 @@ public class pnlUsuarios extends javax.swing.JPanel {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(68, 68, 68)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(165, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1920, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -966,6 +977,7 @@ public class pnlUsuarios extends javax.swing.JPanel {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void tblUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblUsuariosMouseClicked
+        if("Administrador".equals(NivelAcceso)){
         LimpiarErrores();
         CargarListas();
         //se trata de obtener los datos de la tabla para mostrarlos en las casillas respectivas con ayuda de sql
@@ -992,6 +1004,7 @@ public class pnlUsuarios extends javax.swing.JPanel {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e.toString());
         }
+       }
     }//GEN-LAST:event_tblUsuariosMouseClicked
 
     //Funicon para asignar el tipo de busqueda que se va hacer por medio de un switc y los valores de la vista de la BD

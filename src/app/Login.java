@@ -1,20 +1,74 @@
-
 package app;
 
 import Clases.Reescalado_Imagenes;
-import java.awt.Toolkit;
-import java.awt.event.KeyEvent;
-
-
+import Clases.validaciones;
+import java.awt.Color;
+import java.awt.Font;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Types;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 
 public class Login extends javax.swing.JFrame {
-
 
     public Login() {
         initComponents();
         //asignar icono mediante otra clase
         Reescalado_Imagenes reescalar = new Reescalado_Imagenes();
         setIconImage(reescalar.getIconImage());
+        PersonalizacionMensjaes();
+        Limpiar();
+    }
+    //se inicializa la clase de validaciones
+    validaciones val = new validaciones();
+
+    private void Limpiar() {
+        lblErUsuario.setVisible(false);
+        lblErPassword.setVisible(false);
+    }
+
+    private boolean ValidarCampos() {
+        int valor1 = 1;
+        String error;
+        if (txtUsuario.getText().isEmpty()) {
+              //asignar 0 al valor para devolver falso en la validacion
+            valor1 = 0;
+            //mensaje de error para el respectivo campo de texto
+            error = "Escriba un Usuario ";
+            //asignar colores de error a cada campo
+            val.TXTincorrecto(txtUsuario, lblErUsuario, error);
+        }
+        if (txtPassword.getText().isEmpty()) {
+              //asignar 0 al valor para devolver falso en la validacion
+            valor1 = 0;
+            //mensaje de error para el respectivo campo de texto
+            error = "Escriba una Contraseña ";
+            //asignar colores de error a cada campo
+            val.TXTincorrecto(txtPassword, lblErPassword, error);
+        }
+        return valor1 == 1; //Expreciones regulares de los campos
+    }
+
+    private void PersonalizacionMensjaes() {
+        //se inicia la clase para reescalar imagenes
+        Reescalado_Imagenes reescalar = new Reescalado_Imagenes();
+        // Cambiar el icono predeterminado para las ventanas de aviso de error
+        UIManager.put("OptionPane.warningIcon", reescalar.IconoTextoMenu(40, 40, "img1/advertencia.png"));
+        // Cambiar el icono predeterminado para las ventanas de aviso de advertencia
+        UIManager.put("OptionPane.informationIcon", reescalar.IconoTextoMenu(40, 40, "img1/alerta.png"));
+         // Cambiar el icono predeterminado para las ventanas de Error
+        UIManager.put("OptionPane.errorIcon", reescalar.IconoTextoMenu(40, 40, "img1/cancelar.png"));
+        //Cambiar el aspecto de los botones de los mensajes predeterminados
+        UIManager.put("Button.background", Color.WHITE);
+        UIManager.put("Button.foreground", new Color(114, 191, 68));
+        // Crear una fuente personalizada
+        Font customFont = new Font("Dialog", Font.BOLD, 14);
+        // Cambiar la fuente de los botones
+        UIManager.put("Button.font", customFont);
     }
 
     @SuppressWarnings("unchecked")
@@ -33,6 +87,8 @@ public class Login extends javax.swing.JFrame {
         btnEntrar = new javax.swing.JButton();
         lblRecovery = new javax.swing.JLabel();
         btnRecovery = new javax.swing.JButton();
+        lblErUsuario = new javax.swing.JLabel();
+        lblErPassword = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("LOGIN");
@@ -86,12 +142,10 @@ public class Login extends javax.swing.JFrame {
         lblCorreo.setText("Usuario");
 
         txtUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtUsuarioActionPerformed(evt);
-            }
-        });
         txtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtUsuarioKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtUsuarioKeyTyped(evt);
             }
@@ -101,6 +155,9 @@ public class Login extends javax.swing.JFrame {
         lblPassword.setText("Contraseña");
 
         txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPasswordKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtPasswordKeyTyped(evt);
             }
@@ -129,6 +186,14 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        lblErUsuario.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+        lblErUsuario.setForeground(new java.awt.Color(255, 0, 0));
+        lblErUsuario.setText("Error");
+
+        lblErPassword.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+        lblErPassword.setForeground(new java.awt.Color(255, 0, 0));
+        lblErPassword.setText("Error");
+
         javax.swing.GroupLayout pnlDerechaLayout = new javax.swing.GroupLayout(pnlDerecha);
         pnlDerecha.setLayout(pnlDerechaLayout);
         pnlDerechaLayout.setHorizontalGroup(
@@ -146,13 +211,16 @@ public class Login extends javax.swing.JFrame {
                                 .addComponent(lblRecovery)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnRecovery)))
-                        .addContainerGap(22, Short.MAX_VALUE))
+                        .addContainerGap(26, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlDerechaLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(lblTitulo)
                         .addGap(88, 88, 88))
                     .addGroup(pnlDerechaLayout.createSequentialGroup()
-                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(pnlDerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblErUsuario)
+                            .addComponent(lblErPassword))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         pnlDerechaLayout.setVerticalGroup(
@@ -164,13 +232,17 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(lblCorreo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblErUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8)
                 .addComponent(lblPassword)
                 .addGap(18, 18, 18)
                 .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblErPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8)
                 .addComponent(btnEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
                 .addGroup(pnlDerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblRecovery)
                     .addComponent(btnRecovery))
@@ -196,22 +268,46 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtUsuarioActionPerformed
-
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-        //Abrir Formulario de Menu Principal
-        Principal MenuFrame = new Principal(); 
-        MenuFrame.setVisible(true);
-        MenuFrame.pack();
-        MenuFrame.setLocationRelativeTo(null);
-        this.dispose();
+        if(ValidarCampos()){
+        try {
+            Connection con = Conexion.getConexion();
+            String sql = ("{CALL IniciarSesion(?, ?, ?,?)}");
+            CallableStatement stmt = con.prepareCall(sql);
+            // Configurar los parámetros de entrada y salida
+            stmt.setString(1, txtUsuario.getText().trim());
+            stmt.setString(2, txtPassword.getText().trim());
+            stmt.registerOutParameter(3, Types.BOOLEAN);
+            stmt.registerOutParameter(4, Types.NVARCHAR);
+            // Ejecutar el procedimiento almacenado
+            stmt.execute();
+            // Obtener el resultado de salida
+            boolean acceso = stmt.getBoolean(3);
+            String NivelAcceso=stmt.getString(4);
+            if (acceso) {
+                //Comprobar si es administrador o lector
+               if("Administrador".equals(NivelAcceso) || "Lector".equals(NivelAcceso)){
+                //Abrir Formulario de Menu Principal y se manda el nivel de Acceso
+                Principal MenuFrame = new Principal(NivelAcceso);
+                MenuFrame.setVisible(true);
+                MenuFrame.pack();
+                MenuFrame.setLocationRelativeTo(null);
+                this.dispose();
+               }else{
+               JOptionPane.showMessageDialog(null, "Este Usuario no tiene el permiso adecuado para entrar al sistema, Contacte a su Jefe ", "Inicio de Sesion",JOptionPane.ERROR_MESSAGE);
+               }
+            }else{
+             JOptionPane.showMessageDialog(null, "Usuario o Contraseña Incorrecta", "Inicio de Sesion",JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }
     }//GEN-LAST:event_btnEntrarActionPerformed
 
     private void btnRecoveryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRecoveryActionPerformed
         //Abrir Formulario de Recuperar Contraseña
-        Recuperar RecoveryFrame = new Recuperar(); 
+        Recuperar RecoveryFrame = new Recuperar();
         RecoveryFrame.setVisible(true);
         RecoveryFrame.pack();
         RecoveryFrame.setLocationRelativeTo(null);
@@ -219,29 +315,27 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRecoveryActionPerformed
 
     private void txtUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyTyped
-          int key = evt.getKeyChar();
-        // evaluar si la tecla presionada representa una letra (mayúscula o minúscula), un número, un espacio en blanco, la tecla de retroceso 
-        boolean TeclaBuscar = (key >= 65 && key <= 90 || key >= 97 && key <= 122 || key >= 48 && key <= 57 || key == KeyEvent.VK_SPACE || key == KeyEvent.VK_BACK_SPACE);
-        if (txtUsuario.getText().length() == 30 || !TeclaBuscar) {
-            evt.consume();
-            Toolkit.getDefaultToolkit().beep();
-        }
+        // validado para un campo de tipo texto normal con el parametro de la longitud deseada
+        val.EntradaTextoNormal(txtUsuario, evt, 30);
     }//GEN-LAST:event_txtUsuarioKeyTyped
 
     private void txtPasswordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyTyped
-        int key = evt.getKeyChar();
-        // evaluar si la tecla presionada representa una letra (mayúscula o minúscula), un número, un espacio en blanco, la tecla de retroceso 
-        boolean TeclaBuscar = (key >= 65 && key <= 90 || key >= 97 && key <= 122 || key >= 48 && key <= 57 || key == KeyEvent.VK_SPACE || key == KeyEvent.VK_BACK_SPACE);
-        if (txtPassword.getText().length() == 30 || !TeclaBuscar) {
-            evt.consume();
-            Toolkit.getDefaultToolkit().beep();
-        }
+        // validado para un campo de tipo texto normal con el parametro de la longitud deseada
+        val.EntradaTextoNormal(txtPassword, evt, 50);
     }//GEN-LAST:event_txtPasswordKeyTyped
 
+    private void txtUsuarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyReleased
+        //al escribir se quita el estado de error
+        val.TXTcorrecto(txtUsuario, lblErUsuario);
+    }//GEN-LAST:event_txtUsuarioKeyReleased
+
+    private void txtPasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyReleased
+        //al escribir se quita el estado de error
+        val.TXTcorrecto(txtPassword, lblErPassword);
+    }//GEN-LAST:event_txtPasswordKeyReleased
 
     public static void main(String args[]) {
 
-        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -250,6 +344,8 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel icnMenu;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblCorreo;
+    private javax.swing.JLabel lblErPassword;
+    private javax.swing.JLabel lblErUsuario;
     private javax.swing.JLabel lblPassword;
     private javax.swing.JLabel lblRecovery;
     private javax.swing.JLabel lblTitulo;

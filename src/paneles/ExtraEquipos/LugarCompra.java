@@ -2,8 +2,7 @@ package paneles.ExtraEquipos;
 
 import Clases.AccionesCrud;
 import Clases.DatosTablas;
-import java.awt.Toolkit;
-import java.awt.event.KeyEvent;
+import Clases.validaciones;
 
 public class LugarCompra extends javax.swing.JFrame {
 
@@ -14,6 +13,9 @@ public class LugarCompra extends javax.swing.JFrame {
         //establecer invicible el campo de id
         txtID.setVisible(false);
     }
+
+    //cargar clase de validaciones
+    validaciones val = new validaciones();
 
     //Funcion para cargar datos a la tabla
     private void CargarTabla() {
@@ -256,7 +258,7 @@ public class LugarCompra extends javax.swing.JFrame {
         AccionesCrud classcrud = new AccionesCrud();
         if (classcrud.Validar(txtLugar, "El Lugar de Compra")) {
             Object[] datos = new Object[1];
-            datos[0] = txtLugar.getText();
+            datos[0] = txtLugar.getText().trim();
             if (classcrud.Guardar_Modificar(datos, "exec AgregarLugarCompra ? ")) {
                 txtID.setText("");
                 txtLugar.setText("");
@@ -288,13 +290,8 @@ public class LugarCompra extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void txtLugarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLugarKeyTyped
-        int key = evt.getKeyChar();
-        // evaluar si la tecla presionada representa una letra (mayúscula o minúscula), un número, un espacio en blanco, la tecla de retroceso o cualquier otra tecla que no sea el signo "+" 
-        boolean letra = (key >= 65 && key <= 90) || (key >= 97 && key <= 122 || key >= 48 && key <= 57 || key == KeyEvent.VK_SPACE || key == KeyEvent.VK_BACK_SPACE);
-        if (txtLugar.getText().length() == 30 || !letra) {
-            evt.consume();
-            Toolkit.getDefaultToolkit().beep();
-        }
+        // validado para un campo de tipo texto normal con el parametro de la longitud deseada
+        val.EntradaTextoNormal(txtLugar, evt, 30);
     }//GEN-LAST:event_txtLugarKeyTyped
 
     public static void main(String args[]) {

@@ -18,10 +18,9 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-
 public class pnlFiniquitos extends javax.swing.JPanel {
 
-    public pnlFiniquitos() {
+    public pnlFiniquitos(String NIVEL) {
         initComponents();
         CargarDatosPrincipal();
         Limpiar();
@@ -30,10 +29,15 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         btgEstatus.add(rdbCerrado);
         btgEstatus.add(rdbActivo);
         asignarEventos();
-
+        if ("Lector".equals(NIVEL)) {
+            jPanel1.setVisible(false);
+        }
+        NivelAcceso = NIVEL;
     }
     //se inicializa para la busqueda por medio de Categoria
     String Busqueda = "Linea";
+    //se Inicializa la variabl del nivel para tneerlo en el Jframe
+    String NivelAcceso;
     //se inicializa la clase de validaciones
     validaciones val = new validaciones();
     //se crean los grupos de botones para los radioButton
@@ -57,8 +61,9 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         btgEstatus.clearSelection();
         LimpiarErrores();
     }
+
     private void asignarEventos() {
-         //funcion para asignar los eventos a los mensajes de obligatorio con la clase de validaciones
+        //funcion para asignar los eventos a los mensajes de obligatorio con la clase de validaciones
         val.asignarEventosMouse(lblObligatorio);
         val.asignarEventosMouse(lblObligatorio1);
         val.asignarEventosMouse(lblObligatorio2);
@@ -610,7 +615,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)))
                 .addComponent(lblErCobro)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -696,7 +701,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
             }
         });
 
-        cmbBuscar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Linea Telefonica", "Estado" }));
+        cmbBuscar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Linea Telefonica" }));
         cmbBuscar.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cmbBuscarItemStateChanged(evt);
@@ -755,7 +760,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -764,7 +769,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
                     .addComponent(chkCerrado)
                     .addComponent(chkProgreso))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 659, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 677, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -810,96 +815,61 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         }
         return datos;
     }
-    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        LimpiarErrores();
-        if (ValidarCampos()) {
-            AccionesCrud classcrud = new AccionesCrud();
-            if (classcrud.Guardar_Modificar(ArregloDatos(), "exec [UpdateFiniquito] ?,?,?,?,?,?,?,?,?")) {
-                DatosTablas Datos = new DatosTablas();
-                Datos.CargarTabla(tblFiniquitos, "select * from VistaFiniquitos");
-            }
-        }
-
-    }//GEN-LAST:event_btnModificarActionPerformed
-
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        LimpiarErrores();
-        if (ValidarCampos()) {
-            AccionesCrud classcrud = new AccionesCrud();
-            if (classcrud.Guardar_Modificar(ArregloDatos(), "exec [AgregarFiniquito] ?,?,?,?,?,?,?,?,?")) {
-                DatosTablas Datos = new DatosTablas();
-                Datos.CargarTabla(tblFiniquitos, "select * from VistaFiniquitos");
-            }
-        }
-    }//GEN-LAST:event_btnGuardarActionPerformed
-
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        //se utiliza la funcion Eliminar de la clase AccionesCrud enviando el ID
-        AccionesCrud classcrud = new AccionesCrud();
-        if (classcrud.Eliminar(txtIDFiniquitos, "exec EliminarFiniquito ?")) {
-            DatosTablas Datos = new DatosTablas();
-            Datos.CargarTabla(tblFiniquitos, "select * from VistaFiniquitos");
-            Limpiar();
-        }
-    }//GEN-LAST:event_btnEliminarActionPerformed
-
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        Limpiar();
-    }//GEN-LAST:event_btnCancelarActionPerformed
-
     private void tblFiniquitosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblFiniquitosMouseClicked
-        LimpiarErrores();
-        //se trata de obtener los datos de la tabla para mostrarlos en las casillas respectivas con ayuda de sql
-        try {
-            AccionesCrud classcrud = new AccionesCrud();
-            ResultSet rs = classcrud.Seleccion(tblFiniquitos, "select * from [VistaFiniquitos] where [ID]=?", "ID");
-            while (rs.next()) {
-                txtIDFiniquitos.setText(rs.getString("ID"));
-                //formato para mostrar la fecha en el JDateChooser
-                SimpleDateFormat formatofecha = new SimpleDateFormat("yyyy-MM-dd");
-                Date fecha;
-                try {
-                    fecha = formatofecha.parse(rs.getString("Solicitud"));
-                    dtpSolicitud.setDate(fecha);
-                } catch (ParseException ex) {
-                    Logger.getLogger(pnlEquipos.class.getName()).log(Level.SEVERE, null, ex);
+        if ("Administrador".equals(NivelAcceso)) {
+            LimpiarErrores();
+            //se trata de obtener los datos de la tabla para mostrarlos en las casillas respectivas con ayuda de sql
+            try {
+                AccionesCrud classcrud = new AccionesCrud();
+                ResultSet rs = classcrud.Seleccion(tblFiniquitos, "select * from [VistaFiniquitos] where [ID]=?", "ID");
+                while (rs.next()) {
+                    txtIDFiniquitos.setText(rs.getString("ID"));
+                    //formato para mostrar la fecha en el JDateChooser
+                    SimpleDateFormat formatofecha = new SimpleDateFormat("yyyy-MM-dd");
+                    Date fecha;
+                    try {
+                        fecha = formatofecha.parse(rs.getString("Solicitud"));
+                        dtpSolicitud.setDate(fecha);
+                    } catch (ParseException ex) {
+                        Logger.getLogger(pnlEquipos.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    try {
+                        fecha = formatofecha.parse(rs.getString("Corte"));
+                        dtpCorte.setDate(fecha);
+                    } catch (ParseException ex) {
+                        Logger.getLogger(pnlEquipos.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    try {
+                        fecha = formatofecha.parse(rs.getString("Fecha Cobro"));
+                        dtpCobro.setDate(fecha);
+                    } catch (ParseException ex) {
+                        Logger.getLogger(pnlEquipos.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    txtCobro.setText(rs.getString("Valor Cobro"));
+                    txtLinea.setText(rs.getString("Linea"));
+                    txtObs1.setText(rs.getString("Observacion 1"));
+                    txtObs2.setText(rs.getString("Observacion 2"));
+                    //switch para saber que radio button seleccionar
+                    String rdbEstado = rs.getString("Estado");
+                    switch (rdbEstado) {
+                        case "1":
+                            btgEstatus.setSelected(rdbActivo.getModel(), true);
+                            break;
+                        case "2":
+                            btgEstatus.setSelected(rdbCerrado.getModel(), true);
+                            break;
+                        default:
+                            btgEstatus.setSelected(rdbProgreso.getModel(), true);
+                    }
                 }
-                try {
-                    fecha = formatofecha.parse(rs.getString("Corte"));
-                    dtpCorte.setDate(fecha);
-                } catch (ParseException ex) {
-                    Logger.getLogger(pnlEquipos.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                try {
-                    fecha = formatofecha.parse(rs.getString("Fecha Cobro"));
-                    dtpCobro.setDate(fecha);
-                } catch (ParseException ex) {
-                    Logger.getLogger(pnlEquipos.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                txtCobro.setText(rs.getString("Valor Cobro"));
-                txtLinea.setText(rs.getString("Linea"));
-                txtObs1.setText(rs.getString("Observacion 1"));
-                txtObs2.setText(rs.getString("Observacion 2"));
-                //switch para saber que radio button seleccionar
-                String rdbEstado = rs.getString("Estado");
-                switch (rdbEstado) {
-                    case "1":
-                        btgEstatus.setSelected(rdbActivo.getModel(), true);
-                        break;
-                    case "2":
-                        btgEstatus.setSelected(rdbCerrado.getModel(), true);
-                        break;
-                    default:
-                        btgEstatus.setSelected(rdbProgreso.getModel(), true);
-                }
+                txtIDFiniquitos.enable(false);
+                btnModificar.setVisible(true);
+                btnEliminar.setVisible(true);
+                btnCancelar.setVisible(true);
+                btnGuardar.setVisible(false);
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e.toString());
             }
-            txtIDFiniquitos.enable(false);
-            btnModificar.setVisible(true);
-            btnEliminar.setVisible(true);
-            btnCancelar.setVisible(true);
-            btnGuardar.setVisible(false);
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e.toString());
         }
     }//GEN-LAST:event_tblFiniquitosMouseClicked
 
@@ -910,6 +880,9 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         switch (elementoSeleccionado) {
             case "Linea Telefonica":
                 Busqueda = "Linea";
+                break;
+            case "Nombre Empleado":
+                Busqueda="UsuarioDeLinea";
                 break;
             default:
                 break;
@@ -948,39 +921,9 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         BuscarEnTabla();
     }//GEN-LAST:event_txtBuscarKeyReleased
 
-    private void txtCobroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCobroKeyTyped
-        // validado para un campo de tipo monetario
-        val.EntradaDinero(txtCobro, evt);
-    }//GEN-LAST:event_txtCobroKeyTyped
-
-    private void txtLineaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLineaKeyTyped
-        // validado para un campo de tipo linea telefonica
-        val.EntradaLinea(txtLinea, evt);
-    }//GEN-LAST:event_txtLineaKeyTyped
-
-    private void txtLineaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLineaKeyReleased
-        //al escribir se quita el estado de error
-        val.TXTcorrecto(txtLinea, lblErLinea);
-    }//GEN-LAST:event_txtLineaKeyReleased
-
-    private void txtCobroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCobroKeyReleased
-        //al escribir se quita el estado de error
-        val.TXTcorrecto(txtCobro, lblErValor);
-    }//GEN-LAST:event_txtCobroKeyReleased
-
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         Limpiar();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
-
-    private void txtObs1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtObs1KeyTyped
-        // validado para un campo de tipo texto normal con el parametro de la longitud deseada
-        val.EntradaTextoNormal(txtObs1, evt, 80);
-    }//GEN-LAST:event_txtObs1KeyTyped
-
-    private void txtObs2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtObs2KeyTyped
-        // validado para un campo de tipo texto normal con el parametro de la longitud deseada
-        val.EntradaTextoNormal(txtObs2, evt, 80);
-    }//GEN-LAST:event_txtObs2KeyTyped
 
     private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
         //switch para decidir que validacion establecer cada ves que se preciona una tecla en buscar
@@ -988,29 +931,13 @@ public class pnlFiniquitos extends javax.swing.JPanel {
             case "Linea":
                 val.EntradaLinea(txtBuscar, evt);
                 break;
+            case "UsuarioDeLinea":
+                val.EntradaSoloLetas(txtBuscar, evt, 80);
+                break;
             default:
                 break;
         }
     }//GEN-LAST:event_txtBuscarKeyTyped
-
-    private void rdbActivoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rdbActivoItemStateChanged
-        //al seleccionar este radioButton se pone el estado en correcto 
-        val.GENcorrecto(lblErEstado);
-    }//GEN-LAST:event_rdbActivoItemStateChanged
-
-    private void rdbCerradoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rdbCerradoItemStateChanged
-        //al seleccionar este radioButton se pone el estado en correcto 
-        val.GENcorrecto(lblErEstado);
-    }//GEN-LAST:event_rdbCerradoItemStateChanged
-
-    private void rdbProgresoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rdbProgresoItemStateChanged
-        //al seleccionar este radioButton se pone el estado en correcto 
-        val.GENcorrecto(lblErEstado);
-    }//GEN-LAST:event_rdbProgresoItemStateChanged
-
-    private void rdbActivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbActivoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rdbActivoActionPerformed
 
     private void chkActivoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chkActivoItemStateChanged
         //recargar la tabla
@@ -1023,9 +950,94 @@ public class pnlFiniquitos extends javax.swing.JPanel {
     }//GEN-LAST:event_chkCerradoItemStateChanged
 
     private void chkProgresoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chkProgresoItemStateChanged
-      //recargar la tabla
-        BuscarEnTabla(); 
+        //recargar la tabla
+        BuscarEnTabla();
     }//GEN-LAST:event_chkProgresoItemStateChanged
+
+    private void rdbProgresoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rdbProgresoItemStateChanged
+        //al seleccionar este radioButton se pone el estado en correcto
+        val.GENcorrecto(lblErEstado);
+    }//GEN-LAST:event_rdbProgresoItemStateChanged
+
+    private void rdbCerradoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rdbCerradoItemStateChanged
+        //al seleccionar este radioButton se pone el estado en correcto
+        val.GENcorrecto(lblErEstado);
+    }//GEN-LAST:event_rdbCerradoItemStateChanged
+
+    private void rdbActivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbActivoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rdbActivoActionPerformed
+
+    private void rdbActivoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rdbActivoItemStateChanged
+        //al seleccionar este radioButton se pone el estado en correcto
+        val.GENcorrecto(lblErEstado);
+    }//GEN-LAST:event_rdbActivoItemStateChanged
+
+    private void txtObs2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtObs2KeyTyped
+        // validado para un campo de tipo texto normal con el parametro de la longitud deseada
+        val.EntradaTextoNormal(txtObs2, evt, 80);
+    }//GEN-LAST:event_txtObs2KeyTyped
+
+    private void txtObs1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtObs1KeyTyped
+        // validado para un campo de tipo texto normal con el parametro de la longitud deseada
+        val.EntradaTextoNormal(txtObs1, evt, 80);
+    }//GEN-LAST:event_txtObs1KeyTyped
+
+    private void txtLineaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLineaKeyTyped
+        // validado para un campo de tipo linea telefonica
+        val.EntradaLinea(txtLinea, evt);
+    }//GEN-LAST:event_txtLineaKeyTyped
+
+    private void txtLineaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLineaKeyReleased
+        //al escribir se quita el estado de error
+        val.TXTcorrecto(txtLinea, lblErLinea);
+    }//GEN-LAST:event_txtLineaKeyReleased
+
+    private void txtCobroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCobroKeyTyped
+        // validado para un campo de tipo monetario
+        val.EntradaDinero(txtCobro, evt);
+    }//GEN-LAST:event_txtCobroKeyTyped
+
+    private void txtCobroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCobroKeyReleased
+        //al escribir se quita el estado de error
+        val.TXTcorrecto(txtCobro, lblErValor);
+    }//GEN-LAST:event_txtCobroKeyReleased
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        Limpiar();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        //se utiliza la funcion Eliminar de la clase AccionesCrud enviando el ID
+        AccionesCrud classcrud = new AccionesCrud();
+        if (classcrud.Eliminar(txtIDFiniquitos, "exec EliminarFiniquito ?")) {
+            DatosTablas Datos = new DatosTablas();
+            Datos.CargarTabla(tblFiniquitos, "select * from VistaFiniquitos");
+            Limpiar();
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        LimpiarErrores();
+        if (ValidarCampos()) {
+            AccionesCrud classcrud = new AccionesCrud();
+            if (classcrud.Guardar_Modificar(ArregloDatos(), "exec [AgregarFiniquito] ?,?,?,?,?,?,?,?,?")) {
+                DatosTablas Datos = new DatosTablas();
+                Datos.CargarTabla(tblFiniquitos, "select * from VistaFiniquitos");
+            }
+        }
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        LimpiarErrores();
+        if (ValidarCampos()) {
+            AccionesCrud classcrud = new AccionesCrud();
+            if (classcrud.Guardar_Modificar(ArregloDatos(), "exec [UpdateFiniquito] ?,?,?,?,?,?,?,?,?")) {
+                DatosTablas Datos = new DatosTablas();
+                Datos.CargarTabla(tblFiniquitos, "select * from VistaFiniquitos");
+            }
+        }
+    }//GEN-LAST:event_btnModificarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
