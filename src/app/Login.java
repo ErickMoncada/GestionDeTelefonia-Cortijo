@@ -1,5 +1,6 @@
 package app;
 
+import Clases.RecuperarPass;
 import Clases.Reescalado_Imagenes;
 import Clases.validaciones;
 import java.awt.Color;
@@ -269,6 +270,7 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
+        RecuperarPass rec = new RecuperarPass();
         if(ValidarCampos()){
         try {
             Connection con = Conexion.getConexion();
@@ -276,7 +278,8 @@ public class Login extends javax.swing.JFrame {
             CallableStatement stmt = con.prepareCall(sql);
             // Configurar los parámetros de entrada y salida
             stmt.setString(1, txtUsuario.getText().trim());
-            stmt.setString(2, txtPassword.getText().trim());
+            //encriptar contraeña
+            stmt.setString(2, rec.Encriptar( txtPassword.getText().trim()));
             stmt.registerOutParameter(3, Types.BOOLEAN);
             stmt.registerOutParameter(4, Types.NVARCHAR);
             // Ejecutar el procedimiento almacenado

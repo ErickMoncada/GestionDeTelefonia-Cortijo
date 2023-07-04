@@ -123,6 +123,20 @@ public class validaciones {
             Toolkit.getDefaultToolkit().beep();
         }
     }
+    
+    public void EntradaCorreo(JTextField txtCorreo, java.awt.event.KeyEvent evt){
+       int key = evt.getKeyChar();
+        boolean TeclaBuscar = (key >= 65 && key <= 90) || // Letras mayúsculas
+                      (key >= 97 && key <= 122) || // Letras minúsculas
+                      (key >= 48 && key <= 57) || // Números
+                      (key == KeyEvent.VK_BACK_SPACE) || // Retroceso
+                      (key == 64 && !txtCorreo.getText().contains("@"))|| // Símbolo @
+                      (key == 46 && !txtCorreo.getText().contains(".")); // Punto
+        if (txtCorreo.getText().length() == 80 || !TeclaBuscar) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }
+    }
 
     
     public void asignarEventosMouse(JLabel label) {

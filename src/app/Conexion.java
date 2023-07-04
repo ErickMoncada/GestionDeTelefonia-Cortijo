@@ -3,15 +3,21 @@ package app;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 /**
  *
  * @author ErickMoncada Clase para la conexion con la base de datos
  */
 public class Conexion {
-
+    
     public static Connection getConexion() {
-        String url = "jdbc:sqlserver://localhost:1433;database=Telefonia_Cortijo1.1;user=sa;password=123;encrypt=true;trustServerCertificate=true";
+        Properties properties = ConfigReader.getProperties();
+        String direccion = properties.getProperty("db.direccion");
+        String username = properties.getProperty("db.username");
+        String password = properties.getProperty("db.password");
+        String database = properties.getProperty("db.database");
+        String url = "jdbc:sqlserver:"+direccion+";database="+database+";user="+username+";password="+password+";encrypt=true;trustServerCertificate=true";
         try {
             Connection con = DriverManager.getConnection(url);
             return con;

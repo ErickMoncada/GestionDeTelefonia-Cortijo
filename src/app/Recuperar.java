@@ -1,8 +1,16 @@
 package app;
 
+import Clases.RecuperarPass;
 import Clases.Reescalado_Imagenes;
-import java.awt.Toolkit;
-import java.awt.event.KeyEvent;
+import Clases.validaciones;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Types;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.MessagingException;
+import javax.swing.JOptionPane;
 
 public class Recuperar extends javax.swing.JFrame {
 
@@ -11,8 +19,17 @@ public class Recuperar extends javax.swing.JFrame {
         //asignar icono mediante otra clase
         Reescalado_Imagenes reescalar = new Reescalado_Imagenes();
         setIconImage(reescalar.getIconImage());
+        jpnCodigo.setVisible(false);
+        jpnPassword.setVisible(false);
+        lblErUsuario.setVisible(false);
+        lblErPassword.setVisible(false);
+        lblErCodigo.setVisible(false);
     }
-    
+    //se inicializa la clase de validaciones
+    validaciones val = new validaciones();
+    //se inicializa la variable del codigo
+    int codigo;
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -22,19 +39,25 @@ public class Recuperar extends javax.swing.JFrame {
         icnMenu = new javax.swing.JLabel();
         pnlDerecha = new javax.swing.JPanel();
         lblTitulo = new javax.swing.JLabel();
-        lblCorreo = new javax.swing.JLabel();
-        txtCorreo = new javax.swing.JTextField();
-        btnEnviar = new javax.swing.JButton();
-        txtNewPassword = new javax.swing.JPasswordField();
-        lblNewPassword = new javax.swing.JLabel();
-        lblRepPassword = new javax.swing.JLabel();
-        txtRepPassword = new javax.swing.JPasswordField();
-        btnCambiar = new javax.swing.JButton();
+        lblInicio = new javax.swing.JLabel();
+        btnInicio = new javax.swing.JButton();
+        jpnCodigo = new javax.swing.JPanel();
         txtCodigo = new javax.swing.JTextField();
         lblCodigo = new javax.swing.JLabel();
         btnCodigo = new javax.swing.JButton();
-        lblInicio = new javax.swing.JLabel();
-        btnInicio = new javax.swing.JButton();
+        lblErCodigo = new javax.swing.JLabel();
+        jpnUsuario = new javax.swing.JPanel();
+        lblUsuario = new javax.swing.JLabel();
+        lblErUsuario = new javax.swing.JLabel();
+        txtUsuario = new javax.swing.JTextField();
+        btnEnviar = new javax.swing.JButton();
+        jpnPassword = new javax.swing.JPanel();
+        lblNewPassword = new javax.swing.JLabel();
+        txtNewPassword = new javax.swing.JPasswordField();
+        lblRepPassword = new javax.swing.JLabel();
+        txtRepPassword = new javax.swing.JPasswordField();
+        btnCambiar = new javax.swing.JButton();
+        lblErPassword = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Recuperar Contraseña");
@@ -78,59 +101,19 @@ public class Recuperar extends javax.swing.JFrame {
         lblTitulo.setForeground(new java.awt.Color(0, 136, 64));
         lblTitulo.setText("Recuperar Contraseña");
 
-        lblCorreo.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
-        lblCorreo.setText("Correo");
+        lblInicio.setText("Inicia sesión:");
 
-        txtCorreo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        txtCorreo.addActionListener(new java.awt.event.ActionListener() {
+        btnInicio.setBackground(new java.awt.Color(255, 255, 255));
+        btnInicio.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        btnInicio.setForeground(new java.awt.Color(114, 191, 68));
+        btnInicio.setText("Inicio");
+        btnInicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCorreoActionPerformed(evt);
-            }
-        });
-        txtCorreo.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtCorreoKeyTyped(evt);
+                btnInicioActionPerformed(evt);
             }
         });
 
-        btnEnviar.setBackground(new java.awt.Color(0, 136, 64));
-        btnEnviar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        btnEnviar.setForeground(new java.awt.Color(255, 255, 255));
-        btnEnviar.setText("Enviar Codigo");
-        btnEnviar.setBorder(null);
-        btnEnviar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEnviarActionPerformed(evt);
-            }
-        });
-
-        txtNewPassword.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtNewPasswordKeyTyped(evt);
-            }
-        });
-
-        lblNewPassword.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
-        lblNewPassword.setText("Contraseña Nueva");
-
-        lblRepPassword.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
-        lblRepPassword.setText("Repetir Contraseña");
-
-        txtRepPassword.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtRepPasswordKeyTyped(evt);
-            }
-        });
-
-        btnCambiar.setBackground(new java.awt.Color(114, 191, 68));
-        btnCambiar.setForeground(new java.awt.Color(255, 255, 255));
-        btnCambiar.setText("Cambiar Contraseña");
-        btnCambiar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnCambiar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCambiarActionPerformed(evt);
-            }
-        });
+        jpnCodigo.setOpaque(false);
 
         txtCodigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -138,6 +121,9 @@ public class Recuperar extends javax.swing.JFrame {
             }
         });
         txtCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCodigoKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtCodigoKeyTyped(evt);
             }
@@ -156,76 +142,162 @@ public class Recuperar extends javax.swing.JFrame {
             }
         });
 
-        lblInicio.setText("Inicia sesión:");
+        lblErCodigo.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+        lblErCodigo.setForeground(new java.awt.Color(255, 0, 0));
+        lblErCodigo.setText("Error");
 
-        btnInicio.setBackground(new java.awt.Color(255, 255, 255));
-        btnInicio.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        btnInicio.setForeground(new java.awt.Color(114, 191, 68));
-        btnInicio.setText("Inicio");
-        btnInicio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnInicioActionPerformed(evt);
+        javax.swing.GroupLayout jpnCodigoLayout = new javax.swing.GroupLayout(jpnCodigo);
+        jpnCodigo.setLayout(jpnCodigoLayout);
+        jpnCodigoLayout.setHorizontalGroup(
+            jpnCodigoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnCodigoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblCodigo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jpnCodigoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblErCodigo)
+                    .addGroup(jpnCodigoLayout.createSequentialGroup()
+                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jpnCodigoLayout.setVerticalGroup(
+            jpnCodigoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnCodigoLayout.createSequentialGroup()
+                .addGroup(jpnCodigoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCodigo)
+                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblErCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jpnUsuario.setOpaque(false);
+
+        lblUsuario.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        lblUsuario.setText("Usuario");
+
+        lblErUsuario.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+        lblErUsuario.setForeground(new java.awt.Color(255, 0, 0));
+        lblErUsuario.setText("Error");
+
+        txtUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtUsuario.setMaximumSize(new java.awt.Dimension(300, 40));
+        txtUsuario.setMinimumSize(new java.awt.Dimension(300, 40));
+        txtUsuario.setPreferredSize(new java.awt.Dimension(300, 40));
+        txtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtUsuarioKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtUsuarioKeyTyped(evt);
             }
         });
 
-        javax.swing.GroupLayout pnlDerechaLayout = new javax.swing.GroupLayout(pnlDerecha);
-        pnlDerecha.setLayout(pnlDerechaLayout);
-        pnlDerechaLayout.setHorizontalGroup(
-            pnlDerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlDerechaLayout.createSequentialGroup()
-                .addGroup(pnlDerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlDerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(pnlDerechaLayout.createSequentialGroup()
-                            .addContainerGap()
-                            .addGroup(pnlDerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(lblCorreo)))
-                        .addGroup(pnlDerechaLayout.createSequentialGroup()
-                            .addGap(26, 26, 26)
-                            .addComponent(lblTitulo))
-                        .addGroup(pnlDerechaLayout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(btnEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(pnlDerechaLayout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(lblCodigo)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(btnCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(pnlDerechaLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(pnlDerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblNewPassword)
-                            .addComponent(txtNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblRepPassword)
-                            .addComponent(txtRepPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(pnlDerechaLayout.createSequentialGroup()
-                                .addComponent(lblInicio)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(pnlDerechaLayout.createSequentialGroup()
-                        .addGap(134, 134, 134)
-                        .addComponent(btnCambiar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        btnEnviar.setBackground(new java.awt.Color(0, 136, 64));
+        btnEnviar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        btnEnviar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEnviar.setText("Enviar Codigo");
+        btnEnviar.setBorder(null);
+        btnEnviar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnviarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jpnUsuarioLayout = new javax.swing.GroupLayout(jpnUsuario);
+        jpnUsuario.setLayout(jpnUsuarioLayout);
+        jpnUsuarioLayout.setHorizontalGroup(
+            jpnUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnUsuarioLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jpnUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblUsuario)
+                    .addComponent(lblErUsuario)
+                    .addComponent(btnEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
-        pnlDerechaLayout.setVerticalGroup(
-            pnlDerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlDerechaLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(lblTitulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblCorreo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+        jpnUsuarioLayout.setVerticalGroup(
+            jpnUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnUsuarioLayout.createSequentialGroup()
+                .addComponent(lblUsuario)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(7, 7, 7)
-                .addGroup(pnlDerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCodigo)
-                    .addComponent(btnCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblErUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnEnviar, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jpnPassword.setOpaque(false);
+
+        lblNewPassword.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        lblNewPassword.setText("Contraseña Nueva");
+
+        txtNewPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNewPasswordKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNewPasswordKeyTyped(evt);
+            }
+        });
+
+        lblRepPassword.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        lblRepPassword.setText("Repetir Contraseña");
+
+        txtRepPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtRepPasswordKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtRepPasswordKeyTyped(evt);
+            }
+        });
+
+        btnCambiar.setBackground(new java.awt.Color(114, 191, 68));
+        btnCambiar.setForeground(new java.awt.Color(255, 255, 255));
+        btnCambiar.setText("Cambiar Contraseña");
+        btnCambiar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnCambiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCambiarActionPerformed(evt);
+            }
+        });
+
+        lblErPassword.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+        lblErPassword.setForeground(new java.awt.Color(255, 0, 0));
+        lblErPassword.setText("Las contraseñas no Coinciden");
+
+        javax.swing.GroupLayout jpnPasswordLayout = new javax.swing.GroupLayout(jpnPassword);
+        jpnPassword.setLayout(jpnPasswordLayout);
+        jpnPasswordLayout.setHorizontalGroup(
+            jpnPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnPasswordLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jpnPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jpnPasswordLayout.createSequentialGroup()
+                        .addGroup(jpnPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblNewPassword)
+                            .addComponent(txtNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblRepPassword))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnPasswordLayout.createSequentialGroup()
+                        .addComponent(lblErPassword)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jpnPasswordLayout.createSequentialGroup()
+                        .addComponent(txtRepPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnPasswordLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCambiar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(92, 92, 92))
+        );
+        jpnPasswordLayout.setVerticalGroup(
+            jpnPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpnPasswordLayout.createSequentialGroup()
                 .addComponent(lblNewPassword)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -234,8 +306,48 @@ public class Recuperar extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtRepPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCambiar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addComponent(lblErPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCambiar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        javax.swing.GroupLayout pnlDerechaLayout = new javax.swing.GroupLayout(pnlDerecha);
+        pnlDerecha.setLayout(pnlDerechaLayout);
+        pnlDerechaLayout.setHorizontalGroup(
+            pnlDerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlDerechaLayout.createSequentialGroup()
+                .addGroup(pnlDerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlDerechaLayout.createSequentialGroup()
+                        .addGroup(pnlDerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlDerechaLayout.createSequentialGroup()
+                                .addGap(26, 26, 26)
+                                .addComponent(lblTitulo))
+                            .addGroup(pnlDerechaLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(lblInicio)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(pnlDerechaLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(pnlDerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jpnUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jpnCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jpnPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
+        );
+        pnlDerechaLayout.setVerticalGroup(
+            pnlDerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlDerechaLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(lblTitulo)
+                .addGap(18, 18, 18)
+                .addComponent(jpnUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jpnCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jpnPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnlDerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblInicio)
                     .addComponent(btnInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -250,29 +362,67 @@ public class Recuperar extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(pnlPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 121, Short.MAX_VALUE))
+                .addComponent(pnlPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 811, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(pnlPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 73, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCorreoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCorreoActionPerformed
-
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
-        // TODO add your handling code here:
+        if (!"".equals(txtUsuario.getText())) {
+            RecuperarPass rec = new RecuperarPass();
+            try {
+                codigo = rec.EnviarCodigo(txtUsuario.getText());
+                System.out.println(codigo);
+                if (codigo != 0) {
+                    jpnCodigo.setVisible(true);
+                    jpnUsuario.setVisible(false);
+                } else {
+                    val.TXTincorrecto(txtUsuario, lblErUsuario, "El Usuario no Existe, verifique el Usuario");
+                }
+            } catch (MessagingException ex) {
+                Logger.getLogger(Recuperar.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            //establecemos en incorrecto el capo
+            val.TXTincorrecto(txtUsuario, lblErUsuario, "El usuario no puede estar en blanco");
+        }
     }//GEN-LAST:event_btnEnviarActionPerformed
 
     private void btnCambiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarActionPerformed
+        if (txtNewPassword.getText().equals(txtRepPassword.getText()) && !"".equals(txtNewPassword.getText())) {
+            try {
+                RecuperarPass rec = new RecuperarPass();
+                Connection con = Conexion.getConexion();
+                String sql = ("{CALL UpdatePassword(?, ?)}");
+                CallableStatement stmt = con.prepareCall(sql);
+                // Configurar los parámetros de entrada y salida
+                stmt.setString(1, txtUsuario.getText().trim());
+                stmt.setString(2, rec.Encriptar( txtNewPassword.getText().trim()));
 
+                // Ejecutar el procedimiento almacenado
+                stmt.execute();
+                // Obtener el resultado de salida
+                JOptionPane.showMessageDialog(null, "La Contraseña a sido actualizada", "Recuperar Contraseña", JOptionPane.INFORMATION_MESSAGE);
+                jpnPassword.setVisible(false);
+                jpnUsuario.setVisible(true);
+                txtUsuario.setText("");
+                txtCodigo.setText("");
+                txtNewPassword.setText("");
+                txtRepPassword.setText("");
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Hubo un error al tratar de actualizar la contraseña, contacte a soporte", "Recuperar Contraseña", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            lblErPassword.setVisible(true);
+        }
     }//GEN-LAST:event_btnCambiarActionPerformed
 
     private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
@@ -280,67 +430,68 @@ public class Recuperar extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCodigoActionPerformed
 
     private void btnCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCodigoActionPerformed
-        // TODO add your handling code here:
+        if (Integer.parseInt(txtCodigo.getText()) == codigo) {
+            jpnPassword.setVisible(true);
+            jpnUsuario.setVisible(false);
+            jpnCodigo.setVisible(false);
+        } else {
+            val.TXTincorrecto(txtCodigo, lblErCodigo, "El Codigo no coincide");
+        }
     }//GEN-LAST:event_btnCodigoActionPerformed
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
-        Login LoginFrame = new Login(); 
+        Login LoginFrame = new Login();
         LoginFrame.setVisible(true);
         LoginFrame.pack();
         LoginFrame.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_btnInicioActionPerformed
 
-    private void txtCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCorreoKeyTyped
-          int key = evt.getKeyChar();
-        boolean TeclaBuscar = (key >= 65 && key <= 90) || // Letras mayúsculas
-                      (key >= 97 && key <= 122) || // Letras minúsculas
-                      (key >= 48 && key <= 57) || // Números
-                      (key == KeyEvent.VK_BACK_SPACE) || // Retroceso
-                      (key == 64 && !txtCorreo.getText().contains("@"))|| // Símbolo @
-                      (key == 46 && !txtCorreo.getText().contains(".")); // Punto
-        if (txtCorreo.getText().length() == 80 || !TeclaBuscar) {
-            evt.consume();
-            Toolkit.getDefaultToolkit().beep();
-        }
-    }//GEN-LAST:event_txtCorreoKeyTyped
+    private void txtUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyTyped
+        // validado para un campo de tipo texto normal con el parametro de la longitud deseada
+        val.EntradaTextoNormal(txtUsuario, evt, 30);
+    }//GEN-LAST:event_txtUsuarioKeyTyped
 
     private void txtCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyTyped
-        int key = evt.getKeyChar();
-        boolean TeclaBuscar = 
-                      (key >= 48 && key <= 57) || // Números
-                      (key == KeyEvent.VK_SPACE) || // Espacio
-                      (key == KeyEvent.VK_BACK_SPACE); // Retroceso
-        if (txtCodigo.getText().length() == 5 || !TeclaBuscar) {
-            evt.consume();
-            Toolkit.getDefaultToolkit().beep();
-        }
+        //campo valido para 5 numeros
+        val.EntradaNumeros(txtCodigo, evt, 5);
     }//GEN-LAST:event_txtCodigoKeyTyped
 
     private void txtNewPasswordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNewPasswordKeyTyped
-           int key = evt.getKeyChar();
-        boolean TeclaBuscar = (key >= 65 && key <= 90) || // Letras mayúsculas
-                      (key >= 97 && key <= 122) || // Letras minúsculas
-                      (key >= 48 && key <= 57) || // Números
-                      (key == KeyEvent.VK_BACK_SPACE) ; // Retroceso
-        if (txtNewPassword.getText().length() == 50 || !TeclaBuscar) {
-            evt.consume();
-            Toolkit.getDefaultToolkit().beep();
-        }
+        // validado para un campo de tipo texto normal con el parametro de la longitud deseada
+        val.EntradaTextoNormal(txtNewPassword, evt, 50);
     }//GEN-LAST:event_txtNewPasswordKeyTyped
 
     private void txtRepPasswordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRepPasswordKeyTyped
-        int key = evt.getKeyChar();
-        boolean TeclaBuscar = (key >= 65 && key <= 90) || // Letras mayúsculas
-                      (key >= 97 && key <= 122) || // Letras minúsculas
-                      (key >= 48 && key <= 57) || // Números
-                      (key == KeyEvent.VK_BACK_SPACE) ; // Retroceso
-        if (txtRepPassword.getText().length() == 50 || !TeclaBuscar) {
-            evt.consume();
-            Toolkit.getDefaultToolkit().beep();
-        }
+        // validado para un campo de tipo texto normal con el parametro de la longitud deseada
+        val.EntradaTextoNormal(txtRepPassword, evt, 50);
     }//GEN-LAST:event_txtRepPasswordKeyTyped
 
+    private void txtUsuarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyReleased
+        //establecemos en correcto el campo
+        val.TXTcorrecto(txtUsuario, lblErUsuario);
+    }//GEN-LAST:event_txtUsuarioKeyReleased
+
+    private void txtCodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyReleased
+        //establecemos en correcto el campo
+        val.TXTcorrecto(txtCodigo, lblErCodigo);
+    }//GEN-LAST:event_txtCodigoKeyReleased
+
+    private void txtNewPasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNewPasswordKeyReleased
+        if (!"".equals(txtRepPassword.getText()) && (!txtNewPassword.getText().equals(txtRepPassword.getText()))) {
+            lblErPassword.setVisible(true);
+        } else {
+            lblErPassword.setVisible(false);
+        }
+    }//GEN-LAST:event_txtNewPasswordKeyReleased
+
+    private void txtRepPasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRepPasswordKeyReleased
+        if (txtNewPassword.getText().equals(txtRepPassword.getText())) {
+            lblErPassword.setVisible(false);
+        } else {
+            lblErPassword.setVisible(true);
+        }
+    }//GEN-LAST:event_txtRepPasswordKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -349,18 +500,24 @@ public class Recuperar extends javax.swing.JFrame {
     private javax.swing.JButton btnEnviar;
     private javax.swing.JButton btnInicio;
     private javax.swing.JLabel icnMenu;
+    private javax.swing.JPanel jpnCodigo;
+    private javax.swing.JPanel jpnPassword;
+    private javax.swing.JPanel jpnUsuario;
     private javax.swing.JLabel lblCodigo;
-    private javax.swing.JLabel lblCorreo;
+    private javax.swing.JLabel lblErCodigo;
+    private javax.swing.JLabel lblErPassword;
+    private javax.swing.JLabel lblErUsuario;
     private javax.swing.JLabel lblInicio;
     private javax.swing.JLabel lblNewPassword;
     private javax.swing.JLabel lblRepPassword;
     private javax.swing.JLabel lblTitulo;
+    private javax.swing.JLabel lblUsuario;
     private javax.swing.JPanel pnlDerecha;
     private javax.swing.JPanel pnlIzquierda;
     private javax.swing.JPanel pnlPrincipal;
     private javax.swing.JTextField txtCodigo;
-    private javax.swing.JTextField txtCorreo;
     private javax.swing.JPasswordField txtNewPassword;
     private javax.swing.JPasswordField txtRepPassword;
+    private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }
