@@ -319,7 +319,7 @@ public class Login extends javax.swing.JFrame {
 
     private void txtUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyTyped
         // validado para un campo de tipo texto normal con el parametro de la longitud deseada
-        val.EntradaTextoNormal(txtUsuario, evt, 30);
+        val.EntradaLetrasNumerosSinEspacios(txtUsuario, evt, 30);
     }//GEN-LAST:event_txtUsuarioKeyTyped
 
     private void txtPasswordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyTyped

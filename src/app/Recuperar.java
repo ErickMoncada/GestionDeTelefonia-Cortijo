@@ -6,7 +6,6 @@ import Clases.validaciones;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Types;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.mail.MessagingException;
@@ -405,6 +404,7 @@ public class Recuperar extends javax.swing.JFrame {
                 CallableStatement stmt = con.prepareCall(sql);
                 // Configurar los parámetros de entrada y salida
                 stmt.setString(1, txtUsuario.getText().trim());
+                //encriptar la contraseña
                 stmt.setString(2, rec.Encriptar( txtNewPassword.getText().trim()));
 
                 // Ejecutar el procedimiento almacenado

@@ -83,7 +83,7 @@ public class validaciones {
     public void EntradaTextoNormal(JTextField txtTexto, java.awt.event.KeyEvent evt, int longitud) {
         // establecer parametros de entrada de teclado para letras y numeros
         int key = evt.getKeyChar();
-        //perimite escribir solo letras , numeros y retroceso
+        //perimite escribir solo letras , numeros , espacio y retroceso
         boolean letra = (key >= 65 && key <= 90) || (key >= 97 && key <= 122 || key >= 48 && key <= 57 || key == KeyEvent.VK_SPACE || key == KeyEvent.VK_BACK_SPACE);
         if (txtTexto.getText().length() == longitud || !letra) {
             evt.consume();
@@ -94,8 +94,30 @@ public class validaciones {
     public void EntradaSoloLetas(JTextField txtTexto, java.awt.event.KeyEvent evt, int longitud) {
         // establecer parametros de entrada de teclado para solo letras   
         int key = evt.getKeyChar();
-        //perimite escribir solo letras y retroceso
+        //perimite escribir solo letras ,espacio y retroceso
         boolean letra = (key >= 65 && key <= 90) || (key >= 97 && key <= 122 || key == KeyEvent.VK_SPACE || key == KeyEvent.VK_BACK_SPACE);
+        if (txtTexto.getText().length() == longitud || !letra) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }
+    }
+    
+    public void EntradaLetrasSinEspacios(JTextField txtTexto, java.awt.event.KeyEvent evt, int longitud) {
+        // establecer parametros de entrada de teclado para solo letras   
+        int key = evt.getKeyChar();
+        //perimite escribir solo letras  y retroceso
+        boolean letra = (key >= 65 && key <= 90) || (key >= 97 && key <= 122 || key == KeyEvent.VK_BACK_SPACE);
+        if (txtTexto.getText().length() == longitud || !letra) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }
+    }
+    
+    public void EntradaLetrasNumerosSinEspacios(JTextField txtTexto, java.awt.event.KeyEvent evt, int longitud) {
+        // establecer parametros de entrada de teclado para solo letras   
+        int key = evt.getKeyChar();
+        //perimite escribir solo letras  y retroceso
+        boolean letra = (key >= 65 && key <= 90) || (key >= 97 && key <= 122 || key >= 48 && key <= 57 || key == KeyEvent.VK_BACK_SPACE);
         if (txtTexto.getText().length() == longitud || !letra) {
             evt.consume();
             Toolkit.getDefaultToolkit().beep();

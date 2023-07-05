@@ -23,13 +23,20 @@ public class Principal extends javax.swing.JFrame {
 
     //Se inicializa la variable de nivel de acceso
     String NivelDeAcceso;
+
     public Principal(String NIVEL) {
         initComponents();
         //se Recive el nivel de aceso a travez del login y se asigna a una variable global
-        NivelDeAcceso=NIVEL;
+        NivelDeAcceso = NIVEL;
         this.setExtendedState(MAXIMIZED_BOTH);
         this.setLocationRelativeTo(this);
+        //mostrar el menu principal
         new CambiaPanel(pnlPrincipal, new paneles.pnlHome());
+        this.btnUserTel.setColorNormal(new Color(239, 238, 244));
+        this.btnEquipos.setColorNormal(new Color(239, 238, 244));
+        this.btnFiniquitos.setColorNormal(new Color(239, 238, 244));
+        this.btnLineasTelefonicas.setColorNormal(new Color(239, 238, 244));
+        this.btnAjustes.setColorNormal(new Color(239, 238, 244));
         //iniciar funcion para el icono
         Reescalado_Imagenes reescalar = new Reescalado_Imagenes();
         setIconImage(reescalar.getIconImage());
@@ -40,8 +47,6 @@ public class Principal extends javax.swing.JFrame {
     }
     //se inicia la clase para reescalar imagenes
     Reescalado_Imagenes reescalar = new Reescalado_Imagenes();
-    
-    
 
     //asignar los iconos de cada submenu , titulo y boton de salir
     private void IconosBarraLateral() {
@@ -51,6 +56,7 @@ public class Principal extends javax.swing.JFrame {
         btnLineasTelefonicas.setIcon(reescalar.IconoTextoMenu(50, 50, "img1/signal.png"));
         lblTituloTelefonia.setIcon(reescalar.IconoTextoMenu(50, 50, "img1/Pollos-El-Cortijo.png"));
         btnSalir.setIcon(reescalar.IconoTextoMenu(40, 40, "img1/cerrar-sesion.png"));
+        btnAjustes.setIcon(reescalar.IconoTextoMenu(40, 40, "img1/perfil.png"));
     }
 
     ///funcion para mostrar reloj
@@ -116,6 +122,7 @@ public class Principal extends javax.swing.JFrame {
         btnUserTel.setColorTextHover(new java.awt.Color(128, 128, 131));
         btnUserTel.setColorTextNormal(new java.awt.Color(128, 128, 131));
         btnUserTel.setColorTextPressed(new java.awt.Color(128, 128, 131));
+        btnUserTel.setFocusable(false);
         btnUserTel.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         btnUserTel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnUserTel.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -163,6 +170,7 @@ public class Principal extends javax.swing.JFrame {
         btnFiniquitos.setColorTextHover(new java.awt.Color(128, 128, 131));
         btnFiniquitos.setColorTextNormal(new java.awt.Color(128, 128, 131));
         btnFiniquitos.setColorTextPressed(new java.awt.Color(128, 128, 131));
+        btnFiniquitos.setFocusable(false);
         btnFiniquitos.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         btnFiniquitos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnFiniquitos.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -187,6 +195,7 @@ public class Principal extends javax.swing.JFrame {
         btnEquipos.setColorTextHover(new java.awt.Color(128, 128, 131));
         btnEquipos.setColorTextNormal(new java.awt.Color(128, 128, 131));
         btnEquipos.setColorTextPressed(new java.awt.Color(128, 128, 131));
+        btnEquipos.setFocusable(false);
         btnEquipos.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         btnEquipos.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnEquipos.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -235,6 +244,7 @@ public class Principal extends javax.swing.JFrame {
         btnAjustes.setColorTextHover(new java.awt.Color(128, 128, 131));
         btnAjustes.setColorTextNormal(new java.awt.Color(128, 128, 131));
         btnAjustes.setColorTextPressed(new java.awt.Color(128, 128, 131));
+        btnAjustes.setFocusable(false);
         btnAjustes.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         btnAjustes.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnAjustes.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -259,6 +269,7 @@ public class Principal extends javax.swing.JFrame {
         btnLineasTelefonicas.setColorTextHover(new java.awt.Color(128, 128, 131));
         btnLineasTelefonicas.setColorTextNormal(new java.awt.Color(128, 128, 131));
         btnLineasTelefonicas.setColorTextPressed(new java.awt.Color(128, 128, 131));
+        btnLineasTelefonicas.setFocusable(false);
         btnLineasTelefonicas.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         btnLineasTelefonicas.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnLineasTelefonicas.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
@@ -543,7 +554,16 @@ public class Principal extends javax.swing.JFrame {
 
     //Genera la accion para cambiar de panel llamando a la clase del paquete paneles y cambia los colores de los que se seleccionaron antes
     private void btnAjustesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAjustesActionPerformed
-
+        new CambiaPanel(pnlPrincipal, new paneles.pnlUsuariosAplicacion());
+        if (this.btnAjustes.isSelected()) {
+            this.btnLineasTelefonicas.setColorNormal(new Color(239, 238, 244));
+            this.btnUserTel.setColorNormal(new Color(239, 238, 244));
+            this.btnFiniquitos.setColorNormal(new Color(239, 238, 244));
+            this.btnEquipos.setColorNormal(new Color(239, 238, 244));
+            this.btnAjustes.setColorNormal(new Color(204, 204, 204));
+        } else {
+            this.btnEquipos.setColorNormal(new Color(239, 238, 244));
+        }
     }//GEN-LAST:event_btnAjustesActionPerformed
 
     //Establecer el estado de seleccionado al correspondiente boton y los demas con el estado desactivado
@@ -557,12 +577,12 @@ public class Principal extends javax.swing.JFrame {
 
     //Genera la accion para cambiar de panel llamando a la clase del paquete paneles y cambia los colores de los que se seleccionaron antes
     private void btnLineasTelefonicasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLineasTelefonicasActionPerformed
-        new CambiaPanel(pnlPrincipal, new paneles.pnlLineasTelefonicas(NivelDeAcceso));
+        new CambiaPanel(pnlPrincipal, new paneles.pnlEquipos(NivelDeAcceso));
         if (this.btnLineasTelefonicas.isSelected()) {
-            this.btnLineasTelefonicas.setColorNormal(new Color(204, 204, 204));
+            this.btnEquipos.setColorNormal(new Color(239, 238, 244));
             this.btnUserTel.setColorNormal(new Color(239, 238, 244));
             this.btnFiniquitos.setColorNormal(new Color(239, 238, 244));
-            this.btnEquipos.setColorNormal(new Color(239, 238, 244));
+            this.btnLineasTelefonicas.setColorNormal(new Color(204, 204, 204));
             this.btnAjustes.setColorNormal(new Color(239, 238, 244));
         } else {
             this.btnEquipos.setColorNormal(new Color(239, 238, 244));
@@ -597,7 +617,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // Ventana de aviso para cerrar sesion
-        int opcion = JOptionPane.showConfirmDialog(null, "¿Seguro que desea Cerrar Sesion?", "Cerrar Sesion", JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+        int opcion = JOptionPane.showConfirmDialog(null, "¿Seguro que desea Cerrar Sesion?", "Cerrar Sesion", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
         if (opcion == JOptionPane.YES_OPTION) {
             //Abrir Formulario de Menu Principal
             Login MenuLogin = new Login();
@@ -605,8 +625,6 @@ public class Principal extends javax.swing.JFrame {
             MenuLogin.pack();
             MenuLogin.setLocationRelativeTo(null);
             this.dispose();
-        } else {
-            System.out.println("Se seleccionó No");
         }
     }//GEN-LAST:event_btnSalirActionPerformed
 

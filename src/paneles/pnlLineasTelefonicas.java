@@ -173,7 +173,6 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
             error = "Debe seleccionar la disponibilidad";
             val.CMBincorrecto(cmbDisponibilidad, lblErDisponible, error);
         }
-        System.out.println((Integer) txtCuotas.getValue());
         if ((Integer) txtCuotas.getValue() <= 0) {
             valor1 = 0;
             error = "Las cuotas no pueden ser menor o igual a 0";
