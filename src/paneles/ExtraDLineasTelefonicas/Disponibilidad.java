@@ -2,6 +2,7 @@ package paneles.ExtraDLineasTelefonicas;
 
 import Clases.AccionesCrud;
 import Clases.DatosTablas;
+import Clases.Reescalado_Imagenes;
 import Clases.validaciones;
 
 public class Disponibilidad extends javax.swing.JFrame {
@@ -12,6 +13,9 @@ public class Disponibilidad extends javax.swing.JFrame {
         Limpiar();
         //establecer invicible el campo de id
         txtID.setVisible(false);
+          //iniciar funcion para el icono
+        Reescalado_Imagenes reescalar = new Reescalado_Imagenes();
+        setIconImage(reescalar.getIconImage());
     }
 
     //cargar clase de validaciones
@@ -50,11 +54,12 @@ public class Disponibilidad extends javax.swing.JFrame {
         tblCentro = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Disponibilidad-Linea Telefonica");
         setResizable(false);
         setType(java.awt.Window.Type.POPUP);
 
         lblPlanilla.setForeground(new java.awt.Color(0, 0, 0));
-        lblPlanilla.setText("Categoria de Equipo:");
+        lblPlanilla.setText("Disponibilidad de la linea:");
 
         txtDisponibiidad.setPreferredSize(new java.awt.Dimension(65, 26));
         txtDisponibiidad.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -186,7 +191,7 @@ public class Disponibilidad extends javax.swing.JFrame {
                 {null}
             },
             new String [] {
-                "Categoria del equipo"
+                "Disponibilidad de la linea"
             }
         ) {
             boolean[] canEdit = new boolean [] {

@@ -2,6 +2,7 @@ package paneles.ExtraUsuarios;
 
 import Clases.AccionesCrud;
 import Clases.DatosTablas;
+import Clases.Reescalado_Imagenes;
 import Clases.validaciones;
 import app.Conexion;
 import java.sql.Connection;
@@ -17,6 +18,9 @@ public class CentroCosto extends javax.swing.JFrame {
         initComponents();
         CargarTabla();
         Limpiar();
+        //iniciar funcion para el icono
+        Reescalado_Imagenes reescalar = new Reescalado_Imagenes();
+        setIconImage(reescalar.getIconImage());
     }
 
     //cargar clase de validaciones
@@ -69,6 +73,7 @@ public class CentroCosto extends javax.swing.JFrame {
         tblCentro = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Centros de Costo-Usuarios");
         setResizable(false);
         setType(java.awt.Window.Type.POPUP);
 

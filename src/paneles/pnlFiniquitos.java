@@ -3,18 +3,25 @@ package paneles;
 import Clases.AccionesCrud;
 import Clases.DatosTablas;
 import Clases.validaciones;
+import app.Conexion;
 import java.awt.Color;
 import java.awt.Component;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -74,14 +81,49 @@ public class pnlFiniquitos extends javax.swing.JPanel {
 
     private void CargarDatosPrincipal() {
         //rellenar datos de la tabla
-        DatosTablas Datos = new DatosTablas();
+        //DatosTablas Datos = new DatosTablas();
         //llenar los datos de los combobox
-        Datos.CargarTabla(tblFiniquitos, "select * from VistaFiniquitos");
+        BuscarEnTabla();
+        //obtener la hora del ser5vidor para poner de limite
+        try {
+            Connection con = Conexion.getConexion();
+            PreparedStatement ps;
+            ps = con.prepareStatement("SELECT GETDATE() AS HoraActual");
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Timestamp serverTime = rs.getTimestamp("HoraActual");
+                Date maxDate = new Date(serverTime.getTime());
+                dtpSolicitud.setMaxSelectableDate(maxDate);
+                dtpCobro.setMaxSelectableDate(maxDate);
+                
+                 // Sumar 1 año a la fecha para subir el limite de tiempo un año mas
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(maxDate);
+                calendar.add(Calendar.YEAR, 1);
+                Date maxDatePlusOneYear = calendar.getTime();
+                dtpCorte.setMaxSelectableDate(maxDatePlusOneYear);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(pnlEquipos.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         // Aplicar el renderizador de celdas a todas las columnas para pintarlos segun el estado
         for (int i = 0; i < tblFiniquitos.getColumnCount(); i++) {
             tblFiniquitos.getColumnModel().getColumn(i).setCellRenderer(rowRenderer);
         }
+        // Agregar el ListSelectionListener para cambiar el color de fondo cuando se selecciona una celda
+        tblFiniquitos.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    int selectedRow = tblFiniquitos.getSelectedRow();
+                    int selectedColumn = tblFiniquitos.getSelectedColumn();
+                    if (selectedRow >= 0 && selectedColumn >= 0) {
+                        tblFiniquitos.getColumnModel().getColumn(selectedColumn).setCellRenderer(rowRenderer);
+                    }
+                }
+            }
+        });
     }
 
     // Renderizador de celdas personalizado para cambiar el color de la fila
@@ -91,22 +133,26 @@ public class pnlFiniquitos extends javax.swing.JPanel {
             // Obtener el componente renderizado por defecto
             Component cellComponent = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
-            // Obtener el estado de la fila
-            int indiceColumna = tblFiniquitos.getColumnModel().getColumnIndex("Estado");
-            String estado = table.getValueAt(row, indiceColumna).toString();
+            //si esta seleccionado se le asigna el color de seleccion
+            if (isSelected) {
+                cellComponent.setBackground(new Color(51, 153, 0));
+            } else {
+                // Obtener el estado de la fila
+                int indiceColumna = tblFiniquitos.getColumnModel().getColumnIndex("Estado");
+                String estado = table.getValueAt(row, indiceColumna).toString();
 
-            // Cambiar el color de fondo de la fila según el estado
-            if (estado.equals("1")) {
-                //cellComponent.setBackground(new Color(204, 255, 204));
-                cellComponent.setBackground(Color.white);
+                // Cambiar el color de fondo de la fila según el estado
+                if (estado.equals("1")) {
+                    //cellComponent.setBackground(new Color(204, 255, 204));
+                    cellComponent.setBackground(Color.white);
+                }
+                if (estado.equals("2")) {
+                    cellComponent.setBackground(Color.GREEN);
+                }
+                if (estado.equals("3")) {
+                    cellComponent.setBackground(Color.YELLOW);
+                }
             }
-            if (estado.equals("2")) {
-                cellComponent.setBackground(Color.GREEN);
-            }
-            if (estado.equals("3")) {
-                cellComponent.setBackground(Color.YELLOW);
-            }
-
             return cellComponent;
         }
     };
@@ -135,19 +181,20 @@ public class pnlFiniquitos extends javax.swing.JPanel {
             val.GENIncorrecto(lblErSolicitud, error);
             valor1 = 0;
         }
-        try {
+        //se trata de obtener la fecha y si no se puede genera un error
+        if (dtpCorte.getDate() != null && dtpCorte.isValid()) {
             date = dtpCorte.getDate();
             long d = date.getTime();
-        } catch (Exception e) {
-            error = "La fecha de Corte tiene que ser valida";
+        } else {
+            error = "La fecha seleccionada no es válida o no esta en el rango permitido.";
             val.GENIncorrecto(lblErCorte, error);
             valor1 = 0;
         }
-        try {
+        if (dtpCobro.getDate() != null && dtpCobro.isValid()) {
             date = dtpCobro.getDate();
             long d = date.getTime();
-        } catch (Exception e) {
-            error = "La fecha de Cobro tiene que ser valida";
+        } else {
+            error = "La fecha seleccionada no es válida o no esta en el rango permitido.";
             val.GENIncorrecto(lblErCobro, error);
             valor1 = 0;
         }
@@ -313,6 +360,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
             }
         });
 
+        dtpCorte.setMinSelectableDate(new java.util.Date(1262329267000L));
         dtpCorte.setNextFocusableComponent(dtpCobro);
 
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
@@ -324,8 +372,10 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Fecha de Corte:");
 
+        dtpSolicitud.setMinSelectableDate(new java.util.Date(1262329267000L));
         dtpSolicitud.setNextFocusableComponent(dtpCorte);
 
+        txtCobro.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         txtCobro.setNextFocusableComponent(txtLinea);
         txtCobro.setPreferredSize(new java.awt.Dimension(65, 26));
         txtCobro.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -338,10 +388,10 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         });
 
         jLabel9.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel9.setText("Valor de Cobro:");
+        jLabel9.setText("Valor de Cobro:  $ ");
 
         jLabel10.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel10.setText("Linea Telefonica:");
+        jLabel10.setText("Linea Telefonica:    ");
 
         txtLinea.setNextFocusableComponent(txtObs1);
         txtLinea.setPreferredSize(new java.awt.Dimension(65, 26));
@@ -379,6 +429,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Fecha de Cobro:");
 
+        dtpCobro.setMinSelectableDate(new java.util.Date(1262329267000L));
         dtpCobro.setNextFocusableComponent(txtCobro);
 
         lblErSolicitud.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
@@ -506,10 +557,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(dtpCobro, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lblErCobro))))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(148, 148, 148)
-                                .addComponent(jLabel9))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -519,14 +567,17 @@ public class pnlFiniquitos extends javax.swing.JPanel {
                                         .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(lblObligatorio1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(126, 126, 126)
                                         .addComponent(jLabel10))
-                                    .addComponent(lblObligatorio))))
-                        .addGap(18, 18, 18)
+                                    .addComponent(lblObligatorio)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel9)))
+                        .addGap(0, 0, 0)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(lblErLinea)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 666, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 678, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblErValor)
@@ -538,7 +589,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
                                         .addComponent(txtCobro, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(lblObligatorio3)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING))
@@ -546,7 +597,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtObs2, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
                                     .addComponent(txtObs1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblObligatorio5))))
@@ -561,7 +612,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(txtIDFiniquitos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addGroup(jPanel1Layout.createSequentialGroup()
@@ -636,7 +687,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
                 {null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Expediente", "Solicitud RRHH", "Linea Telefonica", "Cod. Empleado", "Usuario", "Departamento", "Fecha de Corte", "Valor del Cobro", "Fecha Cobro", "Observacion 1", "Observacion 2", "Estado"
+                "ID", "Expediente", "Solicitud RRHH", "Linea Telefonica", "Cod. Empleado", "Usuario", "Departamento", "Fecha de Corte", "Valor del Cobro $", "Fecha Cobro", "Observacion 1", "Observacion 2", "Estado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -682,8 +733,8 @@ public class pnlFiniquitos extends javax.swing.JPanel {
             tblFiniquitos.getColumnModel().getColumn(7).setPreferredWidth(130);
             tblFiniquitos.getColumnModel().getColumn(7).setMaxWidth(140);
             tblFiniquitos.getColumnModel().getColumn(8).setMinWidth(50);
-            tblFiniquitos.getColumnModel().getColumn(8).setPreferredWidth(90);
-            tblFiniquitos.getColumnModel().getColumn(8).setMaxWidth(100);
+            tblFiniquitos.getColumnModel().getColumn(8).setPreferredWidth(120);
+            tblFiniquitos.getColumnModel().getColumn(8).setMaxWidth(130);
             tblFiniquitos.getColumnModel().getColumn(9).setMinWidth(80);
             tblFiniquitos.getColumnModel().getColumn(9).setPreferredWidth(130);
             tblFiniquitos.getColumnModel().getColumn(9).setMaxWidth(140);
@@ -769,7 +820,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
                     .addComponent(chkCerrado)
                     .addComponent(chkProgreso))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 677, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 689, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -882,7 +933,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
                 Busqueda = "Linea";
                 break;
             case "Nombre Empleado":
-                Busqueda="UsuarioDeLinea";
+                Busqueda = "UsuarioDeLinea";
                 break;
             default:
                 break;
@@ -1022,8 +1073,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         if (ValidarCampos()) {
             AccionesCrud classcrud = new AccionesCrud();
             if (classcrud.Guardar_Modificar(ArregloDatos(), "exec [AgregarFiniquito] ?,?,?,?,?,?,?,?,?")) {
-                DatosTablas Datos = new DatosTablas();
-                Datos.CargarTabla(tblFiniquitos, "select * from VistaFiniquitos");
+                BuscarEnTabla();
             }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -1033,8 +1083,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         if (ValidarCampos()) {
             AccionesCrud classcrud = new AccionesCrud();
             if (classcrud.Guardar_Modificar(ArregloDatos(), "exec [UpdateFiniquito] ?,?,?,?,?,?,?,?,?")) {
-                DatosTablas Datos = new DatosTablas();
-                Datos.CargarTabla(tblFiniquitos, "select * from VistaFiniquitos");
+               BuscarEnTabla();
             }
         }
     }//GEN-LAST:event_btnModificarActionPerformed

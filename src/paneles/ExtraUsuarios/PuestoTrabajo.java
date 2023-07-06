@@ -2,6 +2,7 @@ package paneles.ExtraUsuarios;
 
 import Clases.AccionesCrud;
 import Clases.DatosTablas;
+import Clases.Reescalado_Imagenes;
 import Clases.validaciones;
 
 public class PuestoTrabajo extends javax.swing.JFrame {
@@ -13,6 +14,9 @@ public class PuestoTrabajo extends javax.swing.JFrame {
         Limpiar();
         //establecer invicible el campo de id
         txtID.setVisible(false);
+        //iniciar funcion para el icono
+        Reescalado_Imagenes reescalar = new Reescalado_Imagenes();
+        setIconImage(reescalar.getIconImage());
     }
 
     //cargar clase de validaciones
@@ -51,6 +55,7 @@ public class PuestoTrabajo extends javax.swing.JFrame {
         tblCentro = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Puestos de Trabajo-Usuarios");
         setResizable(false);
         setType(java.awt.Window.Type.POPUP);
 

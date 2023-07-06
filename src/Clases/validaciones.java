@@ -74,7 +74,7 @@ public class validaciones {
         int key = evt.getKeyChar();
         //expresion regular que solo permite numeros, tecla de eliminar y un punto
         boolean numero = (key >= 48 && key <= 57) || (key == 46 && !txtNumerico.getText().contains(".")) || key == KeyEvent.VK_BACK_SPACE;
-        if (txtNumerico.getText().length() == 8 || !numero) {
+        if (txtNumerico.getText().length() >= 7 || !numero) {
             evt.consume();
             Toolkit.getDefaultToolkit().beep();
         }

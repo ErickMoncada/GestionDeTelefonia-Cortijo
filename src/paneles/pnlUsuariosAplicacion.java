@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.util.Random;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -60,6 +62,19 @@ public class pnlUsuariosAplicacion extends javax.swing.JPanel {
         for (int i = 0; i < tblUsuarios.getColumnCount(); i++) {
             tblUsuarios.getColumnModel().getColumn(i).setCellRenderer(rowRenderer);
         }
+        // Agregar el ListSelectionListener para cambiar el color de fondo cuando se selecciona una celda
+        tblUsuarios.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {
+                    int selectedRow = tblUsuarios.getSelectedRow();
+                    int selectedColumn = tblUsuarios.getSelectedColumn();
+                    if (selectedRow >= 0 && selectedColumn >= 0) {
+                        tblUsuarios.getColumnModel().getColumn(selectedColumn).setCellRenderer(rowRenderer);
+                    }
+                }
+            }
+        });
     }
 
     // Renderizador de celdas personalizado para cambiar el color de la fila
@@ -69,16 +84,21 @@ public class pnlUsuariosAplicacion extends javax.swing.JPanel {
             // Obtener el componente renderizado por defecto
             Component cellComponent = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
-            // Obtener el estado de la fila
-            int indiceColumna = tblUsuarios.getColumnModel().getColumnIndex("Nivel de Acceso");
-            String estado = table.getValueAt(row, indiceColumna).toString();
-
-            if (estado.equals("Desactivado")) {
-                cellComponent.setBackground(new Color(205, 71, 91));
+            //si esta seleccionado se le asigna el color de seleccion
+            if (isSelected) {
+                cellComponent.setBackground(new Color(51, 153, 0));
             } else {
-                cellComponent.setBackground(new Color(204, 255, 204));
-            }
+                // Obtener el estado de la fila
+                int indiceColumna = tblUsuarios.getColumnModel().getColumnIndex("Nivel de Acceso");
+                String estado = table.getValueAt(row, indiceColumna).toString();
 
+                if (estado.equals("Desactivado")) {
+                    cellComponent.setBackground(new Color(197, 135, 118));
+                } else {
+                    cellComponent.setBackground(new Color(204, 255, 204));
+                }
+
+            }
             return cellComponent;
         }
     };

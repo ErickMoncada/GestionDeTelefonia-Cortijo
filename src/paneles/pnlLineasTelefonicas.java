@@ -1058,8 +1058,9 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         jPanel6.setOpaque(false);
 
         jLabel11.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel11.setText("Plan Anterior:");
+        jLabel11.setText("Plan Anterior:    $ ");
 
+        txtAnterior.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         txtAnterior.setNextFocusableComponent(txtNuevo);
         txtAnterior.setPreferredSize(new java.awt.Dimension(65, 26));
         txtAnterior.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -1071,6 +1072,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
             }
         });
 
+        txtNuevo.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         txtNuevo.setNextFocusableComponent(txtPresupuesto);
         txtNuevo.setPreferredSize(new java.awt.Dimension(65, 26));
         txtNuevo.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -1083,7 +1085,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         });
 
         jLabel12.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel12.setText("Plan Nuevo:");
+        jLabel12.setText("Plan Nuevo:    $ ");
 
         lblErAnterior.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         lblErAnterior.setForeground(new java.awt.Color(255, 0, 0));
@@ -1094,11 +1096,12 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         lblErNuevo.setText("Error");
 
         jLabel13.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel13.setText("Presupuesto:");
+        jLabel13.setText("Presupuesto:    $ ");
 
         jLabel15.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel15.setText("Reconocimiento Mensual:");
+        jLabel15.setText("Reconocimiento Mensual:    $ ");
 
+        txtPresupuesto.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         txtPresupuesto.setNextFocusableComponent(txtMensual);
         txtPresupuesto.setPreferredSize(new java.awt.Dimension(65, 26));
         txtPresupuesto.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -1110,6 +1113,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
             }
         });
 
+        txtMensual.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         txtMensual.setNextFocusableComponent(btnGuardar);
         txtMensual.setPreferredSize(new java.awt.Dimension(65, 26));
         txtMensual.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -1160,7 +1164,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
                     .addComponent(jLabel13)
                     .addComponent(jLabel11)
                     .addComponent(jLabel12))
-                .addGap(18, 18, 18)
+                .addGap(0, 0, 0)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblErMensual)
                     .addGroup(jPanel6Layout.createSequentialGroup()
@@ -1182,7 +1186,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
                         .addComponent(txtMensual, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblObligatorio13)))
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
