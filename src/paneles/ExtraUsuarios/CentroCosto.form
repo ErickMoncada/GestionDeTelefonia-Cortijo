@@ -151,7 +151,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Numero de Centro de Costo:"/>
+                <Property name="text" type="java.lang.String" value="N&#xfa;mero de Centro de Costo:"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtNumero">
@@ -360,7 +360,7 @@
                 </Property>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="2" rowCount="4">
-                    <Column editable="false" title="Numero Centro de Costo" type="java.lang.Object"/>
+                    <Column editable="false" title="N&#xfa;mero Centro de Costo" type="java.lang.Object"/>
                     <Column editable="false" title="Nombre de centro de costo" type="java.lang.Object"/>
                   </Table>
                 </Property>

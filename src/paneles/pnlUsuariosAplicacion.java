@@ -9,6 +9,9 @@ import java.awt.Component;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.MessagingException;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
@@ -18,17 +21,27 @@ import javax.swing.table.DefaultTableModel;
 
 public class pnlUsuariosAplicacion extends javax.swing.JPanel {
 
-    public pnlUsuariosAplicacion() {
+    public pnlUsuariosAplicacion(String NIVEL) {
         initComponents();
         CargarDatosPrincipal();
         Limpiar();
         asignarEventos();
+        if ("Root".equals(NIVEL)) {
+            cmbNivel.addItem("Administrador");
+        }
+        NivelAcceso = NIVEL;
 
     }
+    //se Inicializa la variabl del nivel para tneerlo en el Jframe
+    String NivelAcceso;
     //se inicializa para la busqueda por medio de Categoria
     String Busqueda = "Usuario";
     //se inicializa la clase de validaciones
     validaciones val = new validaciones();
+    //se inicializa la calse de correos
+    RecuperarPass rec = new RecuperarPass();
+    //se inicializa la variable de la contraseña
+    String passwordGenerado;
 
     private void Limpiar() {
         //funcion para reiniciar todos los valores de la pantalla
@@ -41,6 +54,7 @@ public class pnlUsuariosAplicacion extends javax.swing.JPanel {
         txtCorreo.setText("");
         txtExpediente.setText("");
         cmbNivel.setSelectedIndex(-1);
+        cmbNivel.enable(true);
         LimpiarErrores();
     }
 
@@ -54,9 +68,7 @@ public class pnlUsuariosAplicacion extends javax.swing.JPanel {
 
     private void CargarDatosPrincipal() {
         //rellenar datos de la tabla
-        DatosTablas Datos = new DatosTablas();
-        //llenar los datos de los combobox
-        Datos.CargarTabla(tblUsuarios, "select Usuario,Nombre,Correo,Expediente,Nivel from VistaUsuariosApp");
+        BuscarEnTabla();
 
         // Aplicar el renderizador de celdas a todas las columnas para pintarlos segun el estado
         for (int i = 0; i < tblUsuarios.getColumnCount(); i++) {
@@ -237,7 +249,7 @@ public class pnlUsuariosAplicacion extends javax.swing.JPanel {
 
         btnCancelar.setBackground(new java.awt.Color(114, 191, 68));
         btnCancelar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnCancelar.setText("Cancelar Seleccion");
+        btnCancelar.setText("Cancelar Selección");
         btnCancelar.setColorBorde(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnCancelar.setColorHover(new java.awt.Color(0, 191, 68));
         btnCancelar.setColorNormal(new java.awt.Color(114, 191, 68));
@@ -271,7 +283,7 @@ public class pnlUsuariosAplicacion extends javax.swing.JPanel {
         });
 
         jLabel9.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel9.setText("Numero de Expediente:");
+        jLabel9.setText("Número de Expediente:");
 
         jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("Nivel:");
@@ -323,7 +335,7 @@ public class pnlUsuariosAplicacion extends javax.swing.JPanel {
         lblObligatorio4.setText("*");
         lblObligatorio4.setToolTipText("");
 
-        cmbNivel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Administrador", "Lector", "Desactivado" }));
+        cmbNivel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Lector", "Desactivado" }));
         cmbNivel.setNextFocusableComponent(btnGuardar);
         cmbNivel.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -544,7 +556,7 @@ public class pnlUsuariosAplicacion extends javax.swing.JPanel {
             char caracterAleatorio = caracteres.charAt(indiceAleatorio);
             sb.append(caracterAleatorio);
         }
-        String passwordGenerado = sb.toString();
+        passwordGenerado = sb.toString();
         //---------------------------Arreglo de datos
         Object[] datos = new Object[5];
         //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
@@ -552,29 +564,42 @@ public class pnlUsuariosAplicacion extends javax.swing.JPanel {
         datos[1] = txtExpediente.getText();
         datos[2] = txtCorreo.getText();
         datos[3] = cmbNivel.getSelectedItem().toString();
-        RecuperarPass rec = new RecuperarPass();
         datos[4] = rec.Encriptar(passwordGenerado);
 
         return datos;
     }
     private void tblUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblUsuariosMouseClicked
-        LimpiarErrores();
-        //se trata de obtener los datos de la tabla para mostrarlos en las casillas respectivas con ayuda de sql
-        try {
-            AccionesCrud classcrud = new AccionesCrud();
-            ResultSet rs = classcrud.Seleccion(tblUsuarios, "select * from [VistaUsuariosApp] where [Usuario]=?", "Usuario");
-            while (rs.next()) {
-                txtUsuario.setText(rs.getString("Usuario"));
-                txtCorreo.setText(rs.getString("Correo"));
-                txtExpediente.setText(rs.getString("Expediente"));
-                cmbNivel.setSelectedItem(rs.getString("Nivel"));
+        Limpiar();
+        //bandera para saber si puede seleccionar
+        boolean x;
+        
+        int fila = tblUsuarios.getSelectedRow();
+        int indiceColumna = tblUsuarios.getColumnModel().getColumnIndex("Nivel de Acceso");
+        String nivel = tblUsuarios.getValueAt(fila, indiceColumna).toString();
+        // se comprueba si es administrador o no de ser asi no puede seleccionar para modificar administradores
+        if ("Root".equals(NivelAcceso)) {
+            x = true;
+        
+        } else x = !"Administrador".equals(nivel);
+        
+        if(x){
+            //se trata de obtener los datos de la tabla para mostrarlos en las casillas respectivas con ayuda de sql
+            try {
+                AccionesCrud classcrud = new AccionesCrud();
+                ResultSet rs = classcrud.Seleccion(tblUsuarios, "select * from [VistaUsuariosApp] where [Usuario]=?", "Usuario");
+                while (rs.next()) {
+                    txtUsuario.setText(rs.getString("Usuario"));
+                    txtCorreo.setText(rs.getString("Correo"));
+                    txtExpediente.setText(rs.getString("Expediente"));
+                    cmbNivel.setSelectedItem(rs.getString("Nivel"));
+                }
+                txtUsuario.enable(false);
+                btnModificar.setVisible(true);
+                btnCancelar.setVisible(true);
+                btnGuardar.setVisible(false);
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, e.toString());
             }
-            txtUsuario.enable(false);
-            btnModificar.setVisible(true);
-            btnCancelar.setVisible(true);
-            btnGuardar.setVisible(false);
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e.toString());
         }
     }//GEN-LAST:event_tblUsuariosMouseClicked
 
@@ -619,13 +644,13 @@ public class pnlUsuariosAplicacion extends javax.swing.JPanel {
             agregado += " OR " + Busqueda + "  LIKE '%" + txtBuscar.getText().trim() + "%' AND Nivel='Desactivado'";
         }
 
-        if (!"".equals(agregado)) {
+        if ("".equals(agregado)) {
             //se muestra los resultados de la busqueda con filtros de checksbox
-            String result = agregado.substring(4);
-            BusquedaTabla.CargarTabla(tblUsuarios, "select Usuario,Nombre,Correo,Expediente,Nivel from VistaUsuariosApp where " + result);
+            BusquedaTabla.CargarTabla(tblUsuarios, "select Usuario,Nombre,Correo,Expediente,Nivel from VistaUsuariosApp where Nivel!='Root'" );
         } else {
             //se muestra los resultados de la busqueda sin filtros de checksbox
-            BusquedaTabla.CargarTabla(tblUsuarios, "select Usuario,Nombre,Correo,Expediente,Nivel from VistaUsuariosApp where " + Busqueda + " LIKE '%" + txtBuscar.getText().trim() + "%'" + agregado);
+            String result = agregado.substring(4);
+            BusquedaTabla.CargarTabla(tblUsuarios, "select Usuario,Nombre,Correo,Expediente,Nivel from VistaUsuariosApp where " + result);
         }
     }
     private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
@@ -694,7 +719,14 @@ public class pnlUsuariosAplicacion extends javax.swing.JPanel {
         LimpiarErrores();
         if (ValidarCampos()) {
             AccionesCrud classcrud = new AccionesCrud();
+            //se trata de crear el usuario con un procedimiento almacenado
             if (classcrud.Guardar_Modificar(ArregloDatos(), "exec [AgregarUsuarioAplicacion] ?,?,?,?,?")) {
+                //se trata de enviar la contraseña y el usuario al correo que se le ah creado la cuenta
+                try {
+                    rec.EnviarPassword(txtUsuario.getText(), passwordGenerado);
+                } catch (MessagingException ex) {
+                    JOptionPane.showConfirmDialog(null, "El usuario fue creado pero no se pudo enviar el correo", "Error de Envio", JOptionPane.ERROR_MESSAGE, JOptionPane.ERROR_MESSAGE);
+                }
                 BuscarEnTabla();
             }
         }
@@ -704,6 +736,7 @@ public class pnlUsuariosAplicacion extends javax.swing.JPanel {
         LimpiarErrores();
         if (ValidarCampos()) {
             AccionesCrud classcrud = new AccionesCrud();
+            //se trata de modificar el usuario con un procedimiento almacenado
             if (classcrud.Guardar_Modificar(ArregloDatos(), "exec [UpdateUsuarioAplicacion] ?,?,?,?,?")) {
                 BuscarEnTabla();
             }

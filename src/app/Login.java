@@ -92,7 +92,7 @@ public class Login extends javax.swing.JFrame {
         lblErPassword = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("LOGIN");
+        setTitle("Inicia sesión");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMaximumSize(new java.awt.Dimension(800, 530));
         setMinimumSize(new java.awt.Dimension(800, 530));
@@ -289,7 +289,7 @@ public class Login extends javax.swing.JFrame {
             String NivelAcceso=stmt.getString(4);
             if (acceso) {
                 //Comprobar si es administrador o lector
-               if("Administrador".equals(NivelAcceso) || "Lector".equals(NivelAcceso)){
+               if("Administrador".equals(NivelAcceso) || "Lector".equals(NivelAcceso) || "Root".equals(NivelAcceso)){
                 //Abrir Formulario de Menu Principal y se manda el nivel de Acceso
                 Principal MenuFrame = new Principal(NivelAcceso);
                 MenuFrame.setVisible(true);

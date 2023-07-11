@@ -53,12 +53,12 @@ public class Categoria extends javax.swing.JFrame {
         tblCentro = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Categoria-Equipos");
+        setTitle("Categoría-Equipos");
         setResizable(false);
         setType(java.awt.Window.Type.POPUP);
 
         lblPlanilla.setForeground(new java.awt.Color(0, 0, 0));
-        lblPlanilla.setText("Categoria de Equipo:");
+        lblPlanilla.setText("Categoría de Equipo:");
 
         txtCategoria.setPreferredSize(new java.awt.Dimension(65, 26));
         txtCategoria.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -190,7 +190,7 @@ public class Categoria extends javax.swing.JFrame {
                 {null}
             },
             new String [] {
-                "Categoria del equipo"
+                "Categoría del equipo"
             }
         ) {
             boolean[] canEdit = new boolean [] {

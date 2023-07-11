@@ -36,7 +36,6 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
             jPanel4.setVisible(false);
             jPanel5.setVisible(false);
             jPanel6.setVisible(false);
-            btnGuardar.setVisible(false);
         }
         NivelAcceso = NIVEL;
     }
@@ -257,9 +256,9 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         txtBuscar = new javax.swing.JTextField();
         cmbBuscar = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
-        btnModificar = new rsbuttom.RSButtonMetro();
-        btnGuardar = new rsbuttom.RSButtonMetro();
-        btnEliminar = new rsbuttom.RSButtonMetro();
+        jPanel3 = new javax.swing.JPanel();
+        lblTotalPlanNuevo = new javax.swing.JLabel();
+        lblTotalPresupuesto = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblLineas = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
@@ -287,6 +286,9 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         lblObligatorio2 = new javax.swing.JLabel();
         lblObligatorio3 = new javax.swing.JLabel();
         lblObligatorio4 = new javax.swing.JLabel();
+        btnGuardar = new rsbuttom.RSButtonMetro();
+        btnModificar = new rsbuttom.RSButtonMetro();
+        btnEliminar = new rsbuttom.RSButtonMetro();
         jPanel5 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         dtpAsignacion = new com.toedter.calendar.JDateChooser();
@@ -331,9 +333,6 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         lblObligatorio11 = new javax.swing.JLabel();
         lblObligatorio12 = new javax.swing.JLabel();
         lblObligatorio13 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        lblTotalPlanNuevo = new javax.swing.JLabel();
-        lblTotalPresupuesto = new javax.swing.JLabel();
 
         jMenuItem1.setText("Actualizar datos desplegables");
         jMenuItem1.setName("actualizarTabla"); // NOI18N
@@ -368,7 +367,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
             }
         });
 
-        cmbBuscar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "IMEI", "Linea de Telefono", "N. expediente" }));
+        cmbBuscar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "IMEI", "Línea de Teléfono", "N. expediente" }));
         cmbBuscar.setSelectedItem("IMEI");
         cmbBuscar.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -378,60 +377,34 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
 
         jLabel2.setText("Buscar por:");
 
-        btnModificar.setBackground(new java.awt.Color(114, 191, 68));
-        btnModificar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnModificar.setText("Modificar");
-        btnModificar.setColorBorde(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnModificar.setColorHover(new java.awt.Color(0, 191, 68));
-        btnModificar.setColorNormal(new java.awt.Color(114, 191, 68));
-        btnModificar.setColorPressed(new java.awt.Color(0, 49, 30));
-        btnModificar.setColorTextHover(new java.awt.Color(51, 51, 51));
-        btnModificar.setColorTextNormal(new java.awt.Color(51, 51, 51));
-        btnModificar.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        btnModificar.setMaximumSize(new java.awt.Dimension(55, 20));
-        btnModificar.setMinimumSize(new java.awt.Dimension(55, 20));
-        btnModificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModificarActionPerformed(evt);
-            }
-        });
+        jPanel3.setOpaque(false);
 
-        btnGuardar.setBackground(new java.awt.Color(114, 191, 68));
-        btnGuardar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnGuardar.setText("Guardar");
-        btnGuardar.setColorBorde(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnGuardar.setColorHover(new java.awt.Color(0, 191, 68));
-        btnGuardar.setColorNormal(new java.awt.Color(114, 191, 68));
-        btnGuardar.setColorPressed(new java.awt.Color(0, 49, 30));
-        btnGuardar.setColorTextHover(new java.awt.Color(51, 51, 51));
-        btnGuardar.setColorTextNormal(new java.awt.Color(51, 51, 51));
-        btnGuardar.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        btnGuardar.setMaximumSize(new java.awt.Dimension(55, 20));
-        btnGuardar.setMinimumSize(new java.awt.Dimension(55, 20));
-        btnGuardar.setNextFocusableComponent(txtBuscar);
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
-            }
-        });
+        lblTotalPlanNuevo.setForeground(new java.awt.Color(0, 0, 0));
+        lblTotalPlanNuevo.setText("Total del Plan Nuevo:");
 
-        btnEliminar.setBackground(new java.awt.Color(114, 191, 68));
-        btnEliminar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnEliminar.setText("Remover");
-        btnEliminar.setColorBorde(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnEliminar.setColorHover(new java.awt.Color(0, 191, 68));
-        btnEliminar.setColorNormal(new java.awt.Color(114, 191, 68));
-        btnEliminar.setColorPressed(new java.awt.Color(0, 49, 30));
-        btnEliminar.setColorTextHover(new java.awt.Color(51, 51, 51));
-        btnEliminar.setColorTextNormal(new java.awt.Color(51, 51, 51));
-        btnEliminar.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        btnEliminar.setMaximumSize(new java.awt.Dimension(55, 20));
-        btnEliminar.setMinimumSize(new java.awt.Dimension(55, 20));
-        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarActionPerformed(evt);
-            }
-        });
+        lblTotalPresupuesto.setForeground(new java.awt.Color(0, 0, 0));
+        lblTotalPresupuesto.setText("Total del Presupuesto:");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(28, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTotalPlanNuevo)
+                    .addComponent(lblTotalPresupuesto))
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblTotalPlanNuevo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblTotalPresupuesto)
+                .addContainerGap(21, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -444,29 +417,22 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
                 .addComponent(cmbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(923, 923, 923))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(744, 744, 744))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(18, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(17, 17, 17))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jScrollPane1.setComponentPopupMenu(jPopupMenu1);
@@ -482,7 +448,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
                 {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Expediente", "Firma", "Linea Telefonica", "Cod.Empleado", "Usuario", "Centro Costo", "Estado Equipo", "Facturado", "Cambio de Equipo", "Equipo", "IMEI", "Paga Seguro?", "Presupuesto", "Cuotas", "Plan Anterior", "Plan Nuevo", "Disponibilidad", "Jefe", "Categoria", "Reconocido del Plan", "Planilla", "Año de  renovacion", "Asignado"
+                "Expediente", "Firma", "Línea Telefónica", "Cod.Empleado", "Usuario", "Centro Costo", "Estado Equipo", "Facturado", "Cambio de Equipo", "Equipo", "IMEI", "¿Paga Seguro?", "Presupuesto", "Cuotas", "Plan Anterior", "Plan Nuevo", "Disponibilidad", "Jefe", "Categoría", "Reconocido del Plan", "Planilla", "Año de  renovacion", "Asignado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -572,7 +538,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         jPanel4.setOpaque(false);
 
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("Linea Telefonica:");
+        jLabel1.setText("Línea Telefónica:");
 
         txtLinea.setNextFocusableComponent(txtNumExpediente);
         txtLinea.setPreferredSize(new java.awt.Dimension(65, 26));
@@ -587,7 +553,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
 
         btnCancelar.setBackground(new java.awt.Color(114, 191, 68));
         btnCancelar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnCancelar.setText("Cancelar Seleccion");
+        btnCancelar.setText("Cancelar Selección");
         btnCancelar.setColorBorde(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnCancelar.setColorHover(new java.awt.Color(0, 191, 68));
         btnCancelar.setColorNormal(new java.awt.Color(114, 191, 68));
@@ -608,7 +574,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         lblErLinea.setText("Error");
 
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel4.setText("Numero de Expediente:");
+        jLabel4.setText("Número de Expediente:");
 
         txtNumExpediente.setNextFocusableComponent(cmbDisponibilidad);
         txtNumExpediente.setPreferredSize(new java.awt.Dimension(65, 26));
@@ -648,7 +614,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         lblErDisponible.setText("Error");
 
         jLabel19.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel19.setText("Año de Renovacion:");
+        jLabel19.setText("Año de Renovación:");
 
         txtYear.setMaximum(2100);
         txtYear.setMinimum(1980);
@@ -712,6 +678,61 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         lblObligatorio4.setText("*");
         lblObligatorio4.setToolTipText("");
 
+        btnGuardar.setBackground(new java.awt.Color(114, 191, 68));
+        btnGuardar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnGuardar.setText("Guardar");
+        btnGuardar.setColorBorde(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnGuardar.setColorHover(new java.awt.Color(0, 191, 68));
+        btnGuardar.setColorNormal(new java.awt.Color(114, 191, 68));
+        btnGuardar.setColorPressed(new java.awt.Color(0, 49, 30));
+        btnGuardar.setColorTextHover(new java.awt.Color(51, 51, 51));
+        btnGuardar.setColorTextNormal(new java.awt.Color(51, 51, 51));
+        btnGuardar.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        btnGuardar.setMaximumSize(new java.awt.Dimension(55, 20));
+        btnGuardar.setMinimumSize(new java.awt.Dimension(55, 20));
+        btnGuardar.setNextFocusableComponent(txtBuscar);
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+
+        btnModificar.setBackground(new java.awt.Color(114, 191, 68));
+        btnModificar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnModificar.setText("Modificar");
+        btnModificar.setColorBorde(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnModificar.setColorHover(new java.awt.Color(0, 191, 68));
+        btnModificar.setColorNormal(new java.awt.Color(114, 191, 68));
+        btnModificar.setColorPressed(new java.awt.Color(0, 49, 30));
+        btnModificar.setColorTextHover(new java.awt.Color(51, 51, 51));
+        btnModificar.setColorTextNormal(new java.awt.Color(51, 51, 51));
+        btnModificar.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        btnModificar.setMaximumSize(new java.awt.Dimension(55, 20));
+        btnModificar.setMinimumSize(new java.awt.Dimension(55, 20));
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+
+        btnEliminar.setBackground(new java.awt.Color(114, 191, 68));
+        btnEliminar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnEliminar.setText("Remover");
+        btnEliminar.setColorBorde(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnEliminar.setColorHover(new java.awt.Color(0, 191, 68));
+        btnEliminar.setColorNormal(new java.awt.Color(114, 191, 68));
+        btnEliminar.setColorPressed(new java.awt.Color(0, 49, 30));
+        btnEliminar.setColorTextHover(new java.awt.Color(51, 51, 51));
+        btnEliminar.setColorTextNormal(new java.awt.Color(51, 51, 51));
+        btnEliminar.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        btnEliminar.setMaximumSize(new java.awt.Dimension(55, 20));
+        btnEliminar.setMinimumSize(new java.awt.Dimension(55, 20));
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -768,8 +789,15 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(txtImei, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(lblObligatorio4)))))
-                .addContainerGap(114, Short.MAX_VALUE))
+                                .addComponent(lblObligatorio4))))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, 0))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -816,7 +844,12 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
                         .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtCuotas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(lblObligatorio3, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(56, 56, 56))
+                .addGap(35, 35, 35)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         jPanel5.setComponentPopupMenu(jPopupMenu1);
@@ -824,7 +857,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         jPanel5.setOpaque(false);
 
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel5.setText("Fecha de Asignacion:");
+        jLabel5.setText("Fecha de Asignación:");
 
         dtpAsignacion.setNextFocusableComponent(dtpCambio);
 
@@ -842,7 +875,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         lblErCambio.setText("Error");
 
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel6.setText("Fecha de Facturacion:");
+        jLabel6.setText("Fecha de Facturación:");
 
         dtpFacturacion.setNextFocusableComponent(rdbSiSeguro);
 
@@ -911,7 +944,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         lblErFacturacion.setText("Error");
 
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel8.setText("Paga seguro?");
+        jLabel8.setText("¿Paga seguro?");
 
         jPanel7.setOpaque(false);
 
@@ -1158,7 +1191,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(46, 46, 46)
+                .addGap(0, 0, 0)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel15)
                     .addComponent(jLabel13)
@@ -1222,33 +1255,6 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
                 .addGap(148, 148, 148))
         );
 
-        lblTotalPlanNuevo.setForeground(new java.awt.Color(0, 0, 0));
-        lblTotalPlanNuevo.setText("Total del Plan Nuevo:");
-
-        lblTotalPresupuesto.setForeground(new java.awt.Color(0, 0, 0));
-        lblTotalPresupuesto.setText("Total del Presupuesto:");
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(28, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblTotalPlanNuevo)
-                    .addComponent(lblTotalPresupuesto))
-                .addContainerGap())
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblTotalPlanNuevo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblTotalPresupuesto)
-                .addContainerGap(21, Short.MAX_VALUE))
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -1257,18 +1263,15 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(50, 50, 50)
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
+                        .addGap(50, 50, 50)
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 2111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -1279,9 +1282,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 493, Short.MAX_VALUE)
                 .addContainerGap())
@@ -1295,7 +1296,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
             //se trata de obtener los datos de la tabla para mostrarlos en las casillas respectivas con ayuda de sql
             try {
                 AccionesCrud classcrud = new AccionesCrud();
-                ResultSet rs = classcrud.Seleccion(tblLineas, "select * from [VistaLineasTelefonicas] where [Linea]=?", "Linea Telefonica");
+                ResultSet rs = classcrud.Seleccion(tblLineas, "select * from [VistaLineasTelefonicas] where [Linea]=?", "Línea Telefónica");
                 while (rs.next()) {
                     txtLinea.setText(rs.getString("Linea"));
                     txtNumExpediente.setText(rs.getString("Expediente"));
@@ -1465,7 +1466,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
             case "IMEI":
                 Busqueda = "Imei";
                 break;
-            case "Linea de Telefono":
+            case "Línea de Teléfono":
                 Busqueda = "Linea";
                 break;
             case "N. expediente":

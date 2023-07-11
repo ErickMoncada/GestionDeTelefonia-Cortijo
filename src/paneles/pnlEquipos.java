@@ -358,7 +358,7 @@ public class pnlEquipos extends javax.swing.JPanel {
         jPanel2.setOpaque(false);
 
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel5.setText("Categoria del Equipo:");
+        jLabel5.setText("Categoría del Equipo:");
 
         cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
         cmbCategoria.setNextFocusableComponent(cmbMarca);
@@ -485,7 +485,7 @@ public class pnlEquipos extends javax.swing.JPanel {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblErLugar)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(cmbLugar, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cmbLugar, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblObligatorio8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -499,7 +499,7 @@ public class pnlEquipos extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(cmbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cmbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblObligatorio5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -509,9 +509,9 @@ public class pnlEquipos extends javax.swing.JPanel {
                             .addComponent(lblErCategoria)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(txtModelo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                                    .addComponent(txtModelo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
                                     .addComponent(txtAccesorio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cmbMarca, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(cmbMarca, javax.swing.GroupLayout.Alignment.LEADING, 0, 244, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblObligatorio7)
@@ -519,7 +519,7 @@ public class pnlEquipos extends javax.swing.JPanel {
                                         .addComponent(lblObligatorio6)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(btnMarca)))))))
-                .addContainerGap(140, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -571,7 +571,7 @@ public class pnlEquipos extends javax.swing.JPanel {
         lblObligatorio.setToolTipText("");
 
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("Numero de IMEI:");
+        jLabel1.setText("Número de IMEI:");
 
         txtNumIMEI.setNextFocusableComponent(txtNumExpediente);
         txtNumIMEI.setPreferredSize(new java.awt.Dimension(65, 26));
@@ -585,7 +585,7 @@ public class pnlEquipos extends javax.swing.JPanel {
         });
 
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel4.setText("Numero de Expediente:");
+        jLabel4.setText("Número de Expediente:");
 
         txtNumExpediente.setNextFocusableComponent(cmbEstado);
         txtNumExpediente.setPreferredSize(new java.awt.Dimension(65, 26));
@@ -604,7 +604,7 @@ public class pnlEquipos extends javax.swing.JPanel {
 
         btnCancelar.setBackground(new java.awt.Color(114, 191, 68));
         btnCancelar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnCancelar.setText("Cancelar Seleccion");
+        btnCancelar.setText("Cancelar Selección");
         btnCancelar.setColorBorde(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnCancelar.setColorHover(new java.awt.Color(0, 191, 68));
         btnCancelar.setColorNormal(new java.awt.Color(114, 191, 68));
@@ -734,8 +734,8 @@ public class pnlEquipos extends javax.swing.JPanel {
                         .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cmbTipo, 0, 200, Short.MAX_VALUE)
-                            .addComponent(cmbEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(cmbTipo, 0, 244, Short.MAX_VALUE)
+                            .addComponent(cmbEstado, 0, 244, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
@@ -746,7 +746,7 @@ public class pnlEquipos extends javax.swing.JPanel {
                                 .addComponent(lblObligatorio2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnEstado)))))
-                .addContainerGap(140, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -800,7 +800,7 @@ public class pnlEquipos extends javax.swing.JPanel {
         jLabel14.setText("Fecha de Compra:");
 
         jLabel15.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel15.setText("Numero de Factura:");
+        jLabel15.setText("Número de Factura:");
 
         txtNumFactura.setNextFocusableComponent(txtComentario);
         txtNumFactura.setPreferredSize(new java.awt.Dimension(65, 26));
@@ -836,7 +836,7 @@ public class pnlEquipos extends javax.swing.JPanel {
         });
 
         jLabel18.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel18.setText("Codigo:");
+        jLabel18.setText("Código:");
 
         txtCodigo.setNextFocusableComponent(dtpCompra);
         txtCodigo.setPreferredSize(new java.awt.Dimension(65, 26));
@@ -912,9 +912,9 @@ public class pnlEquipos extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(146, 146, 146)
+                .addGap(50, 50, 50)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(126, 126, 126)
+                .addGap(50, 50, 50)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23))
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -958,7 +958,7 @@ public class pnlEquipos extends javax.swing.JPanel {
                 {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "¿Quién lo posee? ", "Área", "Expediente", "Fecha de Prestamo", "Tipo", "Codigo", "Categoria", "Marca", "Modelo", "IMEI", "Accesorio", "Estado", "Lugar", "Fecha de Compra", "Costo $", "Num. Factura", "Comentario"
+                "¿Quién lo posee? ", "Área", "Expediente", "Fecha de Prestamo", "Tipo", "Código", "Categoría", "Marca", "Modelo", "IMEI", "Accesorio", "Estado", "Lugar", "Fecha de Compra", "Costo $", "Num. Factura", "Comentario"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -1034,7 +1034,7 @@ public class pnlEquipos extends javax.swing.JPanel {
 
         jLabel2.setText("Buscar por:");
 
-        cmbBuscar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Categoria", "Comentario", "Estado", "IMEI", "Marca", "N. Expediente", "Tipo", "Codigo" }));
+        cmbBuscar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Categoría", "Comentario", "Estado", "IMEI", "Marca", "N. Expediente", "Tipo", "Código" }));
         cmbBuscar.setSelectedItem("IMEI");
         cmbBuscar.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -1209,7 +1209,7 @@ public class pnlEquipos extends javax.swing.JPanel {
         //Cada vez que se cambia el estado del combobox se cambia el filtro de busqueda global para la funcion de busqueda
         String elementoSeleccionado = (String) cmbBuscar.getSelectedItem();
         switch (elementoSeleccionado) {
-            case "Categoria":
+            case "Categoría":
                 Busqueda = "Categoria";
                 break;
             case "Comentario":
@@ -1230,7 +1230,7 @@ public class pnlEquipos extends javax.swing.JPanel {
             case "Tipo":
                 Busqueda = "Tipo";
                 break;
-            case "Codigo":
+            case "Código":
                 Busqueda = "Codigo";
                 break;
             default:

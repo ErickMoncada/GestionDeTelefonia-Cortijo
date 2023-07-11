@@ -44,6 +44,11 @@ public class Principal extends javax.swing.JFrame {
         IconosBarraLateral();
         //iniciar funcion de hora
         Reloj();
+        //comprobar que nivel es para el acceso a ajustes
+         if ("Lector".equals(NIVEL)) {
+            btnAjustes.setVisible(false);
+            lblAplicacion.setVisible(false);
+        }
     }
     //se inicia la clase para reescalar imagenes
     Reescalado_Imagenes reescalar = new Reescalado_Imagenes();
@@ -89,7 +94,7 @@ public class Principal extends javax.swing.JFrame {
         btnFiniquitos = new rsbuttom.RSButtonMetro();
         btnEquipos = new rsbuttom.RSButtonMetro();
         jPanel5 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        lblAplicacion = new javax.swing.JLabel();
         btnAjustes = new rsbuttom.RSButtonMetro();
         btnLineasTelefonicas = new rsbuttom.RSButtonMetro();
         pnlCentro = new javax.swing.JPanel();
@@ -103,7 +108,7 @@ public class Principal extends javax.swing.JFrame {
         btnSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Telefonia-Cortijo");
+        setTitle("Telefonía - Cortijo");
         setMinimumSize(new java.awt.Dimension(1300, 700));
         setSize(new java.awt.Dimension(1450, 700));
 
@@ -142,7 +147,7 @@ public class Principal extends javax.swing.JFrame {
 
         lblTelefonia.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         lblTelefonia.setForeground(new java.awt.Color(128, 128, 131));
-        lblTelefonia.setText("TELEFONIA");
+        lblTelefonia.setText("TELEFONÍA");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -213,10 +218,10 @@ public class Principal extends javax.swing.JFrame {
 
         jPanel5.setBackground(new java.awt.Color(239, 238, 244));
 
-        jLabel3.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(128, 128, 131));
-        jLabel3.setText("Aplicacion");
-        jLabel3.setToolTipText("");
+        lblAplicacion.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
+        lblAplicacion.setForeground(new java.awt.Color(128, 128, 131));
+        lblAplicacion.setText("Aplicación");
+        lblAplicacion.setToolTipText("");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -224,14 +229,14 @@ public class Principal extends javax.swing.JFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3)
+                .addComponent(lblAplicacion)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap(23, Short.MAX_VALUE)
-                .addComponent(jLabel3)
+                .addComponent(lblAplicacion)
                 .addContainerGap())
         );
 
@@ -262,7 +267,7 @@ public class Principal extends javax.swing.JFrame {
 
         btnLineasTelefonicas.setBackground(new java.awt.Color(239, 238, 244));
         btnLineasTelefonicas.setForeground(new java.awt.Color(128, 128, 131));
-        btnLineasTelefonicas.setText("Lineas Telefonicas");
+        btnLineasTelefonicas.setText("Líneas Telefónicas");
         btnLineasTelefonicas.setColorHover(new java.awt.Color(204, 204, 204));
         btnLineasTelefonicas.setColorNormal(new java.awt.Color(239, 238, 244));
         btnLineasTelefonicas.setColorPressed(new java.awt.Color(204, 204, 204));
@@ -400,7 +405,7 @@ public class Principal extends javax.swing.JFrame {
         lblTituloTelefonia.setBackground(new java.awt.Color(255, 255, 255));
         lblTituloTelefonia.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         lblTituloTelefonia.setForeground(new java.awt.Color(255, 255, 255));
-        lblTituloTelefonia.setText("Telefonia - Cortijo");
+        lblTituloTelefonia.setText("Telefonía - Cortijo");
 
         btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img1/cerrar-sesion.png"))); // NOI18N
         btnSalir.setBorder(null);
@@ -421,7 +426,7 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(btnMenu)
                 .addGap(18, 18, 18)
                 .addComponent(lblTituloTelefonia)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1187, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1185, Short.MAX_VALUE)
                 .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -554,7 +559,7 @@ public class Principal extends javax.swing.JFrame {
 
     //Genera la accion para cambiar de panel llamando a la clase del paquete paneles y cambia los colores de los que se seleccionaron antes
     private void btnAjustesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAjustesActionPerformed
-        new CambiaPanel(pnlPrincipal, new paneles.pnlUsuariosAplicacion());
+        new CambiaPanel(pnlPrincipal, new paneles.pnlUsuariosAplicacion(NivelDeAcceso));
         if (this.btnAjustes.isSelected()) {
             this.btnLineasTelefonicas.setColorNormal(new Color(239, 238, 244));
             this.btnUserTel.setColorNormal(new Color(239, 238, 244));
@@ -640,13 +645,13 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton btnMenu;
     private javax.swing.JButton btnSalir;
     private rsbuttom.RSButtonMetro btnUserTel;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblAplicacion;
     private javax.swing.JLabel lblHora;
     private javax.swing.JLabel lblTelefonia;
     private javax.swing.JLabel lblTituloTelefonia;

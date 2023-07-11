@@ -129,7 +129,7 @@ public class Recuperar extends javax.swing.JFrame {
         });
 
         lblCodigo.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        lblCodigo.setText("Ingresa el codigo:");
+        lblCodigo.setText("Ingresa el codigó:");
 
         btnCodigo.setBackground(new java.awt.Color(114, 191, 68));
         btnCodigo.setForeground(new java.awt.Color(255, 255, 255));
@@ -197,7 +197,7 @@ public class Recuperar extends javax.swing.JFrame {
         btnEnviar.setBackground(new java.awt.Color(0, 136, 64));
         btnEnviar.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         btnEnviar.setForeground(new java.awt.Color(255, 255, 255));
-        btnEnviar.setText("Enviar Codigo");
+        btnEnviar.setText("Enviar Código");
         btnEnviar.setBorder(null);
         btnEnviar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -278,17 +278,15 @@ public class Recuperar extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jpnPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jpnPasswordLayout.createSequentialGroup()
+                        .addComponent(txtRepPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jpnPasswordLayout.createSequentialGroup()
                         .addGroup(jpnPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblNewPassword)
                             .addComponent(txtNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblRepPassword))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnPasswordLayout.createSequentialGroup()
-                        .addComponent(lblErPassword)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jpnPasswordLayout.createSequentialGroup()
-                        .addComponent(txtRepPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addComponent(lblRepPassword)
+                            .addComponent(lblErPassword))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpnPasswordLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnCambiar, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)

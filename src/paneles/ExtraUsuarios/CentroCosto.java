@@ -88,7 +88,7 @@ public class CentroCosto extends javax.swing.JFrame {
         });
 
         lblNumero.setForeground(new java.awt.Color(0, 0, 0));
-        lblNumero.setText("Numero de Centro de Costo:");
+        lblNumero.setText("Número de Centro de Costo:");
 
         txtNumero.setPreferredSize(new java.awt.Dimension(65, 26));
         txtNumero.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -227,7 +227,7 @@ public class CentroCosto extends javax.swing.JFrame {
                 {null, null}
             },
             new String [] {
-                "Numero Centro de Costo", "Nombre de centro de costo"
+                "Número Centro de Costo", "Nombre de centro de costo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
