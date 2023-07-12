@@ -221,14 +221,15 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
             error = "Debe seleccionar una opcion de Firma";
             val.GENIncorrecto(lblErFirma, error);
         }
-        if (txtAnterior.getText().isEmpty()) {
+        if (txtAnterior.getText().isEmpty() || Integer.parseInt(txtAnterior.getText()) >= 5) {
             valor1 = 0;
-            error = "Escriba la cantidad del paln Anterior";
+            error = "La cantidad del plan anterior no puede ser menor a 5$";
             val.TXTincorrecto(txtAnterior, lblErAnterior, error);
         }
-        if (txtNuevo.getText().isEmpty()) {
+
+        if (txtNuevo.getText().isEmpty() || Integer.parseInt(txtNuevo.getText()) >= 5) {
             valor1 = 0;
-            error = "Escriba la cantidad del paln Nuevo";
+            error = "La cantidad del plan Nuevo no puede ser menor a 5$";
             val.TXTincorrecto(txtNuevo, lblErNuevo, error);
         }
         if (txtPresupuesto.getText().isEmpty()) {
@@ -1290,7 +1291,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblLineasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblLineasMouseClicked
-        if ("Administrador".equals(NivelAcceso)) {
+        if (!"Lector".equals(NivelAcceso)) {
             LimpiarErrores();
             CargarListas();
             //se trata de obtener los datos de la tabla para mostrarlos en las casillas respectivas con ayuda de sql

@@ -58,7 +58,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         btnGuardar.setVisible(true);
 
         txtIDFiniquitos.setText("");
-        txtCobro.setText("");
+        txtCobroDls.setText("");
         txtLinea.setText("");
         txtObs1.setText("");
         txtObs2.setText("");
@@ -162,7 +162,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         val.GENcorrecto(lblErSolicitud);
         val.GENcorrecto(lblErCorte);
         val.GENcorrecto(lblErCobro);
-        val.TXTcorrecto(txtCobro, lblErValor);
+        val.TXTcorrecto(txtCobroDls, lblErValor);
         val.TXTcorrecto(txtLinea, lblErLinea);
         val.GENcorrecto(lblErEstado);
     }
@@ -199,10 +199,10 @@ public class pnlFiniquitos extends javax.swing.JPanel {
             valor1 = 0;
         }
 
-        if (txtCobro.getText().isEmpty() || Double.parseDouble(txtCobro.getText()) <= 0) {
+        if (txtCobroDls.getText().isEmpty() || Double.parseDouble(txtCobroDls.getText()) <= 0 || txtCobroLps.getText().isEmpty() || Double.parseDouble(txtCobroLps.getText()) <= 0) {
             valor1 = 0;
-            error = "El valor del cobro no puede estar vacío o en 0";
-            val.TXTincorrecto(txtCobro, lblErValor, error);
+            error = "El valor del cobro no puede estar vacío o en 0 (ambos campos)";
+            val.TXTincorrecto(txtCobroDls, lblErValor, error);
         }
         if (txtLinea.getText().isEmpty() || !txtLinea.getText().matches("\\d{4}-\\d{4}")) {
             valor1 = 0;
@@ -235,10 +235,6 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         dtpSolicitud = new com.toedter.calendar.JDateChooser();
-        txtCobro = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        txtLinea = new javax.swing.JTextField();
         txtObs1 = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         txtObs2 = new javax.swing.JTextField();
@@ -248,20 +244,27 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         lblErSolicitud = new javax.swing.JLabel();
         lblErCorte = new javax.swing.JLabel();
         lblErCobro = new javax.swing.JLabel();
-        lblErValor = new javax.swing.JLabel();
-        lblErLinea = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         rdbActivo = new javax.swing.JRadioButton();
         rdbCerrado = new javax.swing.JRadioButton();
         rdbProgreso = new javax.swing.JRadioButton();
         lblErEstado = new javax.swing.JLabel();
+        lblObligatorio5 = new javax.swing.JLabel();
         lblObligatorio = new javax.swing.JLabel();
         lblObligatorio1 = new javax.swing.JLabel();
         lblObligatorio2 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
         lblObligatorio3 = new javax.swing.JLabel();
         lblObligatorio4 = new javax.swing.JLabel();
-        lblObligatorio5 = new javax.swing.JLabel();
+        lblErValor = new javax.swing.JLabel();
+        lblErLinea = new javax.swing.JLabel();
+        txtCobroLps = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        txtCobroDls = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        txtLinea = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblFiniquitos = new javax.swing.JTable();
         txtBuscar = new javax.swing.JTextField();
@@ -375,35 +378,6 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         dtpSolicitud.setMinSelectableDate(new java.util.Date(1262329267000L));
         dtpSolicitud.setNextFocusableComponent(dtpCorte);
 
-        txtCobro.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
-        txtCobro.setNextFocusableComponent(txtLinea);
-        txtCobro.setPreferredSize(new java.awt.Dimension(65, 26));
-        txtCobro.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtCobroKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtCobroKeyTyped(evt);
-            }
-        });
-
-        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel9.setText("Valor de Cobro:  $ ");
-
-        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel10.setText("Línea Telefónica:    ");
-
-        txtLinea.setNextFocusableComponent(txtObs1);
-        txtLinea.setPreferredSize(new java.awt.Dimension(65, 26));
-        txtLinea.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtLineaKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtLineaKeyTyped(evt);
-            }
-        });
-
         txtObs1.setNextFocusableComponent(txtObs2);
         txtObs1.setPreferredSize(new java.awt.Dimension(65, 26));
         txtObs1.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -430,7 +404,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         jLabel7.setText("Fecha de Cobro:");
 
         dtpCobro.setMinSelectableDate(new java.util.Date(1262329267000L));
-        dtpCobro.setNextFocusableComponent(txtCobro);
+        dtpCobro.setNextFocusableComponent(txtCobroDls);
 
         lblErSolicitud.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         lblErSolicitud.setForeground(new java.awt.Color(255, 0, 0));
@@ -444,19 +418,11 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         lblErCobro.setForeground(new java.awt.Color(255, 0, 0));
         lblErCobro.setText("Error");
 
-        lblErValor.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
-        lblErValor.setForeground(new java.awt.Color(255, 0, 0));
-        lblErValor.setText("Error");
-
-        lblErLinea.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
-        lblErLinea.setForeground(new java.awt.Color(255, 0, 0));
-        lblErLinea.setText("Error");
-
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel13.setForeground(new java.awt.Color(0, 0, 0));
         jLabel13.setText("Estatus:");
-        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 12, -1, -1));
+        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, -1));
 
         rdbActivo.setText("ACTIVO");
         rdbActivo.setName(""); // NOI18N
@@ -470,7 +436,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
                 rdbActivoActionPerformed(evt);
             }
         });
-        jPanel2.add(rdbActivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, -1, -1));
+        jPanel2.add(rdbActivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, -1, -1));
 
         rdbCerrado.setText("CERRADO");
         rdbCerrado.addItemListener(new java.awt.event.ItemListener() {
@@ -478,7 +444,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
                 rdbCerradoItemStateChanged(evt);
             }
         });
-        jPanel2.add(rdbCerrado, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, -1, -1));
+        jPanel2.add(rdbCerrado, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, -1, -1));
 
         rdbProgreso.setText("EN PROGRESO");
         rdbProgreso.addItemListener(new java.awt.event.ItemListener() {
@@ -486,12 +452,18 @@ public class pnlFiniquitos extends javax.swing.JPanel {
                 rdbProgresoItemStateChanged(evt);
             }
         });
-        jPanel2.add(rdbProgreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, -1, -1));
+        jPanel2.add(rdbProgreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, -1, -1));
 
         lblErEstado.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         lblErEstado.setForeground(new java.awt.Color(255, 0, 0));
         lblErEstado.setText("Error");
-        jPanel2.add(lblErEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, -1, -1));
+        jPanel2.add(lblErEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, -1, -1));
+
+        lblObligatorio5.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        lblObligatorio5.setForeground(new java.awt.Color(51, 51, 51));
+        lblObligatorio5.setText("*");
+        lblObligatorio5.setToolTipText("");
+        jPanel2.add(lblObligatorio5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, 12));
 
         lblObligatorio.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lblObligatorio.setForeground(new java.awt.Color(51, 51, 51));
@@ -508,6 +480,8 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         lblObligatorio2.setText("*");
         lblObligatorio2.setToolTipText("");
 
+        jPanel3.setOpaque(false);
+
         lblObligatorio3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lblObligatorio3.setForeground(new java.awt.Color(51, 51, 51));
         lblObligatorio3.setText("*");
@@ -518,10 +492,108 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         lblObligatorio4.setText("*");
         lblObligatorio4.setToolTipText("");
 
-        lblObligatorio5.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        lblObligatorio5.setForeground(new java.awt.Color(51, 51, 51));
-        lblObligatorio5.setText("*");
-        lblObligatorio5.setToolTipText("");
+        lblErValor.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+        lblErValor.setForeground(new java.awt.Color(255, 0, 0));
+        lblErValor.setText("Error");
+
+        lblErLinea.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+        lblErLinea.setForeground(new java.awt.Color(255, 0, 0));
+        lblErLinea.setText("Error");
+
+        txtCobroLps.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        txtCobroLps.setNextFocusableComponent(txtLinea);
+        txtCobroLps.setPreferredSize(new java.awt.Dimension(65, 26));
+        txtCobroLps.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCobroLpsKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCobroLpsKeyTyped(evt);
+            }
+        });
+
+        jLabel14.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel14.setText("Lps. ");
+
+        txtCobroDls.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
+        txtCobroDls.setNextFocusableComponent(txtLinea);
+        txtCobroDls.setPreferredSize(new java.awt.Dimension(65, 26));
+        txtCobroDls.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCobroDlsKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCobroDlsKeyTyped(evt);
+            }
+        });
+
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel9.setText("Valor de Cobro:  $ ");
+
+        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel10.setText("Línea Telefónica:    ");
+
+        txtLinea.setNextFocusableComponent(txtObs1);
+        txtLinea.setPreferredSize(new java.awt.Dimension(65, 26));
+        txtLinea.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtLineaKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtLineaKeyTyped(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel10)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel9)))
+                .addGap(0, 0, 0)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblErLinea)
+                    .addComponent(lblErValor)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtLinea, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                                .addComponent(txtCobroDls, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(12, 12, 12)
+                                .addComponent(jLabel14)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtCobroLps, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblObligatorio4)
+                            .addComponent(lblObligatorio3))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCobroDls, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9)
+                    .addComponent(lblObligatorio3, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCobroLps, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblErValor)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(txtLinea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblObligatorio4, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblErLinea))
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -552,48 +624,26 @@ public class pnlFiniquitos extends javax.swing.JPanel {
                                 .addComponent(dtpCobro, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(6, 6, 6)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lblObligatorio2)
-                                .addGap(16, 16, 16)
-                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtIDFiniquitos, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblObligatorio1)
-                                    .addComponent(lblObligatorio))
-                                .addGap(50, 50, 50)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel10)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel9)))
-                                .addGap(0, 0, 0)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblErLinea)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lblErValor)
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(txtLinea, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(lblObligatorio4))
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(txtCobro, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(lblObligatorio3)))
-                                        .addGap(50, 50, 50)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(txtObs2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(txtObs1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                        .addGap(64, 64, 64)
+                            .addComponent(lblObligatorio1)
+                            .addComponent(lblObligatorio)
+                            .addComponent(lblObligatorio2))
+                        .addGap(50, 50, 50)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblObligatorio5)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtIDFiniquitos, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(50, 50, 50)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtObs2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtObs1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(50, 50, 50)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -606,34 +656,18 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel11)
+                            .addComponent(txtObs1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel12)
+                            .addComponent(txtObs2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(txtCobro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel9)
-                                            .addComponent(lblObligatorio3, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel11)
-                                            .addComponent(txtObs1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblErValor)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(jLabel10)
-                                            .addComponent(txtLinea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(lblObligatorio4, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel12)
-                                        .addComponent(txtObs2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblErLinea)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtIDFiniquitos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -652,19 +686,21 @@ public class pnlFiniquitos extends javax.swing.JPanel {
                                         .addComponent(dtpCorte, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
                                     .addComponent(lblObligatorio1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblErCorte)
-                                .addGap(0, 0, 0)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(dtpCobro, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblObligatorio2, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblObligatorio5, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(lblErCorte))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtIDFiniquitos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(dtpCobro, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblObligatorio2, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblErCobro)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addGap(24, 24, 24)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -679,17 +715,17 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         tblFiniquitos.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         tblFiniquitos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Expediente", "Solicitud RRHH", "Línea Telefónica", "Cod. Empleado", "Usuario", "Departamento", "Fecha de Corte", "Valor del Cobro $", "Fecha Cobro", "Observacion 1", "Observacion 2", "Estado"
+                "ID", "Solicitud RRHH", "Línea Telefónica", "Usuario", "Fecha de Corte", "Valor del Cobro $", "Valor del Cobro Lps.", "Fecha Cobro", "Observacion 1", "Observacion 2", "Estado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -709,36 +745,30 @@ public class pnlFiniquitos extends javax.swing.JPanel {
             tblFiniquitos.getColumnModel().getColumn(0).setMinWidth(0);
             tblFiniquitos.getColumnModel().getColumn(0).setPreferredWidth(0);
             tblFiniquitos.getColumnModel().getColumn(0).setMaxWidth(0);
-            tblFiniquitos.getColumnModel().getColumn(1).setMinWidth(46);
-            tblFiniquitos.getColumnModel().getColumn(1).setPreferredWidth(46);
-            tblFiniquitos.getColumnModel().getColumn(1).setMaxWidth(46);
-            tblFiniquitos.getColumnModel().getColumn(2).setMinWidth(80);
-            tblFiniquitos.getColumnModel().getColumn(2).setPreferredWidth(120);
-            tblFiniquitos.getColumnModel().getColumn(2).setMaxWidth(130);
-            tblFiniquitos.getColumnModel().getColumn(3).setMinWidth(50);
-            tblFiniquitos.getColumnModel().getColumn(3).setPreferredWidth(80);
-            tblFiniquitos.getColumnModel().getColumn(3).setMaxWidth(100);
-            tblFiniquitos.getColumnModel().getColumn(4).setMinWidth(50);
-            tblFiniquitos.getColumnModel().getColumn(4).setPreferredWidth(80);
-            tblFiniquitos.getColumnModel().getColumn(4).setMaxWidth(100);
-            tblFiniquitos.getColumnModel().getColumn(5).setMinWidth(80);
-            tblFiniquitos.getColumnModel().getColumn(5).setPreferredWidth(300);
-            tblFiniquitos.getColumnModel().getColumn(5).setMaxWidth(300);
-            tblFiniquitos.getColumnModel().getColumn(6).setMinWidth(100);
-            tblFiniquitos.getColumnModel().getColumn(6).setPreferredWidth(300);
-            tblFiniquitos.getColumnModel().getColumn(6).setMaxWidth(300);
+            tblFiniquitos.getColumnModel().getColumn(1).setMinWidth(80);
+            tblFiniquitos.getColumnModel().getColumn(1).setPreferredWidth(120);
+            tblFiniquitos.getColumnModel().getColumn(1).setMaxWidth(130);
+            tblFiniquitos.getColumnModel().getColumn(2).setMinWidth(50);
+            tblFiniquitos.getColumnModel().getColumn(2).setPreferredWidth(80);
+            tblFiniquitos.getColumnModel().getColumn(2).setMaxWidth(100);
+            tblFiniquitos.getColumnModel().getColumn(3).setMinWidth(80);
+            tblFiniquitos.getColumnModel().getColumn(3).setPreferredWidth(300);
+            tblFiniquitos.getColumnModel().getColumn(3).setMaxWidth(300);
+            tblFiniquitos.getColumnModel().getColumn(4).setMinWidth(80);
+            tblFiniquitos.getColumnModel().getColumn(4).setPreferredWidth(130);
+            tblFiniquitos.getColumnModel().getColumn(4).setMaxWidth(140);
+            tblFiniquitos.getColumnModel().getColumn(5).setMinWidth(50);
+            tblFiniquitos.getColumnModel().getColumn(5).setPreferredWidth(130);
+            tblFiniquitos.getColumnModel().getColumn(5).setMaxWidth(150);
+            tblFiniquitos.getColumnModel().getColumn(6).setMinWidth(50);
+            tblFiniquitos.getColumnModel().getColumn(6).setPreferredWidth(130);
+            tblFiniquitos.getColumnModel().getColumn(6).setMaxWidth(150);
             tblFiniquitos.getColumnModel().getColumn(7).setMinWidth(80);
             tblFiniquitos.getColumnModel().getColumn(7).setPreferredWidth(130);
             tblFiniquitos.getColumnModel().getColumn(7).setMaxWidth(140);
-            tblFiniquitos.getColumnModel().getColumn(8).setMinWidth(50);
-            tblFiniquitos.getColumnModel().getColumn(8).setPreferredWidth(120);
-            tblFiniquitos.getColumnModel().getColumn(8).setMaxWidth(130);
-            tblFiniquitos.getColumnModel().getColumn(9).setMinWidth(80);
-            tblFiniquitos.getColumnModel().getColumn(9).setPreferredWidth(130);
-            tblFiniquitos.getColumnModel().getColumn(9).setMaxWidth(140);
-            tblFiniquitos.getColumnModel().getColumn(12).setMinWidth(0);
-            tblFiniquitos.getColumnModel().getColumn(12).setPreferredWidth(0);
-            tblFiniquitos.getColumnModel().getColumn(12).setMaxWidth(0);
+            tblFiniquitos.getColumnModel().getColumn(10).setMinWidth(0);
+            tblFiniquitos.getColumnModel().getColumn(10).setPreferredWidth(0);
+            tblFiniquitos.getColumnModel().getColumn(10).setMaxWidth(0);
         }
 
         txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -788,7 +818,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1760, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -818,13 +848,13 @@ public class pnlFiniquitos extends javax.swing.JPanel {
                     .addComponent(chkCerrado)
                     .addComponent(chkProgreso))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 683, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 680, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private Object[] ArregloDatos() {
-        Object[] datos = new Object[9];
+        Object[] datos = new Object[10];
         //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
         datos[0] = txtIDFiniquitos.getText();
         datos[1] = txtLinea.getText();
@@ -844,28 +874,29 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         } catch (Exception e) {
             datos[3] = "";
         }
-        datos[4] = Double.parseDouble(txtCobro.getText());
-        datos[5] = txtObs1.getText().trim();
-        datos[6] = txtObs2.getText().trim();
+        datos[4] = Double.parseDouble(txtCobroDls.getText());
+        datos[5] = Double.parseDouble(txtCobroLps.getText());
+        datos[6] = txtObs1.getText().trim();
+        datos[7] = txtObs2.getText().trim();
         try {
             Date date2 = dtpCobro.getDate();
             long d2 = date2.getTime();
             java.sql.Date fecha2 = new java.sql.Date(d2);
-            datos[7] = fecha2.toString();
+            datos[8] = fecha2.toString();
         } catch (Exception e) {
-            datos[7] = "";
+            datos[8] = "";
         }
         if (rdbActivo.isSelected() == true) {
-            datos[8] = 1;
+            datos[9] = 1;
         } else if (rdbCerrado.isSelected() == true) {
-            datos[8] = 2;
+            datos[9] = 2;
         } else if (rdbProgreso.isSelected() == true) {
-            datos[8] = 3;
+            datos[9] = 3;
         }
         return datos;
     }
     private void tblFiniquitosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblFiniquitosMouseClicked
-        if ("Administrador".equals(NivelAcceso)) {
+        if (!"Lector".equals(NivelAcceso)) {
             LimpiarErrores();
             //se trata de obtener los datos de la tabla para mostrarlos en las casillas respectivas con ayuda de sql
             try {
@@ -894,7 +925,8 @@ public class pnlFiniquitos extends javax.swing.JPanel {
                     } catch (ParseException ex) {
                         Logger.getLogger(pnlEquipos.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                    txtCobro.setText(rs.getString("Valor Cobro"));
+                    txtCobroDls.setText(rs.getString("Valor Cobro DLS"));
+                    txtCobroLps.setText(rs.getString("Valor Cobro LPS"));
                     txtLinea.setText(rs.getString("Linea"));
                     txtObs1.setText(rs.getString("Observacion 1"));
                     txtObs2.setText(rs.getString("Observacion 2"));
@@ -931,7 +963,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
                 Busqueda = "Linea";
                 break;
             case "Nombre Empleado":
-                Busqueda = "UsuarioDeLinea";
+                Busqueda = "Nombre";
                 break;
             default:
                 break;
@@ -957,13 +989,13 @@ public class pnlFiniquitos extends javax.swing.JPanel {
             agregado += " OR " + Busqueda + "  LIKE '%" + txtBuscar.getText().trim() + "%' AND Estado=3";
         }
 
-        if (agregado != "") {
+        if ("".equals(agregado)) {
             //se muestra los resultados de la busqueda con filtros de checksbox
-            String result = agregado.substring(4);
-            BusquedaTabla.CargarTabla(tblFiniquitos, "select * from VistaFiniquitos where " + result);
+            BusquedaTabla.CargarTabla(tblFiniquitos, "select * from VistaFiniquitos where " + Busqueda + "  LIKE '%" + txtBuscar.getText().trim() + "%' ");
         } else {
             //se muestra los resultados de la busqueda sin filtros de checksbox
-            BusquedaTabla.CargarTabla(tblFiniquitos, "select * from VistaFiniquitos where " + Busqueda + " LIKE '%" + txtBuscar.getText().trim() + "%'" + agregado);
+            String result = agregado.substring(4);
+            BusquedaTabla.CargarTabla(tblFiniquitos, "select * from VistaFiniquitos where " + result);
         }
     }
     private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
@@ -1042,15 +1074,15 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         val.TXTcorrecto(txtLinea, lblErLinea);
     }//GEN-LAST:event_txtLineaKeyReleased
 
-    private void txtCobroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCobroKeyTyped
+    private void txtCobroDlsKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCobroDlsKeyTyped
         // validado para un campo de tipo monetario
-        val.EntradaDinero(txtCobro, evt);
-    }//GEN-LAST:event_txtCobroKeyTyped
+        val.EntradaDinero(txtCobroDls, evt);
+    }//GEN-LAST:event_txtCobroDlsKeyTyped
 
-    private void txtCobroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCobroKeyReleased
+    private void txtCobroDlsKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCobroDlsKeyReleased
         //al escribir se quita el estado de error
-        val.TXTcorrecto(txtCobro, lblErValor);
-    }//GEN-LAST:event_txtCobroKeyReleased
+        val.TXTcorrecto(txtCobroDls, lblErValor);
+    }//GEN-LAST:event_txtCobroDlsKeyReleased
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         Limpiar();
@@ -1070,7 +1102,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         LimpiarErrores();
         if (ValidarCampos()) {
             AccionesCrud classcrud = new AccionesCrud();
-            if (classcrud.Guardar_Modificar(ArregloDatos(), "exec [AgregarFiniquito] ?,?,?,?,?,?,?,?,?")) {
+            if (classcrud.Guardar_Modificar(ArregloDatos(), "exec [AgregarFiniquito] ?,?,?,?,?,?,?,?,?,?")) {
                 BuscarEnTabla();
             }
         }
@@ -1080,11 +1112,21 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         LimpiarErrores();
         if (ValidarCampos()) {
             AccionesCrud classcrud = new AccionesCrud();
-            if (classcrud.Guardar_Modificar(ArregloDatos(), "exec [UpdateFiniquito] ?,?,?,?,?,?,?,?,?")) {
+            if (classcrud.Guardar_Modificar(ArregloDatos(), "exec [UpdateFiniquito] ?,?,?,?,?,?,?,?,?,?")) {
                BuscarEnTabla();
             }
         }
     }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void txtCobroLpsKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCobroLpsKeyReleased
+        //al escribir se quita el estado de error
+        val.TXTcorrecto(txtCobroLps, lblErValor);
+    }//GEN-LAST:event_txtCobroLpsKeyReleased
+
+    private void txtCobroLpsKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCobroLpsKeyTyped
+        // validado para un campo de tipo monetario
+        val.EntradaDinero(txtCobroLps, evt);
+    }//GEN-LAST:event_txtCobroLpsKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1103,6 +1145,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1112,6 +1155,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblErCobro;
@@ -1131,7 +1175,8 @@ public class pnlFiniquitos extends javax.swing.JPanel {
     private javax.swing.JRadioButton rdbProgreso;
     private javax.swing.JTable tblFiniquitos;
     private javax.swing.JTextField txtBuscar;
-    private javax.swing.JTextField txtCobro;
+    private javax.swing.JTextField txtCobroDls;
+    private javax.swing.JTextField txtCobroLps;
     private javax.swing.JTextField txtIDFiniquitos;
     private javax.swing.JTextField txtLinea;
     private javax.swing.JTextField txtObs1;

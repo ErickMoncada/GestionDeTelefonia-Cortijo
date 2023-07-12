@@ -1086,7 +1086,7 @@ public class pnlEquipos extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblEquiposMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEquiposMouseClicked
-        if ("Administrador".equals(NivelAcceso)) {
+        if (!"Lector".equals(NivelAcceso)) {
             LimpiarErrores();
             CargarListas();
             //se trata de obtener los datos de la tabla para mostrarlos en las casillas respectivas con ayuda de sql
@@ -1292,7 +1292,7 @@ public class pnlEquipos extends javax.swing.JPanel {
 
     private void txtNumFacturaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumFacturaKeyTyped
         //validadcion para un campo tipo normal
-        val.EntradaTextoNormal(txtNumFactura, evt, 30);
+        val.EntradaNumeroGuion(txtNumFactura, evt, 30);
     }//GEN-LAST:event_txtNumFacturaKeyTyped
 
     private void btnEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstadoActionPerformed

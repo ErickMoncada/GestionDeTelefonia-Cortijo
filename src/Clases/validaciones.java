@@ -134,6 +134,16 @@ public class validaciones {
             Toolkit.getDefaultToolkit().beep();
         }
     }
+     public void EntradaNumeroGuion(JTextField txtTexto, java.awt.event.KeyEvent evt, int longitud) {
+        // establecer parametros de entrada de teclado para solo numeros   
+        int key = evt.getKeyChar();
+        //perimite escribir solo  numeros y retroceso
+        boolean letra = (key >= 48 && key <= 57 || key == 45 || key == KeyEvent.VK_BACK_SPACE);
+        if (txtTexto.getText().length() == longitud || !letra) {
+            evt.consume();
+            Toolkit.getDefaultToolkit().beep();
+        }
+    }
 
     public void EntradaLetrasNumeroGuion(JTextField txtTexto, java.awt.event.KeyEvent evt, int longitud) {
         // establecer parametros de entrada de teclado para letras y numeros y guiones

@@ -646,7 +646,7 @@ public class pnlUsuariosAplicacion extends javax.swing.JPanel {
 
         if ("".equals(agregado)) {
             //se muestra los resultados de la busqueda con filtros de checksbox
-            BusquedaTabla.CargarTabla(tblUsuarios, "select Usuario,Nombre,Correo,Expediente,Nivel from VistaUsuariosApp where Nivel!='Root'" );
+            BusquedaTabla.CargarTabla(tblUsuarios, "select Usuario,Nombre,Correo,Expediente,Nivel from VistaUsuariosApp where " + Busqueda + "  LIKE '%" + txtBuscar.getText().trim() + "%' AND Nivel!='Root'" );
         } else {
             //se muestra los resultados de la busqueda sin filtros de checksbox
             String result = agregado.substring(4);
