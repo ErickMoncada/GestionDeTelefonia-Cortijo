@@ -9,8 +9,6 @@ import java.awt.Component;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.mail.MessagingException;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -30,7 +28,12 @@ public class pnlUsuariosAplicacion extends javax.swing.JPanel {
             cmbNivel.addItem("Administrador");
         }
         NivelAcceso = NIVEL;
-
+//---------------------------------se establece que no se pueda pegar texto en los campos
+        val.NegarPegado(txtUsuario);
+        val.NegarPegado(txtCorreo);
+        val.NegarPegado(txtExpediente);
+        val.NegarPegado(txtBuscar);
+        //------------------------------------------------------------------------------
     }
     //se Inicializa la variabl del nivel para tneerlo en el Jframe
     String NivelAcceso;
@@ -572,17 +575,19 @@ public class pnlUsuariosAplicacion extends javax.swing.JPanel {
         Limpiar();
         //bandera para saber si puede seleccionar
         boolean x;
-        
+
         int fila = tblUsuarios.getSelectedRow();
         int indiceColumna = tblUsuarios.getColumnModel().getColumnIndex("Nivel de Acceso");
         String nivel = tblUsuarios.getValueAt(fila, indiceColumna).toString();
         // se comprueba si es administrador o no de ser asi no puede seleccionar para modificar administradores
         if ("Root".equals(NivelAcceso)) {
             x = true;
-        
-        } else x = !"Administrador".equals(nivel);
-        
-        if(x){
+
+        } else {
+            x = !"Administrador".equals(nivel);
+        }
+
+        if (x) {
             //se trata de obtener los datos de la tabla para mostrarlos en las casillas respectivas con ayuda de sql
             try {
                 AccionesCrud classcrud = new AccionesCrud();
@@ -646,7 +651,7 @@ public class pnlUsuariosAplicacion extends javax.swing.JPanel {
 
         if ("".equals(agregado)) {
             //se muestra los resultados de la busqueda con filtros de checksbox
-            BusquedaTabla.CargarTabla(tblUsuarios, "select Usuario,Nombre,Correo,Expediente,Nivel from VistaUsuariosApp where " + Busqueda + "  LIKE '%" + txtBuscar.getText().trim() + "%' AND Nivel!='Root'" );
+            BusquedaTabla.CargarTabla(tblUsuarios, "select Usuario,Nombre,Correo,Expediente,Nivel from VistaUsuariosApp where " + Busqueda + "  LIKE '%" + txtBuscar.getText().trim() + "%' AND Nivel!='Root'");
         } else {
             //se muestra los resultados de la busqueda sin filtros de checksbox
             String result = agregado.substring(4);

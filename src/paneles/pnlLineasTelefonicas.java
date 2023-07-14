@@ -38,6 +38,17 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
             jPanel6.setVisible(false);
         }
         NivelAcceso = NIVEL;
+        //---------------------------------se establece que no se pueda pegar texto en los campos
+        val.NegarPegado(txtLinea);
+        val.NegarPegado(txtNumExpediente);
+        val.NegarPegado(txtImei);
+        val.NegarPegado(txtOtro);
+        val.NegarPegado(txtAnterior);
+        val.NegarPegado(txtNuevo);
+        val.NegarPegado(txtPresupuesto);
+        val.NegarPegado(txtMensual);
+        val.NegarPegado(txtBuscar);
+        //------------------------------------------------------------------------------
     }
     //se inicializa para la busqueda por medio de Imei
     String Busqueda = "Imei";

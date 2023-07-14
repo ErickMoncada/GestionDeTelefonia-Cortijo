@@ -9,8 +9,6 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
@@ -23,6 +21,8 @@ public class Login extends javax.swing.JFrame {
         setIconImage(reescalar.getIconImage());
         PersonalizacionMensjaes();
         Limpiar();
+        val.NegarPegado(txtUsuario);
+        val.NegarPegado(txtPassword);
     }
     //se inicializa la clase de validaciones
     validaciones val = new validaciones();
@@ -297,13 +297,13 @@ public class Login extends javax.swing.JFrame {
                 MenuFrame.setLocationRelativeTo(null);
                 this.dispose();
                }else{
-               JOptionPane.showMessageDialog(null, "Este Usuario no tiene el permiso adecuado para entrar al sistema, Contacte a su Jefe ", "Inicio de Sesion",JOptionPane.ERROR_MESSAGE);
+               JOptionPane.showMessageDialog(null, "Este Usuario no tiene el permiso adecuado para entrar al sistema, Contacte a su Jefe ", "Inicio de Sesión",JOptionPane.ERROR_MESSAGE);
                }
             }else{
-             JOptionPane.showMessageDialog(null, "Usuario o Contraseña Incorrecta", "Inicio de Sesion",JOptionPane.ERROR_MESSAGE);
+             JOptionPane.showMessageDialog(null, "Usuario o Contraseña Incorrecta", "Inicio de Sesión",JOptionPane.ERROR_MESSAGE);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
         }
     }//GEN-LAST:event_btnEntrarActionPerformed
@@ -317,6 +317,8 @@ public class Login extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnRecoveryActionPerformed
 
+            
+            
     private void txtUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyTyped
         // validado para un campo de tipo texto normal con el parametro de la longitud deseada
         val.EntradaLetrasNumerosSinEspacios(txtUsuario, evt, 30);

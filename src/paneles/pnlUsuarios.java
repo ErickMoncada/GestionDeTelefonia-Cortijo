@@ -29,6 +29,14 @@ public class pnlUsuarios extends javax.swing.JPanel {
             jPanel4.setVisible(false);
         }
         NivelAcceso = NIVEL;
+        //---------------------------------se establece que no se pueda pegar texto en los campos
+        val.NegarPegado(txtNumExpediente);
+        val.NegarPegado(txtCodEmpleado);
+        val.NegarPegado(txtNombre);
+        val.NegarPegado(txtSAP);
+        val.NegarPegado(txtJefe);
+        val.NegarPegado(txtBuscar);
+        //------------------------------------------------------------------------------
     }
     //se inicializa para la busqueda por medio de Categoria
     String Busqueda = "CategoriaUser";

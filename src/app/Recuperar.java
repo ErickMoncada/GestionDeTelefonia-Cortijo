@@ -23,6 +23,10 @@ public class Recuperar extends javax.swing.JFrame {
         lblErUsuario.setVisible(false);
         lblErPassword.setVisible(false);
         lblErCodigo.setVisible(false);
+        val.NegarPegado(txtUsuario);
+        val.NegarPegado(txtCodigo);
+        val.NegarPegado(txtNewPassword);
+        val.NegarPegado(txtRepPassword);
     }
     //se inicializa la clase de validaciones
     validaciones val = new validaciones();
@@ -268,7 +272,7 @@ public class Recuperar extends javax.swing.JFrame {
 
         lblErPassword.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         lblErPassword.setForeground(new java.awt.Color(255, 0, 0));
-        lblErPassword.setText("Las contraseñas no Coinciden");
+        lblErPassword.setText("Las Contraseñas no Coinciden");
 
         javax.swing.GroupLayout jpnPasswordLayout = new javax.swing.GroupLayout(jpnPassword);
         jpnPassword.setLayout(jpnPasswordLayout);
@@ -381,6 +385,7 @@ public class Recuperar extends javax.swing.JFrame {
                 if (codigo != 0) {
                     jpnCodigo.setVisible(true);
                     jpnUsuario.setVisible(false);
+                    JOptionPane.showMessageDialog(null, "Se ha enviado un código al correo electrónico para poder cambiar la contraseña", "Recuperar Contraseña", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     val.TXTincorrecto(txtUsuario, lblErUsuario, "El Usuario no Existe, verifique el Usuario");
                 }
@@ -394,7 +399,10 @@ public class Recuperar extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEnviarActionPerformed
 
     private void btnCambiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarActionPerformed
-        if (txtNewPassword.getText().equals(txtRepPassword.getText()) && !"".equals(txtNewPassword.getText())) {
+        if(txtNewPassword.getText().equals("") || txtNewPassword.getText().length() < 5){
+            val.GENIncorrecto(lblErPassword, "La contraseña debe ser mayor a 5 caracteres (números  o letras)");
+        }
+        else if (txtNewPassword.getText().equals(txtRepPassword.getText()) ) {
             try {
                 RecuperarPass rec = new RecuperarPass();
                 Connection con = Conexion.getConexion();
@@ -408,7 +416,7 @@ public class Recuperar extends javax.swing.JFrame {
                 // Ejecutar el procedimiento almacenado
                 stmt.execute();
                 // Obtener el resultado de salida
-                JOptionPane.showMessageDialog(null, "La Contraseña a sido actualizada", "Recuperar Contraseña", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "La Contraseña ha sido actualizada", "Recuperar Contraseña", JOptionPane.INFORMATION_MESSAGE);
                 jpnPassword.setVisible(false);
                 jpnUsuario.setVisible(true);
                 txtUsuario.setText("");
@@ -419,7 +427,7 @@ public class Recuperar extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Hubo un error al tratar de actualizar la contraseña, contacte a soporte", "Recuperar Contraseña", JOptionPane.ERROR_MESSAGE);
             }
         } else {
-            lblErPassword.setVisible(true);
+            val.GENIncorrecto(lblErPassword, "Las Contraseñas no Coinciden");
         }
     }//GEN-LAST:event_btnCambiarActionPerformed
 
@@ -428,12 +436,14 @@ public class Recuperar extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCodigoActionPerformed
 
     private void btnCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCodigoActionPerformed
-        if (Integer.parseInt(txtCodigo.getText()) == codigo) {
+        if("".equals(txtCodigo.getText())){
+            val.TXTincorrecto(txtCodigo, lblErCodigo, "Escriba el código que se le envió al correo");
+        }else if (Integer.parseInt(txtCodigo.getText()) == codigo) {
             jpnPassword.setVisible(true);
             jpnUsuario.setVisible(false);
             jpnCodigo.setVisible(false);
         } else {
-            val.TXTincorrecto(txtCodigo, lblErCodigo, "El Codigo no coincide");
+            val.TXTincorrecto(txtCodigo, lblErCodigo, "El Código no coincide");
         }
     }//GEN-LAST:event_btnCodigoActionPerformed
 
@@ -477,17 +487,17 @@ public class Recuperar extends javax.swing.JFrame {
 
     private void txtNewPasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNewPasswordKeyReleased
         if (!"".equals(txtRepPassword.getText()) && (!txtNewPassword.getText().equals(txtRepPassword.getText()))) {
-            lblErPassword.setVisible(true);
+            val.GENcorrecto(lblErPassword);
         } else {
-            lblErPassword.setVisible(false);
+            val.GENIncorrecto(lblErPassword, "Las Contraseñas no Coinciden");
         }
     }//GEN-LAST:event_txtNewPasswordKeyReleased
 
     private void txtRepPasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRepPasswordKeyReleased
         if (txtNewPassword.getText().equals(txtRepPassword.getText())) {
-            lblErPassword.setVisible(false);
+            val.GENcorrecto(lblErPassword);
         } else {
-            lblErPassword.setVisible(true);
+            val.GENIncorrecto(lblErPassword, "Las Contraseñas no Coinciden");
         }
     }//GEN-LAST:event_txtRepPasswordKeyReleased
 

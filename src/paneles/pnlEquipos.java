@@ -4,7 +4,6 @@ import Clases.AccionesCrud;
 import Clases.DatosTablas;
 import Clases.validaciones;
 import app.Conexion;
-import java.awt.Component;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,8 +17,6 @@ import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import paneles.ExtraEquipos.Categoria;
 import paneles.ExtraEquipos.Estado;
@@ -38,6 +35,20 @@ public class pnlEquipos extends javax.swing.JPanel {
             jPanel1.setVisible(false);
         }
         NivelAcceso = NIVEL;
+
+        //---------------------------------se establece que no se pueda pegar texto en los campos
+        val.NegarPegado(txtNumIMEI);
+        val.NegarPegado(txtNumExpediente);
+        val.NegarPegado(txtAccesorio);
+        val.NegarPegado(txtModelo);
+        val.NegarPegado(txtNumFactura);
+        val.NegarPegado(txtComentario);
+        val.NegarPegado(txtCodigo);
+        val.NegarPegado(txtCosto);
+        val.NegarPegado(txtBuscar);
+        //------------------------------------------------------------------------------
+        
+        
     }
     //se inicializa para la busqueda por medio de Imei
     String Busqueda = "Imei";
@@ -85,8 +96,8 @@ public class pnlEquipos extends javax.swing.JPanel {
     }
 
     //funcion para reducir la repeticion del select
-    private void CargarDatosTabla(){
-     //rellenar datos de la tabla
+    private void CargarDatosTabla() {
+        //rellenar datos de la tabla
         DatosTablas Datos = new DatosTablas();
         Datos.CargarTabla(tblEquipos, "select [UsuarioDeLinea]\n"
                 + "      ,[CentroCosto]\n"
@@ -107,8 +118,9 @@ public class pnlEquipos extends javax.swing.JPanel {
                 + "      ,[Comentario]\n"
                 + "       from [VistaEquipos] where " + Busqueda + " LIKE '%" + txtBuscar.getText().trim() + "%'");
     }
+
     private void CargarDatosPrincipal() {
-       CargarDatosTabla();
+        CargarDatosTabla();
         //llenar los datos de los combobox
         CargarListas();
         //obtener la hora del ser5vidor para poner de limite
@@ -1246,7 +1258,7 @@ public class pnlEquipos extends javax.swing.JPanel {
         modelo.setRowCount(0);
         //se muestra los resultados de la busqueda
         CargarDatosTabla();
-       
+
     }//GEN-LAST:event_txtBuscarKeyReleased
 
     private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
@@ -1403,7 +1415,7 @@ public class pnlEquipos extends javax.swing.JPanel {
         //se utiliza la funcion Eliminar de la clase AccionesCrud enviando el ID
         AccionesCrud classcrud = new AccionesCrud();
         if (classcrud.Eliminar(txtNumIMEI, "exec EliminarEquipo ?")) {
-           CargarDatosTabla();
+            CargarDatosTabla();
             Limpiar();
         }
     }//GEN-LAST:event_btnEliminarActionPerformed

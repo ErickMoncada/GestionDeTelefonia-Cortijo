@@ -40,6 +40,14 @@ public class pnlFiniquitos extends javax.swing.JPanel {
             jPanel1.setVisible(false);
         }
         NivelAcceso = NIVEL;
+        //---------------------------------se establece que no se pueda pegar texto en los campos
+        val.NegarPegado(txtCobroDls);
+        val.NegarPegado(txtCobroLps);
+        val.NegarPegado(txtLinea);
+        val.NegarPegado(txtObs1);
+        val.NegarPegado(txtObs2);
+        val.NegarPegado(txtBuscar);
+        //------------------------------------------------------------------------------
     }
     //se inicializa para la busqueda por medio de Categoria
     String Busqueda = "Linea";
@@ -95,8 +103,8 @@ public class pnlFiniquitos extends javax.swing.JPanel {
                 Date maxDate = new Date(serverTime.getTime());
                 dtpSolicitud.setMaxSelectableDate(maxDate);
                 dtpCobro.setMaxSelectableDate(maxDate);
-                
-                 // Sumar 1 año a la fecha para subir el limite de tiempo un año mas
+
+                // Sumar 1 año a la fecha para subir el limite de tiempo un año mas
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(maxDate);
                 calendar.add(Calendar.YEAR, 1);
@@ -1113,7 +1121,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         if (ValidarCampos()) {
             AccionesCrud classcrud = new AccionesCrud();
             if (classcrud.Guardar_Modificar(ArregloDatos(), "exec [UpdateFiniquito] ?,?,?,?,?,?,?,?,?,?")) {
-               BuscarEnTabla();
+                BuscarEnTabla();
             }
         }
     }//GEN-LAST:event_btnModificarActionPerformed

@@ -21,6 +21,10 @@ public class CentroCosto extends javax.swing.JFrame {
         //iniciar funcion para el icono
         Reescalado_Imagenes reescalar = new Reescalado_Imagenes();
         setIconImage(reescalar.getIconImage());
+        //---------------------------------se establece que no se pueda pegar texto en los campos
+        val.NegarPegado(txtNumero);
+        val.NegarPegado(txtNombre);
+        //------------------------------------------------------------------------------
     }
 
     //cargar clase de validaciones

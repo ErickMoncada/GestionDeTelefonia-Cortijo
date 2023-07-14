@@ -16,6 +16,9 @@ public class LugarCompra extends javax.swing.JFrame {
         //iniciar funcion para el icono
         Reescalado_Imagenes reescalar = new Reescalado_Imagenes();
         setIconImage(reescalar.getIconImage());
+        //---------------------------------se establece que no se pueda pegar texto en los campos
+        val.NegarPegado(txtLugar);
+        //------------------------------------------------------------------------------
     }
 
     //cargar clase de validaciones

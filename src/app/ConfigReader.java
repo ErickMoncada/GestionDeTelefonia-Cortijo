@@ -3,6 +3,7 @@ package app;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
+import javax.swing.JOptionPane;
 
 public class ConfigReader {
 
@@ -11,7 +12,7 @@ public class ConfigReader {
         try (FileInputStream inputStream = new FileInputStream(getConfigFilePath())) {
             properties.load(inputStream);
         } catch (IOException e) {
-            e.printStackTrace();
+             JOptionPane.showMessageDialog(null, "No tiene acceso a la base de datos, contacte a soporte", "Telefonia Cortijo",JOptionPane.ERROR_MESSAGE);
         }
         return properties;
     }
