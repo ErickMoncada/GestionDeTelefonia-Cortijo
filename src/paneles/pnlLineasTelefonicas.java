@@ -3,10 +3,17 @@ package paneles;
 import Clases.AccionesCrud;
 import Clases.DatosTablas;
 import Clases.validaciones;
+import app.Conexion;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,6 +21,8 @@ import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
 import paneles.ExtraDLineasTelefonicas.Disponibilidad;
 
@@ -59,6 +68,8 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
     //se crean los grupos de botones para los radioButton
     ButtonGroup btgPago = new ButtonGroup();
     ButtonGroup btgFirma = new ButtonGroup();
+    //inicializar variable de año limite
+    int maxyear;
 
     private String SumarValores(String nombreColumna) {
         //funcion para sumar la cantidad que brinda una columna
@@ -88,7 +99,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         txtMensual.setText("");
         txtOtro.setText("");
         cmbDisponibilidad.setSelectedIndex(-1);
-        txtYear.setYear(2023);
+        txtYear.setValue(maxyear);
         txtCuotas.setValue(0);
         txtImei.setText("");
         dtpAsignacion.setDate(null);
@@ -125,6 +136,33 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         Datos.CargarTabla(tblLineas, "select * from [VistaLineasTelefonicas]");
         //llenar los datos de los combobox
         CargarListas();
+        //obtener la hora del ser5vidor para poner de limite
+        try {
+            Connection con = Conexion.getConexion();
+            PreparedStatement ps;
+            ps = con.prepareStatement("SELECT GETDATE() AS HoraActual");
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Timestamp serverTime = rs.getTimestamp("HoraActual");
+                Date maxDate = new Date(serverTime.getTime());
+                String yearString = String.valueOf(maxDate);
+                String ultimosCuatroDigitos = yearString.substring(yearString.length() - 4);
+                maxyear = Integer.parseInt(ultimosCuatroDigitos);
+                dtpAsignacion.setMaxSelectableDate(maxDate);
+                dtpCambio.setMaxSelectableDate(maxDate);
+                dtpFacturacion.setMaxSelectableDate(maxDate);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(pnlEquipos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        SpinnerNumberModel model = (SpinnerNumberModel) txtYear.getModel();
+        NumberFormat format = new DecimalFormat("####");
+        format.setGroupingUsed(false);
+        JSpinner.NumberEditor editor = new JSpinner.NumberEditor(txtYear, "####");
+        editor.getFormat().applyPattern("####");
+        editor.getFormat().setGroupingUsed(false);
+        txtYear.setEditor(editor);
 
     }
 
@@ -193,31 +231,20 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
             error = "Escriba un numero de IMEI valido";
             val.TXTincorrecto(txtImei, lblErImei, error);
         }
-        //se trata de obtener la fecha y si no se puede genera un error
-        try {
-            Date date = dtpAsignacion.getDate();
-            long d = date.getTime();
-        } catch (Exception e) {
-            error = "La fecha de Asignacion tiene que ser valida";
-            val.GENIncorrecto(lblErAsignacion, error);
+
+        //se verifica si la fecha esta bien
+        if (val.ValidarFechas(dtpAsignacion, lblErAsignacion) == 0) {
             valor1 = 0;
         }
-        try {
-            Date date = dtpCambio.getDate();
-            long d = date.getTime();
-        } catch (Exception e) {
-            error = "La fecha de Cambio tiene que ser valida";
-            val.GENIncorrecto(lblErCambio, error);
+        //se verifica si la fecha esta bien
+        if (val.ValidarFechas(dtpCambio, lblErCambio) == 0) {
             valor1 = 0;
         }
-        try {
-            Date date = dtpFacturacion.getDate();
-            long d = date.getTime();
-        } catch (Exception e) {
-            error = "La fecha de Facturacion tiene que ser valida";
-            val.GENIncorrecto(lblErFacturacion, error);
+        //se verifica si la fecha esta bien
+        if (val.ValidarFechas(dtpFacturacion, lblErFacturacion) == 0) {
             valor1 = 0;
         }
+
         if (btgPago.getSelection() == null) {
             valor1 = 0;
             error = "Debe seleccionar una opcion de Pago de Seguro";
@@ -232,17 +259,31 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
             error = "Debe seleccionar una opcion de Firma";
             val.GENIncorrecto(lblErFirma, error);
         }
-        if (txtAnterior.getText().isEmpty() || Integer.parseInt(txtAnterior.getText()) >= 5) {
+
+        if (!txtAnterior.getText().isEmpty()) {
+            if (Integer.parseInt(txtAnterior.getText()) < 5) {
+                valor1 = 0;
+                error = "La cantidad del plan anterior no puede ser menor a 5$";
+                val.TXTincorrecto(txtAnterior, lblErAnterior, error);
+            }
+        } else {
             valor1 = 0;
-            error = "La cantidad del plan anterior no puede ser menor a 5$";
+            error = "La cantidad del plan anterior no puede estar en blanco";
             val.TXTincorrecto(txtAnterior, lblErAnterior, error);
         }
 
-        if (txtNuevo.getText().isEmpty() || Integer.parseInt(txtNuevo.getText()) >= 5) {
+        if (!txtNuevo.getText().isEmpty()) {
+            if (Integer.parseInt(txtNuevo.getText()) < 5) {
+                valor1 = 0;
+                error = "La cantidad del plan Nuevo no puede ser menor a 5$";
+                val.TXTincorrecto(txtNuevo, lblErNuevo, error);
+            }
+        } else {
             valor1 = 0;
-            error = "La cantidad del plan Nuevo no puede ser menor a 5$";
+            error = "La cantidad del plan anterior no puede estar en blanco";
             val.TXTincorrecto(txtNuevo, lblErNuevo, error);
         }
+
         if (txtPresupuesto.getText().isEmpty()) {
             valor1 = 0;
             error = "Escriba la cantidad del presupuesto";
@@ -286,7 +327,6 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         btnDisponibilidad = new javax.swing.JButton();
         lblErDisponible = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
-        txtYear = new com.toedter.calendar.JYearChooser();
         jLabel18 = new javax.swing.JLabel();
         txtCuotas = new javax.swing.JSpinner();
         lblErCuotas = new javax.swing.JLabel();
@@ -301,6 +341,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         btnGuardar = new rsbuttom.RSButtonMetro();
         btnModificar = new rsbuttom.RSButtonMetro();
         btnEliminar = new rsbuttom.RSButtonMetro();
+        txtYear = new javax.swing.JSpinner();
         jPanel5 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         dtpAsignacion = new com.toedter.calendar.JDateChooser();
@@ -435,16 +476,16 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(17, 17, 17))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addGap(17, 17, 17))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         jScrollPane1.setComponentPopupMenu(jPopupMenu1);
@@ -628,10 +669,6 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         jLabel19.setForeground(new java.awt.Color(0, 0, 0));
         jLabel19.setText("Año de Renovación:");
 
-        txtYear.setMaximum(2100);
-        txtYear.setMinimum(1980);
-        txtYear.setNextFocusableComponent(txtCuotas);
-
         jLabel18.setForeground(new java.awt.Color(0, 0, 0));
         jLabel18.setText("Cuotas:");
 
@@ -745,6 +782,14 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
             }
         });
 
+        txtYear.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        txtYear.setNextFocusableComponent(txtImei);
+        txtYear.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                txtYearStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -768,18 +813,16 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
                             .addComponent(lblErExpediente)
                             .addComponent(lblErDisponible)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(txtYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel4Layout.createSequentialGroup()
-                                        .addGap(85, 85, 85)
-                                        .addComponent(lblErCuotas))
-                                    .addGroup(jPanel4Layout.createSequentialGroup()
-                                        .addGap(35, 35, 35)
-                                        .addComponent(jLabel18)
-                                        .addGap(12, 12, 12)
-                                        .addComponent(txtCuotas, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(31, 31, 31)
-                                        .addComponent(lblObligatorio3))))
+                                .addGap(143, 143, 143)
+                                .addComponent(lblErCuotas))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(txtYear, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel18)
+                                .addGap(12, 12, 12)
+                                .addComponent(txtCuotas, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(31, 31, 31)
+                                .addComponent(lblObligatorio3))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(cmbDisponibilidad, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -840,10 +883,8 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtYear, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(11, 11, 11)
                         .addComponent(lblErCuotas)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -855,7 +896,8 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtCuotas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblObligatorio3, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lblObligatorio3, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(35, 35, 35)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -871,7 +913,13 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Fecha de Asignación:");
 
+        dtpAsignacion.setMinSelectableDate(new java.util.Date(1262329270000L));
         dtpAsignacion.setNextFocusableComponent(dtpCambio);
+        dtpAsignacion.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                dtpAsignacionPropertyChange(evt);
+            }
+        });
 
         lblErAsignacion.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         lblErAsignacion.setForeground(new java.awt.Color(255, 0, 0));
@@ -880,7 +928,13 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Fecha Cambio de Equipo:");
 
+        dtpCambio.setMinSelectableDate(new java.util.Date(1262329270000L));
         dtpCambio.setNextFocusableComponent(dtpFacturacion);
+        dtpCambio.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                dtpCambioPropertyChange(evt);
+            }
+        });
 
         lblErCambio.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         lblErCambio.setForeground(new java.awt.Color(255, 0, 0));
@@ -889,7 +943,13 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Fecha de Facturación:");
 
+        dtpFacturacion.setMinSelectableDate(new java.util.Date(1262329270000L));
         dtpFacturacion.setNextFocusableComponent(rdbSiSeguro);
+        dtpFacturacion.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                dtpFacturacionPropertyChange(evt);
+            }
+        });
 
         jPanel2.setComponentPopupMenu(jPopupMenu1);
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1398,7 +1458,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         datos[0] = txtLinea.getText();
         datos[1] = txtNumExpediente.getText();
         datos[2] = cmbDisponibilidad.getSelectedItem().toString();
-        datos[3] = txtYear.getYear();
+        datos[3] = (Integer) txtYear.getValue();
         datos[4] = (Integer) txtCuotas.getValue();
         datos[5] = txtImei.getText();
         try {
@@ -1628,6 +1688,12 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
     private void txtCuotasStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_txtCuotasStateChanged
         //al cambiar el numero de cuotas se pone el estado en correcto
         val.GENcorrecto(lblErCuotas);
+        int value = (int) txtCuotas.getValue();
+        if (value < 0) {
+            txtCuotas.setValue(0); // Establecer el valor mínimo si es menor a 0
+        } else if (value > 100) {
+            txtCuotas.setValue(100); // Establecer el valor máximo si es mayor a 100
+        }
     }//GEN-LAST:event_txtCuotasStateChanged
 
     private void rdbSiSeguroItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rdbSiSeguroItemStateChanged
@@ -1656,6 +1722,31 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
                 break;
         }
     }//GEN-LAST:event_txtBuscarKeyTyped
+
+    private void dtpAsignacionPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dtpAsignacionPropertyChange
+        //se quita el error al escribir en el campo de compra
+        val.GENcorrecto(lblErAsignacion);
+    }//GEN-LAST:event_dtpAsignacionPropertyChange
+
+    private void dtpCambioPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dtpCambioPropertyChange
+        //se quita el error al escribir en el campo de compra
+        val.GENcorrecto(lblErCambio);
+    }//GEN-LAST:event_dtpCambioPropertyChange
+
+    private void dtpFacturacionPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dtpFacturacionPropertyChange
+        //se quita el error al escribir en el campo de compra
+        val.GENcorrecto(lblErFacturacion);
+    }//GEN-LAST:event_dtpFacturacionPropertyChange
+
+    private void txtYearStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_txtYearStateChanged
+        //limite entre 2010 y el año actual
+        int value = (int) txtYear.getValue();
+        if (value < 2010) {
+            txtYear.setValue(2010); // Establecer el valor mínimo si es menor a 0
+        } else if (value > maxyear) {
+            txtYear.setValue(maxyear); // Establecer el valor máximo si es mayor a 100
+        }
+    }//GEN-LAST:event_txtYearStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1742,6 +1833,6 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
     private javax.swing.JTextField txtNumExpediente;
     private javax.swing.JTextField txtOtro;
     private javax.swing.JTextField txtPresupuesto;
-    private com.toedter.calendar.JYearChooser txtYear;
+    private javax.swing.JSpinner txtYear;
     // End of variables declaration//GEN-END:variables
 }

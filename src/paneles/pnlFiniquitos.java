@@ -67,6 +67,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
 
         txtIDFiniquitos.setText("");
         txtCobroDls.setText("");
+        txtCobroLps.setText("");
         txtLinea.setText("");
         txtObs1.setText("");
         txtObs2.setText("");
@@ -179,33 +180,17 @@ public class pnlFiniquitos extends javax.swing.JPanel {
 
         int valor1 = 1;
         String error;
-        Date date;
-        //se trata de obtener la fecha y si no se puede genera un error
-        try {
-            date = dtpSolicitud.getDate();
-            long d = date.getTime();
-        } catch (Exception e) {
-            error = "La fecha de Solicitud tiene que ser valida";
-            val.GENIncorrecto(lblErSolicitud, error);
-            valor1 = 0;
-        }
-        //se trata de obtener la fecha y si no se puede genera un error
-        if (dtpCorte.getDate() != null && dtpCorte.isValid()) {
-            date = dtpCorte.getDate();
-            long d = date.getTime();
-        } else {
-            error = "La fecha seleccionada no es válida o no esta en el rango permitido.";
-            val.GENIncorrecto(lblErCorte, error);
-            valor1 = 0;
-        }
-        if (dtpCobro.getDate() != null && dtpCobro.isValid()) {
-            date = dtpCobro.getDate();
-            long d = date.getTime();
-        } else {
-            error = "La fecha seleccionada no es válida o no esta en el rango permitido.";
-            val.GENIncorrecto(lblErCobro, error);
-            valor1 = 0;
-        }
+        
+         //se verifica si la fecha esta bien
+         if(val.ValidarFechas(dtpSolicitud, lblErSolicitud)==0){
+         valor1 = 0;
+         }
+         if(val.ValidarFechas(dtpCorte, lblErCorte)==0){
+         valor1 = 0;
+         }
+         if(val.ValidarFechas(dtpCobro, lblErCobro)==0){
+         valor1 = 0;
+         }
 
         if (txtCobroDls.getText().isEmpty() || Double.parseDouble(txtCobroDls.getText()) <= 0 || txtCobroLps.getText().isEmpty() || Double.parseDouble(txtCobroLps.getText()) <= 0) {
             valor1 = 0;
@@ -373,6 +358,11 @@ public class pnlFiniquitos extends javax.swing.JPanel {
 
         dtpCorte.setMinSelectableDate(new java.util.Date(1262329267000L));
         dtpCorte.setNextFocusableComponent(dtpCobro);
+        dtpCorte.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                dtpCortePropertyChange(evt);
+            }
+        });
 
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Fecha de Solicitud\n");
@@ -385,6 +375,11 @@ public class pnlFiniquitos extends javax.swing.JPanel {
 
         dtpSolicitud.setMinSelectableDate(new java.util.Date(1262329267000L));
         dtpSolicitud.setNextFocusableComponent(dtpCorte);
+        dtpSolicitud.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                dtpSolicitudPropertyChange(evt);
+            }
+        });
 
         txtObs1.setNextFocusableComponent(txtObs2);
         txtObs1.setPreferredSize(new java.awt.Dimension(65, 26));
@@ -413,6 +408,11 @@ public class pnlFiniquitos extends javax.swing.JPanel {
 
         dtpCobro.setMinSelectableDate(new java.util.Date(1262329267000L));
         dtpCobro.setNextFocusableComponent(txtCobroDls);
+        dtpCobro.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                dtpCobroPropertyChange(evt);
+            }
+        });
 
         lblErSolicitud.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         lblErSolicitud.setForeground(new java.awt.Color(255, 0, 0));
@@ -610,56 +610,52 @@ public class pnlFiniquitos extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel6)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel5)
-                                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(dtpCorte, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(dtpSolicitud, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblErSolicitud)
-                                    .addComponent(lblErCorte)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lblErCobro)
-                                .addGap(170, 170, 170))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(dtpCobro, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(6, 6, 6)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblObligatorio1)
-                            .addComponent(lblObligatorio)
-                            .addComponent(lblObligatorio2))
-                        .addGap(50, 50, 50)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtIDFiniquitos, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(50, 50, 50)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtObs2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtObs1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(50, 50, 50)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel6)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel5)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(jLabel7))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblErCobro)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(dtpCorte, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+                                    .addComponent(dtpSolicitud, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
+                                    .addComponent(lblErSolicitud)
+                                    .addComponent(lblErCorte)
+                                    .addComponent(dtpCobro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(6, 6, 6)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblObligatorio1)
+                                    .addComponent(lblObligatorio)
+                                    .addComponent(lblObligatorio2))
+                                .addGap(50, 50, 50)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtIDFiniquitos, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(50, 50, 50)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtObs2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtObs1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(50, 50, 50)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -702,13 +698,14 @@ public class pnlFiniquitos extends javax.swing.JPanel {
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtIDFiniquitos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(dtpCobro, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblObligatorio2, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(lblObligatorio2, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(dtpCobro, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(lblErCobro)
-                .addGap(24, 24, 24)
+                .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1135,6 +1132,21 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         // validado para un campo de tipo monetario
         val.EntradaDinero(txtCobroLps, evt);
     }//GEN-LAST:event_txtCobroLpsKeyTyped
+
+    private void dtpSolicitudPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dtpSolicitudPropertyChange
+        //se quita el error al escribir en el campo de compra
+        val.GENcorrecto(lblErSolicitud);
+    }//GEN-LAST:event_dtpSolicitudPropertyChange
+
+    private void dtpCortePropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dtpCortePropertyChange
+        //se quita el error al escribir en el campo de compra
+        val.GENcorrecto(lblErCorte);
+    }//GEN-LAST:event_dtpCortePropertyChange
+
+    private void dtpCobroPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dtpCobroPropertyChange
+        //se quita el error al escribir en el campo de compra
+        val.GENcorrecto(lblErCobro);
+    }//GEN-LAST:event_dtpCobroPropertyChange
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

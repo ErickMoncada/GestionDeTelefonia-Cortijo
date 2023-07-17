@@ -1,14 +1,13 @@
 package Clases;
 
+import com.toedter.calendar.JDateChooser;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Toolkit;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.Transferable;
-import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Date;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -207,6 +206,35 @@ public class validaciones {
         //establece a los campos la denegacion de comandos como control + V y shift + INSERT
         campo.getInputMap().put(KeyStroke.getKeyStroke("control V"), "none");
         campo.getInputMap().put(KeyStroke.getKeyStroke("shift INSERT"), "none");
+    }
+    
+    public int ValidarFechas(JDateChooser dateChooser, JLabel labelError){
+    //se trata de obtener la fecha y si no se puede genera un error
+        String error;
+    int valor1=1;
+        if (dateChooser.getDate() != null ) {
+         
+            Date date = dateChooser.getDate();
+            long d = date.getTime();
+            int fechamayor = date.compareTo(dateChooser.getMaxSelectableDate());
+            int fechamenor = date.compareTo(dateChooser.getMinSelectableDate());
+            //se compara la fecha para verificar que no pase el limite de fecha
+            if (fechamayor > 0) {
+                error = "La fecha seleccionada es mayor a la fecha permitida.";
+                GENIncorrecto(labelError, error);
+                 valor1 = 0;
+             //se compara la fecha para verificar que no sea menor al permitido
+            } else if(fechamenor<0){
+            error = "La fecha seleccionada es menor a la fecha permitida.";
+                GENIncorrecto(labelError, error);
+                 valor1 = 0;
+            }
+        } else {
+            error = "La fecha seleccionada no es válida ";
+            GENIncorrecto(labelError, error);
+             valor1 = 0;
+        }
+    return valor1;
     }
 
 }

@@ -47,8 +47,7 @@ public class pnlEquipos extends javax.swing.JPanel {
         val.NegarPegado(txtCosto);
         val.NegarPegado(txtBuscar);
         //------------------------------------------------------------------------------
-        
-        
+
     }
     //se inicializa para la busqueda por medio de Imei
     String Busqueda = "Imei";
@@ -120,10 +119,6 @@ public class pnlEquipos extends javax.swing.JPanel {
     }
 
     private void CargarDatosPrincipal() {
-        CargarDatosTabla();
-        //llenar los datos de los combobox
-        CargarListas();
-        //obtener la hora del ser5vidor para poner de limite
         try {
             Connection con = Conexion.getConexion();
             PreparedStatement ps;
@@ -138,6 +133,10 @@ public class pnlEquipos extends javax.swing.JPanel {
         } catch (SQLException ex) {
             Logger.getLogger(pnlEquipos.class.getName()).log(Level.SEVERE, null, ex);
         }
+        CargarDatosTabla();
+        //llenar los datos de los combobox
+        CargarListas();
+        //obtener la hora del ser5vidor para poner de limite
     }
 
     private void LimpiarErrores() {
@@ -151,6 +150,7 @@ public class pnlEquipos extends javax.swing.JPanel {
         val.CMBcorrecto(cmbMarca, lblErMarca);
         val.TXTcorrecto(txtModelo, lblErModelo);
         val.CMBcorrecto(cmbLugar, lblErLugar);
+        val.GENcorrecto(lblErDateCompra);
     }
 
     private boolean ValidarCampos() {
@@ -181,15 +181,10 @@ public class pnlEquipos extends javax.swing.JPanel {
             error = "Debe seleccionar un Tipo de equipo";
             val.CMBincorrecto(cmbTipo, lblErTipo, error);
         }
-        //se trata de obtener la fecha y si no se puede genera un error
-        if (dtpPrestamo.getDate() != null && dtpPrestamo.isValid()) {
-            Date date = dtpPrestamo.getDate();
-            long d = date.getTime();
-        } else {
-            error = "La fecha seleccionada no es válida o no esta en el rango permitido.";
-            val.GENIncorrecto(lblErDatePrestamo, error);
-            valor1 = 0;
-        }
+        //se verifica si la fecha esta bien
+         if(val.ValidarFechas(dtpPrestamo, lblErDatePrestamo)==0){
+         valor1 = 0;
+         }
 
         if (cmbCategoria.getSelectedItem() == null || cmbCategoria.getSelectedItem() == "") {
             valor1 = 0;
@@ -211,6 +206,14 @@ public class pnlEquipos extends javax.swing.JPanel {
             error = "Debe seleccionar un lugar de compra del equipo";
             val.CMBincorrecto(cmbLugar, lblErLugar, error);
         }
+        //se verifica si la fecha esta bien
+         if (dtpCompra.getDate() != null ) {
+         if(val.ValidarFechas(dtpCompra, lblErDateCompra)==0){
+         valor1 = 0;
+         }
+         }
+        
+        
 
         return valor1 == 1; //Expreciones regulares de los campos
     }
@@ -283,6 +286,7 @@ public class pnlEquipos extends javax.swing.JPanel {
         txtCosto = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
         txtCodigo = new javax.swing.JTextField();
+        lblErDateCompra = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblEquipos = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
@@ -684,9 +688,15 @@ public class pnlEquipos extends javax.swing.JPanel {
         jLabel17.setText("Fecha de Prestamo:");
         jLabel17.setNextFocusableComponent(cmbCategoria);
 
-        dtpPrestamo.setMaxSelectableDate(new java.util.Date(253370790075000L));
+        dtpPrestamo.setFocusable(false);
+        dtpPrestamo.setMaxSelectableDate(new java.util.Date(1735714875000L));
         dtpPrestamo.setMinSelectableDate(new java.util.Date(1262329275000L));
         dtpPrestamo.setNextFocusableComponent(cmbCategoria);
+        dtpPrestamo.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                dtpPrestamoPropertyChange(evt);
+            }
+        });
 
         lblErDatePrestamo.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
         lblErDatePrestamo.setForeground(new java.awt.Color(255, 0, 0));
@@ -770,7 +780,7 @@ public class pnlEquipos extends javax.swing.JPanel {
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblObligatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblErImei, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblErImei)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -833,7 +843,13 @@ public class pnlEquipos extends javax.swing.JPanel {
             }
         });
 
+        dtpCompra.setMinSelectableDate(new java.util.Date(1262329269000L));
         dtpCompra.setNextFocusableComponent(btnGuardar);
+        dtpCompra.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                dtpCompraPropertyChange(evt);
+            }
+        });
 
         jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("Costo del Equipo:    $ ");
@@ -858,6 +874,10 @@ public class pnlEquipos extends javax.swing.JPanel {
             }
         });
 
+        lblErDateCompra.setFont(new java.awt.Font("Dialog", 0, 10)); // NOI18N
+        lblErDateCompra.setForeground(new java.awt.Color(255, 0, 0));
+        lblErDateCompra.setText("Error");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -865,30 +885,30 @@ public class pnlEquipos extends javax.swing.JPanel {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                            .addComponent(jLabel9)
-                            .addGap(0, 0, 0)
-                            .addComponent(txtCosto, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(112, 112, 112))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                            .addComponent(jLabel15)
-                            .addGap(18, 18, 18)
-                            .addComponent(txtNumFactura, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel14)
-                                .addComponent(jLabel16))
-                            .addGap(18, 18, 18)
-                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtComentario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(dtpCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(69, 69, 69)
                         .addComponent(jLabel18)
                         .addGap(18, 18, 18)
-                        .addComponent(txtCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(txtCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel14)
+                                .addComponent(jLabel16))
+                            .addComponent(jLabel15)
+                            .addComponent(jLabel9))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                                .addComponent(txtCosto, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+                                .addGap(112, 112, 112))
+                            .addComponent(txtNumFactura, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtComentario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(lblErDateCompra)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(dtpCompra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -910,7 +930,10 @@ public class pnlEquipos extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dtpCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(dtpCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblErDateCompra)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18)
@@ -927,8 +950,7 @@ public class pnlEquipos extends javax.swing.JPanel {
                 .addGap(50, 50, 50)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(50, 50, 50)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -942,6 +964,7 @@ public class pnlEquipos extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -950,11 +973,8 @@ public class pnlEquipos extends javax.swing.JPanel {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(106, 106, 106))))
+                            .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
         );
 
         jScrollPane1.setComponentPopupMenu(jPopupMenu1);
@@ -1443,8 +1463,19 @@ public class pnlEquipos extends javax.swing.JPanel {
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void txtCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyTyped
+       //permite la escrtura de numero letras y guion
         val.EntradaLetrasNumeroGuion(txtCodigo, evt, 20);
     }//GEN-LAST:event_txtCodigoKeyTyped
+
+    private void dtpCompraPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dtpCompraPropertyChange
+        //se quita el error al escribir en el campo de compra
+        val.GENcorrecto(lblErDateCompra);
+    }//GEN-LAST:event_dtpCompraPropertyChange
+
+    private void dtpPrestamoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_dtpPrestamoPropertyChange
+        //se quita el error al escribir en el campo de compra
+        val.GENcorrecto(lblErDatePrestamo);
+    }//GEN-LAST:event_dtpPrestamoPropertyChange
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1490,6 +1521,7 @@ public class pnlEquipos extends javax.swing.JPanel {
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblErCategoria;
+    private javax.swing.JLabel lblErDateCompra;
     private javax.swing.JLabel lblErDatePrestamo;
     private javax.swing.JLabel lblErEstado;
     private javax.swing.JLabel lblErExpediente;

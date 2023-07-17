@@ -127,13 +127,13 @@ public class pnlUsuarios extends javax.swing.JPanel {
             //asignar 0 al valor para devolver falso en la validacion
             valor1 = 0;
             //mensaje de error para el respectivo campo de texto
-            error = "El numero de expediente no puede estar en blanco";
+            error = "El número de expediente no puede estar en blanco";
             //asignar colores de error a cada campo
             val.TXTincorrecto(txtNumExpediente, lblErExpediente, error);
         }
         if (txtCodEmpleado.getText().isEmpty() || !txtCodEmpleado.getText().matches("\\d{0,6}")) {
             valor1 = 0;
-            error = "El codigo de empleado no puede estar en blanco";
+            error = "El código de empleado no puede estar en blanco";
             val.TXTincorrecto(txtCodEmpleado, lblErCodigo, error);
         }
         if (txtNombre.getText().isEmpty() || !txtNombre.getText().matches("^[A-Za-z\\s]+$")) {
@@ -153,7 +153,7 @@ public class pnlUsuarios extends javax.swing.JPanel {
         }
         if (cmbCategoria.getSelectedItem() == null || cmbCategoria.getSelectedItem() == "") {
             valor1 = 0;
-            error = "Seleccione una Categoria";
+            error = "Seleccione una Categoría";
             val.CMBincorrecto(cmbCategoria, lblErCategoria, error);
         }
         if (cmbPuesto.getSelectedItem() == null || cmbPuesto.getSelectedItem() == "") {
@@ -163,13 +163,13 @@ public class pnlUsuarios extends javax.swing.JPanel {
         }
         if (cmbUbicacion.getSelectedItem() == null || cmbUbicacion.getSelectedItem() == "") {
             valor1 = 0;
-            error = "Seleccione una Ubicacion";
+            error = "Seleccione una Ubicación";
             val.CMBincorrecto(cmbUbicacion, lblErUbicacion, error);
         }
 
         if (!"".equals(txtSAP.getText()) && !txtSAP.getText().matches("\\d{8}")) {
              valor1 = 0;
-            error = "Codigo incompleto";
+            error = "Código  incompleto";
             val.TXTincorrecto(txtSAP, lblErSAP, error);
         }
 
