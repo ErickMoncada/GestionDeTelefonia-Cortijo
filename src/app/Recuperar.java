@@ -379,7 +379,6 @@ public class Recuperar extends javax.swing.JFrame {
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
         if (!"".equals(txtUsuario.getText())) {
             RecuperarPass rec = new RecuperarPass();
-            try {
                 codigo = rec.EnviarCodigo(txtUsuario.getText());
                 System.out.println(codigo);
                 if (codigo != 0) {
@@ -388,10 +387,7 @@ public class Recuperar extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Se ha enviado un código al correo electrónico para poder cambiar la contraseña", "Recuperar Contraseña", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     val.TXTincorrecto(txtUsuario, lblErUsuario, "El Usuario no Existe, verifique el Usuario");
-                }
-            } catch (MessagingException ex) {
-                Logger.getLogger(Recuperar.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                }      
         } else {
             //establecemos en incorrecto el capo
             val.TXTincorrecto(txtUsuario, lblErUsuario, "El usuario no puede estar en blanco");

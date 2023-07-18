@@ -995,7 +995,7 @@ public class pnlUsuarios extends javax.swing.JPanel {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void tblUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblUsuariosMouseClicked
-        if ("Administrador".equals(NivelAcceso)) {
+        if (!"Lector".equals(NivelAcceso)) {
             LimpiarErrores();
             CargarListas();
             //se trata de obtener los datos de la tabla para mostrarlos en las casillas respectivas con ayuda de sql

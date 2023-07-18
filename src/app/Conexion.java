@@ -24,7 +24,6 @@ public class Conexion {
         Connection con = DriverManager.getConnection(url);
           return con;
         } catch (SQLException e) {
-            System.out.println(e.toString());
             return null;
         }
     }

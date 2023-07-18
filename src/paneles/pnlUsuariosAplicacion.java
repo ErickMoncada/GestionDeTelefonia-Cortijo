@@ -9,7 +9,6 @@ import java.awt.Component;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Random;
-import javax.mail.MessagingException;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
@@ -726,12 +725,8 @@ public class pnlUsuariosAplicacion extends javax.swing.JPanel {
             AccionesCrud classcrud = new AccionesCrud();
             //se trata de crear el usuario con un procedimiento almacenado
             if (classcrud.Guardar_Modificar(ArregloDatos(), "exec [AgregarUsuarioAplicacion] ?,?,?,?,?")) {
-                //se trata de enviar la contraseña y el usuario al correo que se le ah creado la cuenta
-                try {
-                    rec.EnviarPassword(txtUsuario.getText(), passwordGenerado);
-                } catch (MessagingException ex) {
-                    JOptionPane.showConfirmDialog(null, "El usuario fue creado pero no se pudo enviar el correo", "Error de Envio", JOptionPane.ERROR_MESSAGE, JOptionPane.ERROR_MESSAGE);
-                }
+                //se enviar la contraseña y el usuario al correo que se le ah creado la cuenta
+                rec.EnviarPassword(txtUsuario.getText(), passwordGenerado);
                 BuscarEnTabla();
             }
         }

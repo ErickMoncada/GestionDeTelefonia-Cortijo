@@ -274,7 +274,7 @@ public class Login extends javax.swing.JFrame {
         if(ValidarCampos()){
         try {
             Connection con = Conexion.getConexion();
-            String sql = ("{CALL IniciarSesion(?, ?, ?,?)}");
+            String sql = ("{CALL IniciarSesion(?, ?, ?,?,?)}");
             CallableStatement stmt = con.prepareCall(sql);
             // Configurar los parámetros de entrada y salida
             stmt.setString(1, txtUsuario.getText().trim());
@@ -282,16 +282,18 @@ public class Login extends javax.swing.JFrame {
             stmt.setString(2, rec.Encriptar( txtPassword.getText().trim()));
             stmt.registerOutParameter(3, Types.BOOLEAN);
             stmt.registerOutParameter(4, Types.NVARCHAR);
+            stmt.registerOutParameter(5, Types.NVARCHAR);
             // Ejecutar el procedimiento almacenado
             stmt.execute();
             // Obtener el resultado de salida
             boolean acceso = stmt.getBoolean(3);
             String NivelAcceso=stmt.getString(4);
+            String Nombre=stmt.getString(5);
             if (acceso) {
                 //Comprobar si es administrador o lector
                if("Administrador".equals(NivelAcceso) || "Lector".equals(NivelAcceso) || "Root".equals(NivelAcceso)){
                 //Abrir Formulario de Menu Principal y se manda el nivel de Acceso
-                Principal MenuFrame = new Principal(NivelAcceso);
+                Principal MenuFrame = new Principal(NivelAcceso,Nombre);
                 MenuFrame.setVisible(true);
                 MenuFrame.pack();
                 MenuFrame.setLocationRelativeTo(null);
@@ -303,7 +305,7 @@ public class Login extends javax.swing.JFrame {
              JOptionPane.showMessageDialog(null, "Usuario o Contraseña Incorrecta", "Inicio de Sesión",JOptionPane.ERROR_MESSAGE);
             }
         } catch (SQLException ex) {
-            //Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "No se pudo Contactar con la base de datos, Solicite ayuda a su superior"+ ex, "Telefónia Cortijo",JOptionPane.ERROR_MESSAGE);
         }
         }
     }//GEN-LAST:event_btnEntrarActionPerformed

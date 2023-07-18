@@ -5,17 +5,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Properties;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -26,11 +18,9 @@ import java.security.NoSuchAlgorithmException;
 public class RecuperarPass {
 
     //se declara los datos del correo que envia el mensaje
-    String correoRemitente = "correo de asistencia";
-    String passRemitente = "password";
+    Object[] datos = new Object[11];
 
-    private Properties propiedades() {
-        Properties props = new Properties();
+    private void datos() {
         try {
             ResultSet rs;
             PreparedStatement ps;
@@ -38,25 +28,24 @@ public class RecuperarPass {
             ps = con.prepareStatement("SELECT * FROM VistaAdmin");
             rs = ps.executeQuery();
             if (rs.next()) {
-                props.setProperty("mail.smtp.host", rs.getString("host"));
-                props.setProperty("mail.smtp.startls.enable", rs.getString("startls"));
-                props.setProperty("mail.smtp.port", rs.getString("puerto"));
-                props.setProperty("mail.smtp.auth", rs.getString("auth"));
-                props.setProperty("mail.smtp.ssl", rs.getString("ssl"));
-                correoRemitente = rs.getString("correo");
-                passRemitente = rs.getString("password");
+                datos[0] = rs.getString("host");
+                datos[1] = rs.getString("host");
+                datos[2] = rs.getString("startls");
+                datos[3] = rs.getString("puerto");
+                datos[5] = rs.getString("sslProtocol");
+                datos[6] = rs.getString("auth");
+                datos[4] = rs.getString("correo");
+                datos[10] = rs.getString("password");
             }
 
         } catch (SQLException ex) {
             Logger.getLogger(RecuperarPass.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return props;
     }
 
-    public int EnviarCodigo(String usuario) throws AddressException, MessagingException {
+    public int EnviarCodigo(String usuario) {
         //se trata de enviar el correo electronico conj el codigo correspondiente
         int codigo = 0;
-        String DireccionCorreo;
         try {
             ResultSet rs;
             PreparedStatement ps;
@@ -66,39 +55,22 @@ public class RecuperarPass {
             rs = ps.executeQuery();
             //se comprueba si existe el usuario, de lo contrario se envia codigo 0 que significa que no encontro usuario
             if (rs.next()) {
-                DireccionCorreo = rs.getString("Correo");
-                Session session = Session.getDefaultInstance(propiedades());
-
-                String correoReceptor = DireccionCorreo;
-                String asunto = "Recuperacion de Contraseña";
+                datos[7] = rs.getString("Correo");
+                datos[8] = "Recuperacion de Contraseña";
                 codigo = numeroAleatorio();
-                String mensaje = "Tu codigo para recuperar la contraseña es: " + codigo + " sigue los pasos en la aplicacion";
-
-                MimeMessage message = new MimeMessage(session);
-                try {
-                    message.setFrom(new InternetAddress(correoRemitente));
-                    message.addRecipient(Message.RecipientType.TO, new InternetAddress(correoReceptor));
-                    message.setSubject(asunto);
-                    message.setText(mensaje);
-                    Transport t = session.getTransport("smtp");
-                    t.connect(correoRemitente, passRemitente);
-                    t.sendMessage(message, message.getRecipients(Message.RecipientType.TO));
-                    t.close();
-                } catch (MessagingException ex) {
-                    System.out.println("no se pudo enviar el correo" + ex);
-                }
+                datos[9] = "Tu codigo para recuperar la contraseña es: " + codigo + " sigue los pasos en la aplicacion";
+                datos();
+                EnvioCorreos envio = new EnvioCorreos();
+                envio.createEmail(datos);
             }
-
         } catch (SQLException ex) {
             Logger.getLogger(RecuperarPass.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return codigo;
     }
 
-    public void EnviarPassword(String usuario, String password) throws AddressException, MessagingException {
+    public void EnviarPassword(String usuario, String password) {
         //se trata de enviar al correo del usuario su contraseña
-        String DireccionCorreo;
         try {
             ResultSet rs;
             PreparedStatement ps;
@@ -108,32 +80,16 @@ public class RecuperarPass {
             rs = ps.executeQuery();
             //se comprueba si existe el usuario, de lo contrario se envia codigo 0 que significa que no encontro usuario
             if (rs.next()) {
-                DireccionCorreo = rs.getString("Correo");
-                Session session = Session.getDefaultInstance(propiedades());
-
-                String correoReceptor = DireccionCorreo;
-                String asunto = "Usuario creado Telefonia Pollos Cortijo";
-                String mensaje = "¡Se ha creado una cuenta para la gestión de telefonía del cortijo con tu dirección de correo electrónico! Tu contraseña generada es: '" + password + "' y tu usuario es: '" + usuario + "'. Por motivos de seguridad, te recomendamos cambiar esta contraseña. Puedes hacerlo fácilmente a través de la aplicación de gestión telefónica.";
-
-                MimeMessage message = new MimeMessage(session);
-                try {
-                    message.setFrom(new InternetAddress(correoRemitente));
-                    message.addRecipient(Message.RecipientType.TO, new InternetAddress(correoReceptor));
-                    message.setSubject(asunto);
-                    message.setText(mensaje);
-                    Transport t = session.getTransport("smtp");
-                    t.connect(correoRemitente, passRemitente);
-                    t.sendMessage(message, message.getRecipients(Message.RecipientType.TO));
-                    t.close();
-                } catch (MessagingException ex) {
-                    System.out.println("no se pudo enviar el correo" + ex);
-                }
+                datos[7] = rs.getString("Correo");
+                datos[8] = "Usuario creado Telefonia Pollos Cortijo";
+                datos[9] = "¡Se ha creado una cuenta para la gestión de telefonía del cortijo con tu dirección de correo electrónico! Tu contraseña generada es: '" + password + "' y tu usuario es: '" + usuario + "'. Por motivos de seguridad, te recomendamos cambiar esta contraseña. Puedes hacerlo fácilmente a través de la aplicación de gestión telefónica.";
+                datos();
+                EnvioCorreos envio = new EnvioCorreos();
+                envio.createEmail(datos);
             }
-
         } catch (SQLException ex) {
             Logger.getLogger(RecuperarPass.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
     private int numeroAleatorio() {

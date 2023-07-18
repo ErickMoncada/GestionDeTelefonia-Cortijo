@@ -24,14 +24,14 @@ public class Principal extends javax.swing.JFrame {
     //Se inicializa la variable de nivel de acceso
     String NivelDeAcceso;
 
-    public Principal(String NIVEL) {
+    public Principal(String NIVEL,String NOMBRE) {
         initComponents();
         //se Recive el nivel de aceso a travez del login y se asigna a una variable global
         NivelDeAcceso = NIVEL;
         this.setExtendedState(MAXIMIZED_BOTH);
         this.setLocationRelativeTo(this);
         //mostrar el menu principal
-        new CambiaPanel(pnlPrincipal, new paneles.pnlHome());
+        new CambiaPanel(pnlPrincipal, new paneles.pnlHome(NOMBRE));
         this.btnUserTel.setColorNormal(new Color(239, 238, 244));
         this.btnEquipos.setColorNormal(new Color(239, 238, 244));
         this.btnFiniquitos.setColorNormal(new Color(239, 238, 244));
