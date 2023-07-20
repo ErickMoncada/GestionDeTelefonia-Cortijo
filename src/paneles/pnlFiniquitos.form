@@ -500,7 +500,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Observacion 1:"/>
+            <Property name="text" type="java.lang.String" value="Observaci&#xf3;n 1:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtObs2">
@@ -521,7 +521,7 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="0" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Observacion 2:"/>
+            <Property name="text" type="java.lang.String" value="Observaci&#xf3;n 2:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel7">
@@ -589,7 +589,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Estatus:"/>
+                <Property name="text" type="java.lang.String" value="Estado:"/>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">

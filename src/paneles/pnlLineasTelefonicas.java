@@ -13,7 +13,6 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -45,6 +44,9 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
             jPanel4.setVisible(false);
             jPanel5.setVisible(false);
             jPanel6.setVisible(false);
+            //eliminar opciones del menu desplegable
+            jMenuItem1.setVisible(false);
+            jMenuItem2.setVisible(false);
         }
         NivelAcceso = NIVEL;
         //---------------------------------se establece que no se pueda pegar texto en los campos
@@ -261,7 +263,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         }
 
         if (!txtAnterior.getText().isEmpty()) {
-            if (Integer.parseInt(txtAnterior.getText()) < 5) {
+            if (Double.parseDouble(txtAnterior.getText()) < 5) {
                 valor1 = 0;
                 error = "La cantidad del plan anterior no puede ser menor a 5$";
                 val.TXTincorrecto(txtAnterior, lblErAnterior, error);
@@ -273,7 +275,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         }
 
         if (!txtNuevo.getText().isEmpty()) {
-            if (Integer.parseInt(txtNuevo.getText()) < 5) {
+            if (Double.parseDouble(txtNuevo.getText()) < 5) {
                 valor1 = 0;
                 error = "La cantidad del plan Nuevo no puede ser menor a 5$";
                 val.TXTincorrecto(txtNuevo, lblErNuevo, error);
@@ -420,7 +422,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
             }
         });
 
-        cmbBuscar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "IMEI", "Línea de Teléfono", "N. expediente" }));
+        cmbBuscar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "IMEI", "Línea de Teléfono", "N. expediente", "Centro de Costo", "Disponibilidad" }));
         cmbBuscar.setSelectedItem("IMEI");
         cmbBuscar.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -1512,6 +1514,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
                 Datos.CargarTabla(tblLineas, "select * from [VistaLineasTelefonicas]");
                 lblTotalPlanNuevo.setText("Suma Total de los Plan Nuevos: " + SumarValores("Plan Nuevo") + "$");
                 lblTotalPresupuesto.setText("Suma Total de los Presupuestos: " + SumarValores("Presupuesto") + "$");
+                Limpiar();
             }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -1544,9 +1547,17 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
             case "N. expediente":
                 Busqueda = "Expediente";
                 break;
+                case "Centro de Costo":
+                Busqueda = "CentroCosto";
+                break;
+                case "Disponibilidad":
+                Busqueda = "Disponible";
+                break;
             default:
                 break;
         }
+        DatosTablas Datos = new DatosTablas();
+        Datos.CargarTabla(tblLineas, "select * from [VistaLineasTelefonicas]");
         txtBuscar.setText("");
     }//GEN-LAST:event_cmbBuscarItemStateChanged
 
@@ -1717,6 +1728,12 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
                 break;
             case "Expediente":
                 val.EntradaNumeros(txtBuscar, evt, 4);
+                break;
+                case "Disponible":
+                val.EntradaTextoNormal(txtBuscar, evt, 20);
+                break;
+                case "CentroCosto":
+                val.EntradaTextoNormal(txtBuscar, evt, 80);
                 break;
             default:
                 break;

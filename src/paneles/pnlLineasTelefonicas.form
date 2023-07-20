@@ -148,10 +148,12 @@
         <Component class="javax.swing.JComboBox" name="cmbBuscar">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="3">
+              <StringArray count="5">
                 <StringItem index="0" value="IMEI"/>
                 <StringItem index="1" value="L&#xed;nea de Tel&#xe9;fono"/>
                 <StringItem index="2" value="N. expediente"/>
+                <StringItem index="3" value="Centro de Costo"/>
+                <StringItem index="4" value="Disponibilidad"/>
               </StringArray>
             </Property>
             <Property name="selectedItem" type="java.lang.Object" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">

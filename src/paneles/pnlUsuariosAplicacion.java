@@ -627,6 +627,7 @@ public class pnlUsuariosAplicacion extends javax.swing.JPanel {
             default:
                 break;
         }
+        BuscarEnTabla();
         txtBuscar.setText("");
     }//GEN-LAST:event_cmbBuscarItemStateChanged
 
@@ -728,6 +729,7 @@ public class pnlUsuariosAplicacion extends javax.swing.JPanel {
                 //se enviar la contraseña y el usuario al correo que se le ah creado la cuenta
                 rec.EnviarPassword(txtUsuario.getText(), passwordGenerado);
                 BuscarEnTabla();
+                Limpiar();
             }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -739,6 +741,7 @@ public class pnlUsuariosAplicacion extends javax.swing.JPanel {
             //se trata de modificar el usuario con un procedimiento almacenado
             if (classcrud.Guardar_Modificar(ArregloDatos(), "exec [UpdateUsuarioAplicacion] ?,?,?,?,?")) {
                 BuscarEnTabla();
+                Limpiar();
             }
         }
     }//GEN-LAST:event_btnModificarActionPerformed
@@ -755,7 +758,7 @@ public class pnlUsuariosAplicacion extends javax.swing.JPanel {
 
     private void txtUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyTyped
         //validacion para campos tipo texto sin espacios
-        val.EntradaLetrasNumerosSinEspacios(txtCorreo, evt, 30);
+        val.EntradaLetrasNumerosSinEspacios(txtUsuario, evt, 30);
     }//GEN-LAST:event_txtUsuarioKeyTyped
 
     private void txtUsuarioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyReleased

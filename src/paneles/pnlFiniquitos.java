@@ -38,6 +38,8 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         asignarEventos();
         if ("Lector".equals(NIVEL)) {
             jPanel1.setVisible(false);
+            //eliminar opciones del menu desplegable
+            jMenuItem1.setVisible(false);
         }
         NivelAcceso = NIVEL;
         //---------------------------------se establece que no se pueda pegar texto en los campos
@@ -180,17 +182,17 @@ public class pnlFiniquitos extends javax.swing.JPanel {
 
         int valor1 = 1;
         String error;
-        
-         //se verifica si la fecha esta bien
-         if(val.ValidarFechas(dtpSolicitud, lblErSolicitud)==0){
-         valor1 = 0;
-         }
-         if(val.ValidarFechas(dtpCorte, lblErCorte)==0){
-         valor1 = 0;
-         }
-         if(val.ValidarFechas(dtpCobro, lblErCobro)==0){
-         valor1 = 0;
-         }
+
+        //se verifica si la fecha esta bien
+        if (val.ValidarFechas(dtpSolicitud, lblErSolicitud) == 0) {
+            valor1 = 0;
+        }
+        if (val.ValidarFechas(dtpCorte, lblErCorte) == 0) {
+            valor1 = 0;
+        }
+        if (val.ValidarFechas(dtpCobro, lblErCobro) == 0) {
+            valor1 = 0;
+        }
 
         if (txtCobroDls.getText().isEmpty() || Double.parseDouble(txtCobroDls.getText()) <= 0 || txtCobroLps.getText().isEmpty() || Double.parseDouble(txtCobroLps.getText()) <= 0) {
             valor1 = 0;
@@ -390,7 +392,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         });
 
         jLabel11.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel11.setText("Observacion 1:");
+        jLabel11.setText("Observación 1:");
 
         txtObs2.setNextFocusableComponent(btnGuardar);
         txtObs2.setPreferredSize(new java.awt.Dimension(65, 26));
@@ -401,7 +403,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         });
 
         jLabel12.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel12.setText("Observacion 2:");
+        jLabel12.setText("Observación 2:");
 
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Fecha de Cobro:");
@@ -429,7 +431,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel13.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel13.setText("Estatus:");
+        jLabel13.setText("Estado:");
         jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, -1));
 
         rdbActivo.setText("ACTIVO");
@@ -973,6 +975,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
             default:
                 break;
         }
+        BuscarEnTabla();
         txtBuscar.setText("");
     }//GEN-LAST:event_cmbBuscarItemStateChanged
 
@@ -1109,6 +1112,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
             AccionesCrud classcrud = new AccionesCrud();
             if (classcrud.Guardar_Modificar(ArregloDatos(), "exec [AgregarFiniquito] ?,?,?,?,?,?,?,?,?,?")) {
                 BuscarEnTabla();
+                Limpiar();
             }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -1119,6 +1123,7 @@ public class pnlFiniquitos extends javax.swing.JPanel {
             AccionesCrud classcrud = new AccionesCrud();
             if (classcrud.Guardar_Modificar(ArregloDatos(), "exec [UpdateFiniquito] ?,?,?,?,?,?,?,?,?,?")) {
                 BuscarEnTabla();
+                Limpiar();
             }
         }
     }//GEN-LAST:event_btnModificarActionPerformed

@@ -42,7 +42,7 @@ public class CentroCosto extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "El Nombre no puede estar en blanco", "Advertencia", JOptionPane.WARNING_MESSAGE);
             return false;
         } else if (txtNumero.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "El Numero no puede estar en blanco", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "El Número no puede estar en blanco", "Advertencia", JOptionPane.WARNING_MESSAGE);
             return false;
         }
         return true;

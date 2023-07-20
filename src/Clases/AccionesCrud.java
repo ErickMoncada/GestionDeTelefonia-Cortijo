@@ -46,7 +46,12 @@ public class AccionesCrud {
     //Eliminar datos a la BD por medio de Procedimientos Almacenados
     //se recibe el compo de texto donde esta el ID y el comando a ejecutar en sql
     public boolean Eliminar(JTextField txtID, String exec) {
-        String id = txtID.getText();
+        
+         int option = JOptionPane.showConfirmDialog(null, "¿Desea eliminar el registro?", "Confirmación", JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
+        
+        if (option == JOptionPane.YES_OPTION) {
+            // El usuario seleccionó "Sí"
+             String id = txtID.getText();
         try {
             Connection con = Conexion.getConexion();
             PreparedStatement ps = con.prepareStatement(exec);
@@ -57,6 +62,9 @@ public class AccionesCrud {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Ups! " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             return false;
+        }
+        } else{
+       return false;
         }
     }
 

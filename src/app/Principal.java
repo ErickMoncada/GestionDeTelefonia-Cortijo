@@ -24,12 +24,10 @@ public class Principal extends javax.swing.JFrame {
     //Se inicializa la variable de nivel de acceso
     String NivelDeAcceso;
 
-    public Principal(String NIVEL,String NOMBRE) {
+    public Principal(String NIVEL, String NOMBRE) {
         initComponents();
         //se Recive el nivel de aceso a travez del login y se asigna a una variable global
         NivelDeAcceso = NIVEL;
-        this.setExtendedState(MAXIMIZED_BOTH);
-        this.setLocationRelativeTo(this);
         //mostrar el menu principal
         new CambiaPanel(pnlPrincipal, new paneles.pnlHome(NOMBRE));
         this.btnUserTel.setColorNormal(new Color(239, 238, 244));
@@ -38,17 +36,18 @@ public class Principal extends javax.swing.JFrame {
         this.btnLineasTelefonicas.setColorNormal(new Color(239, 238, 244));
         this.btnAjustes.setColorNormal(new Color(239, 238, 244));
         //iniciar funcion para el icono
-        Reescalado_Imagenes reescalar = new Reescalado_Imagenes();
         setIconImage(reescalar.getIconImage());
         //Iniciar funcion para iconos del submenu , titulo y boton salir
         IconosBarraLateral();
         //iniciar funcion de hora
         Reloj();
         //comprobar que nivel es para el acceso a ajustes
-         if ("Lector".equals(NIVEL)) {
+        if ("Lector".equals(NIVEL)) {
             btnAjustes.setVisible(false);
             lblAplicacion.setVisible(false);
         }
+        this.setExtendedState(MAXIMIZED_BOTH);
+        this.setLocationRelativeTo(this);
     }
     //se inicia la clase para reescalar imagenes
     Reescalado_Imagenes reescalar = new Reescalado_Imagenes();
@@ -109,7 +108,7 @@ public class Principal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Telefonía - Cortijo");
-        setMinimumSize(new java.awt.Dimension(1300, 700));
+        setMinimumSize(new java.awt.Dimension(700, 700));
         setSize(new java.awt.Dimension(1450, 700));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));

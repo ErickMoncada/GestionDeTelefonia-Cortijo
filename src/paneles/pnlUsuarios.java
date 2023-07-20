@@ -27,6 +27,9 @@ public class pnlUsuarios extends javax.swing.JPanel {
             jPanel3.setVisible(false);
             jPanel2.setVisible(false);
             jPanel4.setVisible(false);
+            //eliminar opciones del menu desplegable
+            jMenuItem1.setVisible(false);
+            jMenuItem2.setVisible(false);
         }
         NivelAcceso = NIVEL;
         //---------------------------------se establece que no se pueda pegar texto en los campos
@@ -168,7 +171,7 @@ public class pnlUsuarios extends javax.swing.JPanel {
         }
 
         if (!"".equals(txtSAP.getText()) && !txtSAP.getText().matches("\\d{8}")) {
-             valor1 = 0;
+            valor1 = 0;
             error = "Código  incompleto";
             val.TXTincorrecto(txtSAP, lblErSAP, error);
         }
@@ -964,6 +967,7 @@ public class pnlUsuarios extends javax.swing.JPanel {
             if (classcrud.Guardar_Modificar(ArregloDatos(), "exec [UpdateUsuario] ?, ? ,?  ,? ,? ,? ,? ,? ,? ,?")) {
                 DatosTablas Datos = new DatosTablas();
                 Datos.CargarTabla(tblUsuarios, "select * from VistaUsuarios");
+                Limpiar();
             }
         }
 
@@ -976,6 +980,7 @@ public class pnlUsuarios extends javax.swing.JPanel {
             if (classcrud.Guardar_Modificar(ArregloDatos(), "exec [AgregarUsuario] ?, ? ,?  ,? ,? ,? ,? ,? ,? ,?")) {
                 DatosTablas Datos = new DatosTablas();
                 Datos.CargarTabla(tblUsuarios, "select * from VistaUsuarios");
+                Limpiar();
             }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -1063,6 +1068,9 @@ public class pnlUsuarios extends javax.swing.JPanel {
             default:
                 break;
         }
+        //rellenar datos de la tabla
+        DatosTablas Datos = new DatosTablas();
+        Datos.CargarTabla(tblUsuarios, "select * from VistaUsuarios");
         txtBuscar.setText("");
     }//GEN-LAST:event_cmbBuscarItemStateChanged
 

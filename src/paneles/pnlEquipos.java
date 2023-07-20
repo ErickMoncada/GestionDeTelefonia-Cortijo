@@ -33,6 +33,9 @@ public class pnlEquipos extends javax.swing.JPanel {
         asignarEventos();
         if ("Lector".equals(NIVEL)) {
             jPanel1.setVisible(false);
+            //eliminar opciones del menu desplegable
+            jMenuItem1.setVisible(false);
+            jMenuItem2.setVisible(false);
         }
         NivelAcceso = NIVEL;
 
@@ -74,6 +77,7 @@ public class pnlEquipos extends javax.swing.JPanel {
         txtAccesorio.setText("");
         txtModelo.setText("");
         txtCosto.setText("");
+        txtCodigo.setText("");
         txtNumFactura.setText("");
         txtComentario.setText("");
         dtpPrestamo.setDate(null);
@@ -182,13 +186,13 @@ public class pnlEquipos extends javax.swing.JPanel {
             val.CMBincorrecto(cmbTipo, lblErTipo, error);
         }
         //se verifica si la fecha esta bien
-         if(val.ValidarFechas(dtpPrestamo, lblErDatePrestamo)==0){
-         valor1 = 0;
-         }
+        if (val.ValidarFechas(dtpPrestamo, lblErDatePrestamo) == 0) {
+            valor1 = 0;
+        }
 
         if (cmbCategoria.getSelectedItem() == null || cmbCategoria.getSelectedItem() == "") {
             valor1 = 0;
-            error = "Debe seleccionar una Categoria de equipo";
+            error = "Debe seleccionar una Categoría de equipo";
             val.CMBincorrecto(cmbCategoria, lblErCategoria, error);
         }
         if (cmbMarca.getSelectedItem() == null || cmbMarca.getSelectedItem() == "") {
@@ -198,7 +202,7 @@ public class pnlEquipos extends javax.swing.JPanel {
         }
         if (txtModelo.getText().isEmpty()) {
             valor1 = 0;
-            error = "Debe ecribir un modelo de equipo";
+            error = "Debe escribir un modelo de equipo";
             val.TXTincorrecto(txtModelo, lblErModelo, error);
         }
         if (cmbLugar.getSelectedItem() == null || cmbLugar.getSelectedItem() == "") {
@@ -207,13 +211,11 @@ public class pnlEquipos extends javax.swing.JPanel {
             val.CMBincorrecto(cmbLugar, lblErLugar, error);
         }
         //se verifica si la fecha esta bien
-         if (dtpCompra.getDate() != null ) {
-         if(val.ValidarFechas(dtpCompra, lblErDateCompra)==0){
-         valor1 = 0;
-         }
-         }
-        
-        
+        if (dtpCompra.getDate() != null) {
+            if (val.ValidarFechas(dtpCompra, lblErDateCompra) == 0) {
+                valor1 = 0;
+            }
+        }
 
         return valor1 == 1; //Expreciones regulares de los campos
     }
@@ -1248,7 +1250,7 @@ public class pnlEquipos extends javax.swing.JPanel {
                 Busqueda = "Comentario";
                 break;
             case "Estado":
-                Busqueda = "Estado del Equipo";
+                Busqueda = "[Estado del Equipo]";
                 break;
             case "IMEI":
                 Busqueda = "Imei";
@@ -1268,6 +1270,7 @@ public class pnlEquipos extends javax.swing.JPanel {
             default:
                 break;
         }
+        CargarDatosTabla();
         txtBuscar.setText("");
     }//GEN-LAST:event_cmbBuscarItemStateChanged
 
@@ -1463,7 +1466,7 @@ public class pnlEquipos extends javax.swing.JPanel {
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void txtCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodigoKeyTyped
-       //permite la escrtura de numero letras y guion
+        //permite la escrtura de numero letras y guion
         val.EntradaLetrasNumeroGuion(txtCodigo, evt, 20);
     }//GEN-LAST:event_txtCodigoKeyTyped
 
