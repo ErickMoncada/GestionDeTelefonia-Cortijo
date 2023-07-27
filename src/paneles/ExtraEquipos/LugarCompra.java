@@ -5,6 +5,9 @@ import Clases.DatosTablas;
 import Clases.Reescalado_Imagenes;
 import Clases.validaciones;
 
+/**
+ * @ErickMoncada controlador pantalla Lugar
+ */
 public class LugarCompra extends javax.swing.JFrame {
 
     public LugarCompra() {
@@ -301,10 +304,6 @@ public class LugarCompra extends javax.swing.JFrame {
         // validado para un campo de tipo texto normal con el parametro de la longitud deseada
         val.EntradaTextoNormal(txtLugar, evt, 30);
     }//GEN-LAST:event_txtLugarKeyTyped
-
-    public static void main(String args[]) {
-
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rsbuttom.RSButtonMetro btnCancelar;

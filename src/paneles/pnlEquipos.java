@@ -24,6 +24,9 @@ import paneles.ExtraEquipos.LugarCompra;
 import paneles.ExtraEquipos.Marca;
 import paneles.ExtraEquipos.Tipo;
 
+/**
+ * @ErickMoncada controlador del panel Equipos
+ */
 public class pnlEquipos extends javax.swing.JPanel {
 
     public pnlEquipos(String NIVEL) {
@@ -38,7 +41,6 @@ public class pnlEquipos extends javax.swing.JPanel {
             jMenuItem2.setVisible(false);
         }
         NivelAcceso = NIVEL;
-
         //---------------------------------se establece que no se pueda pegar texto en los campos
         val.NegarPegado(txtNumIMEI);
         val.NegarPegado(txtNumExpediente);
@@ -158,7 +160,6 @@ public class pnlEquipos extends javax.swing.JPanel {
     }
 
     private boolean ValidarCampos() {
-
         int valor1 = 1;
         String error;
         //validar que no este vacio u otro parametro mas
@@ -1155,12 +1156,10 @@ public class pnlEquipos extends javax.swing.JPanel {
                     } catch (ParseException ex) {
                         Logger.getLogger(pnlEquipos.class.getName()).log(Level.SEVERE, null, ex);
                     }
-
                     txtCosto.setText(rs.getString("CostoEquipo"));
                     txtComentario.setText(rs.getString("Comentario"));
                     txtNumFactura.setText(rs.getString("NumDoc"));
                     txtCodigo.setText(rs.getString("Codigo"));
-
                 }
                 txtNumIMEI.enable(false);
                 btnModificar.setVisible(true);
@@ -1180,7 +1179,6 @@ public class pnlEquipos extends javax.swing.JPanel {
     private void CargarListas() {
         // Lista de JComboBox para actualizar datos
         JComboBox[] comboBoxes = {cmbEstado, cmbTipo, cmbCategoria, cmbMarca, cmbLugar};
-
         // Recorrer cada JComboBox y eliminar los elementos
         for (JComboBox comboBox : comboBoxes) {
             DefaultComboBoxModel model = (DefaultComboBoxModel) comboBox.getModel();
@@ -1281,7 +1279,6 @@ public class pnlEquipos extends javax.swing.JPanel {
         modelo.setRowCount(0);
         //se muestra los resultados de la busqueda
         CargarDatosTabla();
-
     }//GEN-LAST:event_txtBuscarKeyReleased
 
     private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped

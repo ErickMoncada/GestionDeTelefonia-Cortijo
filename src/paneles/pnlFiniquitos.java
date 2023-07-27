@@ -21,10 +21,12 @@ import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+/**
+ * @ErickMoncada controlador del panel Finiquitos
+ */
 public class pnlFiniquitos extends javax.swing.JPanel {
 
     public pnlFiniquitos(String NIVEL) {
@@ -91,11 +93,8 @@ public class pnlFiniquitos extends javax.swing.JPanel {
     }
 
     private void CargarDatosPrincipal() {
-        //rellenar datos de la tabla
-        //DatosTablas Datos = new DatosTablas();
-        //llenar los datos de los combobox
         BuscarEnTabla();
-        //obtener la hora del ser5vidor para poner de limite
+        //obtener la hora del servidor para poner de limite
         try {
             Connection con = Conexion.getConexion();
             PreparedStatement ps;
@@ -123,15 +122,12 @@ public class pnlFiniquitos extends javax.swing.JPanel {
             tblFiniquitos.getColumnModel().getColumn(i).setCellRenderer(rowRenderer);
         }
         // Agregar el ListSelectionListener para cambiar el color de fondo cuando se selecciona una celda
-        tblFiniquitos.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                if (!e.getValueIsAdjusting()) {
-                    int selectedRow = tblFiniquitos.getSelectedRow();
-                    int selectedColumn = tblFiniquitos.getSelectedColumn();
-                    if (selectedRow >= 0 && selectedColumn >= 0) {
-                        tblFiniquitos.getColumnModel().getColumn(selectedColumn).setCellRenderer(rowRenderer);
-                    }
+        tblFiniquitos.getSelectionModel().addListSelectionListener((ListSelectionEvent e) -> {
+            if (!e.getValueIsAdjusting()) {
+                int selectedRow = tblFiniquitos.getSelectedRow();
+                int selectedColumn = tblFiniquitos.getSelectedColumn();
+                if (selectedRow >= 0 && selectedColumn >= 0) {
+                    tblFiniquitos.getColumnModel().getColumn(selectedColumn).setCellRenderer(rowRenderer);
                 }
             }
         });
@@ -201,12 +197,12 @@ public class pnlFiniquitos extends javax.swing.JPanel {
         }
         if (txtLinea.getText().isEmpty() || !txtLinea.getText().matches("\\d{4}-\\d{4}")) {
             valor1 = 0;
-            error = "Escriba un numero de telefono valido";
+            error = "Escriba un número de teléfono valido";
             val.TXTincorrecto(txtLinea, lblErLinea, error);
         }
         if (btgEstatus.getSelection() == null) {
             valor1 = 0;
-            error = "Debe seleccionar una opcion de Estado";
+            error = "Debe seleccionar una opción de Estado";
             val.GENIncorrecto(lblErEstado, error);
         }
 

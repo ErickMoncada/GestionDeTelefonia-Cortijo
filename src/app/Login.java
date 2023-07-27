@@ -1,6 +1,6 @@
 package app;
 
-import Clases.RecuperarPass;
+import Clases.Password;
 import Clases.Reescalado_Imagenes;
 import Clases.validaciones;
 import java.awt.Color;
@@ -12,6 +12,9 @@ import java.sql.Types;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
+/*
+ * @ErickMoncada controlador de la vista Login
+ */
 public class Login extends javax.swing.JFrame {
 
     public Login() {
@@ -270,7 +273,7 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-        RecuperarPass rec = new RecuperarPass();
+        Password rec = new Password();
         if(ValidarCampos()){
         try {
             Connection con = Conexion.getConexion();
@@ -305,7 +308,6 @@ public class Login extends javax.swing.JFrame {
              JOptionPane.showMessageDialog(null, "Usuario o Contraseña Incorrecta", "Inicio de Sesión",JOptionPane.ERROR_MESSAGE);
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "No se pudo Contactar con la base de datos, Solicite ayuda a su superior"+ ex, "Telefónia Cortijo",JOptionPane.ERROR_MESSAGE);
         }
         }
     }//GEN-LAST:event_btnEntrarActionPerformed
@@ -318,9 +320,7 @@ public class Login extends javax.swing.JFrame {
         RecoveryFrame.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_btnRecoveryActionPerformed
-
-            
-            
+                
     private void txtUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyTyped
         // validado para un campo de tipo texto normal con el parametro de la longitud deseada
         val.EntradaLetrasNumerosSinEspacios(txtUsuario, evt, 30);
@@ -341,9 +341,6 @@ public class Login extends javax.swing.JFrame {
         val.TXTcorrecto(txtPassword, lblErPassword);
     }//GEN-LAST:event_txtPasswordKeyReleased
 
-    public static void main(String args[]) {
-
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEntrar;

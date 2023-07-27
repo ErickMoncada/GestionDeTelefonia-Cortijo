@@ -5,6 +5,9 @@ import Clases.DatosTablas;
 import Clases.Reescalado_Imagenes;
 import Clases.validaciones;
 
+/**
+ * @ErickMoncada controlador pantalla Estado
+ */
 public class Estado extends javax.swing.JFrame {
 
     public Estado() {
@@ -301,9 +304,6 @@ public class Estado extends javax.swing.JFrame {
         val.EntradaTextoNormal(txtEstado, evt, 50);
     }//GEN-LAST:event_txtEstadoKeyTyped
 
-    public static void main(String args[]) {
-
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rsbuttom.RSButtonMetro btnCancelar;

@@ -5,6 +5,9 @@ import Clases.DatosTablas;
 import Clases.Reescalado_Imagenes;
 import Clases.validaciones;
 
+/**
+ * @ErickMoncada controlador pantalla marca
+ */
 public class Marca extends javax.swing.JFrame {
 
     public Marca() {
@@ -300,9 +303,6 @@ public class Marca extends javax.swing.JFrame {
         val.EntradaTextoNormal(txtMarca, evt, 50);
     }//GEN-LAST:event_txtMarcaKeyTyped
 
-    public static void main(String args[]) {
-
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rsbuttom.RSButtonMetro btnCancelar;

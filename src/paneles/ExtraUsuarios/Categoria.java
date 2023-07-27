@@ -5,6 +5,9 @@ import Clases.DatosTablas;
 import Clases.Reescalado_Imagenes;
 import Clases.validaciones;
 
+/**
+ * @ErickMoncada controlador pantalla Categoria
+ */
 public class Categoria extends javax.swing.JFrame {
 
     public Categoria() {
@@ -263,7 +266,7 @@ public class Categoria extends javax.swing.JFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
         AccionesCrud classcrud = new AccionesCrud();
-        if (classcrud.Validar(txtCategoriaUser, "La Categoria de usuario")) {
+        if (classcrud.Validar(txtCategoriaUser, "La Categoría de usuario")) {
             Object[] datos = new Object[1];
             datos[0] = txtCategoriaUser.getText().trim();
             if (classcrud.Guardar_Modificar(datos, "exec AgregarCategoriaUser ? ")) {
@@ -277,7 +280,7 @@ public class Categoria extends javax.swing.JFrame {
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
         AccionesCrud classcrud = new AccionesCrud();
-        if (classcrud.Validar(txtCategoriaUser, "La Categoria de usuario")) {
+        if (classcrud.Validar(txtCategoriaUser, "La Categoría de usuario")) {
             if (classcrud.Modificar(txtCategoriaUser, txtID, "exec UpdateCategoriaUser ?,?")) {
                 CargarTabla();
                 Limpiar();
@@ -288,7 +291,7 @@ public class Categoria extends javax.swing.JFrame {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         //se utiliza la funcion Eliminar de la clase AccionesCrud enviando el ID
         AccionesCrud classcrud = new AccionesCrud();
-        if (classcrud.Validar(txtCategoriaUser, "La Categoria de usuario")) {
+        if (classcrud.Validar(txtCategoriaUser, "La Categoría de usuario")) {
             if (classcrud.Eliminar(txtID, "exec EliminarCategoriaUser ?")) {
                 CargarTabla();
                 Limpiar();
@@ -301,9 +304,7 @@ public class Categoria extends javax.swing.JFrame {
         val.EntradaLetrasNumeroGuion(txtCategoriaUser, evt, 15);
     }//GEN-LAST:event_txtCategoriaUserKeyTyped
 
-    public static void main(String args[]) {
 
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rsbuttom.RSButtonMetro btnCancelar;

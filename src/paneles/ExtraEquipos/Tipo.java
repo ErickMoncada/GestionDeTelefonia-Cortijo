@@ -5,6 +5,9 @@ import Clases.DatosTablas;
 import Clases.Reescalado_Imagenes;
 import Clases.validaciones;
 
+/**
+ * @ErickMoncada controlador pantalla Tipo
+ */
 public class Tipo extends javax.swing.JFrame {
 
     public Tipo() {
@@ -301,9 +304,6 @@ public class Tipo extends javax.swing.JFrame {
         val.EntradaTextoNormal(txtTipo, evt, 50);
     }//GEN-LAST:event_txtTipoKeyTyped
 
-    public static void main(String args[]) {
-
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rsbuttom.RSButtonMetro btnCancelar;

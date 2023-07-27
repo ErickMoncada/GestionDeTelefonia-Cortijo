@@ -190,7 +190,6 @@ public class validaciones {
                 Font font = new Font("Dialog", Font.PLAIN, 11);
                 label.setFont(font);
             }
-
             @Override
             public void mouseExited(MouseEvent e) {
                 //Quitar mensaje de obligatorio cuando se quite el mause por encima
@@ -201,19 +200,17 @@ public class validaciones {
         });
     }
 
-
     public void NegarPegado(JComponent campo) {
         //establece a los campos la denegacion de comandos como control + V y shift + INSERT
         campo.getInputMap().put(KeyStroke.getKeyStroke("control V"), "none");
         campo.getInputMap().put(KeyStroke.getKeyStroke("shift INSERT"), "none");
     }
-    
-    public int ValidarFechas(JDateChooser dateChooser, JLabel labelError){
-    //se trata de obtener la fecha y si no se puede genera un error
+
+    public int ValidarFechas(JDateChooser dateChooser, JLabel labelError) {
+        //se trata de obtener la fecha y si no se puede genera un error
         String error;
-    int valor1=1;
-        if (dateChooser.getDate() != null ) {
-         
+        int valor1 = 1;
+        if (dateChooser.getDate() != null) {
             Date date = dateChooser.getDate();
             long d = date.getTime();
             int fechamayor = date.compareTo(dateChooser.getMaxSelectableDate());
@@ -222,19 +219,19 @@ public class validaciones {
             if (fechamayor > 0) {
                 error = "La fecha seleccionada es mayor a la fecha permitida.";
                 GENIncorrecto(labelError, error);
-                 valor1 = 0;
-             //se compara la fecha para verificar que no sea menor al permitido
-            } else if(fechamenor<0){
-            error = "La fecha seleccionada es menor a la fecha permitida.";
+                valor1 = 0;
+                //se compara la fecha para verificar que no sea menor al permitido
+            } else if (fechamenor < 0) {
+                error = "La fecha seleccionada es menor a la fecha permitida.";
                 GENIncorrecto(labelError, error);
-                 valor1 = 0;
+                valor1 = 0;
             }
         } else {
             error = "La fecha seleccionada no es válida ";
             GENIncorrecto(labelError, error);
-             valor1 = 0;
+            valor1 = 0;
         }
-    return valor1;
+        return valor1;
     }
 
 }

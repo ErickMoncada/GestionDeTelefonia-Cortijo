@@ -5,6 +5,9 @@ import Clases.DatosTablas;
 import Clases.Reescalado_Imagenes;
 import Clases.validaciones;
 
+/**
+ * @ErickMoncada controlador pantalla Ubicacion
+ */
 public class Ubicacion extends javax.swing.JFrame {
 
     public Ubicacion() {
@@ -263,7 +266,7 @@ public class Ubicacion extends javax.swing.JFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
         AccionesCrud classcrud = new AccionesCrud();
-        if (classcrud.Validar(txtUbicaciones, "La Ubicacion")) {
+        if (classcrud.Validar(txtUbicaciones, "La Ubicación")) {
             Object[] datos = new Object[1];
             datos[0] = txtUbicaciones.getText().trim();
             if (classcrud.Guardar_Modificar(datos, "exec AgregarUbicacion ? ")) {
@@ -277,7 +280,7 @@ public class Ubicacion extends javax.swing.JFrame {
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         //se crea un arreglo de objetos para enviar a la clase de AccionesCrud y la funcion de Guardar_Modificar
         AccionesCrud classcrud = new AccionesCrud();
-        if (classcrud.Validar(txtUbicaciones, "La Ubicacion")) {
+        if (classcrud.Validar(txtUbicaciones, "La Ubicación")) {
             if (classcrud.Modificar(txtUbicaciones, txtID, "exec UpdateUbicacion ?,?")) {
                 CargarTabla();
                 Limpiar();
@@ -288,7 +291,7 @@ public class Ubicacion extends javax.swing.JFrame {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         //se utiliza la funcion Eliminar de la clase AccionesCrud enviando el ID
         AccionesCrud classcrud = new AccionesCrud();
-        if (classcrud.Validar(txtUbicaciones, "La Ubicacion")) {
+        if (classcrud.Validar(txtUbicaciones, "La Ubicación")) {
             if (classcrud.Eliminar(txtID, "exec EliminarUbicacion ?")) {
                 CargarTabla();
                 Limpiar();
@@ -301,9 +304,6 @@ public class Ubicacion extends javax.swing.JFrame {
         val.EntradaTextoNormal(txtUbicaciones, evt, 80);
     }//GEN-LAST:event_txtUbicacionesKeyTyped
 
-    public static void main(String args[]) {
-
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rsbuttom.RSButtonMetro btnCancelar;

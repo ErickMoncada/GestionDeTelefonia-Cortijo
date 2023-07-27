@@ -5,16 +5,20 @@ import java.io.IOException;
 import java.util.Properties;
 import javax.swing.JOptionPane;
 
+/**
+ * @ErickMoncada Clase para leer la conexion a la base de datos que esta encriptada en el config.properties
+ */
 public class ConfigReader {
 
     public static Properties getProperties() {
         Properties properties = new Properties();
         try (FileInputStream inputStream = new FileInputStream(getConfigFilePath())) {
             properties.load(inputStream);
+            return properties;
         } catch (IOException e) {
-             JOptionPane.showMessageDialog(null, "No tiene acceso a la base de datos, contacte a soporte", "Telefonia Cortijo",JOptionPane.ERROR_MESSAGE);
+             JOptionPane.showMessageDialog(null, "no se pudo encontrar el archivo de Configuracion a la conexion de base de datos", "Telefonia Cortijo",JOptionPane.ERROR_MESSAGE);
+             return null;
         }
-        return properties;
     }
 
     private static String getConfigFilePath() {

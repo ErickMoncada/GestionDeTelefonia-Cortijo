@@ -1,8 +1,7 @@
 package paneles;
 
 /**
- *
- * @Erick Moncada 
+ * @ErickMoncada panel de Bienvenida
  */
 public class pnlHome extends javax.swing.JPanel {
 

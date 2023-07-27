@@ -5,6 +5,9 @@ import Clases.DatosTablas;
 import Clases.Reescalado_Imagenes;
 import Clases.validaciones;
 
+/**
+ * @ErickMoncada controlador pantalla Puestos
+ */
 public class PuestoTrabajo extends javax.swing.JFrame {
 
     public PuestoTrabajo() {
@@ -21,10 +24,8 @@ public class PuestoTrabajo extends javax.swing.JFrame {
         val.NegarPegado(txtPuesto);
         //------------------------------------------------------------------------------
     }
-
     //cargar clase de validaciones
     validaciones val = new validaciones();
-
     //Funcion para cargar datos a la tabla
     private void CargarTabla() {
         DatosTablas CrearTabla = new DatosTablas();
@@ -301,10 +302,6 @@ public class PuestoTrabajo extends javax.swing.JFrame {
         // validado para un campo de tipo texto normal con el parametro de la longitud deseada
         val.EntradaTextoNormal(txtPuesto, evt, 60);
     }//GEN-LAST:event_txtPuestoKeyTyped
-
-    public static void main(String args[]) {
-
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rsbuttom.RSButtonMetro btnCancelar;

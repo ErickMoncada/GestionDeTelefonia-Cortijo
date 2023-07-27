@@ -1,16 +1,16 @@
 package app;
 
-import Clases.RecuperarPass;
+import Clases.Password;
 import Clases.Reescalado_Imagenes;
 import Clases.validaciones;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.mail.MessagingException;
 import javax.swing.JOptionPane;
 
+/**
+ * @ErickMoncada controlador de recuperar contraseña
+ */
 public class Recuperar extends javax.swing.JFrame {
 
     public Recuperar() {
@@ -118,11 +118,6 @@ public class Recuperar extends javax.swing.JFrame {
 
         jpnCodigo.setOpaque(false);
 
-        txtCodigo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCodigoActionPerformed(evt);
-            }
-        });
         txtCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtCodigoKeyReleased(evt);
@@ -378,16 +373,24 @@ public class Recuperar extends javax.swing.JFrame {
 
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
         if (!"".equals(txtUsuario.getText())) {
-            RecuperarPass rec = new RecuperarPass();
-                codigo = rec.EnviarCodigo(txtUsuario.getText());
-                System.out.println(codigo);
-                if (codigo != 0) {
+            Password rec = new Password();
+            codigo = rec.EnviarCodigo(txtUsuario.getText());
+            //se comprueba si se envió el correo
+            switch (codigo) {
+                case 0:
+                    //codigo en 0 significa usuario no encontrado
+                    val.TXTincorrecto(txtUsuario, lblErUsuario, "El Usuario no Existe, verifique el Usuario");
+                    break;
+                case 01:
+                    //codigo en 01 significa datos de smtp mal configurados
+                    val.TXTincorrecto(txtUsuario, lblErUsuario, "Servicio de Correo Inoperante");
+                    break;
+                default:
                     jpnCodigo.setVisible(true);
                     jpnUsuario.setVisible(false);
                     JOptionPane.showMessageDialog(null, "Se ha enviado un código al correo electrónico para poder cambiar la contraseña", "Recuperar Contraseña", JOptionPane.INFORMATION_MESSAGE);
-                } else {
-                    val.TXTincorrecto(txtUsuario, lblErUsuario, "El Usuario no Existe, verifique el Usuario");
-                }      
+                    break;
+            }
         } else {
             //establecemos en incorrecto el capo
             val.TXTincorrecto(txtUsuario, lblErUsuario, "El usuario no puede estar en blanco");
@@ -395,20 +398,18 @@ public class Recuperar extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEnviarActionPerformed
 
     private void btnCambiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarActionPerformed
-        if(txtNewPassword.getText().equals("") || txtNewPassword.getText().length() < 5){
+        if (txtNewPassword.getText().equals("") || txtNewPassword.getText().length() < 5) {
             val.GENIncorrecto(lblErPassword, "La contraseña debe ser mayor a 5 caracteres (números  o letras)");
-        }
-        else if (txtNewPassword.getText().equals(txtRepPassword.getText()) ) {
+        } else if (txtNewPassword.getText().equals(txtRepPassword.getText())) {
             try {
-                RecuperarPass rec = new RecuperarPass();
+                Password rec = new Password();
                 Connection con = Conexion.getConexion();
                 String sql = ("{CALL UpdatePassword(?, ?)}");
                 CallableStatement stmt = con.prepareCall(sql);
                 // Configurar los parámetros de entrada y salida
                 stmt.setString(1, txtUsuario.getText().trim());
                 //encriptar la contraseña
-                stmt.setString(2, rec.Encriptar( txtNewPassword.getText().trim()));
-
+                stmt.setString(2, rec.Encriptar(txtNewPassword.getText().trim()));
                 // Ejecutar el procedimiento almacenado
                 stmt.execute();
                 // Obtener el resultado de salida
@@ -427,14 +428,10 @@ public class Recuperar extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnCambiarActionPerformed
 
-    private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCodigoActionPerformed
-
     private void btnCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCodigoActionPerformed
-        if("".equals(txtCodigo.getText())){
+        if ("".equals(txtCodigo.getText())) {
             val.TXTincorrecto(txtCodigo, lblErCodigo, "Escriba el código que se le envió al correo");
-        }else if (Integer.parseInt(txtCodigo.getText()) == codigo) {
+        } else if (Integer.parseInt(txtCodigo.getText()) == codigo) {
             jpnPassword.setVisible(true);
             jpnUsuario.setVisible(false);
             jpnCodigo.setVisible(false);
@@ -444,6 +441,7 @@ public class Recuperar extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCodigoActionPerformed
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
+        //regresar al login
         Login LoginFrame = new Login();
         LoginFrame.setVisible(true);
         LoginFrame.pack();

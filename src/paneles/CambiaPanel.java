@@ -5,10 +5,11 @@ import javax.swing.JPanel;
 public class CambiaPanel {
 
     //
-    private JPanel container;
-    private JPanel content;
+    private final JPanel container;
+    private final JPanel content;
 
     /**
+     *  @ErickMoncada controlador de los cambio de paneles
      * Constructor de clase que recibe 2 parametros para remplazar lo que aparece en el panel
      */
     public CambiaPanel(JPanel container, JPanel content) {

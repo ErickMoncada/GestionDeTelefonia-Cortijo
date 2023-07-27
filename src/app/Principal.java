@@ -16,7 +16,6 @@ import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 /**
- *
  * @ErickMoncada Formulario de la pagina principal
  */
 public class Principal extends javax.swing.JFrame {
@@ -70,11 +69,9 @@ public class Principal extends javax.swing.JFrame {
             // Obtener la hora actual
             Date horaActual = new Date();
             SimpleDateFormat formatoHora = new SimpleDateFormat("MMM dd yyyy, hh:mm a");
-
             // Actualizar la etiqueta con la hora actual
             lblHora.setText(formatoHora.format(horaActual));
         };
-
         // Crear un Timer para actualizar la hora cada segundo
         Timer timer = new Timer(1000, actualizarHora);
         timer.start();
@@ -533,17 +530,15 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEquiposActionPerformed
 
     private Icon rotateIcon(Icon icon, double angleDegrees) {
+        //funcion para girar icono
         int width = icon.getIconWidth();
         int height = icon.getIconHeight();
-
         BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = bufferedImage.createGraphics();
-
         AffineTransform transform = new AffineTransform();
         transform.rotate(Math.toRadians(angleDegrees), width / 2, height / 2);
         g2d.drawImage(((ImageIcon) icon).getImage(), transform, null);
         g2d.dispose();
-
         return new ImageIcon(bufferedImage);
     }
 
@@ -599,18 +594,14 @@ public class Principal extends javax.swing.JFrame {
         int posicion = pnlMenu.getX();
         if (posicion > -1) {
             Animacion.Animacion.mover_izquierda(0, -264, 2, 2, pnlMenu);
-            Timer timer = new Timer(400, new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    pnlMenu.setVisible(false);
-                }
+            Timer timer = new Timer(400, (ActionEvent e) -> {
+                pnlMenu.setVisible(false);
             });
             timer.setRepeats(false);
             timer.start();
             // Girar el icono 90 grados
             Icon rotatedIcon = rotateIcon(originalIcon, 90);
             btnMenu.setIcon(rotatedIcon);
-
         } else {
             Animacion.Animacion.mover_derecha(-264, 0, 2, 2, pnlMenu);
             pnlMenu.setVisible(true);
@@ -631,10 +622,6 @@ public class Principal extends javax.swing.JFrame {
             this.dispose();
         }
     }//GEN-LAST:event_btnSalirActionPerformed
-
-    public static void main(String args[]) {
-
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rsbuttom.RSButtonMetro btnAjustes;

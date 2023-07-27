@@ -25,6 +25,9 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
 import paneles.ExtraDLineasTelefonicas.Disponibilidad;
 
+/**
+ * @ErickMoncada controlador panel lineas telefonicas
+ */
 public class pnlLineasTelefonicas extends javax.swing.JPanel {
 
     public pnlLineasTelefonicas(String NIVEL) {
@@ -209,13 +212,13 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
             //asignar 0 al valor para devolver falso en la validacion
             valor1 = 0;
             //mensaje de error para el respectivo campo de texto
-            error = "Escriba un numero de telefono valido";
+            error = "Escriba un número de teléfono valido";
             //asignar colores de error a cada campo
             val.TXTincorrecto(txtLinea, lblErLinea, error);
         }
         if (txtNumExpediente.getText().isEmpty()) {
             valor1 = 0;
-            error = "Escriba un numero de expediente";
+            error = "Escriba un número de expediente";
             val.TXTincorrecto(txtNumExpediente, lblErExpediente, error);
         }
         if (cmbDisponibilidad.getSelectedItem() == null || cmbDisponibilidad.getSelectedItem() == "") {
@@ -230,7 +233,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         }
         if (txtImei.getText().isEmpty() || !txtImei.getText().matches("\\d{15}")) {
             valor1 = 0;
-            error = "Escriba un numero de IMEI valido";
+            error = "Escriba un número de IMEI válido";
             val.TXTincorrecto(txtImei, lblErImei, error);
         }
 
@@ -249,7 +252,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
 
         if (btgPago.getSelection() == null) {
             valor1 = 0;
-            error = "Debe seleccionar una opcion de Pago de Seguro";
+            error = "Debe seleccionar una opción de Pago de Seguro";
             val.GENIncorrecto(lblErPago, error);
         }
         if (rdbOtro.isSelected() && txtOtro.getText().isEmpty()) {
@@ -258,7 +261,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
             val.TXTincorrecto(txtOtro, lblErFirma, error);
         } else if (btgFirma.getSelection() == null) {
             valor1 = 0;
-            error = "Debe seleccionar una opcion de Firma";
+            error = "Debe seleccionar una opción de Firma";
             val.GENIncorrecto(lblErFirma, error);
         }
 
@@ -282,7 +285,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
             }
         } else {
             valor1 = 0;
-            error = "La cantidad del plan anterior no puede estar en blanco";
+            error = "La cantidad del plan Nuevo no puede estar en blanco";
             val.TXTincorrecto(txtNuevo, lblErNuevo, error);
         }
 
@@ -293,7 +296,7 @@ public class pnlLineasTelefonicas extends javax.swing.JPanel {
         }
         if (txtMensual.getText().isEmpty()) {
             valor1 = 0;
-            error = "Escriba la cantidad del Recocnocimiento Mensual";
+            error = "Escriba la cantidad del Reconocimiento Mensual";
             val.TXTincorrecto(txtMensual, lblErMensual, error);
         }
 

@@ -15,6 +15,9 @@ import paneles.ExtraUsuarios.Planilla;
 import paneles.ExtraUsuarios.PuestoTrabajo;
 import paneles.ExtraUsuarios.Ubicacion;
 
+/**
+ * @ErickMoncada controlador panel lineas telefonicas
+ */
 public class pnlUsuarios extends javax.swing.JPanel {
 
     public pnlUsuarios(String NIVEL) {

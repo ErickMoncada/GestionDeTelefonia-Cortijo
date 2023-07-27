@@ -10,7 +10,6 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 /**
- *
  * @ErickMoncada Clase para ejecutar acciones de Crud en todas las pantallas
  */
 public class AccionesCrud {
@@ -28,7 +27,6 @@ public class AccionesCrud {
     public boolean Modificar(JTextField txtdato, JTextField txtID, String exec) {
         String dato = txtdato.getText().trim();
         String id = txtID.getText();
-
         try {
             Connection con = Conexion.getConexion();
             PreparedStatement ps = con.prepareStatement(exec);
@@ -46,25 +44,23 @@ public class AccionesCrud {
     //Eliminar datos a la BD por medio de Procedimientos Almacenados
     //se recibe el compo de texto donde esta el ID y el comando a ejecutar en sql
     public boolean Eliminar(JTextField txtID, String exec) {
-        
-         int option = JOptionPane.showConfirmDialog(null, "¿Desea eliminar el registro?", "Confirmación", JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
-        
+        int option = JOptionPane.showConfirmDialog(null, "¿Desea eliminar el registro?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
         if (option == JOptionPane.YES_OPTION) {
             // El usuario seleccionó "Sí"
-             String id = txtID.getText();
-        try {
-            Connection con = Conexion.getConexion();
-            PreparedStatement ps = con.prepareStatement(exec);
-            ps.setString(1, id);
-            ps.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Registro Eliminado", "Informacion", JOptionPane.INFORMATION_MESSAGE);
-            return true;
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Ups! " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            String id = txtID.getText();
+            try {
+                Connection con = Conexion.getConexion();
+                PreparedStatement ps = con.prepareStatement(exec);
+                ps.setString(1, id);
+                ps.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Registro Eliminado", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+                return true;
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Ups! " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+        } else {
             return false;
-        }
-        } else{
-       return false;
         }
     }
 
@@ -122,12 +118,11 @@ public class AccionesCrud {
             JOptionPane.showMessageDialog(null, "Ups! " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
-
     }
 
     //seleccionar elemento de las tablas a las que se les de click en los paneles que no son Extra 
     //se recibe  la tabla de donde proceden los datos , el comando de sql para hacer el SELECT con WHERE y el nombre de la columna con el ID
-    public ResultSet Seleccion(JTable tabla, String exec,String nombreColumna) {
+    public ResultSet Seleccion(JTable tabla, String exec, String nombreColumna) {
         try {
             int fila = tabla.getSelectedRow();
             int indiceColumna = tabla.getColumnModel().getColumnIndex(nombreColumna);
@@ -143,7 +138,5 @@ public class AccionesCrud {
             JOptionPane.showMessageDialog(null, e.toString());
             return null;
         }
-
     }
-
 }

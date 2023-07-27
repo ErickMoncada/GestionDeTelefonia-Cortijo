@@ -12,7 +12,6 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
  * @ErickMoncada Clase Para caargar datos a tablas y combobox
  */
 public class DatosTablas {
@@ -44,7 +43,7 @@ public class DatosTablas {
         }
     }
 
-    //funcion de la clase DatoTablas para asignar datos a los combobox de las distintas pantallas
+    //Funcion de la clase DatoTablas para asignar datos a los combobox de las distintas pantallas
     //Se recibe el comando de sql, el campo del select que tiene los datos que se necesitan y el ComboBox donde se van a cargar los datos
     public void cargarComboBox(String cmd, String campo, JComboBox cmbDestino) {
         PreparedStatement ps;
@@ -61,5 +60,4 @@ public class DatosTablas {
             JOptionPane.showMessageDialog(null, e.toString());
         }
     }
-
 }

@@ -5,6 +5,9 @@ import Clases.DatosTablas;
 import Clases.Reescalado_Imagenes;
 import Clases.validaciones;
 
+/**
+ * @ErickMoncada controlador pantalla planilla
+ */
 public class Planilla extends javax.swing.JFrame {
 
     public Planilla() {
@@ -301,9 +304,6 @@ public class Planilla extends javax.swing.JFrame {
         val.EntradaTextoNormal(txtPlanilla, evt, 30);
     }//GEN-LAST:event_txtPlanillaKeyTyped
 
-    public static void main(String args[]) {
-
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rsbuttom.RSButtonMetro btnCancelar;

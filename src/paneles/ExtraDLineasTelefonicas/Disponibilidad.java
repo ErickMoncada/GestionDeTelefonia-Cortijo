@@ -5,6 +5,9 @@ import Clases.DatosTablas;
 import Clases.Reescalado_Imagenes;
 import Clases.validaciones;
 
+/**
+ * @ErickMoncada controlador pantalla disponibilidad
+ */
 public class Disponibilidad extends javax.swing.JFrame {
 
     public Disponibilidad() {
@@ -301,9 +304,6 @@ public class Disponibilidad extends javax.swing.JFrame {
         val.EntradaTextoNormal(txtDisponibiidad, evt, 20);
     }//GEN-LAST:event_txtDisponibiidadKeyTyped
 
-    public static void main(String args[]) {
-
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rsbuttom.RSButtonMetro btnCancelar;

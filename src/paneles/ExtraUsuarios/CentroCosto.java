@@ -11,6 +11,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
+/**
+ * @ErickMoncada controlador pantalla centro de costo
+ */
 public class CentroCosto extends javax.swing.JFrame {
 
     public CentroCosto() {
@@ -362,9 +365,7 @@ public class CentroCosto extends javax.swing.JFrame {
         val.EntradaTextoNormal(txtNombre, evt, 80);
     }//GEN-LAST:event_txtNombreKeyTyped
 
-    public static void main(String args[]) {
 
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rsbuttom.RSButtonMetro btnCancelar;

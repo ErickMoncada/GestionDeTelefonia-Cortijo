@@ -2,7 +2,7 @@ package paneles;
 
 import Clases.AccionesCrud;
 import Clases.DatosTablas;
-import Clases.RecuperarPass;
+import Clases.Password;
 import Clases.validaciones;
 import java.awt.Color;
 import java.awt.Component;
@@ -12,10 +12,12 @@ import java.util.Random;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+/**
+ * @ErickMoncada controlador panel usuarios aplicacion
+ */
 public class pnlUsuariosAplicacion extends javax.swing.JPanel {
 
     public pnlUsuariosAplicacion(String NIVEL) {
@@ -27,7 +29,7 @@ public class pnlUsuariosAplicacion extends javax.swing.JPanel {
             cmbNivel.addItem("Administrador");
         }
         NivelAcceso = NIVEL;
-//---------------------------------se establece que no se pueda pegar texto en los campos
+        //---------------------------------se establece que no se pueda pegar texto en los campos
         val.NegarPegado(txtUsuario);
         val.NegarPegado(txtCorreo);
         val.NegarPegado(txtExpediente);
@@ -41,7 +43,7 @@ public class pnlUsuariosAplicacion extends javax.swing.JPanel {
     //se inicializa la clase de validaciones
     validaciones val = new validaciones();
     //se inicializa la calse de correos
-    RecuperarPass rec = new RecuperarPass();
+    Password rec = new Password();
     //se inicializa la variable de la contraseña
     String passwordGenerado;
 
@@ -77,15 +79,12 @@ public class pnlUsuariosAplicacion extends javax.swing.JPanel {
             tblUsuarios.getColumnModel().getColumn(i).setCellRenderer(rowRenderer);
         }
         // Agregar el ListSelectionListener para cambiar el color de fondo cuando se selecciona una celda
-        tblUsuarios.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                if (!e.getValueIsAdjusting()) {
-                    int selectedRow = tblUsuarios.getSelectedRow();
-                    int selectedColumn = tblUsuarios.getSelectedColumn();
-                    if (selectedRow >= 0 && selectedColumn >= 0) {
-                        tblUsuarios.getColumnModel().getColumn(selectedColumn).setCellRenderer(rowRenderer);
-                    }
+        tblUsuarios.getSelectionModel().addListSelectionListener((ListSelectionEvent e) -> {
+            if (!e.getValueIsAdjusting()) {
+                int selectedRow = tblUsuarios.getSelectedRow();
+                int selectedColumn = tblUsuarios.getSelectedColumn();
+                if (selectedRow >= 0 && selectedColumn >= 0) {
+                    tblUsuarios.getColumnModel().getColumn(selectedColumn).setCellRenderer(rowRenderer);
                 }
             }
         });
@@ -670,7 +669,7 @@ public class pnlUsuariosAplicacion extends javax.swing.JPanel {
         //switch para decidir que validacion establecer cada ves que se preciona una tecla en buscar
         switch (Busqueda) {
             case "Usuario":
-                val.EntradaLetrasSinEspacios(txtBuscar, evt, 30);
+                val.EntradaLetrasNumerosSinEspacios(txtUsuario, evt, 30);
                 break;
             case "Nombre":
                 val.EntradaSoloLetas(txtBuscar, evt, 80);
@@ -727,7 +726,9 @@ public class pnlUsuariosAplicacion extends javax.swing.JPanel {
             //se trata de crear el usuario con un procedimiento almacenado
             if (classcrud.Guardar_Modificar(ArregloDatos(), "exec [AgregarUsuarioAplicacion] ?,?,?,?,?")) {
                 //se enviar la contraseña y el usuario al correo que se le ah creado la cuenta
-                rec.EnviarPassword(txtUsuario.getText(), passwordGenerado);
+                if (rec.EnviarPassword(txtUsuario.getText(), passwordGenerado) == false) {
+                    JOptionPane.showMessageDialog(null, "El Usuario ah sido creado pero no se pudo enviar la contraseña por correo porque el servidor de correo está mal configurado,\n cuando el servidor este bien configurado utilize el metodo de recuperar contraseña para obtener una contraseña para este usuario", "Envió de Correo", JOptionPane.INFORMATION_MESSAGE);
+                }
                 BuscarEnTabla();
                 Limpiar();
             }
